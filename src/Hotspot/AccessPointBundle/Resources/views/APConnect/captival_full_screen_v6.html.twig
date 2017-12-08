@@ -24,17 +24,32 @@
             <div class="content-top">
                 <h2 class="heading">Kính chào quý khách</h2>
                 <div class="owl-carousel owl-theme owl-login-n1">
-                    <div class="item">
-                        <a href="javascript:Login('-2');">
-                            <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg'}}" alt="">
-                        </a>
-                    </div>
-                    {% if ads['QAF_v4'] is not empty %}
-                    <div class="item">
-                        <a href="javascript:Login('{{ ads['QAF_v4'].id }}');">
-                            <img src="/ap/display.html?id={{ ads['QAF_v4'].id }}&link={{ ads['QAF_v4'].linkTo | url_encode}}&position=QAF_v4&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="">
-                        </a>
-                    </div>
+                    {% if params['apImage'] is not empty %}
+                        <div class="item">
+                            <a href="javascript:Login('-2');">
+                                <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg'}}" alt="">
+                            </a>
+                        </div>
+                        {% if ads['QAF_v4'] is not empty %}
+                        <div class="item">
+                            <a href="javascript:Login('{{ ads['QAF_v4'].id }}');">
+                                <img src="/ap/display.html?id={{ ads['QAF_v4'].id }}&link={{ ads['QAF_v4'].linkTo | url_encode}}&position=QAF_v4&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="">
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% else %}
+                        {% if ads['QAF_v4'] is not empty %}
+                            <div class="item">
+                                <a href="javascript:Login('{{ ads['QAF_v4'].id }}');">
+                                    <img src="/ap/display.html?id={{ ads['QAF_v4'].id }}&link={{ ads['QAF_v4'].linkTo | url_encode}}&position=QAF_v4&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="">
+                                </a>
+                            </div>
+                        {% endif %}
+                        <div class="item">
+                            <a href="javascript:Login('-2');">
+                                <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg'}}" alt="">
+                            </a>
+                        </div>
                     {% endif %}
                 </div>
             </div>
