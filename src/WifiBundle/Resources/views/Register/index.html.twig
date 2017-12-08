@@ -1,0 +1,176 @@
+{% extends 'WifiBundle::Layout/user_register.html.twig' %}
+
+{% block content %}
+	<div class="signuponepage main content clearfix">
+		
+		<h1>{{ 'register.title'|trans }}</h1>
+		<div class="clearfix">
+			<div class="sign-up">
+				<div class="signup-box">
+					<h2>{{ 'title.t1'|trans }}</h2>
+					{% if error['captcha'] is defined %}
+						<p><div style="text-align: center;color: red;">{{ error['captcha'] }}</div></p>
+                	{% endif %}
+					<form class="createaccount-form" id="createaccount" action="" onsubmit="return frmSub()" method="post">
+						<input type="hidden" name="submit" value="1" />
+						<div class="form-element email-address" id="gmail-address-form-element">
+							<label id="gmail-address-label"> 
+								<strong> {{ 'form.email'|trans }} </strong> 
+								<input type="text" maxlength="30"  autocomplete="off" name="Email" id="Email" value="{{ value['email'] }}">
+							</label>
+							<span role="alert" class="errormsg" id="errormsg_0_Email">{{ error['email'] is defined ? error['email'] : '' }}</span>
+						</div>
+						<div class="form-element" id="password-form-element">
+							<label id="password-label"> <strong>{{ 'form.password'|trans }}</strong> 
+								<input type="password" name="Passwd" id="Passwd" value="{{ value['passwd'] }}">
+							</label> 
+							<span role="alert" class="errormsg" id="errormsg_0_Passwd">{{ error['password'] is defined ? error['password'] : '' }}</span>
+						</div>
+						<div class="form-element" id="confirm-password-form-element">
+							<label id="confirm-password-label"> <strong>{{ 'form.confirm_password'|trans }}</strong> 
+								<input type="password" name="PasswdAgain" id="PasswdAgain" value="{{ value['passwdAgain'] }}">
+							</label> 
+							<span role="alert" class="errormsg" id="errormsg_0_PasswdAgain">{{ error['password2'] is defined ? error['password2'] : '' }}</span>
+						</div>
+						
+						<div class="form-element recovery-email"
+							id="recovery-email-form-element">
+							<label id="recovery-email-label"> <strong>{{ 'form.fullname'|trans }}</strong> 
+								<input type="text" name="FullName" id="FullName" value="{{ value['fullname'] }}">
+							</label> 
+							<span role="alert" class="errormsg" id="errormsg_0_Fullname">{{ error['fullname'] is defined ? error['fullname'] : '' }}</span>
+						</div>
+
+						<div class="form-element recovery-email"
+							id="recovery-email-form-element">
+							<label id="recovery-email-label"> <strong>{{ 'form.phone'|trans }}</strong> 
+								<input type="text" name="Phone" id="Phone" value="{{ value['phone'] }}">
+							</label> 
+							<span role="alert" class="errormsg" id="errormsg_0_Phone">{{ error['phone'] is defined ? error['phone'] : '' }}</span>
+						</div>
+
+						<div class="form-element recovery-email"
+							id="recovery-email-form-element">
+							<label id="recovery-email-label"> <strong>{{ 'form.address'|trans }}</strong> 
+								<input type="text" name="Address" id="Address" value="{{ value['address'] }}">
+							</label> 
+							<span role="alert" class="errormsg" id="errormsg_0_Address">{{ error['address'] is defined ? error['address'] : '' }}</span>
+						</div>
+
+						<div class="form-element" id="gender-form-element">
+							<label id="gender-label"><strong id="GenderLabel">{{ 'form.gender'|trans }}</strong>
+								<div>
+									<select name="Gender" id="Gender">
+										<option value="male" {{ value['gender'] == 'male' ? 'selected' : '' }}>{{ 'form.male'|trans }}</option>
+										<option value="female" {{ value['gender'] == 'female' ? 'selected' : '' }}>{{ 'form.female'|trans }}</option>
+									</select>
+								</div>
+							</label> <span role="alert" class="errormsg" id="errormsg_0_Gender">{{ error['gender'] is defined ? error['gender'] : '' }}</span>
+						</div>
+						
+						<div class="form-element terms-of-service"
+							id="termsofservice-form-element">
+							<label id="termsofservice-label"> 
+								<input type="checkbox" value="yes" name="TermsOfService" id="TermsOfService">
+								<span id="terms-of-service-label"> 
+									<strong>{{ 'form.access'|trans }}
+										<a target="_blank" id="TosLink" href="">{{ 'form.rules'|trans }}</a> {{ 'form.and'|trans }}
+										<a target="_blank" id="PrivacyLink" href="">{{ 'form.privacy'|trans }}</a> {{ 'form.ofwiads'|trans }}
+								</strong>
+							</span>
+							</label> <span role="alert" class="errormsg"
+								id="errormsg_0_TermsOfService"> </span>
+						</div>
+						
+						<div class="g-recaptcha" data-sitekey="6LcPyhkUAAAAAKiMdw0cFgk7hoiuDcQQm05DYdzq" style="margin-bottom: 20px;"></div>
+
+						<div class="form-element nextstep-button">
+							<input id="submitbutton" name="submitbutton" type="submit"
+								value="{{ 'button.register'|trans }}" class="g-button g-button-submit">
+						</div>
+					</form>
+				</div>
+				<p class="why-information">
+					<a target="_blank" href="http://wiads.vn/about/">{{ 'form.more_information'|trans }}</a> {{ 'form.about'|trans }}
+				</p>
+			</div>
+			<div class="side-content">
+				<!-- <h2>Bạn chỉ cần có một tài khoản</h2> -->
+				<p>{{ 'register.li_1'|trans }}</p>
+				<p>{{ 'register.li_2'|trans }}</p>
+				<p>{{ 'register.li_3'|trans }}</p>
+				<p>{{ 'register.li_4'|trans }}</p>
+			</div>
+		</div>
+	</div>
+		
+	<script type="text/javascript">
+		function frmSub(){
+			var Email = jQuery('#Email');
+			var Passwd = $('#Passwd');
+			var PasswdAgain = $('#PasswdAgain');
+			var FullName = $('#FullName');
+			var Phone = $('#Phone'); 
+			var Address = $('#Address'); 
+			
+
+			var email_regex = /^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        	var phone_regex = /^[0-9]+$/;
+        	
+        	var sub = 1;
+        	if(!email_regex.test(Email.val()) || Email.val() == "") {
+	           	$('#errormsg_0_Email').text("{{ 'validation.email'|trans }}");
+	            sub = 0;
+	        }else{
+	        	$('#errormsg_0_Email').text("");
+	        }
+
+	        if(Passwd.val() == "" || Passwd.val().length < 6){
+	        	$("#errormsg_0_Passwd").text("{{ 'validation.pass'|trans }}");
+	        	sub = 0;
+	        }else{
+	        	$("#errormsg_0_Passwd").text("");
+	        }
+
+	        if(PasswdAgain.val() !== Passwd.val()){
+	        	$("#errormsg_0_PasswdAgain").text("{{ 'validation.comfirm_pass'|trans }}");
+	        	sub = 0;
+	        }else{
+	        	$("#errormsg_0_PasswdAgain").text("");
+	        }
+
+	        if(FullName.val() == ""){
+	        	$("#errormsg_0_Fullname").text("{{ 'validation.title'|trans }}");
+	        	sub = 0;
+	        }else{
+	        	$("#errormsg_0_Fullname").text("") ;
+	        }
+
+	        if (!Phone.val().match(phone_regex)){
+	            $("#errormsg_0_Phone").text("{{ 'validation.phone'|trans }}");
+	            sub = 0;
+	        }else{
+	        	$("#errormsg_0_Phone").text("");
+	        }
+
+	        if(Address.val() == ""){
+	        	$("#errormsg_0_Address").text("{{ 'validation.title'|trans }}");
+	        	sub = 0;
+	        }else{
+	        	$("#errormsg_0_Address").text("");
+	        }
+	        var TermsOfService = $('#TermsOfService:checked').val();
+	        if(sub == 1){
+	        	if(TermsOfService == 'yes'){
+	        		return true;
+	        	}else{
+	        		alert("{{ 'validation.privacy'|trans }}");
+	        		return false;
+	        	}
+	        }else{
+	        	return false;
+	        }
+	        
+		}
+	</script>
+{% endblock %}

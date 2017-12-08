@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/bundles/advertiser/assets/css/demo11.css" />
+    <script src="/bundles/advertiser/assets/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        var config = {
+            FacebookId: '',
+            FacebookAccessToken: '',
+            FacebookScop: 'email',
+        }
+        var utility = {
+            Share: function (callback) {
+                
+                var img = 'http://wiads.vn/wp-content/uploads/2013/04/wifi-mien-phi.png';
+                FB.ui({
+                    method: 'feed',
+                    name: 'Share to user Internet',
+                    //link: 'https://www.facebook.com/wicomwifimarketing',
+                    link: '{{ params['apUrl'] }}',
+                    target:'_parent',
+                    picture: img,
+                    description: 'Share to user Internet'
+                }, function (response) {
+                    //console.log(response);
+                    if (response && response.post_id) {
+                        callback();
+                    }
+                });
+                return true;
+            }
+        }
+        function Login(value)
+        {
+            $('#advertId').val(value);
+            if (config.FacebookId == '') {
+                FB.login(function (response) {
+                    //console.log(response);
+                    if (response.authResponse) {
+                        config.FacebookId = response.authResponse.userID;
+                        config.FacebookAccessToken = response.authResponse.accessToken;
+                       
+                        utility.Share(function () {
+                            Receiver();
+                        });
+                        
+                    }
+                }, { scope: 'email' });
+            }
+            else {
+                utility.Share(function () {
+                    Receiver();
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="screen">
+        <button onclick="Login('-1');">Share Facebook Login</button>
+        <header>
+            <div class="head">
+                {% if params['apName'] is not empty %}
+                    {% if params['apImage'] is not empty %}
+                        <a href="javascript:Login('-2');">
+                            <!--
+                            <h3>{{ params['apName'] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                            -->
+                            <img src="{{ params['apImage'] }}" alt="{{ params['apName'] }}">
+                        </a>
+                    {% else %}
+                        <a href="javascript:Login('-2');">
+                            <h3>{{ params['apName'] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                            <div class="logo_wiads">
+                                <img src="/bundles/advertiser/assets/img/logo_wiads.png" alt="LOGO WIADS">
+                            </div>
+                            <!--
+                            <div class="logo_accesspoint" style="background: url('/bundles/advertiser/assets/img/logo_accesspoint.png') no-repeat center center / auto 100%"></div>
+                            -->
+                            <img src="/bundles/advertiser/assets/img/banner_640x152.jpg" alt="640x152">
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="javascript:Login('-2');">
+                        <div class="logo_wiads">
+                            <img src="/bundles/advertiser/assets/img/logo_wiads.png" alt="LOGO WIADS">
+                        </div>
+                        <!--
+                        <div class="logo_accesspoint" style="background: url('/bundles/advertiser/assets/img/logo_accesspoint.png') no-repeat center center / auto 100%"></div>
+                        -->
+                        <img src="/bundles/advertiser/assets/img/banner_640x152.jpg" alt="640x152">
+                    </a>
+                {% endif %}
+            </div>
+        </header>
+        <div class="wrap_connect">
+            {% if ads['QAF_v4'] is not empty %}
+                <a href="javascript:Login('{{ ads['QAF_v4'].id }}');">
+                    <img src="/ap/display.html?id={{ ads['QAF_v4'].id }}&link={{ ads['QAF_v4'].linkTo | url_encode}}&position=QAF_v4&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="BANNER">
+                </a>
+            {% else %}
+                <a href="javascript:Login('-1');">
+                    <img src="/bundles/advertiser/assets/img/QAF_v4_640x717.jpg">
+                </a>
+            {% endif %}
+            <!--
+            <div class="wrap_text">
+                <div class="text">
+                    <p>Mua 2 doi giay <font color="#fcb017">tang</font> 1 doi giay bat ky</p>
+                </div>
+            </div>
+            -->
+        </div>
+        <div class="wrap_button">
+            <!--
+            <span>263 Nguyễn Chí Thanh - Hotline: 05113.616.659</span>
+            -->
+            <div class="button_login">
+                {% if ads['QAF_v4'] is not empty %}
+                    <a href="javascript:Login('{{ ads['QAF_v4'].id }}');">
+                        Login
+                    </a>
+                {% else %}
+                    <a href="javascript:Login('-1');">
+                        Login
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div style="display: none">
+            <form class="login-form" novalidate="novalidate" id='login_frm' name='login_frm' method='post' action='{{params['loginpath']}}'>
+                <input type='hidden' name='called' value='{{params['called']}}'>
+                <input type='hidden' name='mac' value='{{params['mac']}}'>
+                <input type='hidden' name='challenge' value='{{params['challenge']}}'>
+                <input type='hidden' name='uamip' value='{{params['uamip']}}'>
+                <input type='hidden' name='ip' value='{{params['ip']}}'>
+                <input type='hidden' name='uamport' value='{{params['uamport']}}'>
+                <input type='hidden' name='userurl' value='{{params['userurl']|url_encode}}'>
+                <input type='hidden' id='advertId' name='advertId' value='-1'>
+                <input type='hidden' name='button' value='Free Internet'>
+            </form>
+            <li><img src="/ap/track_login.html?called={{ params['called'] }}&mac={{ params['mac'] }}&challenge={{ params['challenge'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}"/></li>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '1170851923040308',
+            xfbml: true,
+            version: 'v2.8'
+        });
+
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                config.FacebookId = response.authResponse.userID;
+                config.FacebookAccessToken = response.authResponse.accessToken;
+            }
+        });
+    };
+
+    function Receiver() {
+        if (config.FacebookId == '') {
+            FB.login(function (response) {
+                console.log(response);
+                if (response.authResponse) {
+                    config.FacebookId = response.authResponse.userID;
+                    config.FacebookAccessToken = response.authResponse.accessToken;
+                    DoReceiver();
+                }
+            }, { scope: 'email' });
+        }
+        else {
+            DoReceiver();
+        }
+    }
+
+    function DoReceiver() {
+        FB.api('/me?fields=id,name,email', function(response) {
+        
+            //login success
+            if(response && response.id) {
+           
+                var uid     = response.id;
+                var name    = response.name;
+                var email   = response.email;
+                console.log('UID:'+uid);
+                console.log('NAME:'+name);
+                console.log('EMAIL:'+email);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('advertiser_saverequest_userlogin') }}",
+                    //dataType: 'json',
+                    data: {
+                        type: 'facebook',
+                        uid: uid,
+                        name: name,
+                        email: email,
+                        phone: '',
+                        address: '',
+                        mac: "{{ params['called'] }}"
+                    },
+                    success: function (data) {
+                        if (data.status == 1) {
+
+                        }
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    }
+                });
+                //$('#advertId').val(-1);
+                $( "#login_frm" ).submit();
+            }
+        });
+    }
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>

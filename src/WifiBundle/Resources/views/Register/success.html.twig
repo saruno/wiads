@@ -1,0 +1,12 @@
+{% extends 'WifiBundle::Layout/user_register.html.twig' %}
+{% block content %}
+    <div class="signuponepage main content clearfix" style="padding-top: 0">
+        <div class="clearfix">
+            <div class="sign-up" style="width: 100%">
+                <div class="signup-box">
+                    <p class="success" style="text-align: center;font-size: 16px;color: green">{{ message is defined ? message : '' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

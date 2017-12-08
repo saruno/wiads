@@ -1,0 +1,290 @@
+{% extends 'PortalAdminBundle::layout.html.twig' %}
+{% block head %}
+{{ parent() }}
+    <script>
+    	$(function () {
+    		$('#lang').change(function () {
+    			window.location.href = '/auth/menu/' + $('#lang').val()+'/'+$('#position').val();
+       		});
+       		$('#position').change(function () {
+       			window.location.href = '/auth/menu/' + $('#lang').val()+'/'+$('#position').val();
+        		});
+       		$('body').on('change', '.checkAll',function () {
+                $('.cb-element').prop('checked', $('.checkAll').is(':checked') ?  true : false);
+            });
+            $('body').on('change','.cb-element', function () {
+                $('.cb-element').length == $('.cb-element:checked').length ? $('.checkAll').prop('checked', true) : $('.checkAll').prop('checked', false);
+            });
+       		$('#cmd-new').click(function () {
+    	    	window.location.href = $(this).attr('href') + /*'?section_type='+ $('#section_type').val()+*/'?lang='+$('#lang').val();
+    	    	return false;
+    	    });
+       		$('#cmd-del').click(function () {
+                if ($('.cb-element:checked').length == 0) {
+                    $('#dialog-form').html("<div style='text-align:center;padding-top:30px'>{{ 'Please choose menu' |trans }}<div>");
+                    var opt={
+        					'title': "{{ 'Delete Menu'|trans }}"
+        					};
+                 	$('#dialog-form').dialog(opt);
+                    $('#dialog-form').dialog("open");
+                }
+                else {
+                	Delete();
+                }
+                return false;
+            });
+    	});
+    	function Delete()
+    	{
+   	        $('#dialog-form').dialog({
+	   	            buttons : {
+	   	             "{{ 'Confirm'|trans }}" : function() {
+	   	            	var strIDs = "";
+	                    $('.cb-element:checked').each(function () {
+	                        strIDs += (strIDs != "") ? "," : "";
+	                        strIDs += $(this).val();
+	                    });
+	                    $('#action_id').val(strIDs);
+	                    $('#action').val('delete');
+	                    $("#SubmitSearch").click();
+   	             },
+   	            "{{'Cancel'|trans }}" : function() {
+   	          	   $(this).dialog("close");
+   	             }
+   	            }
+   	          	});
+   	        $('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>{{ 'Are you sure?'|trans }}<div>");
+			var opt={
+					'title': "{{ 'Menu management'|trans }}"
+					};
+         	$('#dialog-form').dialog(opt);
+   	        $("#dialog-form").dialog("open");
+   	       	
+        }
+    	function Page(page) {
+    	    $("#currentPage").val(page);
+    	    $("#SubmitSearch").click();
+    	}
+    	function MoveUp(id)
+    	{
+    		$('#action').val('up');
+    		$('#action_id').val(id);
+    		$("#SubmitSearch").click();
+        }
+    	function MoveDown(id)
+    	{
+    		$('#action').val('down');
+    		$('#action_id').val(id);
+    		$("#SubmitSearch").click();
+        }
+    	function setPublish(object, id, isPublish)
+    	{
+			object.innerHTML= 'saving';
+        	
+    		var request = $.ajax({
+    		  url: "/auth/menu/publish/"+id+"/"+isPublish,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json"
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+	        		if (isPublish)
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+       	            $('#dialog-form').dialog("option", "title", "{{ "Publish Menu"|trans }}");
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (isPublish)
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		}
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+   	            $('#dialog-form').dialog("option", "title", "{{ "Publish Menu"|trans }}");
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+    		});
+  			
+        }
+    	function togglePublish(object, id, isPublish)
+    	{
+			object.innerHTML= 'saving';
+        	
+    		var request = $.ajax({
+    		  url: "/auth/menu/togglepublish/"+id,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json",
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+        			if (data.message == true)
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+       	            $('#dialog-form').dialog("option", "title", "{{ "Publish Menu"|trans }}");
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (data.message == true)
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		};
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+   	            $('#dialog-form').dialog("option", "title", "{{ "Publish Menu"|trans }}");
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+    		});
+  			
+        }        
+    </script>
+{% endblock %}
+{% block content %}
+<div id="p-toolbox" class="p-box">
+    <div class="p-box-bottom">
+        <div class="p-box-top clearfix">
+            <ul id="p-commands">
+                <li><a id = "cmd-new" href="/auth/menu/add"> {{"Add"|trans}}</a></li>
+                <li><a id = "cmd-del" href="/auth/menu/del"> {{"Delete"|trans}}</a></li>
+                <li><a id = "cmd-close" href="/auth"> {{"Close"|trans}}</a></li>
+                
+            </ul>
+            <div class="p-module-title">
+                <a id="menu-showhide" href="/auth">{{ "Main Menu"|trans }}</a><h1>{{ "Menu management"|trans }}</h1></h1>
+            </div>
+        </div>
+        <!-- enddiv: #p-box-top -->
+    </div>
+    <!-- enddiv: #p-box-bottom -->
+</div>
+<!-- enddiv: #p-toolbox -->
+<div id="Div1" class="p-box p-box-space">
+    <div class="p-box-bottom">
+        <div class="p-box-top clearfix">
+            <div id="p-options">
+            	
+<form method="post" name='frm_menuList' action="">
+	<input type="hidden" name='action' id='action' value='{{ action }}'>
+	<input type="hidden" name='action_id' id='action_id' value=''>
+	<ul>
+		<li>
+			{{ "Position"|trans }}
+			<select id="position" name="position">
+				<option value="M0" {{ position == "M0"?"selected='selected'": "" }}>{{ "M0"|trans }}</option>
+				<option value="M1" {{ position == "M1"?"selected='selected'": "" }}>{{ "M1"|trans }}</option>
+				<option value="M2" {{ position == "M2"?"selected='selected'": "" }}>{{ "M2"|trans }}</option>
+				<option value="M3" {{ position == "M3"?"selected='selected'": "" }}>{{ "M3"|trans }}</option>
+				<option value="M4" {{ position == "M4"?"selected='selected'": "" }}>{{ "M4"|trans }}</option>
+			</select>
+		</li>
+		<li>{{ "Language"|trans }}:
+			<select id="lang" name="lang">
+			{% for l in langs %}
+				<option value="{{l.code}}" {% if l.code == lang %}selected="selected" {% endif %} >{{l.title}}</option>
+			{% endfor %}
+			</select>
+		</li>
+	</ul>
+	<input id="SubmitSearch" type="submit" value="search" style="display:none"/>
+</form>
+
+            </div>
+            <div id="searchresults">
+          	{% if responses != null %}
+            	<ul>
+            	{% for response in responses %}
+            		<li> {{ response }}</li>
+            	{% endfor %}
+            	</ul>
+           	{% endif %}
+               <table class="p-grid" id="grid_section">
+               		<tr>
+               			<th> <input id="checkAll" type="checkbox" class="checkAll"/></th>
+               			<th>{{ "Title"|trans }}</th>
+               			<th>{{ "Order"|trans }}</th>
+               			<th>{{ "Publish"|trans }}</th>
+               		</tr>
+               		{% for menu in menus %}
+               		<tr>
+               			<td>
+               				<input id="check_{{ menu.id }}" type="checkbox" value="{{ menu.id }}" class="cb-element"/>
+               			</td>
+               			<td style="text-align: left;">
+							{% for i in 1..menu.deep-1 if menu.deep != 1  %} &nbsp;&nbsp;{% endfor %}
+							<a href="/auth/menu/detail/{{ menu.id }}/{{ menu.locale }}">{{ menu.title|default("No Title"|trans) }}</a>
+               			</td>
+               			<td>
+               				<a onclick='MoveUp({{ menu.id }})'><img src='{{ asset(global_web_path) }}/images/arrow_up.png'> </img></a>
+               				<a onclick='MoveDown({{ menu.id }})'><img src='{{ asset(global_web_path) }}/images/arrow_down.png'> </img></a>
+               			</td>
+               			
+               			<td>
+               				{% if menu.locked %}
+               					<a onclick="togglePublish(this,{{ menu.id }}); return false;"><img src="{{ asset(global_web_path) }}/images/disable.gif"> </img> </a>
+               				{% else %}
+               					<a onclick="togglePublish(this,{{ menu.id }}); return false;"><img src="{{ asset(global_web_path) }}/images/enable.gif"> </img> </a>
+               				{% endif %}
+               				
+               			</td>
+               		</tr>
+					{% endfor %}
+               </table>
+                
+            </div>
+            <!-- enddiv: #p-options -->
+            <div id="dialog-form" title="Menu">
+            
+       
+</div>
+
+        </div>
+        <!-- enddiv: #p-box-top -->
+    </div>
+    <!-- enddiv: #p-box-bottom -->
+</div>
+
+
+	
+{% endblock %}	

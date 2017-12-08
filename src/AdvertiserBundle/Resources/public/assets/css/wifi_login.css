@@ -1,0 +1,325 @@
+*{
+    margin: 0;
+    padding:0;
+}
+html {
+    height: auto;
+    width: 100%;
+}
+body{
+    font-size: 14px;
+    font-family: Tahoma;
+    color:#000000;
+    height: auto;
+    width: 100%;
+}
+a{
+    text-decoration: none;
+}
+.clear{
+    clear: both;
+}
+
+.container{
+    max-width: 640px;
+    margin: 0 auto;
+    height:auto;
+    position: relative;
+}
+
+/** LOGIN **/
+.container header{
+    height: 152px;
+}
+
+.container header .head {
+    width: 100%;
+    height: 100%;
+}
+.container header .head  a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.container header .head  a .logo_wiads{
+    height: 60px;
+    left: 11px;
+    position: absolute;
+    top: 11px;
+    width: 194px;
+}
+.container header .head  a .logo_wiads img{
+    width: 100%;
+    height:100%;
+}
+.container header .head  h3{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: lightgrey;
+    font-size: 28px;
+    font-family: tahoma;
+    letter-spacing: 3px;
+    line-height: 152px;
+}
+.container header .head  a .logo_accesspoint{
+    height: 111px;
+    position: absolute;
+    right: 38px;
+    top: 10px;
+    width: 263px;
+    background-size: auto 100%;
+}
+
+.container section {
+    width: 100%;
+    height: auto;
+}
+.container section .box_a {
+    float: left;
+    max-width: 300px;
+    max-height: 600px;
+    height:600px;
+}
+.container section .box_a a {
+    display: block;
+    width: 100%;height: 100%;
+}
+.container section .box_a a img { max-width:100%;
+    max-height:100%;
+}
+.container section .box_b{
+    max-width: 336px;
+    margin-left: 4px;
+    float: left;
+}
+
+.container section .box_bb{
+    max-height: 280px;
+}
+.container section .box_bb a {  display: block;width: 100%;height: 100%;}
+.container section .box_bb a img{   max-width:100%;
+    max-height:100%;}
+.container section .box_b2{
+    margin-top: 3px;
+}
+
+.container section .box_c{
+    max-width: 335px;
+    float:left;
+}
+.container section .box_c .box_c1{
+    width: 100%;
+    height: 100px;
+    max-height: 100px;
+    margin-top:3px;
+}
+
+.container section .box_c .box_c1 a p{
+    height: 100%;
+    background: #c7c6c6;
+    text-align: center;
+    line-height: 100px;
+    color: #fff;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+}
+
+.container section .box_c .box_c2{
+    width: 100%;
+    max-height: 114px;
+}
+
+.container section .box_d{
+    max-width: 300px;
+    float: right;
+    margin-top:4px;
+}
+
+.container section .box_d a { display: block; width: 100%; height: 100% }
+.container section .box_d a img{ max-width:100%;
+    max-height:100%; }
+
+/** LOGIN SUCCESS **/
+
+.container .success {
+    margin: 0 auto;
+    height:335px;
+    width: 292px;
+}
+
+.container .success .su_box {
+    padding-top: 165px;
+    width: 100%;
+    height: 100%;
+}
+.container .success .su_box .logo{
+
+}
+.container .success .su_box .description{
+    width: 100%;
+    padding: 18px 0px;
+}
+.container .success .su_box .description p {
+    text-align: center;
+    font-size: 15px;
+    color: #e5e4e4;
+}
+
+.container .success .su_box  .button {
+    width: 100%;
+    height: 60px;
+}
+
+.container .success .su_box  .button a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #b1b2b3;
+    border-radius: 25px;
+    text-align: center;
+    line-height: 60px;
+    font-size: 18px;
+    color: #e5e4e4;
+    background:rgba(161,162,164,0.6);
+    text-decoration: none;
+}
+
+.container footer {
+    /*position: absolute;
+    bottom: 0;*/
+    width: 100%;
+}
+.container footer .footer_success{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.container footer p {
+    width: 100%;
+    text-align: center;
+    padding: 2px 0px;
+    color: #000000;
+    margin-bottom: 30px;
+}
+
+/** SCREEN FULL  **/
+.container .screen{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.container .screen .head{
+    width: 100%;
+    height: 152px;
+    position: relative;
+    background: rgba(255,255,255, 0.8);
+}
+.container .screen .head .logo{
+    display: block;
+    height: 60px;
+    left: 11px;
+    position: absolute;
+    top: 11px;
+    width: 110px;
+}
+.container .screen .head .logo a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.container .screen .head .logo a img{
+    width: 100%;
+    height: 100%;
+}
+
+.container .screen .head .logo_accesspoint{
+    height: 111px;
+    position: absolute;
+    right: 38px;
+    top: 10px;
+    width: 263px;
+    background-size: auto 100%;
+}
+
+.container .screen .button_login{
+    width: 45%;
+    /*height: 100%;*/
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+}
+.container .screen .button_login a{
+    display: block;
+    width: 100%;
+    height: 60px;
+    background: rgba(255,255,255, 0.8);
+    position: absolute;
+    text-align: center;
+    line-height: 60px;
+    font-size: 16px;
+    color: #fff;
+    letter-spacing: 3px;
+}
+
+.container footer .footer_screen{
+    background: #333;
+    height: 100px;
+}
+.container footer .footer_screen p{
+    text-align: center;
+    font-size: 14px;
+    color:#e6e4e4;
+    margin: 0px;
+    padding-top: 30px;
+}
+.container footer .footer_screen a{
+    text-align: center;
+    font-size: 12px;
+    color:#e6e4e4;
+    display: block;
+    padding-top: 10px;
+}
+
+/* STYLE LAYOUT RESPONSIVE */
+/* MEDIA 640px */
+@media only screen and (max-width: 640px) {
+    html{width: 100%;height: auto;}
+    body{width: 100%;height: auto;}
+    section{ width: 100%; overflow: hidden;}
+    .container{  width: 100%;  height: auto; }
+    .container header{  height: 110px;  }
+    .container header .head  {  height:100%;  }
+    .container header .head a {  display: block;  width: 100%;  height: 100%;  }
+    .container header .head  h3 { line-height: 110px; font-size: 22px; letter-spacing: 1px; color: lightgrey }
+    .container header .head a img {  width: 100%;  height: 100%;  }
+    .container section .box_a {  width: 50%;  max-height: 600px  }
+    .container section .box_a a {  display:block;  width: 100%;  height: 100%;  }
+    .container section .box_a a img{  width:100%; max-height:100%;   }
+    .container section .box_b{  width: 49.5%;  margin-left: 0.5%;  float: left;  }
+    .container section .box_b .box_b1{   margin-top: 0px; background: #a1a1a0;   }
+    .container section .box_b .box_b2{   margin-top: 0.5%; background: #a1a1a0;   }
+    .container section .box_b a { display: block; width: 100%;height: 100%; }
+    .container section .box_b a img { width:100%; max-height:100%;  }
+    .container section .box_d{  width:49.5%;  margin-top:0.5%;  }
+    .container section .box_d a{  display:block; width: 100%;height: 100%;  }
+    .container section .box_d a img{  width: 100%; max-height: 100%;  }
+    .container section .box_c{  width: 50%; }
+    .container section .box_c .box_c1{ width:100%;height: 100%; margin-top: 0px;}
+    .container section .box_c .box_c1 a{ width:100%; height: 100%;display: block}
+    .container section .box_c .box_c1 a img{ width:100%; max-height:100%;  }
+    .container section .box_c .box_c2{ width:100%;}
+    .container section .box_c .box_c2 a{ display: block; height: 100%; width:100%;}
+    .container section .box_c .box_c2 a img{ width:100%; max-height:100%;  }
+
+    .container header .head  a .logo_wiads{height: 44px;  left: 9px;  position: absolute;  top: 8px;  width: 142px;}
+    .container header .head  a .logo_accesspoint {  right: 28px;  top: 8px;  width: 190px;  height: 80px;  }
+
+    .container section .box_e {}
+
+}
+ 

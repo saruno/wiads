@@ -1,0 +1,130 @@
+advertiser_homepage:
+    path:     /
+    defaults: { _controller: 'AdvertiserBundle:Index:index' }
+    #defaults: { _controller: AdvertiserBundle:Default:index }
+#Login
+advertiser_login:
+    path:  /login/
+    defaults: { _controller: 'AdvertiserBundle:Advertiser:login' }
+
+advertiser_login_check:
+    path:   /login_check
+
+advertiser_security_logout:
+    path:  /logout
+
+advertiser_dashboard:
+  path: /dashboard
+  defaults: { _controller: 'AdvertiserBundle:Dashboard:index' }
+advertiser_promotion_manager:
+  path: /promotion/manager
+  defaults: { _controller: 'AdvertiserBundle:CodePromotion:manager' }
+advertiser_promotion_list:
+  path: /promotion/list
+  defaults: { _controller: 'AdvertiserBundle:CodePromotion:list' }
+advertiser_ads_add:
+  path: /ads/add
+  defaults: { _controller: 'AdvertiserBundle:Advertiser:add' }
+advertiser_ads_list:
+  path: /ads/list
+  defaults: { _controller: 'AdvertiserBundle:Advertiser:list' }
+advertiser_ads_edit:
+  path: /ads/edit/{id}
+  defaults: { _controller: 'AdvertiserBundle:Advertiser:edit',id:0 }
+advertiser_ads_delete:
+  path: /ads/delete/{id}
+  defaults: { _controller: 'AdvertiserBundle:Advertiser:delete',id:0 }
+advertiser_ads_show:
+  path: /ads/show/{id}
+  defaults: { _controller: 'AdvertiserBundle:Advertiser:show',id:0 }
+advertiser_ads_list_get:
+  path: /ads/list/get
+  defaults: { _controller: 'AdvertiserBundle:Advertiser:get' }
+advertiser_user_add:
+  path: /user/add
+  defaults: { _controller: 'AdvertiserBundle:User:add' }
+advertiser_user_list:
+  path: /user/list
+  defaults: { _controller: 'AdvertiserBundle:User:list' }
+advertiser_user_edit:
+  path: /user/edit/{id}
+  defaults: { _controller: 'AdvertiserBundle:User:edit', id:0 }
+advertiser_user_delete:
+  path: /user/delete/{id}
+  defaults: { _controller: 'AdvertiserBundle:User:delete', id:0 }
+advertiser_user_resetpass:
+  path: /user/resetpass/{id}
+  defaults: { _controller: 'AdvertiserBundle:User:resetpass', id:0 }
+advertiser_user_list_get:
+  path: /user/list/get
+  defaults: { _controller: 'AdvertiserBundle:User:get' }
+advertiser_permision_group_list:
+  path: /permision/group/list
+  defaults: { _controller: 'AdvertiserBundle:RoleGroup:list' }
+advertiser_permision_group_add:
+  path: /permision/group/add
+  defaults: { _controller: 'AdvertiserBundle:RoleGroup:add' }
+advertiser_permision_group_role:
+  path: /permision/group/role/{id}
+  defaults: { _controller: 'AdvertiserBundle:RoleGroup:role', id:0 }
+advertiser_permision_group_edit:
+  path: /permision/group/edit/{id}
+  defaults: { _controller: 'AdvertiserBundle:RoleGroup:edit', id:0 }
+advertiser_permision_role_list:
+  path: /permision/role/list
+  defaults: { _controller: 'AdvertiserBundle:Role:list' }
+advertiser_permision_role_edit:
+  path: /permision/role/edit/{id}
+  defaults: { _controller: 'AdvertiserBundle:Role:edit', id:0 }
+advertiser_permision_role_delete:
+  path: /permision/role/delete/{id}
+  defaults: { _controller: 'AdvertiserBundle:Role:delete', id:0 }
+advertiser_permision_role_add:
+  path: /permision/role/add
+  defaults: { _controller: 'AdvertiserBundle:Role:add' }
+advertiser_customer_report_ads:
+  path: /customer/report-ads
+  defaults: { _controller: 'AdvertiserBundle:Customer:report_ads' }
+advertiser_cafeshop_report_ads:
+  path: /cafeshop/report-ads
+  defaults: { _controller: 'AdvertiserBundle:Cafeshop:report_ads' }
+advertiser_accesspoint_list:
+  path: /accesspoint/list
+  defaults: { _controller: 'AdvertiserBundle:AccessPoint:list' }
+advertiser_accesspoint_add:
+  path: /accesspoint/add
+  defaults: { _controller: 'AdvertiserBundle:AccessPoint:add' }
+advertiser_datacustomer_giftcode:
+  path: /datacustomer/giftcode
+  defaults: { _controller: 'AdvertiserBundle:DataCustomer:giftcode' }
+advertiser_datacustomer_giftcode_ajax:
+  path: /datacustomer/giftcode-ajax
+  defaults: { _controller: 'AdvertiserBundle:DataCustomer:giftcode_ajax' }
+advertiser_datacustomer_giftcode_email_ajax:
+  path: /datacustomer/giftcode-email-ajax
+  defaults: { _controller: 'AdvertiserBundle:DataCustomer:giftcode_email_ajax' }
+advertiser_report_ads:
+  path: /report/ads
+  defaults: { _controller: 'AdvertiserBundle:Report:ads' }
+advertiser_notification_session:
+  path: /notification/session
+  defaults: { _controller: 'AdvertiserBundle:Notification:session' }
+advertiser_saverequest_userlogin:
+  path: /saverequest/userlogin
+  defaults: { _controller: 'AdvertiserBundle:SaveRequest:UserLogin' }
+advertiser_location_list:
+  path: /location/list
+  defaults: { _controller: 'AdvertiserBundle:Location:list' }
+advertiser_location_list_get:
+  path: /location/list/get
+  defaults: { _controller: 'AdvertiserBundle:Location:get' }
+advertiser_datacustomer_main_user_login:
+  path: /datacustomer/main-user-login
+  defaults: { _controller: 'AdvertiserBundle:DataCustomer:main_user_login' }
+advertiser_datacustomer_user_login_request:
+  path: /datacustomer/user-login-request
+  defaults: { _controller: 'AdvertiserBundle:DataCustomer:user_login_request' }
+advertiser_report:
+  path: /report
+  defaults: { _controller: 'AdvertiserBundle:Report:index' }
+

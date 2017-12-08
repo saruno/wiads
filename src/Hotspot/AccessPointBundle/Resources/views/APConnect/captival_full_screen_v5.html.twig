@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/bundles/advertiser/assets/css/demo18.css" />
+    <script src="/bundles/advertiser/matrix/js/jquery.min.js"></script>
+    <script>
+        function Login(value)
+        {
+            $('#advertId').val(value);
+            $( "#login_frm" ).submit();
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="screen">
+        <div class="tem2">
+            <div class="title">
+                <h2>Chào mừng bạn đến với</h2>
+                {% if params['apName'] is not empty %}
+                <h1>{{ params['apName'] }}</h1>
+                {% endif %}
+            </div>
+            {% if ads['QAF_v4'] is not empty %}
+                <a href="javascript:Login('{{ ads['QAF_v4'].id }}');">
+                    <img src="/bundles/advertiser/assets/img/bg_connect.png">
+                </a>
+            {% else %}
+                <a href="javascript:Login('-1');">
+                    <img src="/bundles/advertiser/assets/img/bg_connect.png">
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div style="display: none">
+        <form class="login-form" novalidate="novalidate" id='login_frm' name='login_frm' method='post' action='{{params['loginpath']}}'>
+            <input type='hidden' name='called' value='{{params['called']}}'>
+            <input type='hidden' name='mac' value='{{params['mac']}}'>
+            <input type='hidden' name='challenge' value='{{params['challenge']}}'>
+            <input type='hidden' name='uamip' value='{{params['uamip']}}'>
+            <input type='hidden' name='ip' value='{{params['ip']}}'>
+            <input type='hidden' name='uamport' value='{{params['uamport']}}'>
+            <input type='hidden' name='userurl' value='{{params['userurl']|url_encode}}'>
+            <input type='hidden' id='advertId' name='advertId' value='-1'>
+            <input type='hidden' name='button' value='Free Internet'>
+        </form>
+        <li><img src="/ap/track_login.html?called={{ params['called'] }}&mac={{ params['mac'] }}&challenge={{ params['challenge'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}"/></li>
+    </div>
+</div>
+<style type="text/css">
+    .tem2{
+        position: relative;
+    }
+
+    .tem2 img{
+        max-width: 100%;
+        height: auto;
+    }
+
+    .tem2 .title{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: auto;
+    }
+
+
+
+    iframe {
+        margin: 0 auto !important;
+    }
+    .container{
+        /*height: auto !important;*/
+        background-color: #112c49;
+    }
+</style>
+</body>
+</html>

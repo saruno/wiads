@@ -1,0 +1,56 @@
+{% extends 'WifiBundle::Layout/user_register.html.twig' %}
+{% block content %}
+    <div class="signuponepage main content clearfix" style="padding-top: 0">
+        {% if status == 1 %}
+            <div class="clearfix">
+                <div class="sign-up" style="width: 100%">
+                    <div class="signup-box">
+                        <p class="success" style="text-align: center;font-size: 18px;color: green">{{ 'notification.active_success'|trans }}</p>
+                    </div>
+                </div>
+            </div>
+        {% elseif status == 2 %}
+            <div class="clearfix">
+                <div class="sign-up" style="width: 100%">
+                    <div class="signup-box">
+                        <p class="success" style="text-align: center;font-size: 18px;color: green">{{ 'notification.active_account'|trans }}</p>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="clearfix">
+                <div class="sign-up" style="width: 100%">
+                    <div class="signup-box">
+                        <h2>{{ 'title.t2'|trans }}</h2>
+                        {% if status == -1 %}
+                            <p style="text-align: center;color: red;">{{ 'notification.email_no_exist'|trans }}</p>
+                        {% elseif status == -2 %}
+                            <p style="text-align: center;color: red;">{{ 'notification.incorrect_fail'|trans }}</p>
+                        {% endif %}
+						<form class="createaccount-form" id="createaccount" action="" method="get" style="padding: 10px 200px">
+							<div class="form-element email-address" id="gmail-address-form-element">
+								<label id="gmail-address-label">
+									<strong> {{ 'form.email'|trans }} </strong>
+									<input type="text" maxlength="80" required  autocomplete="off" name="email" id="email" value="{{ param['email'] }}">
+								</label>
+								<span role="alert" class="errormsg" id="errormsg_0_Email"></span>
+							</div>
+							<div class="form-element" id="password-form-element">
+								<label id="password-label"> <strong>{{ 'form.code_active'|trans }}</strong>
+									<input type="text" name="code" id="code" required value="{{ param['code'] }}">
+								</label>
+								<span role="alert" class="errormsg" id="code"></span>
+							</div>
+
+							<div class="form-element nextstep-button">
+								<input id="submitbutton" name="submit" type="submit" style="width: 100%;"
+									value="{{ 'button.register'|trans }}" class="g-button g-button-submit">
+							</div>
+						</form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}

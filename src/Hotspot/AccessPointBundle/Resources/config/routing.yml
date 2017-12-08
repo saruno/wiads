@@ -1,0 +1,150 @@
+hotspot_login:
+    path:  /report/login/
+    defaults: { _controller: 'HotspotAccessPointBundle:APConnect:login' }
+
+hotspot_login_check:
+    path:   /report/login_check
+
+hotspot_security_logout:
+    path:  /report/logout
+
+hotspot_access_point_logged:
+    path:     /logged
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:logged" }
+hotspot_access_point_api_login:
+    path:     /api
+    defaults: { _controller: "HotspotAccessPointBundle:Api:login" }
+#hotspot_access_point_api_geocoding_update:
+#    path:     /api/geocoding
+#    defaults: { _controller: "HotspotAccessPointBundle:Api:geoCoding" } 
+hotspot_access_point_api_isp_update:
+    path:     /api/isp
+    defaults: { _controller: "HotspotAccessPointBundle:Api:updateISP" } 
+hotspot_access_point_api_getaplist:
+    path:     /api/aplist
+    defaults: { _controller: "HotspotAccessPointBundle:Api:getApList" }        
+hotspot_access_point_api_createDevice:
+    path:     /api/createdevice
+    defaults: { _controller: "HotspotAccessPointBundle:Api:createDevice" }
+hotspot_access_point_callLoginAds:
+    path:     /show_login_ads
+    defaults: { _controller: "HotspotAccessPointBundle:Advert:callLoginAds" }
+hotspot_access_point_callSucessAds:
+    path:     /show_success_ads
+    defaults: { _controller: "HotspotAccessPointBundle:Advert:callSuccessAds" }
+hotspot_access_point_bbqEmailSucessAds:
+    path:     /show_bq_email_success_ads
+    defaults: { _controller: "HotspotAccessPointBundle:Advert:bbqEmailSuccess" }
+hotspot_access_point_ibigEmailAds:
+    path:     /ibig
+    defaults: { _controller: "HotspotAccessPointBundle:Advert:ibig" }
+hotspot_access_point_bbqYoutubeSucessAds:
+    path:     /show_bq_video_success_ads
+    defaults: { _controller: "HotspotAccessPointBundle:Advert:bbqYoutubeSuccess" }        
+hotspot_access_point_ssid:
+    path:     /ssid.{_format}
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:ssid", _format: html }     
+    requirements:
+      _format:  html
+hotspot_access_point_ssid_2:
+    path:     /update/{mac}.{_format}
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:ssid", mac:'n_a', _format: html }
+    requirements:
+      _format:  html
+hotspot_access_point_keepalive:
+    path:     /keepalive.{_format}
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:keepalive", _format: html }
+    requirements:
+      _format:  html
+hotspot_access_point_keepalive_2:
+    path:     /polling/{mac}.{_format}
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:keepalive", _format: html }
+    requirements:
+      _format:  html
+hotspot_access_point_fw:
+    path:     /fw.{_format}
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:fw", _format: html }     
+    requirements:
+      _format:  html
+hotspot_access_point_track_login:
+    path:     /track_login.{_format}
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:trackLogin", locale: 'vi' , _format: html}     
+    requirements:
+      _format:  html      
+hotspot_access_point_report:
+    path:     /report.{_format}
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:report", _format: html }     
+    requirements:
+      _format:  html
+hotspot_access_point_report_v2:
+    path:     /report_v2.{_format}
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:report_v2", _format: html }
+    requirements:
+      _format:  html
+hotspot_access_point_verify_mac:
+    path:     /report/verify_mac
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:verifyMac"}
+hotspot_access_point_user_list_company:
+    path:     /report/user_list_company
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:refreshUserofCompany"}
+hotspot_access_point_refresh_config:
+    path:     /report/refresh_config
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:refreshConfig"}
+hotspot_front_ads:
+    path:     /go.html
+    defaults: { _controller: "HotspotAccessPointBundle:Advert:go", locale: 'vi' } 
+hotspot_front_member_ads:
+    path:     /member.{_format}
+    defaults: { _controller: "HotspotAccessPointBundle:Advert:member", _format: html  }    
+    requirements:
+      _format:  html    
+hotspot_front_ads_display:
+    path:     /display.html
+    defaults: { _controller: "HotspotAccessPointBundle:Advert:display", locale: 'vi' }
+hotspot_front_ads_display2:
+    path:     /display2.html
+    defaults: { _controller: "HotspotAccessPointBundle:Advert:display2", locale: 'vi' }
+hotspot_front_ads_promotion:
+    path:     /promotion
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:promotion", locale: 'vi' }
+hotspot_access_point_xuongcafe_homepage:
+    path:     /xuongcafe/auth
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:index" }    
+hotspot_access_point_ssid_test:
+    path:     /test/ssid.{_format}
+    defaults: { _controller: "HotspotAccessPointBundle:APConnectTest:ssid", _format: html }     
+    requirements:
+      _format:  html
+hotspot_access_point_homepage_test:
+    path:     /test/
+    defaults: { _controller: "HotspotAccessPointBundle:APConnectTest:index" }
+hotspot_access_point_homepage_test1:
+    path:     /test1/
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:detectWifiChannel" }
+hotspot_access_point_homepage_success_no_link:
+    path:     /success_no_link
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:successNoLink" }
+hotspot_access_point_homepage_not_activated:
+    path:     /not_activated
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:notActivated" }
+    methods:  [GET, POST]
+hotspot_access_point_homepage_wifi_login:
+    path:     /wifi_login
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:wifiLogin" }
+    methods:  [GET, POST]
+      #_controller: FrameworkBundle:Template:template
+      #template: HotspotAccessPointBundle:APConnect:not_activated.html.twig
+hotspot_access_point_homepage_wifi_login_success:
+    path:     /wifi_success
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:wifiLoginSuccess" }
+    methods:  [GET, POST]
+hotspot_access_point_homepage_wifi_login_failed:
+    path:     /wifi_success
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:wifiLoginFailed" }
+    methods:  [GET, POST]
+hotspot_access_point_homepage:
+    path:     /
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:index" }
+
+##
+

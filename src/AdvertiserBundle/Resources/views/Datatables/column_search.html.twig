@@ -1,0 +1,36 @@
+<tfoot>
+    {% if column_search is defined %}
+        <tr>
+            {% for key,value in column_search %}
+                {% if value.search is defined %}
+                    {% if value.search.active is defined and value.search.active == true   %}
+                        {% if value.search.type is defined and value.search.type == 'text' %}
+                            <td style="{{ value.search.width is defined ? 'width:'~value.search.width:'' }}">
+                                <input type="text" data="{{ value.data }}" data-column="{{key}}"  class="form-control search-input-{{value.search.type}}">
+                            </td>
+                        {% elseif value.search.type is defined and value.search.type == 'select' and value.search.value|length > 0 and value.search.value is defined %}
+                            <td style="{{ value.search.width is defined ? 'width:'~value.search.width:'' }}">
+                                <select class="form-control search-input-select" data-column="{{key}}" data="{{ value.data }}">
+                                    <option value="">Tất cả</option>
+                                    {% for ks,vs in value.search.value %}
+                                        {% if vs is not empty %}
+                                            <option value="{{ ks }}">{{ vs }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        {% elseif value.search.type is defined and value.search.type == 'button' %}
+                            <td>
+                                <button id="{{ value.search.id is defined ? value.search.id : '' }}" class="{{ value.search.class is defined ? value.search.class : '' }}" >Delete</button></th>
+                            </td>
+                        {% endif %}
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                {% else %}
+                    <td></td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    {% endif %}
+</tfoot>

@@ -1,0 +1,27 @@
+NelmioApiDocBundle:
+  resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+  prefix:   /doc
+users:
+  type:     rest
+  resource: ApiBundle\Controller\UsersController
+role:
+  type:     rest
+  resource: ApiBundle\Controller\RoleController
+accesspoint:
+  type:     rest
+  resource: ApiBundle\Controller\AccesspointController
+province:
+  type:     rest
+  resource: ApiBundle\Controller\ProvinceController
+company:
+  type:     rest
+  resource: ApiBundle\Controller\CompanyController
+customer:
+  type:     rest
+  resource: ApiBundle\Controller\CustomerController
+platform:
+  type:     rest
+  resource: ApiBundle\Controller\PlatformController
+advertiser:
+  type:     rest
+  resource: ApiBundle\Controller\AdvertiserController

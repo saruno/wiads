@@ -1,0 +1,7 @@
+portal_front_ads:
+    path:     /go.html
+    defaults: { _controller: "PortalFrontBundle:Advert:go", locale: 'vi' }
+portal_front_homepage:
+    path:     /
+    defaults: { _controller: "PortalFrontBundle:Default:index" }
+    

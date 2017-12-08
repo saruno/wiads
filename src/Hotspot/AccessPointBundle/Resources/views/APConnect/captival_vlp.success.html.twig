@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Success</title>
+    <link rel="stylesheet" href='/bundles/advertiser/assets/css/demo12.css' />
+    <script type="text/javascript" src="https://campaigns-assets-vp.daumcdn.net/websdk/vp-latest.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="screen">
+        <header>
+            <div class="head">
+                <a href="http://wiads.vn" target="_blank"><p>Kết nối thành công</p></a>
+            </div>
+        </header>
+        <div class="wrap_connect">
+            <div>
+                {% if params['apName'] is not empty %}
+                    {% if linkTo is not empty %}
+                        <a href="{{linkTo}}" target="_blank" ><img style="max-width: 100%;max-height:240px; " src="{{ params['apImage'] }}" alt="{{ params['apName'] }}"></a>
+                    {% else %}
+                        <img style="max-width: 100%;" src="{{ params['apImage'] }}" alt="{{ params['apName'] }}">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div id="ads"></div>
+            <!--
+            <div id="ads2"></div>
+            -->
+        </div>
+        <div class="footer">
+            <img src="/ap/display.html?id={{ adv.Id }}&link={{ adv.linkTo | url_encode}}&position={{ adv.homePosition() }}&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="BANNER NEN">
+            {% if adv is empty %}
+                <a href="http://wiads.vn" target="_blank">www.wiads.vn</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    iframe {
+        margin: 0 auto !important;
+    }
+    .container{
+        height: auto !important;
+    }
+</style>
+</body>
+<script type="text/javascript">
+    VP.init({
+        clientId: "fa2ed2e05dcbcaf9cfb8c0c41f3f63b3"
+    });
+    var opts = {
+        callback: function (filled) {
+            if (filled) {
+                console.log("ad loaded");
+            } else {
+                console.log("no ad");
+            }
+        },
+        textAdStyle: {
+            "color": "red",
+            "font-size": "28px",
+            "font-weight": "bold"
+        }
+    }
+    VP.ad('ads', 'ads', 300, 600, opts);
+    //VP.ad('ads2', 'ads2', 300, 250, opts);
+</script>
+</html>

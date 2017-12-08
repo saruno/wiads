@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="default" defaultIdMethod="native" identifierQuoting='true' namespace="Hotspot\AccessPointBundle\Model">
+    <!--==== SETTING ====-->
+    <!--http://propelorm.org/documentation/behaviors/validate.html-->
+    <vendor type="mysql">
+        <parameter name="Engine" value="InnoDB"/>
+        <parameter name="Charset" value="utf8"/>
+        <parameter name="Collate" value="utf8_unicode_ci"/>
+    </vendor>
+
+    <!--==== TABLES ====-->
+    <table name="accesspoint">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000" />
+        <column name="macaddr" type="varchar" size="50" />
+        <column name="ap_macaddr" type="varchar" size="50" />
+        <column name="fw_version" type="varchar" size="50" />
+        <column name="isp" type="varchar" size="255" />
+        <column name="ssid" type="varchar" size="50" />
+        <column name="key" type="varchar" size="50" />
+        <column name="province" type="varchar" size="500" />
+        <column name="ads_location" type="varchar" size="500" />
+        <column name="login_template" type="varchar" size="500" />
+        <column name="image" type="varchar" size="1000" />
+        <column name="category_id" type="INTEGER" />
+        <column name="lng" type="varchar" size="1000" />
+        <column name="lat" type="varchar" size="1000" />
+        <column name="address" type="varchar" size="1000" />
+        <column name="pcontact" type="varchar" size="1000" />
+        <column name="detail_url" type="varchar" size="1000" />
+        <column name="detail_url_id" type="varchar" size="50" />
+
+        <column name="section_id" type="INTEGER" />
+        <column name="subsection_ids" type="varchar" size="1000" />
+        <column name="orders" type="INTEGER" />
+        <column name="suborder_ids" type="varchar" size="1000" />
+        <column name="front_page" type="boolean" />
+        <column name="has_comment" type="boolean"/>
+        <column name="can_delete" type="boolean" />
+        <column name="trash" type="boolean" />
+        <column name="published_at" type="TIMESTAMP" />
+        <column name="locked" type="boolean"/>
+        <column name="draft" type="boolean"/>
+        <column name="imgs" type="varchar" size="1000" />
+        <column name="title" type="varchar" primaryString="1" size="1000" />
+        <column name="strip_title" type="varchar" primaryString="1" size="1000" />
+        <column name="brief" type="LONGVARCHAR" />
+        <column name="content" type="LONGVARCHAR" />
+        <column name="short_link" type="LONGVARCHAR"/>
+        <column name="link" type="LONGVARCHAR"/>
+        <column name="tag" type="LONGVARCHAR"/>
+        <column name="status" type="varchar" size="255"/>
+        <column name="pre_status" type="varchar" size="255"/>
+        <column name="status_note" type="varchar" size="1000"/>
+        <column name="keyword" type="LONGVARCHAR"/>
+        <column name="read" type="INTEGER" default="0"/>
+        <column name="post_by" type="varchar" size="1000" />
+        <column name="edit_by" type="varchar" size="1000" />
+        <column name="relative_news" type="LONGVARCHAR"/>
+        <column name="owner" type="varchar" size="500" />
+        <column name="customer_id" type="INTEGER" />
+        <foreign-key foreignTable="customer" onDelete="setnull" onUpdate="cascade">
+            <reference local="customer_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="section" onDelete="setnull" onUpdate="cascade">
+            <reference local="section_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="accesspoint_category" onDelete="cascade" onUpdate="cascade">
+            <reference local="category_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="name,address,pcontact,detail_url,title, strip_title, brief, content, tag, keyword, post_by, edit_by,short_link,link,locked,trash, status, pre_status, status_note,draft,read" />
+            <parameter name="default_locale" value="vi" />
+        </behavior>
+    </table>
+    <table name="accesspoint_category">
+        <column name="id" type="INTEGER" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000" />
+        <column name="icon" type="varchar" size="1000" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="name" />
+            <parameter name="default_locale" value="vi" />
+        </behavior>
+    </table>
+    <table name="ads_log" phpName="AdsLog">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="ap_macaddr" type="varchar" size="50" />
+        <column name="device_macaddr" type="varchar" size="50" />
+        <column name="device" type="varchar" size="1000" />
+        <column name="wan_ip" type="varchar" size="255" />
+        <column name="device_ip" type="varchar" size="100" />
+        <column name="ap_sessionid" type="varchar" size="200" />
+        <column name="web_session" type="varchar" size="200" />
+        <column name="user_url" type="varchar" size="1000" />
+        <column name="is_mobile" type="INTEGER" default="0" />
+        <column name="os" type="varchar" size="200" />
+        <column name="browser" type="varchar" size="200" />
+        <column name="user_agent" type="varchar" size="1000" />
+        <column name="phase" type="varchar" size="50" />
+        <index name="ap_macaddr">
+            <index-column name="ap_macaddr"/>
+            <index-column name="device_macaddr"/>
+        </index>
+
+        <behavior name="query_cache" >
+            <parameter name="backend" value="custom" />
+    		<parameter name="lifetime" value="600" />
+        </behavior>
+        <behavior name="timestampable" />
+    </table>
+    <table name="track_log" phpName="TrackLog">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="ads_id" type="INTEGER" default="0" />
+        <column name="ap_macaddr" type="varchar" size="50" />
+        <column name="device_macaddr" type="varchar" size="50" />
+        <column name="device" type="varchar" size="1000" />
+        <column name="wan_ip" type="varchar" size="100" />
+        <column name="device_ip" type="varchar" size="100" />
+        <column name="ap_sessionid" type="varchar" size="200" />
+        <column name="web_session" type="varchar" size="200" />
+        <column name="user_url" type="varchar" size="1000" />
+        <column name="is_mobile" type="INTEGER" default="0" />
+        <column name="os" type="varchar" size="200" />
+        <column name="browser" type="varchar" size="200" />
+        <column name="user_agent" type="varchar" size="1000" />
+        <column name="phase" type="varchar" size="50" />
+        <index name="ap_macaddr">
+            <index-column name="ap_macaddr"/>
+            <index-column name="device_macaddr"/>
+        </index>
+        <behavior name="query_cache" >
+            <parameter name="backend" value="custom" />
+    		<parameter name="lifetime" value="600" />
+        </behavior>
+        <behavior name="timestampable" />
+    </table>
+    <table name="ap_log" phpName="ApLog">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="ap_macaddr" type="varchar" size="50" />
+        <column name="fw_version" type="varchar" size="50" />
+        <column name="platform" type="varchar" size="1000" />
+        <column name="ip" type="varchar" size="255" />
+        <column name="ssid" type="varchar" size="100" />
+        <behavior name="query_cache" >
+            <parameter name="backend" value="custom" />
+    		<parameter name="lifetime" value="600" />
+        </behavior>
+        <behavior name="timestampable" />
+    </table>
+    <table name="ap_config" phpName="ApConfig">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="ap_macaddr" type="varchar" size="50" />
+        <column name="fw_version" type="varchar" size="50" />
+        <column name="fw_version_next" type="varchar" size="50" />
+        <column name="platform" type="varchar" size="1000" />
+        <column name="ip" type="varchar" size="255" />
+        <column name="isp" type="varchar" size="255" />
+        <column name="ssid" type="varchar" size="100" />
+        <column name="need_update" type="INTEGER" default="1" />
+        <column name="fw_upgrade" type="varchar" size="50" default="option fw_upgrade 0"/>
+        <column name="fw_file" type="varchar" size="100" default=""/>
+        <column name="ssid_update" type="varchar" size="50" default="option ssid_update 1"/>
+        <column name="ssid_next" type="varchar" size="100" default='option ssid "WiAds Free Wifi"'/>
+        <column name="safe_sleep" type="varchar" size="50" default="option safe_sleep 0"/>
+         <column name="reset_need" type="varchar" size="50" default="option reset_to_default 0"/>
+         <column name="normal_mode" type="varchar" size="50" default="option normal_mode 0"/>
+        <column name="update_uamdomains" type="varchar" size="50" default="option update_uamdomains 0"/>
+        <column name="uamdomains" type="varchar" size="500" default="#HS_UAMDOMAINS"/>
+        <column name="uamdomains_next" type="varchar" size="500" default="#HS_UAMDOMAINS"/>
+        <column name="update_uamformat" type="varchar" size="50" default="option update_uamformat 0"/>
+        <column name="uamformat" type="varchar" size="100" />
+        <column name="uamformat_next" type="varchar" size="100"/>
+        <column name="update_uamhomepage" type="varchar" size="50" default="option update_uamhomepage 0"/>
+        <column name="uamhomepage" type="varchar" size="100" />
+        <column name="uamhomepage_next" type="varchar" size="100"/>
+        <column name="update_macauth" type="varchar" size="50" default="option update_macauth 0"/>
+        <column name="macauth" type="varchar" size="100" />
+        <column name="macauth_next" type="varchar" size="100"/>
+        <column name="update_channel" type="varchar" size="50" default="option channel_update 0"/>
+        <column name="channel" type="varchar" size="100" />
+        <column name="channel_next" type="varchar" size="100"/>
+        <column name="update_hwmode" type="varchar" size="50" default="option hwmode_update 0"/>
+        <column name="hwmode" type="varchar" size="100" />
+        <column name="hwmode_next" type="varchar" size="100"/>
+        <column name="update_htmode" type="varchar" size="50" default="option htmode_update 0"/>
+        <column name="htmode" type="varchar" size="100" />
+        <column name="htmode_next" type="varchar" size="100"/>
+        <column name="update_noscan" type="varchar" size="50" default="option noscan_update 0"/>
+        <column name="noscan" type="varchar" size="100" />
+        <column name="noscan_next" type="varchar" size="100"/>
+        <column name="update_encryption" type="varchar" size="50" default="option encryption_update 0"/>
+        <column name="encryption" type="varchar" size="100" />
+        <column name="encryption_next" type="varchar" size="100"/>
+        <column name="update_key" type="varchar" size="50" default="option key_update 0"/>
+        <column name="key" type="varchar" size="100" />
+        <column name="key_next" type="varchar" size="100"/>
+        <column name="update_lan_network" type="varchar" size="100" default="option network_lan_update 1"/>
+        <column name="lan_network" type="varchar" size="100" default="option network_lan '172.16.16.1'" />
+        <column name="update_hosts" type="varchar" size="50" default="option hosts_update 0"/>
+        <column name="hosts" type="varchar" size="100" />
+        <column name="iwinfo" type="varchar" size="3000"/>
+        <column name="need_reboot" type="varchar" size="50" default="option need_reboot 0"/>
+        <column name="wifi_enable" type="varchar" size="50" default="active wifi 1"/>
+        <column name="bw_profile_id" type="integer" default="1"/>
+        
+        <column name="exclude" type="INTEGER" default="0" />
+        <column name="activated" type="INTEGER" default="0" />
+        <index name="ap_macaddr">
+            <index-column name="ap_macaddr"/>
+        </index>
+        <behavior name="timestampable" />
+    </table>
+    <table name="firmware" phpName="Firmware">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="type" type="varchar" size="255" />
+        <column name="name" type="varchar" size="255" />
+        <column name="platform" type="varchar" size="500" />
+        <column name="fw_version" type="varchar" size="500" />
+        <column name="file" type="varchar" size="500" />
+        <behavior name="timestampable" />
+     </table>
+     <table name="user_data_collection" phpName="UserDataCollection">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="advert_id" type="integer"/>
+        <column name="data" type="varchar" size="500" />
+         <column name="device_mac" type="varchar" size="50" />
+        <column name="status" type="integer" default="0"/>
+        <behavior name="timestampable" />
+     </table>
+    <table name="ads_daily_counting" >
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="advert_id" type="integer"/>
+        <column name="ap_macaddr" type="varchar" size="50" />
+        <column name="view_count" type="integer"/>
+        <column name="click_count" type="integer"/>
+        <column name="date" type="varchar" size="50" />
+    </table>
+    <table name="ads_distribution" >
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="advert_id" type="integer"/>
+        <column name="current" type="integer" default="0"/>
+        <column name="ratio" type="FLOAT" default="1"/>
+        <column name="location" type="varchar"  size="1024" />
+        <column name="platform" type="varchar" size="500" />
+        <column name="platform_version" type="varchar" size="500" />
+        <column name="is_showing" type="integer" default="1"/>
+    </table>
+    <table name="bw_profile" >
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="title" type="varchar" size="50" />
+        <column name="username" type="varchar" size="50" />
+        <column name="password" type="varchar" size="50" />
+    </table>
+    <table name="ap_report" >
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="ap_macaddr" type="varchar" size="50" />
+        <column name="year" type="integer" default="0"/>
+        <column name="month" type="integer" default="0"/>
+        <column name="01" type="varchar" size="50" default="0"/>
+        <column name="02" type="varchar" size="50" default="0"/>
+        <column name="03" type="varchar" size="50" default="0"/>
+        <column name="04" type="varchar" size="50" default="0"/>
+        <column name="05" type="varchar" size="50" default="0"/>
+        <column name="06" type="varchar" size="50" default="0"/>
+        <column name="07" type="varchar" size="50" default="0"/>
+        <column name="08" type="varchar" size="50" default="0"/>
+        <column name="09" type="varchar" size="50" default="0"/>
+        <column name="10" type="varchar" size="50" default="0"/>
+        <column name="11" type="varchar" size="50" default="0"/>
+        <column name="12" type="varchar" size="50" default="0"/>
+        <column name="13" type="varchar" size="50" default="0"/>
+        <column name="14" type="varchar" size="50" default="0"/>
+        <column name="15" type="varchar" size="50" default="0"/>
+        <column name="16" type="varchar" size="50" default="0"/>
+        <column name="17" type="varchar" size="50" default="0"/>
+        <column name="18" type="varchar" size="50" default="0"/>
+        <column name="19" type="varchar" size="50" default="0"/>
+        <column name="20" type="varchar" size="50" default="0"/>
+        <column name="21" type="varchar" size="50" default="0"/>
+        <column name="22" type="varchar" size="50" default="0"/>
+        <column name="23" type="varchar" size="50" default="0"/>
+        <column name="24" type="varchar" size="50" default="0"/>
+        <column name="25" type="varchar" size="50" default="0"/>
+        <column name="26" type="varchar" size="50" default="0"/>
+        <column name="27" type="varchar" size="50" default="0"/>
+        <column name="28" type="varchar" size="50" default="0"/>
+        <column name="29" type="varchar" size="50" default="0"/>
+        <column name="30" type="varchar" size="50" default="0"/>
+        <column name="31" type="varchar" size="50" default="0"/>
+        <column name="01_click" type="varchar" size="50" default="0"/>
+        <column name="02_click" type="varchar" size="50" default="0"/>
+        <column name="03_click" type="varchar" size="50" default="0"/>
+        <column name="04_click" type="varchar" size="50" default="0"/>
+        <column name="05_click" type="varchar" size="50" default="0"/>
+        <column name="06_click" type="varchar" size="50" default="0"/>
+        <column name="07_click" type="varchar" size="50" default="0"/>
+        <column name="08_click" type="varchar" size="50" default="0"/>
+        <column name="09_click" type="varchar" size="50" default="0"/>
+        <column name="10_click" type="varchar" size="50" default="0"/>
+        <column name="11_click" type="varchar" size="50" default="0"/>
+        <column name="12_click" type="varchar" size="50" default="0"/>
+        <column name="13_click" type="varchar" size="50" default="0"/>
+        <column name="14_click" type="varchar" size="50" default="0"/>
+        <column name="15_click" type="varchar" size="50" default="0"/>
+        <column name="16_click" type="varchar" size="50" default="0"/>
+        <column name="17_click" type="varchar" size="50" default="0"/>
+        <column name="18_click" type="varchar" size="50" default="0"/>
+        <column name="19_click" type="varchar" size="50" default="0"/>
+        <column name="20_click" type="varchar" size="50" default="0"/>
+        <column name="21_click" type="varchar" size="50" default="0"/>
+        <column name="22_click" type="varchar" size="50" default="0"/>
+        <column name="23_click" type="varchar" size="50" default="0"/>
+        <column name="24_click" type="varchar" size="50" default="0"/>
+        <column name="25_click" type="varchar" size="50" default="0"/>
+        <column name="26_click" type="varchar" size="50" default="0"/>
+        <column name="27_click" type="varchar" size="50" default="0"/>
+        <column name="28_click" type="varchar" size="50" default="0"/>
+        <column name="29_click" type="varchar" size="50" default="0"/>
+        <column name="30_click" type="varchar" size="50" default="0"/>
+        <column name="31_click" type="varchar" size="50" default="0"/>
+    </table>
+</database>

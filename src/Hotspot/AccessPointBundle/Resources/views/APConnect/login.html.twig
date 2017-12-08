@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<!--[if IE 7]><html lang="en" class="ie7"><![endif]-->
+<!--[if IE 8]><html lang="en" class="ie8"><![endif]-->
+<!--[if IE 9]><html lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><html lang="en"><![endif]-->
+<!--[if !IE]><html lang="en"><![endif]-->
+  <head>    
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="MobileOptimized" content="width"/>
+    <meta name="HandheldFriendly" content="true"/>
+    
+    <link rel="shortcut icon" href="/favicon.ico"/>
+
+    <title>Welcome</title>
+
+    <meta name="robots" content="index, follow"/>
+	<meta name="description" content=""/>
+	<meta name="keywords" content=""/>	
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/bundles/hotspotaccesspoint/act/dist/css/bootstrap.min.css" type="text/css">  
+    <link rel="stylesheet" href="/bundles/hotspotaccesspoint/act/css/custom.css"/>
+    <link rel="stylesheet" href="/bundles/hotspotaccesspoint/act/css/responsive.css"/>	
+
+<!-- 
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'/> 
+-->
+<!-- 
+<script>
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43764134-3', 'auto');
+  ga('send', 'pageview');
+
+
+</script>
+-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="/bundles/hotspotaccesspoint/act/libs/html5shiv.js"></script>
+      <script type="text/javascript" src="/bundles/hotspotaccesspoint/act/libs/respond.min.js"></script>
+    <![endif]-->
+     <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/act/js/jquery.js"></script>	
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/act/dist/js/bootstrap.min.js"></script>	
+	<script type="text/javascript" src="/bundles/hotspotaccesspoint/act/js/jquery-migrate.min.js"></script>    
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/act/js/touchswipe.min.js"></script>
+	<script type="text/javascript" src="/bundles/hotspotaccesspoint/act/js/theme_script.js"></script>	
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/act/js/ie10-viewport-bug-workaround.js"></script>	
+	<script type="text/javascript" src="/bundles/hotspotaccesspoint/act/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/bundles/hotspotaccesspoint/act/js/bootstrap-transition.js"></script>	
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/act/js/jquery.easing.min.js"></script>	
+   
+      <script>
+          (function () {
+              if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
+                  var msViewportStyle = document.createElement("style");
+                  msViewportStyle.appendChild(document.createTextNode("@-ms-viewport{width:auto!important}"));
+                  document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+              }
+          })();
+      </script>	
+      <!-- 
+       <script src='/bundles/hotspotaccesspoint/js/hotspotlogin.js'></script>
+        -->
+      <script type="text/javascript">
+	function doTime() {
+		window.setTimeout( doTime(), 1000 );
+		t = new Date();
+		time = Math.round((t.getTime() - starttime.getTime())/1000);
+
+		if (mytimeleft) {
+			time = mytimeleft - time;
+
+		        if (time <= 0) {
+		          window.location = "{{params['loginpath']}}?res=popup3&uamip={{params['uamip']}}&uamport={{params['uamport']}}";
+		        }
+		}
+
+		if (time < 0) time = 0;
+
+		hours = (time - (time % 3600)) / 3600;
+		time = time - (hours * 3600);
+		mins = (time - (time % 60)) / 60;
+		secs = time - (mins * 60);
+		if (hours < 10) hours = 0 + hours;
+		if (mins < 10) mins = 0 + mins;
+		if (secs < 10) secs = 0 + secs;
+		title = "Online time:"  + hours + ":" + mins + ":" + secs;
+
+		if (mytimeleft) {
+			title = "Remaining time:"  + hours + ":" + mins + ":" + secs;
+		}
+
+		if (document.all || document.getElementById) {
+			document.title = title;
+		} else {
+			self.status = title;
+		}
+
+	}
+	function Login(value)
+	{
+		$('#advertId').val(value);
+		$( "#login_frm" ).submit();
+    }
+</script>
+<!-- 
+<script>
+      window.fbAsyncInit = function() {
+        FB.Event.subscribe(
+          'ad.loaded',
+          function(placementId) {
+            console.log('Audience Network ad loaded');
+          }
+        );
+        FB.Event.subscribe(
+          'ad.error',
+          function(errorCode, errorMessage, placementId) {
+            console.log('Audience Network error (' + errorCode + ') ' + errorMessage);
+          }
+        );
+      };
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk/xfbml.ad.js#xfbml=1&version=v2.5&appId=1206356572726483";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+-->    
+  </head>
+<!-- 
+  <body class="v2016 dark-bg" onLoad="javascript:doOnLoad({{params['result']}}, '{{params['loginpath']}}?res=popup2&uamip={{params['uamip']}}&uamport={{params['uamport']}}&userurl={{params['userurl']}}&redirurl={{params['redirurl']}}&timeleft={{params['timeleft']}}','{{params['userurldecode']}}', '{{params['redirurldecode']}}', '{{params['timeleft']}}')" onBlur = 'javascript:doOnBlur({{params['result']}})'>
+ -->
+ <body class="v2016 dark-bg" >
+    <section id="main-content" class="gray-bg clearfix">
+
+     <!-- Header Section -->
+        <header id="header1" class="clearfix">
+		    <!-- Top Nav -->
+		    <section id="topnav" class="clearfix">
+			    <div class="container">				    
+				    
+                    <div class="row">
+                        <div class="col-xs-4 hidden-sm2 hidden-xs3">
+                            <h4 class="phone-no"><small>Hỗ trợ kỹ thuật</small><span class="icon icon-wrench"></span>05113605133 </h4>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <div id="wiads-logo">      
+                            	{{ include('HotspotAccessPointBundle:Default:logo.html.twig') }}                  
+                                {#
+                                {% if params['apImage'] is empty %}
+                                	{% if params['apName'] is empty %}
+                                		{{ include('HotspotAccessPointBundle:Default:logo.html.twig') }}
+                                	{% else %}
+                                		<b><br/>{{ params['apName'] }}</b>
+                                	{% endif %}
+                                {% else %}
+                                	<img src="{{ params['apImage'] }}" alt="{{ params['apName'] }}">
+                                {% endif %}            
+                                #}       
+                            </div>
+                        </div>
+                        <div class="col-xs-4 text-right hidden-sm2 hidden-xs3">
+                            <h4 class="phone-no">
+                            
+                            <small>Liên hệ QC:</small>
+                                {% if params['apName'] is not empty %}
+                                {#	{{ include('HotspotAccessPointBundle:Default:logo_small.html.twig') }} #}
+                                {% endif %}
+                            <span class="icon icon-call"></span>0978227777
+                            </h4>
+                        </div>
+                    </div>
+			    </div>
+		    </section>
+		    <!-- /Top Nav -->
+        </header>
+	    <!-- /Header Section -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="alert alert-warning alert-dismissible box-shadow" role="alert">
+                    <!-- 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    -->
+                        <button type="button" onclick="javascript:Login('-1');" class="btn btn-success btn-md"><b>Click để Kết nối Internet</b></button>
+                         <br/><!-- hoặc chọn Banner mà bạn quan tâm.  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+	<form class="login-form" novalidate="novalidate" id='login_frm' name='login_frm' method='post' action='{{params['loginpath']}}'>
+		<input type='hidden' name='challenge' value='{{params['challenge']}}'>
+		<input type='hidden' name='uamip' value='{{params['uamip']}}'>
+		<input type='hidden' name='uamport' value='{{params['uamport']}}'>
+		<input type='hidden' name='userurl' value='{{params['userurl']|url_encode}}'>
+		<input type='hidden' id='advertId' name='advertId' value='-1'>
+		<input type='hidden' name='button' value='Free Internet'>
+	<!-- Module HomeSlider -->
+    <div id="homeCarousel" class="carousel slide" data-ride="carousel">
+		<!-- Indicators -->
+		<!-- 
+		<ol class="carousel-indicators">
+			<li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#homeCarousel" data-slide-to="1"></li> 
+			<li data-target="#homeCarousel" data-slide-to="2"></li>
+		</ol>
+		 -->
+		<div class="carousel-inner text-center">			
+			<!-- Slideshow 1 -->
+			<div class="item active">				
+				<div class="container">
+	                {#
+	                {% for adv in ads %}
+					<div class="ads-item"><a href="javascript:Login('{{ adv.Id }}');"><img class="img-responsive" src="{{ adv.get1stImage }}" alt="Ads here" /></a></div>
+					{% endfor %}
+					#}
+					<!-- 	
+					 <div class="ads-item" style="clear: both;width: 570px;">
+						<div class="fb-ad" data-placementid="1206356572726483_1282644068431066" data-format="320x50" data-testmode="false"></div>
+					</div>
+					-->
+					<div class="ads-item" style="clear: both;">
+							{% if params['apImage'] is empty %}
+								<div class="image">
+	      							<h2>
+	      							{% if params['apName'] is not empty %}
+	  									<span style="text-align: center;"<b>{{ params['apName'] }}</b></span>
+	                      			{% endif %}
+	      								</h2>
+								</div>
+		                    {% else %}
+		                        <img style="max-height: 150px;" src="{{ params['apImage'] }}" alt="{{ params['apName'] }}">
+		                    {% endif %}
+					</div>	
+				</div>
+			</div>
+		</div>
+        
+    </div>
+	<!-- /Module HomeSlider -->
+	</form>
+    </section>
+
+    <!-- Footer Section -->
+	<footer id="footer" class="clearfix">	
+		
+		<!-- Copyright Module -->
+		<section id="footer-copyright" class="clearfix">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10">						
+                        &copy; 2016 <strong>Công ty Cổ phần Công nghệ WiADS</strong>.<span class="hidden-xs"> Tất cả các quyền kinh doanh đã được đăng ký. </span><br/>84/4 đường 2 tháng 9, Phường Bình Hiên, Quận Hải Châu, Tp Đà nẵng. Tel: 05113.605.133 - Email: <b><span class="__cf_email__" >wiadsjsc@gmail.com</span></b> - Website: <a target="_blank" href="www.wiads.vn">www.wiads.vn</a>
+					</div>
+					<!-- 
+                    <div id="social-icons" class="col-md-2">
+                        <a target="_blank" href="#"><span class="icon icon-facebook"></span></a>
+                        <a target="_blank" href="#"><span class="icon icon-twitter"></span></a>
+                        <a target="_blank" href="#"><span class="icon icon-g-plus"></span></a>
+                        <a target="_blank" href="#"><span class="icon icon-youtube"></span></a>
+                    </div>
+                    -->
+				</div>
+			</div>
+		</section>
+		<!-- /Copyright Module -->
+		
+	</footer>
+	<!-- /Footer Section -->	
+	
+	<!-- Back Top -->
+	<a href="javascript:void(0)" title="Go Top" class="page_scrollup" style="display: inline;"><span class="glyphicon glyphicon-chevron-up"></span></a>
+	<!-- /Back Top -->
+	</body>	
+</html>

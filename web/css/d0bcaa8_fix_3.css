@@ -1,0 +1,666 @@
+#network_bt,#network_bt2{
+    text-align: left;
+    width:250px;
+}
+#network_bt.bootstrap-scope .btn-group .btn,#network_bt2.bootstrap-scope .btn-group .btn{
+    width:250px;
+}
+
+
+#network_btrogue_scan{
+    text-align: left;
+    width:250px;
+}
+#network_btrogue_scan.bootstrap-scope .btn-group .btn,#network_btrogue_scan.bootstrap-scope .btn-group .btn{
+    width:250px;
+}
+
+
+
+#network_btrogue_scan {
+    display: inherit;
+    margin-left: 175px;
+    margin-top: 0px;
+    position: absolute;
+    text-align: center;
+    width: 134px;
+}
+#network_btrogue_scan select {
+    background-color: transparent;
+    border: none;
+    color: #101010;
+    font-family: Arial;
+    font-size: 14px;
+    font-style: normal;
+    height: 18px;
+    margin-top: 6px;
+    width: 105px;
+}
+
+#network_btrogue_scan_switch{
+    text-align: left;
+    width:250px;
+}
+#network_btrogue_scan_switch.bootstrap-scope .btn-group .btn,#network_btrogue_scan_switch.bootstrap-scope .btn-group .btn{
+    width:250px;
+}
+
+
+
+#network_btrogue_scan_switch {
+    display: inherit;
+    margin-left: 0px;
+    margin-top: 0px;
+    position: absolute;
+    text-align: center;
+    width: 134px;
+}
+#network_btrogue_scan_switch select {
+    background-color: transparent;
+    border: none;
+    color: #101010;
+    font-family: Arial;
+    font-size: 14px;
+    font-style: normal;
+    height: 18px;
+    margin-top: 6px;
+    width: 105px;
+}
+
+.valuetd{
+    text-align: left;
+}
+.bootstrap-scope .dropdown-menu{
+    text-align: left;
+}
+.bootstrap-scope .dropdown-menu > li > a{
+    padding: 3px 10px !important;
+}
+.tzwidget table tr td.entitylabel{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    max-width: 120px;
+}
+.tzwidget table tr td.entitylabelXL{
+    max-width: 150px;
+}
+.tzwidget table tr td{
+    font-size:14px;
+}
+.tzwidget table tr th{
+    font-size:14px;
+    text-align: center;
+}
+.tzwidget .panel-heading {
+    padding: 5px 10px;
+}
+.tzwidget .alert{
+    padding:5px;
+}
+.tzwidget .panel{
+    margin-bottom: 5px;
+}
+.tzwidget .panel-body{
+    padding: 5px;
+}
+.tzwidget_summary .panel-heading{
+    font-weight: bold;
+}
+.tzwidget .panel-body{
+    position: relative;
+}
+.tzwidget .tzwidgetLoadingDiv,.tzwidget .tzwidgetErrorDiv{
+    display:none;
+    width:100%;
+    height:100%;
+    position:absolute;
+    z-index:20000;
+    opacity:1;
+    left:0px;
+    top:0px;
+}
+.tzwidget .tzwidgetLoadingDiv .tzwidgetLoadingDivBackgroundMask,.tzwidget .tzwidgetErrorDiv .tzwidgetErrorDivBackgroundMask{
+    width:100%;
+    height:100%;
+    background-color:white;
+    position:absolute;
+    top:0px;
+    right:0px;
+    opacity:0.8;
+}
+.tzwidget .tzwidgetLoadingDiv .tzwidgetLoadingContainer,.tzwidget .tzwidgetErrorDiv .tzwidgetErrorContainer{
+    position:absolute;
+    top:0px;
+    text-align: center;
+    z-index:20000;
+    font-weight:bolder;
+    color:orange;
+    font-size:20px;
+    width:100%;
+}
+.tzwidget .tzwidgetErrorDiv .tzwidgetErrorContainer{
+    color:red;
+}
+.tzwidget .tzwidgetLoadingDiv .tzwidgetLoadingContainer img, .tzwidget .tzwidgetErrorDiv .tzwidgetErrorContainer img {
+    text-align:center;
+    vertical-align:middle;
+}
+.tzwidget .tzwidget_summary_offline tbody td,.tzwidget .tzwidget_networkstatus_aps tbody td,.tzwidget .tzwidget_firmwareupdates_toupgrade tbody td{
+    cursor: pointer;
+}
+.tzwidget .tzwidgetLoadingGif{
+    display: none;
+    vertical-align: middle;
+    position:absolute;
+    top: 2px;
+    left: 10px;
+}
+.tzwidget { 
+    position: relative;
+}
+.tzwidget table tr td.entitylabel{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    max-width: 120px;
+}
+.tzwidget table tr td.entitylabelXL{
+    max-width: 150px;
+}
+.tzwidget table tr td{
+    font-size:14px;
+}
+.tzwidget table tr th{
+    font-size:14px;
+    text-align: center;
+}
+.tzwidget .panel-heading {
+    padding: 5px 10px;
+}
+.tzwidget .alert{
+    padding:5px;
+}
+.tzwidget .panel{
+    margin-bottom: 5px;
+}
+.tzwidget .panel-body{
+    padding: 5px;
+}
+.tzwidget_summary .panel-heading{
+    font-weight: bold;
+}
+.tzui-state-default, .tzui-widget-content .tzui-state-default, .tzui-widget-header .tzui-state-default {
+    background: none repeat-x scroll 50% 50% #FFFFFF;
+    background-color: #F3F3F3;
+    border: 1px solid #E1E2E2;
+}
+.tzui-state-active, .tzui-widget-content .tzui-state-active, .tzui-widget-header .tzui-state-active {
+    background: none repeat-x scroll 50% 50% #FFFFFF
+}
+.tzui-tabs-vertical .tzui-tabs-nav li.tzui-tabs-selected{
+    padding-right: 2px;
+}
+/**
+* User Toolbar
+**/
+.bootstrap-scope .popover{
+    max-width: 440px !important;
+    width: 440px !important;
+    max-height: 400px;
+}
+.bootstrap-scope .popover-content{
+    max-width: 440px !important;
+    width: 440px !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 350px;
+}
+
+.bootstrap-scope .accountinfo .btn-default {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.20);
+    color: rgba(255, 255, 255, 0.821);
+}
+.bootstrap-scope .accountinfo .dropdown-menu {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.bootstrap-scope .table-sm-text{
+    font-size: 13px;
+}
+.bootstrap-scope .navbar-inverse{
+    border-color:#323232 !important;
+   background-color:#323232 !important;
+}
+
+.bootstrap-scope .dropdown-menu > li > a:hover, .bootstrap-scope .dropdown-menu > li > a:focus{
+    background-color: darkorange !important;
+}
+.bootstrap-scope .dropdown-menu > li.accountinfoHeader > a:hover, .bootstrap-scope .dropdown-menu > li.accountinfoHeader > a:focus {
+    background-color: inherit !important;
+    color:#333333;
+    cursor: inherit;
+}
+/**
+Disabling responsiveness
+**/
+.bootstrap-scope .container{
+    max-width: none !important;
+    width: 980px;
+}
+.bootstrap-scope .table-condensed-iper thead > tr > th,
+.bootstrap-scope .table-condensed-iper tbody > tr > th,
+.bootstrap-scope .table-condensed-iper tfoot > tr > th,
+.bootstrap-scope .table-condensed-iper thead > tr > td,
+.bootstrap-scope .table-condensed-iper tbody > tr > td,
+.bootstrap-scope .table-condensed-iper tfoot > tr > td {
+    padding: 0px;
+    font-size: 12px;
+
+}
+.bootstrap-scope .table-left-align thead > tr > th,
+.bootstrap-scope .table-left-align tbody > tr > th,
+.bootstrap-scope .table-left-align tfoot > tr > th,
+.bootstrap-scope .table-left-align thead > tr > td,
+.bootstrap-scope .table-left-align tbody > tr > td,
+.bootstrap-scope .table-left-align tfoot > tr > td {
+    text-align: left;
+}
+.bootstrap-scope .text-color{
+    color:#333333;
+}
+.bootstrap-scope .text-color-inverse{
+    color:white;
+}
+.bootstrap-scope .caret-white{
+    border-color: rgba(255,255,255,0.7) transparent -moz-use-text-color;
+}
+.emailTooLong{
+    font-size: 11px !important;
+}
+
+.bootstrap-scope .tanaza_lang_tabs li a{
+    padding: 5px 5px !important;
+}
+
+.bootstrap-scope .tanaza_lang_tabs .nav-tabs > li{
+    margin-bottom: -5px;
+}
+
+.bootstrap-scope .tanaza_lang_content div{
+    background-color: white;
+}
+.bootstrap-scope .tanaza_lang_tabs{
+    border-bottom: none;
+}
+.bootstrap-scope .tanaza_lang_tabs_content {
+    padding: 3px;
+}
+
+#abuse_control_ssid_container .slider.slider-horizontal,
+#max_sta_container .slider.slider-horizontal{
+    width: 400px !important;
+}
+
+#abuse_control_client_container .slider.slider-horizontal,
+#max_sta_container .slider.slider-horizontal{
+    width: 400px !important;
+}
+
+
+#abuse_control_ssid_value{
+    color: #FFA500;
+}
+#abuse_control_client_value{
+    color: #FFA500;
+}
+
+#dataTables-blackList th{
+    background-color: white;
+    color: black;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#dataTables-blackList td{
+    padding-left: 3px;
+    padding-right: 3px;
+    
+}
+
+#dataTables-dashboard th{
+    background-color: white;
+    color: black;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#dataTables-dashboard td{
+    padding-left: 3px;
+    padding-right: 3px;
+    
+}
+
+.connection_chart{
+    width: 95%;
+    margin-left: 30px;
+    font-family: Arial;
+    font-size: 12px;                    
+}
+.connection_chart .hday, .connection_chart .day{
+    float:left;
+    width:95px;
+    height:40px;
+    color:white;
+    font-size: 11px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    position: relative;
+}
+.connection_chart .hday{
+    height:30px;
+    line-height: 30px;
+    color:black;
+}
+.connection_chart .day{
+    cursor: pointer;
+}
+.connection_chart .day.selectedDay{
+    border: 1px solid black !important;
+}
+.connection_chart .day.nd{
+    line-height: 40px;
+    background-color:#DCDCDC;
+    color:gray;
+    border:1px solid white;      
+    font-weight: bold;
+}
+.connection_chart .day.withAlerts{
+    line-height: 18px;
+    background-color: #FF9999;
+    border:1px solid white;
+    font-weight: bold;
+    
+}
+.connection_chart .day.noAlerts{
+    line-height: 40px;
+    background-color: #DFF0D8;
+    color:#3C763D;
+    border:1px solid white;      
+    font-weight: bold;
+}
+.connection_chart .alert_lower10 , .connection_chart .alert_lower10 .alertText{
+    background-color: #FCF8E3 !important;
+    color: #8A6D3B;
+}
+.connection_chart .alert_lower30, .connection_chart .alert_lower30 .alertText{
+    background-color: #FCF8E3 !important;
+    color: #8A6D3B !important;
+}
+.connection_chart .alert_lower50, .connection_chart .alert_lower50 .alertText{
+    background-color: #F2DEDE !important;
+    color: #A94442 !important;
+}
+.connection_chart .alert_lower70, .connection_chart .alert_lower70 .alertText{
+    background-color: #F2DEDE !important;
+    color: #A94442 !important;
+}
+.connection_chart .alert_lower90, .connection_chart .alert_lower90 .alertText{
+    background-color: #D9534F !important;
+    color: black !important;
+}
+.connection_chart .alert_high, .connection_chart .alert_high .alertText{
+    background-color: #D9534F !important;
+    color: black !important;
+}
+.connection_chart .alertText{
+    font-size: 14px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+.timeline-label {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.coloredDiv {
+  height:20px; width:20px; float:left;
+}
+
+
+.bootstrap-scope .btn-cancel {
+  color: black;
+  background-color: lightgray;
+  border-color: gray;
+}
+.bootstrap-scope .btn-cancel:hover,
+.bootstrap-scope .btn-cancel:focus,
+.bootstrap-scope .btn-cancel:active,
+.bootstrap-scope .btn-cancel.active,
+.open .dropdown-toggle.bootstrap-scope .btn-cancel {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+.bootstrap-scope .btn-cancel:active,
+.bootstrap-scope .btn-cancel.active,
+.open .dropdown-toggle.bootstrap-scope .btn-cancel {
+  background-image: none;
+}
+.bootstrap-scope .btn-cancel.disabled,
+.bootstrap-scope .btn-cancel[disabled],
+fieldset[disabled] .bootstrap-scope .btn-cancel,
+.bootstrap-scope .btn-cancel.disabled:hover,
+.bootstrap-scope .btn-cancel[disabled]:hover,
+fieldset[disabled] .bootstrap-scope .btn-cancel:hover,
+.bootstrap-scope .btn-cancel.disabled:focus,
+.bootstrap-scope .btn-cancel[disabled]:focus,
+fieldset[disabled] .bootstrap-scope .btn-cancel:focus,
+.bootstrap-scope .btn-cancel.disabled:active,
+.bootstrap-scope .btn-cancel[disabled]:active,
+fieldset[disabled] .bootstrap-scope .btn-cancel:active,
+.bootstrap-scope .btn-cancel.disabled.active,
+.bootstrap-scope .btn-cancel[disabled].active,
+fieldset[disabled] .bootstrap-scope .btn-cancel.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+
+.ap_content{
+    border-left: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    margin-top: 0px;
+    border-top: none;
+}
+.bootstrap-scope .nav > li > a{
+    padding: 10px 12px;
+}
+/*
+.tzui-state-default, .tzui-widget-content .tzui-state-default, .tzui-widget-header .tzui-state-default{
+    background: none;
+    border: none;
+}
+.tzui-state-active{
+    border: 1px solid lightgray !important;    
+}
+.tzui-tabs-vertical .tzui-tabs-nav li {
+        border-bottom-width: 1px !important;
+}*/
+
+.fbpostCotainer,.fbBorderImage{
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+            transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+#zcatalog {
+    color:#666666;
+}
+#zcatalog .pricetier_right{
+    text-align: left;
+    padding-left:10px;
+    width: 50%;
+}
+#zcatalog .pricetier_left{
+    text-align: right;
+    padding-right:10px;
+    width: 50%;
+}
+#zcatalog .pricetier{
+    margin-bottom: 10px;
+}
+#zcatalog .pricing .title-row{
+    border-radius: 5px 5px 0 0;
+}
+
+.btn-tanaza-orange {
+  color: white !important;
+  background-color: #ee7f00;
+  border-color: #ee7f00;
+}
+ .btn-tanaza-orange:hover,
+ .btn-tanaza-orange:focus,
+ .btn-tanaza-orange:active,
+ .btn-tanaza-orange.active,
+.open .dropdown-toggle .btn-tanaza-orange {
+  color: #ffffff;
+  background-color: #ee7f00;
+  border-color: #ee7f00;
+}
+ .btn-tanaza-orange:active,
+ .btn-tanaza-orange.active,
+.open .dropdown-toggle .btn-tanaza-orange {
+  background-image: none;
+}
+ .btn-tanaza-orange.disabled,
+ .btn-tanaza-orange[disabled],
+fieldset[disabled]  .btn-tanaza-orange,
+ .btn-tanaza-orange.disabled:hover,
+ .btn-tanaza-orange[disabled]:hover,
+fieldset[disabled]  .btn-tanaza-orange:hover,
+ .btn-tanaza-orange.disabled:focus,
+ .btn-tanaza-orange[disabled]:focus,
+fieldset[disabled]  .btn-tanaza-orange:focus,
+ .btn-tanaza-orange.disabled:active,
+ .btn-tanaza-orange[disabled]:active,
+fieldset[disabled]  .btn-tanaza-orange:active,
+ .btn-tanaza-orange.disabled.active,
+ .btn-tanaza-orange[disabled].active,
+fieldset[disabled]  .btn-tanaza-orange.active {
+  background-color: #ee7f00;
+  border-color: #ee7f00;
+}
+
+.text-bold{
+    font-weight: bold;
+}
+
+
+.multiSelectSku li{
+    width: 100%;
+    clear: both;
+}
+
+.bootstrap-scope .carousel-control .icon-prev, .bootstrap-scope .carousel-control .icon-next, .bootstrap-scope .carousel-control .glyphicon-chevron-left, .bootstrap-scope .carousel-control .glyphicon-chevron-right{
+    top:20% !important;
+}
+
+.newEventHighlight {
+    -webkit-animation: fresh 3s ease forwards;
+    -moz-animation: fresh 3s ease forwards;
+    animation: fresh 3s ease forwards;
+}
+
+
+@-webkit-keyframes fresh {
+    from { background: orange; }
+    to { background: white; }
+}
+
+@keyframes fresh {
+    from { background: orange; }
+    to { background: white; }
+}
+
+#dataTables-acl .acl_email{
+    width:270px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+#dataTables-acl .acl_label{
+    width:180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+#dataTables-acl .acl_permissions{
+    width:180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+#dataTables-acl .acl_actions{
+    width:70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+.select2-results{
+    z-index: 10001;
+}
+.select2-drop-active{
+    z-index: 10001;
+}
+
+#rogue_scan_table tr, #rogue_scan_table td, #rogue_scan_table th{
+    text-align: left
+}
+.table-rogue .th-nr,.table-rogue .td-nrspan{
+    width:30px;
+}
+.table-rogue .th-bssid,.table-rogue .td-bssid span{
+    width:115px;
+}
+.table-rogue .th-ssid,.table-rogue .td-ssid span{
+    width:200px;
+}
+.table-rogue .th-signal,.table-rogue .td-signal span{
+    width:50px;
+}
+.table-rogue .th-channel,.table-rogue .td-channel span{
+    width:80px;
+}
+.table-rogue .th-beacons,.table-rogue .td-beacons span{
+    width:70px;
+}
+.table-rogue .th-oui,.table-rogue .td-oui span{
+    width:150px;
+}
+.table-rogue .td-bssid span,
+.table-rogue .td-ssid span,
+.table-rogue .td-signal span,
+.table-rogue .td-channel span,
+.table-rogue .td-beacons span,
+.table-rogue .td-oui span{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+    display:block;
+}

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href='/bundles/advertiser/assets/css/wifi_promotion.css' />
+    <script src="/bundles/advertiser/assets/js/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+<div class="container" style="background: #8b8c8e">
+    <div class="box">
+        <div class="su_box">
+            <div class="logo">
+                <img src="/bundles/advertiser/assets/img/logo_wiads.png">
+            </div>
+            <div class="banner">
+                <a href="#">
+                    <img src="/bundles/advertiser/assets/img/banner_promotion.jpg" alt="Banner">
+                </a>
+            </div>
+            <div class="description">
+                <p id="result"></p>
+            </div>
+            <div class="button">
+                <a href="javascript:void(0);" id="promotion">Nhận mã khuyến mãi</a>
+            </div>
+
+        </div>
+    </div>
+    <footer>
+        <div class="footer_screen">
+            <p>Cảm ơn bạn đã sử dụng dịch vụ WiAds</p>
+            <a href="#">www.wiads.vn</a>
+        </div>
+    </footer>
+</div>
+<script type="text/javascript" charset="utf-8" async defer>
+    $(document).ready(function() {
+        $('#promotion').click(function () {
+            $.ajax({
+                type : 'POST',
+                url : "{{ path('advertiser_getpromotion') }}",
+                dataType : 'json',
+                data: {
+                    customer: "{{ customer }}"
+                },
+                success : function(data){
+                    if(data.status == 1){
+                        $('#result').html(data.code);
+                    }else{
+                        $('#result').html("Mã không tồn tại");
+                    }
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {}
+            });
+        });
+    });
+</script>
+</body>
+</html>

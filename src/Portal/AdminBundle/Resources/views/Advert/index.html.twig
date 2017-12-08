@@ -1,0 +1,371 @@
+{% extends 'PortalAdminBundle::layout.html.twig' %}
+{% block head %}
+    {{ parent() }}
+<script>
+    	$(function () {
+    		$('#lang').change(function () {
+          	 	Page(1);
+       		});
+       		$('#customer').change(function () {
+           		Page(1);
+        		});
+       		$('#page_size').change(function () {
+           		Page(1);
+       		});
+       		$('#cmd-new').click(function () {
+    	    	window.location.href = $(this).attr('href') + '/?lang='+ $('#lang').val();
+    	    	return false;
+    	    });
+       		$('#cmd-del').click(function () {
+       	        if ($('.cb-element:checked').length == 0) {
+       	        	$('#dialog-form').dialog({
+    	   	            buttons : {
+       	            	"{{'OK'|trans }}" : function() {
+       	          	   		$(this).dialog("close");
+       	             	}
+       	            	}
+       	          	});
+	       	        $('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>{{ 'Please choose item(s) to delete'|trans }}<div>");
+	       	     	var opt = {
+     	    			'title' : "{{ 'Advertising management'|trans }}"
+     	    			};
+    	            $('#dialog-form').dialog(opt);
+	       	        $("#dialog-form").dialog("open");
+       	        }
+       	        else {
+       	            var strIDs = "";
+       	            $('.cb-element:checked').each(function () {
+       	                strIDs += (strIDs != "") ? "," : "";
+       	                strIDs += $(this).val();
+       	            });
+
+       	         	$('#dialog-form').dialog({
+ 	   	            	buttons : {
+	 	   	             "{{ 'Confirm'|trans }}" : function() {
+		 	   	            	$('#action_id').val(strIDs);
+		 	       	            $('#action').val('delete');
+		 	       	         	$("#SubmitSearch").click();
+	    	             	 },
+	    	            	"{{'Cancel'|trans }}" : function() {
+	    	          	   		$(this).dialog("close");
+	    	             	}
+	    	            }
+	    	          	});
+	       	        $('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>{{ 'Are you sure?'|trans }}<div>");
+	       	     var opt = {
+	     	    			'title' : "{{ 'Advertising management'|trans }}"
+	     	    			};
+	    	            $('#dialog-form').dialog(opt);
+	       	        $("#dialog-form").dialog("open");
+       	            
+       	        }
+       	        return false;
+
+       	    });
+       		$('body').on('change', '.checkAll',function () {
+                $('.cb-element').prop('checked', $('.checkAll').is(':checked') ?  true : false);
+            });
+            $('body').on('change','.cb-element', function () {
+                $('.cb-element').length == $('.cb-element:checked').length ? $('.checkAll').prop('checked', true) : $('.checkAll').prop('checked', false);
+            });
+    	});
+    	function Page(page) {
+    	    $("#currentPage").val(page);
+    	    
+    	    window.location.href = '/auth/advert/' + $('#lang').val()+'/'+$('#customer').val()+'/'+$('#currentPage').val()+'/'+$('#page_size').val();
+	    	return false;
+    	    //$("#frm_sectionList").submit();
+    	}
+    	function setPublish(object, lang, id, isPublish)
+    	{
+			object.innerHTML= 'saving';
+        	
+    		var request = $.ajax({
+    		  url: "/auth/advert/publish/"+lang+"/"+id+"/"+isPublish,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json"
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+	        		if (isPublish)
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+        			var opt={
+        					"title":"{{ "Publish Advert"|trans }}"
+        					};
+        	        $('#dialog-form').dialog(opt);
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (isPublish)
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		}
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+    			var opt={
+    					"title":"{{ "Publish Advert"|trans }}"
+    					};
+    	        $('#dialog-form').dialog(opt);
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+    		});
+  			
+        }
+    	function togglePublish(object, lang, id)
+    	{
+			object.innerHTML= 'saving';
+    		var request = $.ajax({
+    		  url: "/auth/advert/togglepublish/"+lang+"/"+id,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json",
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+        			if (data.message == true)
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+        			var opt={
+        					"title":"{{ "Publish advert"|trans }}"
+        					};
+        	        $('#dialog-form').dialog(opt);
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (data.message == true)
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		};
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + jqXHR.responseText +"<div>");
+    			var opt={
+    					"title":"{{ "Publish advert"|trans }}"
+    					};
+    	        $('#dialog-form').dialog(opt);
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+    		});
+  			
+        }
+    </script>
+{% endblock %}    
+{% block content %}
+            <div id="p-toolbox" class="p-box">
+                <div class="p-box-bottom">
+                <div class="p-box-top clearfix">  
+                	<div id="dialog-form" name="dialog-form" title=""></div>                  
+                    <ul id="p-commands">
+                    	<li><a id = "cmd-new" href="/auth/advert/add"> {{"Add"|trans}}</a></li>
+                		<li><a id = "cmd-del" href="/auth/advert/del"> {{"Delete"|trans}}</a></li>
+                		<li><a id = "cmd-close" href="/auth"> {{"Close"|trans}}</a></li>
+                        
+                    </ul>
+                    <div class="p-module-title">
+                    	<a id="menu-showhide" href="/auth">{{ "Main Menu"|trans }}</a><h1>{{ "Manage advertising"|trans }}</h1></h1>
+                    </div>
+                </div><!-- enddiv: #p-box-top -->
+                </div><!-- enddiv: #p-box-bottom -->
+            </div><!-- enddiv: #p-toolbox -->
+
+            <div id="Div1" class="p-box p-box-space">
+                <div class="p-box-bottom">
+                <div class="p-box-top clearfix">
+                    <div id="p-options">
+                    
+                    <form method="post" name='frm_advertList' action="">
+						<input type="hidden" name='action' id='action' value='{{ action|default('') }}'>
+						<input type="hidden" name='action_id' id='action_id' value=''>
+                        <ul>
+                        	<li>{{ "Language"|trans }}:
+								<select id="lang" name="lang">
+								{% for l in langs %}
+									<option value="{{l.code}}" {% if l.code == lang %}selected="selected" {% endif %} >{{l.title}}</option>
+								{% endfor %}
+								</select>
+							</li>
+                            <li>{{ "Customer"|trans }}
+                                <select id="customer">
+                                    <option value="-1">---------- {{ "All"|trans }} ------------</option>
+                                    {% for customer in customers %}
+									<option value="{{customer.id}}" {% if customer.id == currentCustomer|default(-1) %}selected="selected" {% endif %}>{{customer.name}}</option>
+									{% endfor %}
+                                </select>
+                            </li>
+                            <li>{{ "Page Size"|trans }}:
+					        	<select id="page_size" name="page_size">
+									<option value="20" {% if page_size == 20 %}selected="selected" {% endif %}>20</option>
+									<option value="30" {% if page_size == 30 %}selected="selected" {% endif %}>30</option>
+									<option value="40" {% if page_size == 40 %}selected="selected" {% endif %}>40</option>
+									<option value="50" {% if page_size == 50 %}selected="selected" {% endif %}>50</option>
+									<option value="100" {% if page_size == 100 %}selected="selected" {% endif %}>100</option>
+								</select>
+								<input id="currentPage" name="currentPage"  type="hidden" value="{{ page }}"/> 
+                            </li>
+                            
+                        </ul>
+                        <input id="SubmitSearch" type="submit" value="search" style="display:none"/>
+                    </form>
+                    
+                    </div><!-- enddiv: #p-options -->
+                    <div id="p-search" style="display: none;">
+                    <form method="post" name='frm_advertSearch' action="">
+                    <ul>
+                        	<li style="clear:left">{{ "Keywords"|trans }}
+                                <input id="keyword" type="text" />&nbsp;
+                            </li>
+                            <li>{{ "Status"|trans }}
+                            	<select id="publish" name="publish">
+                            		<option>---------- {{ "All"|trans }} ------------</option>
+									<option value="1" {% if publish|default("") == 1 %}selected="selected" {% endif %}>{{ "Published"|trans }}</option>
+									<option value="0" {% if publish|default("") == 0 %}selected="selected" {% endif %}>{{ "Unpublished"|trans }}</option>
+								</select>
+                            </li>
+                            <li>
+                            	{{ "Created At"|trans }}
+                            	<select id="created_at_operator" name="created_at_operator">
+                            		<option>None</option>
+									<option value=">" {% if createdAt|default("") == ">" %}selected="selected" {% endif %}>{{ "Greater than"|trans }}</option>
+									<option value=">=" {% if createdAt|default("") == ">=" %}selected="selected" {% endif %}>{{ "Greater than or Equal"|trans }}</option>
+									<option value="<" {% if createdAt|default("") == "<" %}selected="selected" {% endif %}>{{ "Less than"|trans }}</option>
+									<option value="<=" {% if createdAt|default("") == "<=" %}selected="selected" {% endif %}>{{ "Less than or Equal"|trans }}</option>
+								</select>
+								<input id="created_at_value" type="text" />
+                            </li>
+                            <li>
+                            	{{ "Published At"|trans }}
+                            	<select id="published_at_operator" name="published_at_operator">
+                            		<option>None</option>
+									<option value=">" {% if publishedAt|default("") == ">" %}selected="selected" {% endif %}>{{ "Greater than"|trans }}</option>
+									<option value=">=" {% if publishedAt|default("") == ">=" %}selected="selected" {% endif %}>{{ "Greater than or Equal"|trans }}</option>
+									<option value="<" {% if publishedAt|default("") == "<" %}selected="selected" {% endif %}>{{ "Less than"|trans }}</option>
+									<option value="<=" {% if publishedAt|default("") == "<=" %}selected="selected" {% endif %}>{{ "Less than or Equal"|trans }}</option>
+								</select>
+								<input id="published_at_value" type="text" />
+                            </li>
+                            <li>
+                            	<input id="search" type="button" value="{{ "Search"|trans }}" />
+                            </li>
+                        </ul>
+                        </form>
+                    </div>
+                    {% if responses != null %}
+		            	<ul>
+		            	{% for response in responses %}
+		            		<li> {{ response }}</li>
+		            	{% endfor %}
+		            	</ul>
+		           	{% endif %}
+                    <table class="p-grid" id="grid_section">
+               			<tr>
+               				<th> <input id="checkAll" type="checkbox" class="checkAll"/></th>
+                            <th>{{ "ID"|trans }}</th>
+                            <th>{{ "Title"|trans }}</th>
+                            <th>{{ "Customer"|trans }}</th>
+                            <th>{{ "Published At"|trans }}</th>
+               				<th>{{ "Expired At"|trans }}</th>
+               				<th>{{ "Home position"|trans }}</th>
+               				<th>{{ "Section position"|trans }}</th>
+               				<th>{{ "Publish"|trans }}</th>
+                            <th>{{  "Read"|trans}}</th>
+                        </tr>
+                        {% for advert in advertPager %}
+                        <tr>
+                            <td><input id="check_{{ advert.id }}" type="checkbox" value="{{ advert.id }}" class="cb-element"/></td>
+                            <td>{{ advert.id }}</td>
+                            
+                            <td style="text-align:left !important;">
+                            	<a href="/auth/advert/detail/{{ advert.id }}/{{ advert.locale }}">{{ advert.title|default("No Title"|trans) }}</a>
+                            </td>
+                            <td>{{ advert.getCustomer.name }}</td>
+                            <td>{{ advert.publishedAt|date("d/m/Y") }}</td>
+                            <td>{{ advert.expiredAt|date("d/m/Y")  }}</td>
+                            <td>{{advert.viewAtHomepage==1?advert.homePosition:""}}</td>
+                            <td>{{ advert.viewAtSection==1?advert.sectionPosition:""}}</td>
+                            <td>
+                            	{% if is_granted('ROLE_ADS_APPROVE') %}
+	                            	{% if not advert.locked %}
+	               					<a onclick="togglePublish(this,'{{ lang }}',{{ advert.id }}); return false;"><img src="/assets/portalauth/images/enable.gif"/> </a>
+		               				{% else %}
+		               				<a onclick="togglePublish(this,'{{ lang }}',{{ advert.id }}); return false;"><img src="/assets/portalauth/images/disable.gif"/> </a>
+		               				{% endif %}
+	               				{% else %}
+	               					{% if not advert.locked %}
+	               					<img src="/assets/portalauth/images/enable.gif"/>
+		               				{% else %}
+		               				<img src="/assets/portalauth/images/disable.gif"/>
+		               				{% endif %}
+		               			{% endif %}
+                            </td>
+                            <td>{{ advert.read }}</td>
+                        </tr>
+	               		{% endfor %}
+                    </table>
+					 <ul class="p-paging">
+						{% if advertPager.haveToPaginate %}
+	                       <ul>
+							 <li><a href="javascript:void(0)" onclick="Page(1)">&laquo;	</a></li>
+							  
+							  <li class="previous"><a href="javascript:void(0)" onclick="javascript:Page({{ advertPager.getPreviousPage}})" >&lsaquo;</a></li>
+							  
+							   {% for page in advertPager.getLinks %}
+							  	 {% set p=page%}
+							  	 	{% if page == advertPager.getPage %}
+							  	 		<li class="active"><a href="javascript:void(0)">{{ p }}</a></li>
+							  	 	{% else %}
+							  	 		<li><a href="javascript:void(0)" onclick="javascript:Page({{ page }})" >{{ page }}</a></li>
+							  	 	{% endif %}
+							  {% endfor %}
+							  <li class="next" ><a href="javascript:void(0)" onclick="javascript:Page({{ advertPager.getNextPage}})" >&rsaquo;</a></li>
+							  
+							  <li class="last"><a href="javascript:void(0)" onclick="javascript:Page({{ advertPager.getLastPage}})">&raquo;</a></li>
+						 </ul>     
+					    {% endif %}       
+                     </ul><!-- enddiv: #p-paging -->    
+
+                </div><!-- enddiv: #p-box-top -->
+                </div><!-- enddiv: #p-box-bottom -->
+            </div><!-- enddiv: #p-toolbox -->
+
+{% endblock %}	

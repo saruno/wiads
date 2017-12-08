@@ -1,0 +1,115 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+                <a href="{{ path('advertiser_accesspoint_list') }}" class="">Access point</a> 
+                <a href="{{ path('advertiser_accesspoint_add') }}" class="current">Thêm mới</a> 
+            </div>
+            
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    {{ form_start(form, {'attr': {'method': 'post', 'action': '','onsubmit':'return frmSub()' ,'enctype': 'multipart/form-data','class': 'form-horizontal'} }) }}
+                        <input type="hidden" name="submit" value="1" >
+                        <div class="widget-box">
+                            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                              <h5>Nhập thông tin access point</h5>
+                            </div>
+                            <div class="widget-content nopadding">
+                                {% if app.session.flashBag.has('success') %}
+                                    <div class="alert alert-success alert-block"> 
+                                        <a class="close" data-dismiss="alert" href="#">×</a>
+                                        {% for msg in app.session.flashBag.get('success') %}
+                                            {{ msg }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if app.session.flashBag.has('error') %}
+                                    <div class="alert alert-block"> 
+                                        <a class="close" data-dismiss="alert" href="#">×</a>
+                                        {% for msg in app.session.flashBag.get('error') %}
+                                            {{ msg }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="control-group">
+                                    <label class="control-label">Macaddr: (*)</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.macaddr, { 'attr': {'class': 'span11 uppercase', 'placeholder':'90-F6-52-21-57-B6'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Tên Wifi: (*)</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.ssid, { 'attr': {'class': 'span11', 'placeholder':'Tên Wifi'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Mật khẩu Wifi:</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.key, { 'attr': {'class': 'span11', 'placeholder':'Mật khẩu wifi'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">NCC (ISP):</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.isp, { 'attr': {'class': 'span11', 'placeholder':'Nhà cung cấp dịch vụ Intenet'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Khu vực:</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.province, { 'attr': {'class': 'span11'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Hình ảnh quán:</label>
+                                    <div class="controls">
+                                        <div class="uploader" id="uniform-undefined">
+                                            <div class="uploader" id="uniform-undefined">
+                                                <input type="file" name="image" id="image" size="19" style="opacity: 0;">
+                                                <span class="filename">No file selected</span>
+                                                <span class="action">Choose File</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Tên quán: (*)</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.name, { 'attr': {'class': 'span11', 'placeholder':'Tên quán'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Địa chỉ: (*)</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.address, { 'attr': {'class': 'span11', 'placeholder':'Lưu ý chỉ nhập tên đường. Ví dụ: 9A Nguyễn Huệ'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Website:</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.detail_url, { 'attr': {'class': 'span11', 'placeholder':'Website'} }) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <a onclick="goBack();" class="btn btn-danger">Huỷ</a>
+                                    <button type="submit" class="btn btn-success" id="submit">Lưu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#accesspoint_macaddr').mask('00-00-00-00-00-00',{'translation': {0: {pattern: /[A-Za-z0-9]/}}});
+        });
+    </script>
+{% endblock %}

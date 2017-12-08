@@ -1,0 +1,40 @@
+{% extends 'WifiBundle::Layout/user_register.html.twig' %}
+
+{% block content %}
+	<div class="signuponepage main content clearfix">
+		
+		<h1>{{ 'register.title'|trans }}</h1>
+		<div class="clearfix" >
+			<div class="sign-up" style="margin:0 auto;clear:both;float:initial">
+				<div class="signup-box" style="padding: 30px;">
+					<h2>{{ 'button.forgot'|trans }}</h2>
+					{% if error['captcha'] is defined and error['captcha'] is not null %}
+						<p style="text-align: center;color: red;">{{ error['captcha'] }}</p>
+					{% endif %}
+					{% if param['success'] is defined %}
+						<p style="text-align: center;color: green;">{{ param['success'] }}</p>
+					{% endif %}
+					<form class="createaccount-form" id="createaccount" action=""  method="post">
+						<input type="hidden" name="submit" value="1" />
+						<div class="form-element email-address" id="gmail-address-form-element">
+							<label id="gmail-address-label"> 
+								<strong> {{ 'form.email'|trans }} </strong>
+								<input type="text" maxlength="30"  autocomplete="off" name="email" required id="Email" value="{{ param['email'] is defined ? param['email'] : '' }}">
+							</label>
+							<span role="alert" class="errormsg" id="errormsg_0_Email">{{ error['email'] is defined ? error['email'] : '' }}</span>
+						</div>
+						<div class="g-recaptcha" data-sitekey="6LcPyhkUAAAAAKiMdw0cFgk7hoiuDcQQm05DYdzq" style="margin-bottom: 20px;"></div>					
+						<div class="form-element nextstep-button">
+							<input id="submitbutton" name="submitbutton" type="submit" value="{{ 'button.confirm'|trans }}" data-callback='onSubmit' class="g-button g-button-submit" style="width:100%">
+						</div>
+					</form>
+				</div>
+				<div class="box-register" style="text-align:center;margin-top:20px;">
+					<p>{{ 'form.have_account'|trans }}</p>
+					<p><a href="{{ path('wifi_register') }}" style="text-transform: uppercase;">{{ 'form.sign_now'|trans }}</a></p>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+{% endblock %}

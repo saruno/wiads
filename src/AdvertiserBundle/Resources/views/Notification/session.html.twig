@@ -1,0 +1,33 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> 
+                <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    {% if app.session.flashBag.has('success') %}
+                        <div class="alert alert-success alert-block"> 
+                            <a class="close" data-dismiss="alert" href="#">×</a>
+                            {% for msg in app.session.flashBag.get('success') %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if app.session.flashBag.has('error') %}
+                        <div class="alert alert-error alert-block"> 
+                            <a class="close" data-dismiss="alert" href="#">×</a>
+                            {% for msg in app.session.flashBag.get('error') %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

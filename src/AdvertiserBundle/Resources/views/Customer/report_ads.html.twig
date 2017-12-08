@@ -1,0 +1,112 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> 
+                <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+                <a href="{{ path('advertiser_customer_report_ads') }}" class="current">Báo cáo quảng cáo</a> 
+            </div>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>Chọn thời gian tra cứu</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            {% if app.session.flashBag.has('success') %}
+                                <div class="alert alert-success alert-block"> 
+                                    <a class="close" data-dismiss="alert" href="#">×</a>
+                                    {% for msg in app.session.flashBag.get('success') %}
+                                        {{ msg }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if app.session.flashBag.has('error') %}
+                                <div class="alert alert-block"> 
+                                    <a class="close" data-dismiss="alert" href="#">×</a>
+                                    {% for msg in app.session.flashBag.get('error') %}
+                                        {{ msg }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <form class="form-horizontal" method="post" action="">
+                                <input type="hidden" value="1" name="submit" >
+                                
+                                <div class="control-group">
+                                    <label class="control-label">Từ ngày</label>
+                                    <div class="controls">
+                                        <input type="text" name="date_from" value="{{ date_from }}"  class="span4 datepicker" data-date="" data-date-format="dd-mm-yyyy" />
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">Đến ngày</label>
+                                    <div class="controls">
+                                        <input type="text" name="date_to" value="{{ date_to }}" class="span4 datepicker" data-date="" data-date-format="dd-mm-yyyy" />
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-success">Xem</button>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="widget-title" align="right"> 
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if submit is defined and submit == 1 %}
+                <div class="row-fluid">
+                    <div class="span12">
+                        {% if result is defined and result|length > 0 %}
+                            <div class="widget-box">
+                                <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                                    <h5>Dữ liệu</h5>
+                                </div>
+                                <div class="widget-content nopadding">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Quảng cáo</th>
+                                                <th>Link</th>
+                                                <th>Impression</th>
+                                                <th>Click</th>
+                                                <th>Conversion (%)</th>
+                                                <th>Ngày</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% set stt = 0 %}
+                                            {% for key,row in result %}
+                                                {% set stt = stt + 1 %}
+                                                <tr class="odd {{ key%2 == 0 ? 'odd gradeX' : 'even gradeC' }}">
+                                                    <td>{{ stt }}</td>
+                                                    <td>{{ row['title'] }}</td>
+                                                    <td><a href="{{ row['link_to'] }}" target="_blank">{{ row['link_to'] }}</a></td>
+                                                    <td class="center">{{ row['impression'] }}</td>
+                                                    <td class="center">{{ row['click'] }}</td>
+                                                    <th>{{(row['click']*100/row['impression']) |round(1, 'floor') }}%</th>
+                                                    <th>{{ row['date']|date("d/m/Y") }}</th>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        {% else %}
+                            <p>Không có dữ liệu</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div> 
+{% endblock %}

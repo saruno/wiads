@@ -1,0 +1,29 @@
+{% extends 'AppBundle::Template/index.html.twig' %}
+{% block container %}
+<div id="mainExt">
+    <div id="main">
+        <div id="regcontent" style="width: 100%;">
+            <div class="">
+                <div style="width: 95%; margin-left: 14px">
+                    <table cellspacing="5px" class="table_content registrationTable">
+                        <tr>
+                            <td class="leftColumnRegistration">
+                                {% image '@AppBundle/Resources/public/images/wifimarketinghome.jpg' %}
+                                    <img src="{{ asset_url }}" /></br> </br>
+                                {% endimage %}
+                                <a href="http://wiads.vn" target="_blank">Visit Wiads.vn for more information</a></td>
+                            <td class="rightColumnRegistration">
+                                {% block content %}
+
+                                {% endblock %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="cleared"></div>
+</div>
+{% endblock %}

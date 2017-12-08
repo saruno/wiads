@@ -1,0 +1,8 @@
+<select id="advert_type" name="advert_type">
+	<option value="1" {% if advert_type|default(2) == 1 %}selected="selected" {% endif %}>{{ "Text" |trans }}</option>
+	<option value="2" {% if advert_type|default(2) == 2 %}selected="selected" {% endif %}>{{ "Image" | trans}} </option>
+<!-- 
+	<option value="3" {% if advert_type|default(2) == 3 %}selected="selected" {% endif %}>{{ "Video" |trans}} </option>
+	<option value="4" {% if advert_type|default(2) == 4 %}selected="selected" {% endif %}>{{ "Flash" | trans }}</option>
+ -->
+</select>

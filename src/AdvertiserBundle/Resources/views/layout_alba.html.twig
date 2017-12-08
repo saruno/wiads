@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Alba - Bootstrap 4 Admin Template">
+    <meta name="author" content="Łukasz Holeczek">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,jQuery,CSS,HTML,RWD,Dashboard">
+    <link rel="shortcut icon" href="{{ asset('/bundles/advertiser/alba/img/favicon.png') }}">
+
+    <title>WiAds</title>
+
+    <!-- Icons -->
+    <link href="{{ asset('/bundles/advertiser/alba/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/bundles/advertiser/alba/css/simple-line-icons.css') }}" rel="stylesheet">
+
+    <!-- Premium Icons -->
+    <link href="{{ asset('/bundles/advertiser/alba/css/glyphicons.css') }}" rel="stylesheet">
+    <link href="{{ asset('/bundles/advertiser/alba/css/glyphicons-filetypes.css') }}" rel="stylesheet">
+    <link href="{{ asset('/bundles/advertiser/alba/css/glyphicons-social.css') }}" rel="stylesheet">
+
+    <!-- Main styles for this application -->
+    <link href="{{ asset('/bundles/advertiser/alba/css/style.css') }}" rel="stylesheet">
+    <script src="{{ asset('/bundles/advertiser/alba/js/libs/jquery.min.js') }}"></script>
+
+    <!-- Datatable -->
+    <script src="/bundles/advertiser/matrix/datatables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/advertiser/gentelella/js/datatables/js/jquery.dataTables.js') }}"></script>
+
+</head>
+
+<!-- BODY options, add following classes to body to change options
+
+// Header options
+1. '.header-fixed'                  - Fixed Header
+
+// Sidebar options
+1. '.sidebar-fixed'                 - Fixed Sidebar
+2. '.sidebar-hidden'                - Hidden Sidebar
+3. '.sidebar-off-canvas'        - Off Canvas Sidebar
+4. '.sidebar-compact'               - Compact Sidebar Navigation (Only icons)
+
+// Aside options
+1. '.aside-menu-fixed'          - Fixed Aside Menu
+2. '.aside-menu-hidden'         - Hidden Aside Menu
+3. '.aside-menu-off-canvas' - Off Canvas Aside Menu
+
+// Footer options
+1. 'footer-fixed'                       - Fixed footer
+
+-->
+
+<body class="app header-fixed aside-menu-fixed aside-menu-hidden">
+    <header class="app-header navbar">
+        <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
+        <a class="navbar-brand" href="#"></a>
+        <ul class="nav navbar-nav hidden-md-down">
+            <li class="nav-item">
+                <a class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item dropdown hidden-md-down">
+                <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{ asset('/bundles/advertiser/alba/img/avatars/default-avatar.png') }}" class="img-avatar" alt="">
+                    <span class="hidden-md-down">{{ app.user.name is defined ? app.user.name : '' }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header text-center">
+                        <strong>Account</strong>
+                    </div>
+                    <a class="dropdown-item" href="{{ path('advertiser_security_logout') }}"><i class="fa fa-lock"></i> Logout</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"></a>
+            </li>
+        </ul>
+    </header>
+
+    <div class="app-body">
+        <div class="sidebar">
+
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-title">
+                        Dashboard
+                    </li>
+                    {% if is_granted('ROLE_OPERATOR_LEVEl_01') or is_granted('ROLE_OPERATOR_LEVEl_02') or is_granted('ROLE_OPERATOR_LEVEl_03') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('advertiser_dashboard') }}"><i class="icon-speedometer"></i> Dashboard</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="divider"></li>
+                    <li class="nav-title">
+                        Danh mục
+                    </li>
+
+                    {% if is_granted('ROLE_OPERATOR_LEVEl_01') or is_granted('ROLE_OPERATOR_LEVEl_02') or is_granted('ROLE_OPERATOR_LEVEl_03') %}
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle {{ ''|active_menu(['advertiser_user_list'], 'open') }}" href="#"><i class="icon-user"></i> Tài khoản</a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ ''|active_menu(['advertiser_user_list'], 'active') }}" href="{{ path('advertiser_user_list') }}"><i class="icon-arrow-right-circle"></i> Danh sách</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ ''|active_menu(['advertiser_user_add'], 'active') }}" href="{{ path('advertiser_user_add') }}"><i class="icon-arrow-right-circle"></i> Thêm mới</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link" href=""><i class="icon-note"></i> Report</a>
+                    </li>
+
+                    <li class="divider"></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main content -->
+        <main class="main" style="overflow:scroll">
+            <!-- Breadcrumb -->
+            {% block breadcrumb %} {% endblock %}
+            <!-- /.conainer-fluid -->
+           
+
+            <div class="container-fluid">
+                {% block content %}{% endblock %}
+            </div>
+            <!-- /.conainer-fluid -->
+
+        </main>
+
+    </div>
+
+    <footer class="app-footer">
+        <a href="http://wiads.vn" target="_blank">WiAds</a> © 2017 creativeLabs.
+        <span class="float-right">
+            Powered by <a href="http://wiads.vn" target="_blank">GenesisUI</a>
+        </span>
+    </footer>
+
+    <!-- Bootstrap and necessary plugins -->
+    <script src="{{ asset('/bundles/advertiser/alba/js/libs/tether.min.js') }}"></script>
+    <script src="{{ asset('/bundles/advertiser/alba/js/libs/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('/bundles/advertiser/alba/js/libs/pace.min.js') }}"></script>
+
+
+    <!-- Plugins and scripts required by all views -->
+    <script src="{{ asset('/bundles/advertiser/alba/js/libs/Chart.min.js') }}"></script>
+
+
+    <!-- GenesisUI main scripts -->
+
+    <script src="{{ asset('/bundles/advertiser/alba/js/app.js') }}"></script>
+
+</body>
+
+</html>

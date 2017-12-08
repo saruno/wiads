@@ -1,0 +1,72 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> 
+            	<a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+            	<a href="{{ path('advertiser_permision_group_list') }}" class="current">Nhóm</a> 
+            </div>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                	<a href="{{ path('advertiser_permision_group_add') }}" class="btn btn-success" >Thêm mới</a>
+                  	<div class="widget-box">
+
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>Danh sách nhóm</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            {% if app.session.flashBag.has('success') %}
+                                <div class="alert alert-success alert-block"> 
+                                    <a class="close" data-dismiss="alert" href="#">×</a>
+                                    {% for msg in app.session.flashBag.get('success') %}
+                                        {{ msg }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if app.session.flashBag.has('error') %}
+                                <div class="alert alert-block"> 
+                                    <a class="close" data-dismiss="alert" href="#">×</a>
+                                    {% for msg in app.session.flashBag.get('error') %}
+                                        {{ msg }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <table  class="table table-bordered table-striped" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tên</th>
+                                        <th>Mô tả</th>
+                                        <th>Loại</th>
+                                        <th>Tùy chọn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for key,value in list %}
+                                        <tr>
+                                            <td>{{ value.id }}</td>
+                                            <td>{{ value.name }}</td>
+                                            <td>{{ value.description }}</td>
+                                            <td>{{ value.type }}</td>
+                                            <td>
+                                                <a href="{{ path('advertiser_permision_group_edit')~'/'~value.id }}"><i style="font-size:20px" class="icon-edit"></i></a>
+                                                <a href="{{ path('advertiser_permision_group_role')~'/'~ value.id }}" style="margin-left:10px"><i style="font-size:20px" class="icon-plus-sign"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="widget-title" align="right"> 
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+{% endblock %}

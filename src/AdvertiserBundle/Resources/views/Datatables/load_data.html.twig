@@ -1,0 +1,101 @@
+<script>
+    $(document).ready(function() {
+
+        var table = $('#table_data').DataTable({
+            "processing": true,
+
+            dom: 'lBfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            serverSide: true,
+            pagingType: "full_numbers",
+            ajax: {
+                url: "{{ post_url }}",
+                method: 'POST'
+            },
+            order: [[ 1, "desc" ]],
+            aoColumns: [
+                {{json_data|raw}}
+            ],
+            fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                for (var i in aData)  {
+                    custom_check($('td:eq(0) input', nRow));
+
+                    //is check
+                    $($('td:eq(0) input', nRow)).on('ifChecked', function(event){
+                        $(this).parent().parent().parent().addClass('selected');
+                    });
+
+                    //not check
+                    $($('td:eq(0) input', nRow)).on('ifUnchecked', function(event){
+                        $(this).parent().parent().parent().removeClass('selected');
+                    });
+                }
+            },
+            language: {
+                'lengthMenu'    : 'Hiển thị _MENU_ dòng trên một một',
+                'zeroRecords'   : 'Không tìm thấy gì - xin lỗi',
+                'info'          : 'Hiện trang _PAGE_ trên _PAGES_',
+                'infoEmpty'     : 'Không có dữ liệu sẵn',
+                'infoFiltered'  : '(lọc từ _MAX_ dòng)',
+                'search'        : 'Tìm kiếm:',
+                "processing"    : "Đang xử lý...",
+                'paginate': {
+                        'first' : 'Đầu',
+                        'last'  : 'Cuối',
+                        'next'  : 'Tiếp',
+                        'previous':'Trước'
+                }
+            }
+
+        });
+        custom_check($('input.flat'));
+        
+        //check all
+        $('input#check-all').on('ifChecked', function(event){
+            $('#table_data').find('tr').each(function (i, el) {
+                $(this).addClass('selected');
+                $(this).find('td').find('div').addClass('checked');
+            });
+            
+            if(this.checked){
+                var status = this.checked;
+                $(".flat").each( function() {
+                    $(this).prop("checked",status);
+                });
+            } 
+        });
+
+        //not check all
+        $('input#check-all').on('ifUnchecked', function(event){
+            $('#table_data').find('tr').each(function (i, el) {
+                $(this).removeClass('selected');
+                $(this).find('td').find('div').removeClass('checked');
+            });
+            $(".flat").each( function() {
+                $(this).prop("checked",false);
+            });
+        });
+
+        // Tìm theo column
+        $('.search-input-text').on( 'keyup', function () {   // for text boxes
+            var i =$(this).attr('data-column');  // getting column index
+            var v =$(this).val();  // getting search input value
+            table.columns(i).search(v).draw();
+        });
+        $('.search-input-select').on( 'change', function () {   // for select box
+            var i =$(this).attr('data-column');
+            var v =$(this).val();
+            table.columns(i).search(v).draw();
+        });
+    });
+
+    function custom_check(_obj){
+        _obj.iCheck({
+            checkboxClass : 'icheckbox_flat-green',
+            radioClass : 'iradio_flat-green',
+        });
+        
+    }
+</script>

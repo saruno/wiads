@@ -1,0 +1,591 @@
+{% extends 'PortalAdminBundle::layout.html.twig' %}
+{% block head %}
+   {{ parent() }}
+	<script>
+    	$(function () {
+    		$('#lang').change(function () {
+          	 	Page(1);
+       		});
+       		$('#section').change(function () {
+           		Page(1);
+        		});
+       		$('#page_size').change(function () {
+           		Page(1);
+       		});
+       		$('#btSearch').click(function () {
+       			Page(1);
+       		});
+       		$('#cmd-new').click(function () {
+    	    	window.location.href = $(this).attr('href') + '/'+ $('#lang').val()+'/'+$('#section').val();
+    	    	return false;
+    	    });
+       		$('#cmd-del').click(function () {
+       	        if ($('.cb-element:checked').length == 0) {
+       	            $('#dialog-form').html("<div style='text-align:center;padding-top:30px'><h3>{{ 'Choose News' |trans }}</h3><div>");
+       	         var opt={ "title": "{{ "Delete News"|trans }}"};
+    	            $('#dialog-form').dialog(opt);
+       	            $('#dialog-form').dialog("open");
+       	        }
+       	        else {
+       	            var strIDs = "";
+       	            $('.cb-element:checked').each(function () {
+       	                strIDs += (strIDs != "") ? "," : "";
+       	                strIDs += $(this).val();
+       	            });
+
+       	            $('#action_id').val(strIDs);
+       	            $('#action').val('delete');
+       	         	$("#SubmitSearch").click();
+       	        }
+       	        return false;
+
+       	    });
+       		$('#status').change(function () {
+   				Page(1);
+    		});
+       		$('body').on('change', '.checkAll',function () {
+	            $('.cb-element').prop('checked', $('.checkAll').is(':checked') ?  true : false);
+	        });
+	        $('body').on('change','.cb-element', function () {
+	            $('.cb-element').length == $('.cb-element:checked').length ? $('.checkAll').prop('checked', true) : $('.checkAll').prop('checked', false);
+	        });
+       		 
+    	});
+    	function Page(page) {
+    	    $("#currentPage").val(page);
+    	    
+    	    window.location.href = '/auth/news_approve/' + $('#lang').val()+'/'+$('#section').val()+'/'+$('#currentPage').val()+'/'+$('#page_size').val()+'?status='+$('#status').val()+'&txtSearch='+encodeURIComponent($('#txtSearch').val());
+	    	return false;
+    	    //$("#frm_sectionList").submit();
+    	}
+    	function setPublish(object, lang, id, isPublish)
+    	{
+			object.innerHTML= 'saving';
+        	
+    		var request = $.ajax({
+    		  url: "/auth/news/publish/"+lang+"/"+id+"/"+isPublish,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json"
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+	        		if (isPublish)
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+       	            $('#dialog-form').dialog("option", "title", "{{ "Publish News"|trans }}");
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (isPublish)
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		};
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+    			var opt={ "title": "{{ "Publish News"|trans }}"};
+   	            $('#dialog-form').dialog(opt);
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+    		});
+  			
+        }
+    	function togglePublish(object, lang, id)
+    	{
+			object.innerHTML= 'saving';
+        	
+    		var request = $.ajax({
+    		  url: "/auth/news/togglepublish/"+lang+"/"+id,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json",
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+        			if (data.message == false)
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+        			var opt={ "title": "{{ "Publish News"|trans }}"};
+       	            $('#dialog-form').dialog(opt);
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (data.message == true)
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		};
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+    			var opt={ "title": "{{ "Publish News"|trans }}"};
+   	            $('#dialog-form').dialog(opt);
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+    		});
+  			
+        }
+    	function setHeadline(object, id, isHeadline)
+    	{
+			object.innerHTML= 'saving';
+        	
+    		var request = $.ajax({
+    		  url: "/auth/news/headline/"+id+"/"+isHeadline,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json",
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+	        		if (isHeadline)
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+        			var opt={ "title": "{{ "Headline News"|trans }}"};
+       	            $('#dialog-form').dialog(opt);
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (isHeadline)
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		};
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+   	            var opt={ "title": "{{ "Headline News"|trans }}"};
+       	            $('#dialog-form').dialog(opt);
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+    		});
+  			
+        }
+    	function toggleHeadline(object,lang,id)
+    	{
+			object.innerHTML= 'saving';
+        	
+    		var request = $.ajax({
+    		  url: "/auth/news/toggleheadline/"+lang+"/"+id,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json",
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+        			if (data.message == true)
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+       	            var opt={ "title": "{{ "Headline News"|trans }}"};
+       	            $('#dialog-form').dialog(opt);
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (data.message == true)
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		};
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+   	            var opt={ "title": "{{ "Headline News"|trans }}"};
+       	            $('#dialog-form').dialog(opt);
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+    		});
+  			
+        }
+    	function setComment(object, id, isComment)
+    	{
+			object.innerHTML= 'saving';
+        	
+    		var request = $.ajax({
+    		  url: "/auth/news/comment/"+id+"/"+isComment,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json",
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+	        		if (isComment)
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+       	            var opt={ "title": "{{ "Headline News"|trans }}"};
+       	            $('#dialog-form').dialog(opt);
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (isComment)
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		};
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+   	            var opt={ "title": "{{ "Headline News"|trans }}"};
+       	            $('#dialog-form').dialog(opt);
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+    		});
+  			
+        }
+    	function toggleComment(object, lang, id)
+    	{
+			object.innerHTML= 'saving';
+        	
+    		var request = $.ajax({
+    		  url: "/auth/news/togglecomment/"+lang+"/"+id,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json",
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+        			if (data.message == true)
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+       	            var opt={ "title": "{{ "Headline News"|trans }}"};
+       	            $('#dialog-form').dialog(opt);
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (data.message == true)
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+        		};
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+   	            var opt={ "title": "{{ "Headline News"|trans }}"};
+       	            $('#dialog-form').dialog(opt);
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+    		});
+  			
+        }
+    </script>
+{% endblock %}    
+{% block content %}
+            <div id="p-toolbox" class="p-box">
+                <div class="p-box-bottom">
+                <div class="p-box-top clearfix">                    
+                    <ul id="p-commands">
+                		<li><a id = "cmd-del" href="/auth/news/del"> {{"Delete"|trans}}</a></li>
+                		<!-- 
+                		<li><a id="cmd-info" href="/auth/news/preview">{{"Preview"|trans}}</a></li>
+                		 -->
+                		<li><a id = "cmd-close" href="/auth"> {{"Close"|trans}}</a></li>
+                        
+                    </ul>
+                    <div class="p-module-title">
+                    	<a id="menu-showhide" href="/auth">{{ "Main Menu"|trans }}</a><h1>{{ "News Approve"|trans }}</h1></h1>
+                    </div>
+                </div><!-- enddiv: #p-box-top -->
+                </div><!-- enddiv: #p-box-bottom -->
+            </div><!-- enddiv: #p-toolbox -->
+
+            <div id="Div1" class="p-box p-box-space">
+                <div class="p-box-bottom">
+                <div class="p-box-top clearfix">
+	                 <ul class="error">
+	            		{% for error in errors %}
+	            		<li> {{ error }}</li>
+	            		{% endfor %}
+	            	</ul>
+                    <div id="p-options">
+                    
+                    <form method="post" name='frm_newsList' action="">
+						<input type="hidden" name='action' id='action' value='{{ action|default('') }}'>
+						<input type="hidden" name='action_id' id='action_id' value=''>
+                        <ul>
+                        	<li>{{ "Language"|trans }}:
+								<select id="lang" name="lang">
+								{% for l in langs %}
+									<option value="{{l.code}}" {% if l.code == lang %}selected="selected" {% endif %} >{{l.title}}</option>
+								{% endfor %}
+								</select>
+							</li>
+                            <li>{{ "Section"|trans }}
+                                <select id="section">
+                                    <option value="-1">---------- {{ "All"|trans }} ------------</option>
+                                    {% for section in sections %}
+									<option value="{{section.id}}" {% if section.id == currentSection|default(-1) %}selected="selected" {% endif %}>{% for i in 1..section.deep-1 if section.deep != 1 %}&nbsp;&nbsp;{% endfor %}{{section.title}}</option>
+									{% endfor %}
+                                </select>
+                            </li>
+                            <li>{{ "Page Size"|trans }}:
+					        	<select id="page_size" name="page_size">
+									<option value="20" {% if page_size == 20 %}selected="selected" {% endif %}>20</option>
+									<option value="30" {% if page_size == 30 %}selected="selected" {% endif %}>30</option>
+									<option value="40" {% if page_size == 40 %}selected="selected" {% endif %}>40</option>
+									<option value="50" {% if page_size == 50 %}selected="selected" {% endif %}>50</option>
+									<option value="100" {% if page_size == 100 %}selected="selected" {% endif %}>100</option>
+								</select>
+								<input id="currentPage" name="currentPage"  type="hidden" value="{{ page }}"/> 
+                            </li>
+                            <li>
+                            {{ "Status" |trans }}
+                            <select id="status" name="status">
+	                            <option value="" {{ ((status|default(""))=="")?"selected='selected'":"" }}>{{ "All" | trans}}</option>
+	                            <option value="submit"  {{ ( (status|default(""))=="submit")?"selected='selected'":"" }}>{{ "Waiting approved" | trans}}</option>
+	                            <option value="approved"  {{(  (status|default(""))=="approved")?"selected='selected'":"" }}>{{ "Approved" | trans}}</option>
+	                            <!-- 
+	                            <option value="draft"  {{ ( (status|default(""))=="draft")?"selected='selected'":"" }}>{{ "Draft" | trans}}</option>
+	                             -->
+	                            <option value="back"  {{ ( (status|default(""))=="back")?"selected='selected'":"" }}>{{ "Sent back" | trans}}</option>
+                            </select>
+                            </li>
+                        </ul>
+                        <br/>
+                        <ul>
+                        <li style="list-style: none;"><input type="text" size="50" id="txtSearch" name="txtSearch" value="{{ txtSearch | default('') }}"/>
+                        <input id="btSearch" name="btSearch" type="button" value="{{ 'Search' |trans }}" /></li>
+                        </ul>
+                        <input id="SubmitSearch" type="submit" value="search" style="display:none"/>
+                    </form>
+                    
+                    </div><!-- enddiv: #p-options -->
+                    <div id="p-search" style="display: none;">
+                    <form method="post" name='frm_newsSearch' action="">
+                    <ul>
+                        	<li style="clear:left">{{ "Keywords"|trans }}
+                                <input id="keyword" type="text" />&nbsp;
+                            </li>
+                            <li>{{ "Status"|trans }}
+                            	<select id="publish" name="publish">
+                            		<option>---------- {{ "All"|trans }} ------------</option>
+									<option value="1" {% if publish|default("") == 1 %}selected="selected" {% endif %}>{{ "Published"|trans }}</option>
+									<option value="0" {% if publish|default("") == 0 %}selected="selected" {% endif %}>{{ "Unpublished"|trans }}</option>
+								</select>
+                            </li>
+                            <li>
+                            	{{ "Created At"|trans }}
+                            	<select id="created_at_operator" name="created_at_operator">
+                            		<option>None</option>
+									<option value=">" {% if createdAt|default("") == ">" %}selected="selected" {% endif %}>{{ "Greater than"|trans }}</option>
+									<option value=">=" {% if createdAt|default("") == ">=" %}selected="selected" {% endif %}>{{ "Greater than or Equal"|trans }}</option>
+									<option value="<" {% if createdAt|default("") == "<" %}selected="selected" {% endif %}>{{ "Less than"|trans }}</option>
+									<option value="<=" {% if createdAt|default("") == "<=" %}selected="selected" {% endif %}>{{ "Less than or Equal"|trans }}</option>
+								</select>
+								<input id="created_at_value" type="text" />
+                            </li>
+                            <li>
+                            	{{ "Published At"|trans }}
+                            	<select id="published_at_operator" name="published_at_operator">
+                            		<option>None</option>
+									<option value=">" {% if createdAt|default("") == ">" %}selected="selected" {% endif %}>{{ "Greater than"|trans }}</option>
+									<option value=">=" {% if createdAt|default("") == ">=" %}selected="selected" {% endif %}>{{ "Greater than or Equal"|trans }}</option>
+									<option value="<" {% if createdAt|default("") == "<" %}selected="selected" {% endif %}>{{ "Less than"|trans }}</option>
+									<option value="<=" {% if createdAt|default("") == "<=" %}selected="selected" {% endif %}>{{ "Less than or Equal"|trans }}</option>
+								</select>
+								<input id="published_at_value" type="text" />
+                            </li>
+                            <li>
+                            	<input id="search" type="button" value="{{ "Search"|trans }}" />
+                            </li>
+                        </ul>
+                        </form>
+                    </div>
+                    <table class="p-grid" id="grid_section">
+               			<tr>
+               				<th> <input id="checkAll" type="checkbox" class="checkAll"/></th>
+                            <th>{{ "Order"|trans }}</th>
+                            <th>{{ "Title"|trans }}</th>
+                            <th>{{ "Section"|trans }}</th>
+                            <th>{{ "Published At"|trans }}</th>
+               				<th>{{ "Publish"|trans }}</th>
+                            <th>{{  "Head line"|trans}}</th>
+                            <th>{{  "Comment"|trans}}</th>
+                            <th>{{  "Read"|trans}}</th>
+                            <th>{{  "Status"|trans}}</th>
+                            <th>{{  "Editor"|trans}}</th>
+                            <th>{{  "Preview"|trans}}</th>
+                        </tr>
+                        {% set i = 0 %}
+                        {% for news in listNews %}
+                        {% set i = i + 1 %}
+                        <tr>
+                            <td><input id="check_{{ news.id }}" type="checkbox" value="{{ news.id }}" class="cb-element"/></td>
+                            <td>{{ i }}</td>
+                            <td style="text-align:left !important;">
+                            	<a href="/auth/news/detail/{{ news.id }}/{{ news.locale }}?back=approve">{{ news.title|default("No Title"|trans) }}</a>
+                            </td>
+                            <td>{{news.getSectionName}} {#{{ news.updatedAt|date("d/m/Y H:i")  }} #}</td>
+                            <td>{{ news.publishedAt|date("d/m/Y H:i") }}</td>
+                            <td>
+                            	{% if not news.locked %}
+               					<a onclick="togglePublish(this,'{{ lang }}',{{ news.id }}); return false;"><img src="/assets/portalauth/images/enable.gif"> </img> </a>
+	               				{% else %}
+	               				<a onclick="togglePublish(this,'{{ lang }}',{{ news.id }}); return false;"><img src="/assets/portalauth/images/disable.gif"> </img> </a>
+	               				{% endif %}
+                            </td>
+                            <td>
+                            	{% if news.frontPage %}
+               					<a onclick="toggleHeadline(this,'{{ lang }}',{{ news.id }}); return false;"><img src="/assets/portalauth/images/enable.gif"> </img> </a>
+	               				{% else %}
+	               				<a onclick="toggleHeadline(this,'{{ lang }}',{{ news.id }}); return false;"><img src="/assets/portalauth/images/disable.gif"> </img> </a>
+	               				{% endif %}
+                            </td>
+                            <td>
+                            	{% if news.hasComment %}
+               					<a onclick="toggleComment(this,'{{ lang }}',{{ news.id }}); return false;"><img src="/assets/portalauth/images/enable.gif"> </img> </a>
+	               				{% else %}
+	               				<a onclick="toggleComment(this,'{{ lang }}',{{ news.id }}); return false;"><img src="/assets/portalauth/images/disable.gif"> </img> </a>
+	               				{% endif %}
+                            </td>
+                            
+                            <td>{{ news.read }}</td>
+                            <td>{{ (news.draft ==true?"draft":news.status) |trans}}</td>
+                            <td>{{ news.postBy }}</td>
+                            <td><a href="{{ currentSection==-1?global_auth_path~"/news_preview"~news.link:global_auth_path~"/news_preview/"~lang~"/"~currentSection~"/"~news.id~"/pr/"~news.stripTitle~"/"}}" target="_blank"><img src="/assets/portalauth/images/view.png" /></a></td>
+                        </tr>
+	               		{% endfor %}
+                    </table>
+					 <ul class="p-paging">
+                       {% if paginator.currentpage != 1 %}
+					       <li> <a class="previous" href="javascript:Page({{paginator.currentpage-1}})">Previous</a>
+					   {% endif %}
+					   {% for i in 1..paginator.numpages%}
+					
+						   {% if paginator.range.0 > 2 and i == paginator.range.0 %}
+						         ...
+						   {% endif %}
+						
+						
+						     {%  if(i==1 or i==paginator.numpages or i in paginator.range) %}
+						
+						       {% if i==paginator.currentpage %}
+						       <li><a class="active" href="javascript:Page({{ i }})">{{i}}</a></li>
+						       {% else %}
+						       <li><a href="javascript:Page({{ i  }})"> {{i}}</a></li>
+						       {% endif %}
+						     {% endif %}
+						
+						    {% if paginator.range[paginator.midrange -1] < paginator.numpages -1 and i == paginator.range[paginator.midrange-1] %}
+						         ...
+						    {% endif %}
+					
+					   {% endfor %}
+					
+						{% if paginator.currentpage +1 <= paginator.numpages %}
+					       <li> <a class="next" href="javascript:Page({{ paginator.currentpage+ 1  }})">Next</a>
+					    {% endif %}       
+                     </ul><!-- enddiv: #p-paging -->    
+
+                </div><!-- enddiv: #p-box-top -->
+                </div><!-- enddiv: #p-box-bottom -->
+            </div><!-- enddiv: #p-toolbox -->
+
+{% endblock %}	

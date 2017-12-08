@@ -1,0 +1,83 @@
+{% extends 'AdvertiserBundle::layout.html.twig' %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="">
+                <div class="x_panel" style="height:600px;">
+                    <div class="x_title">
+                        <h2>Thông tin quảng cáo</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                            <input type="hidden" name="submit" value="1">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Tên chiến dịch: <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" class="form-control" required name="campagin" value=""  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Tên quảng cáo: <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" class="form-control" required name="title" value=""  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Khách hàng:</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="customer" class="select2_single form-control">
+                                        {% for k,v in params['customer'] %}
+                                            <option value="{{ k }}" {{ record.customerid == k ? 'selected' : '' }} >{{ v }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Trạng thái:</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="locked" class="select2_single form-control">
+                                        <option value="0">Mở</option>
+                                        <option value="1">Đóng</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày bắt đầu:</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" class="form-control published_at has-feedback-left" name="published_at" value="{{ params['published'] }}" required  />
+                                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày kết thúc:</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" class="form-control published_at has-feedback-left" name="expired_at" value="{{ params['expired'] }}" required  />
+                                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Vị trí quảng cáo:</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="home_position" class="select2_single form-control">
+                                        {% for k,v in list_position %}
+                                            <option value="{{ k }}" {{ params['home_position'] == k ? 'selected' : '' }} >{{ v }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <button type="submit" class="btn btn-success">Xác nhận</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+  <title>Report</title>
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="MobileOptimized" content="width"/>
+
+    <meta name="HandheldFriendly" content="true"/>
+	<meta content="" name="description">
+<meta content="" name="author">
+<script type="text/javascript" src="/bundles/hotspotaccesspoint/act/js/jquery-1.11.1.min.js"></script>
+
+<body>
+<form action="/ap/report" method="post">
+<b>Cập nhật thông tin thiết bị: </b><span style="color: blue;"> {{saveStatus}}</span><br/>
+MAC:<input type="text" id="macaddr" name="macaddr" value=""><input type="button" value="Kiểm tra MAC" name='verifyMac' id='verifyMac'/>
+<br/>
+Tên Quán:<input type="text" id="name" name="name" value="">
+<br/>
+<input type="checkbox" name="usewifipass" id="usewifipass" value='1'>Sử dụng mật khẩu:<input type="text" id="wifipass" name="wifipass" value="">
+<br/>
+<input type="checkbox" name="activated" id="activated" value='1' checked="checked">Đang hoạt động (Nếu muốn kích hoạt thì đánh dấu trước khi lưu)
+<br/>
+Địa chỉ:<input type="text" id="address" name="address" value="">
+</br>
+Tỉnh:
+<select id="province" name="province">
+	<option value="TTHUE">{{ "TT Huế"|trans }}</option>
+	<option value="DANANG">{{ "Đà Nẵng"|trans }}</option>
+	<option value="HANOI">{{ "Hà Nội"|trans }}</option>
+</select>
+Chọn Công ty:
+<select id="company" name="company">
+    {% for owner in owners %}
+	<option value="{{ owner['company'] }}">{{ owner['company'] }}</option>
+	{% endfor %}
+</select>
+<br/>
+<input type="submit" value="Lưu dữ liệu">
+<hr/>
+<script>
+function verifyMacAddr()
+{	
+	$('#name').val('');
+	$('#wifipass').val('');
+	$('#address').val('');
+	
+	var request = $.ajax({
+	  url: "/ap/report/verify_mac?mac="+$('#macaddr').val(),
+	  cache: false,
+	  dataType: "json",
+	});
+
+	request.success(function(ap, status, jqXHR) {
+		//var ap = $.parseJSON(returndata);
+		$('#name').val(ap.name);
+		$('#wifipass').val(ap.key);
+		$('#address').val(ap.address);
+		if(ap.trash){
+			$('#activated').prop('checked', false);
+		}
+		else{
+			$('#activated').prop('checked', true);
+			}
+		if(ap.isUsingKey){
+				$('#usewifipass').prop('checked', true);
+			}
+		else{
+				$('#usewifipass').prop('checked', false);
+				$('#wifipass').val('');
+			}
+	});
+	request.fail(function(jqXHR, textStatus) {
+	});
+		
+}
+$('#verifyMac').click(function () {
+	verifyMacAddr();
+});
+</script>
+</form>
+<form action="/ap/report" method="post">
+Chọn Tỉnh:
+<select id="province" name="province">
+	<option value="-1">Tất cả</option>
+	<option value="TTHUE">{{ "TT Huế"|trans }}</option>
+	<option value="DANANG">{{ "Đà Nẵng"|trans }}</option>
+	<option value="HANOI">{{ "Hà Nội"|trans }}</option>
+</select>
+Chọn Công ty:
+<select id="company" name="company">
+{% if app.user and is_granted('ROLE_OPERATOR_LEVEl_01') %}
+	<option value="-1">Tất cả</option>
+{% endif %}
+    {% for owner in owners %}
+	<option value="{{ owner['company'] }}">{{ owner['company'] }}</option>
+	{% endfor %}
+</select>
+<br/>
+<input type="checkbox" name="with_user_access_num" id="with_user_access_num" value='1'>Xem lượng truy cập chi tiết (không nên chọn do xử lý rất chậm)
+</br>
+Từ:<input type="text" name="from" value="{{ params['from_0'] }}"/>, đến <input type="text" name="to" value="{{ params['to'] }}"/>
+<input type="hidden" name="report" value="1"/>
+<input type="submit" value="Xem thống kê">
+</form>
+<table style="border: 1px solid grey; border-collapse: collapse;font-size:8pt;">
+{% if is_granted('ROLE_OPERATOR_LEVEl_01') %}
+<tr style="border: 1px solid grey;"><td colspan="10">Thống kê thiết bị từ {{ params['from_0'] }} đến {{ params['to'] }}: {{ popup_0 }}/{{ login_0 }} lượt popup/click login, ngày trước: {{ popup_1  }}/{{ login_1 }}</td></tr>
+{% endif %}
+<tr style="border: 1px solid grey;">
+<td>STT</td><td>AP</td><td>Tỉnh</td><td>Tên Quán</td><td>Địa chỉ (+GPS (lat,lng))</td><td>SSID</td><td>Pass</td><td>Ngày tạo</td><td>Lần online cuối</td><td>Nhà mạng</td><td>Số truy cập</td> 
+</tr>
+{% set i=0 %}
+{% for row in result %}
+{% set i = i + 1 %}
+<tr style="border: 1px solid grey;{% if i  is divisible by(2)  %}background-color:#CEECF5;{% endif %}">
+   <td style="border: 1px solid grey;">{{ i }}</td>
+   <td style="border: 1px solid grey;">{{row['macaddr']}}</td>
+   <td style="border: 1px solid grey;">{{row['province']}}</td>
+   <td style="border: 1px solid grey;{% if row['name'] =='---Chưa có tên---' %}background-color:#F5A9A9;{% endif %}">{{row['name']}}</td>
+   <td style="border: 1px solid grey;">{{row['address']}} {#-{{row['lat']}}:{{row['lng']}} #}</td>
+   <td style="border: 1px solid grey;">{{row['ssid']}}</td>
+   <td style="border: 1px solid grey;">{{row['key']}}</td>
+   <td style="border: 1px solid grey;">{{row['created_at']}}</td>
+   <td style="border: 1px solid grey; {% if date(row['updated_at']) < date('-2days') %}background-color:#F5A9A9{% endif %}">{{row['updated_at']}}</td>
+   <td style="border: 1px solid grey;">{{row['isp']}}</td>
+   <td style="border: 1px solid grey;">{{row['access_num']}}</td>
+</tr>   
+{% endfor %}
+</table>
+</body>
+</html>

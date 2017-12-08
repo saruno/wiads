@@ -1,0 +1,184 @@
+
+@font-face {
+    font-family: "tahoma";
+    src: url('../fonts/tahoma.ttf');
+}
+
+/* =Reset default browser CSS.
+-------------------------------------------------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {border: 0;font-family: inherit;font-size: 100%;font-style: inherit;font-weight: inherit;margin: 0;outline: 0;padding: 0;vertical-align: baseline;}
+:focus {outline: 0;}
+
+ol, ul {list-style: none;}
+table {border-collapse: separate;border-spacing: 0;}
+caption, th, td {font-weight: normal;text-align: left;}
+blockquote:before, blockquote:after,q:before, q:after {content: "";}
+blockquote, q {quotes: "" "";}
+a img{border: 0;}
+figure{margin:0}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}
+/* -------------------------------------------------------------- */
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	font-family: 'tahoma';
+	line-height: 1;
+	font-size: 13px;
+	background-color:#656565;
+	/*overflow: hidden;*/
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+p{
+	color: #000000;
+}
+a:hover, a:focus, a:hover p, select:hover, select:focus, select:active{
+	text-decoration: none !important;
+	outline: none !important;
+}
+a, a:link,a:active{
+	text-decoration: none;
+	outline: none !important;
+}
+.clearfix{
+	clear: both;
+}
+
+.container form{
+    position: absolute;
+    top: 120%;
+    right: 4%;
+    width: 59%;
+}    
+.container form p{
+    font-weight: bold;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+}
+.box-email .mail{
+    width: 88%;
+    height: 40px;
+    padding-left: 10px;
+}
+.submit-mail{
+    height: 40px;
+    background: url(../images/icon-go.png) no-repeat center;
+   	width: 40px;
+    display: block;
+    border: none;
+    background-size: cover;
+    float: right;
+    margin-left: 5px;
+    text-indent: 999999px;
+}
+@media only screen and (max-width: 1366px){
+	.container form {
+	    position: absolute;
+	    top: 120%;
+	    right: 9%;
+	    width: 35%;
+	}
+}
+@media only screen and (max-width: 1024px){
+	.container form {
+	    width: 40%;
+	    top: 88%;
+	}
+
+}
+@media only screen and (max-width: 736px){
+	.container form {
+	    width: 45%;
+        top: 120%;
+	}
+	.box-email .mail {
+	    width: 86%;
+	}
+}
+@media only screen and (max-width: 667px){
+	.container form {
+	    width: 49%;
+	}
+}
+@media only screen and (max-width: 568px){
+	.container form {
+	    width: 57%;
+	}
+}
+@media only screen and (max-width: 546px){
+	.container form {
+	    width: 45%;
+	}
+	.box-email .mail {
+	    width: 84%;
+	}
+}
+@media only screen and (max-width: 480px){
+	.box-email .mail {
+	    width: 81%;
+	}
+	.container form {
+	    top: 97%;
+	    width: 51%;
+	}
+}
+@media only screen and (max-width: 414px){
+	.box-email .mail {
+	    width: 79%;
+	}
+}
+@media only screen and (max-width: 375px){
+	.box-email .mail {
+	    width: 81%;
+	    height: 32px;
+	}
+	.submit-mail {
+	    height: 32px;
+	    width: 32px;
+	}
+}
+@media only screen and (max-width: 320px){
+	.submit-mail {
+	    height: 28px;
+	    width: 28px;
+	}
+	.box-email .mail {
+	    width: 82%;
+	    height: 28px;
+	}
+}
+@media screen and (max-width: 1920px) and (orientation: portrait){
+	.container p img {
+	   	left: 50%;
+	    top: 50%;
+	    transform: translateX(-50%) translateY(-50%);
+	    -webkit-transform: translateX(-50%) translateY(-50%);
+	    position: absolute;
+	}
+	.container form{
+	    position: absolute;
+	    top: 55%;
+	    right: 7%;
+	    width: 59%;
+	}
+}

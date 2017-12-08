@@ -1,0 +1,77 @@
+register:
+    li_1: Chi phí triển khai dịch vụ Wifi Marketing với chi phí cực thấp
+    li_2: Dễ dàng triển khai, dễ dàng vận hành
+    li_3: Có thể sử dụng thiết bị có sẵn để làm Wifi Marketing
+    li_3: Báo cáo chi tiết, luôn cập nhật tính năng mới
+    li_4: Gia tăng độ phủ của thương hiệu với chi phí nhỏ nhất
+    title: WiAds Wifi Marketing 
+    wiads: Wiads
+form:
+    email: Email
+    password: Tạo mật khẩu
+    confirm_password: Xác nhận mật khẩu của bạn
+    fullname: Họ tên
+    phone: Số điện thoại
+    address: Địa chỉ
+    lastname: Tên
+    firstname: Họ
+    gender: Giới tính
+    male: Nam
+    female: Nữ
+    access: Tôi đồng ý
+    rules:  Điều khoản dịch vụ
+    and: và
+    privacy: Chính sách bảo mật
+    ofwiads: của Wiads
+    privacy_rule: Bảo mật và điều khoản
+    help: Trợ giúp
+    more_information: Tìm hiểu thêm
+    about: về lý do chúng tôi yêu cầu thông tin này.
+    code_active: Mã kích hoạt
+    remember: Lưu tài khoản
+    have_account: Nếu không có tài khoản?
+    sign_now: Đăng ký ngay
+    error_login: Tài khoản hoặc mật khẩu không đúng
+button:
+    login: Đăng nhập
+    register: Đăng ký
+    password: Mật khẩu
+    forgot: Quên mật khẩu
+    confirm: Xác nhận
+    restore_pass: Khôi phục mật khẩu
+title:
+    t1: Tạo tài khoản
+    t2: Kích hoạt tài khoản
+validation:
+    email: Nhập đúng địa chỉ email
+    pass: Mật khẩu ít nhất phải 6 ký tự
+    comfirm_pass: Mật khẩu phải khớp nhau
+    title: Không được để trống
+    phone: Số điện thoại phải là số
+    privacy: Vui lòng đồng ý các điều khoản của chúng tôi
+    register_fail: Đăng ký thất bại
+validation2:
+  email1: Địa chỉ email không hợp lệ
+  email2: Email này đã sử dụng
+  password1: Mật khẩu phải lớn hơn 5 ký tự
+  password2: Mật khẩu không khớp
+  fullname1: Tên chứa các ký tự đặc biệt
+  fullname2: Tên không được bỏ trống
+  phone1: Số điện thoại không hợp lệ
+  address1: Địa chỉ chứa các ký tự đặc biệt
+  address2: Địa chỉ không được để trống
+  gender1: Giới tính không hợp lệ
+notification:
+  register1: Đăng ký thành công.Kích hoạt tài khoản qua mail
+  register_active_emai: Kích hoạt tài khoản Wiads # Tiêu đề gửi email kích hoạt tài khoản
+  register_active_emai2: Kích hoạt tài khoản Wiads # Đoạn mô tả gửi mail
+  active_success: Kích hoạt tài khoản thành công.
+  active_account: Tài khoản đã kích hoạt.
+  email_no_exist: Email không tồn tại
+  incorrect_fail: Mã kích hoạt không đúng
+  no_active: Tài khoản chưa được kích hoạt
+  locked: Tài khoản đã bị khóa
+  restore_pass_success: Khôi phục mật khẩu thành công, vui lòng kiểm tra email để hoàn tất.
+  pass_new: Mật khẩu mới của bạn là:
+error:
+  captcha: Chưa xác nhận captcha

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/bundles/advertiser/assets/css/demo11.css" />
+    <script src="/bundles/advertiser/assets/js/jquery-1.11.0.min.js"></script>
+    <script>
+        function Login(value)
+        {
+            $('#advertId').val(value);
+            $( "#login_frm" ).submit();
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="screen">
+
+        <header>
+            <div class="head">
+                {% if params['apName'] is not empty %}
+                    {% if params['apImage'] is not empty %}
+                        <a href="javascript:Login('-2');">
+                            <img src="{{ params['apImage'] }}" alt="{{ params['apName'] }}">
+                        </a>
+                    {% else %}
+                        <a href="javascript:Login('-2');">
+                            <h3>{{ params['apName'] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                            <div class="logo_wiads">
+                                <img src="/bundles/advertiser/assets/img/logo_wiads.png" alt="LOGO WIADS">
+                            </div>
+
+                            <img src="/bundles/advertiser/assets/img/banner_640x152.jpg" alt="640x152">
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="javascript:Login('-2');">
+                        <div class="logo_wiads">
+                            <img src="/bundles/advertiser/assets/img/logo_wiads.png" alt="LOGO WIADS">
+                        </div>
+                        <img src="/bundles/advertiser/assets/img/banner_640x152.jpg" alt="640x152">
+                    </a>
+                {% endif %}
+            </div>
+        </header>
+        <div class="wrap_connect" style="height: 1000px!important;background-color: white">
+            <iframe src="" width="100%" height="100%" style="top: 0; left: 0;" id="iframeMegaNet"></iframe>
+            <img src="/ap/display.html?id={{ ads['QAF_M'].id }}&link={{ ads['QAF_M'].linkTo | url_encode}}&position=QAF_M&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="BANNER">
+        </div>
+        <div style="display: none">
+            <form class="login-form" novalidate="novalidate" id='login_frm' name='login_frm' method='post' action='{{params['loginpath']}}'>
+                <input type='hidden' name='called' value='{{params['called']}}'>
+                <input type='hidden' name='mac' value='{{params['mac']}}'>
+                <input type='hidden' name='challenge' value='{{params['challenge']}}'>
+                <input type='hidden' name='uamip' value='{{params['uamip']}}'>
+                <input type='hidden' name='ip' value='{{params['ip']}}'>
+                <input type='hidden' name='uamport' value='{{params['uamport']}}'>
+                <input type='hidden' id="userurl" name='userurl' value='{{params['userurl']|url_encode}}'>
+                <input type='hidden' id='advertId' name='advertId' value='-1'>
+                <input type='hidden' name='button' value='Free Internet'>
+            </form>
+            <li><img src="/ap/track_login.html?called={{ params['called'] }}&mac={{ params['mac'] }}&challenge={{ params['challenge'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}"/></li>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var iframeMegaNet = document.getElementById("iframeMegaNet");
+    iframeMegaNet.setAttribute("src","http://meganet.com.vn:8080/quangcao/dataAdsPlatform/kplus/cafe_hanoi.html?mac={{ params['mac']}}");
+    function receiveMessage(event)
+    {
+        var origin = event.origin || event.originalEvent.origin;
+        if (origin !== "http://meganet.com.vn:8080") {
+            return;
+        }
+
+        if(event.data) {
+            var data = JSON.parse(event.data);
+            var urlTracking = "http://mkt.meganet.com.vn:8000/api/tracking/click?li=5820430ba65b0b5628c9901e&ln=Cafe%20H%C3%A0%20N%E1%BB%99i&lci=coffee&lcn=Coffee%20Shops&ct=H%C3%A0%20N%E1%BB%99i&ai=57ac3b506da20b0f0075e2e4&an=MegaNet&ri=57ac3fcf6da20b0f0075e2f5&rn=Free%20Wifi&ci=581e986b2229834d28c0f96c&cn=MegaNet-FreeWifi-Cafe&cci=website&ccn=Send%20people%20to%20website&bi=58204707a65b0b5628c99024&bn=Banner_MegaNet_Default_HaNoi"
+            urlTracking = urlTracking + "&m=" + "{{ params['mac']}}";
+            if (data.urlTracking){
+                urlTracking = data.urlTracking;
+            }
+            $('#userurl').val(urlTracking);
+
+            if (data.function == "loginMegaNet"){
+                Login(103);
+            }
+        }
+    }
+    window.addEventListener("message", receiveMessage, false);
+</script>
+</html>

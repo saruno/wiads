@@ -1,0 +1,6 @@
+services:
+    app.locale_listener:
+        class: WifiBundle\Listener\LocaleListener
+        arguments: ['%kernel.default_locale%']
+        tags:
+            - { name: kernel.event_subscriber }

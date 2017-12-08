@@ -1,0 +1,80 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> 
+                <a href="{{ path('advertiser_dashboard') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
+                 <a href="{{ path('advertiser_location_list') }}" class="current">Địa điểm</a> 
+            </div>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>Danh sách</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <table id="employee-grid"  cellpadding="0" cellspacing="0" border="0" class="table table-bordered" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tỉnh/TP</th>
+                                        <th>Mã số</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="widget-title" align="right"> 
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myAlert" class="modal hide">
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">×</button>
+            <h3>Thông báo</h3>
+        </div>
+        <div class="modal-body">
+            <p>Bạn chắc chắn muốn xóa</p>
+        </div>
+        <div class="modal-footer"> <a class="confirm_delete btn btn-primary" href="#">Xác nhận</a> <a data-dismiss="modal" class="btn" href="#">Hủy</a> </div>
+    </div>
+    <style type="text/css">
+        .dataTables_paginate {
+            position: absolute !important;
+            right: 0;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            
+            var dataTable = $('#employee-grid').DataTable( {
+                "processing": true,
+                "serverSide": true,
+                "bJQueryUI": true,
+                "sPaginationType": "full_numbers",
+                "sDom": 'ftipr',
+                "order": [[ 0, "desc" ]],
+                "bFilter": false,
+                "bInfo": false,
+
+                "ajax":{
+                    url :"{{ path('advertiser_location_list_get') }}", // json datasource
+                    type: "post",  // method  , by default get
+                    error: function(){  // error handling
+                        $(".employee-grid-error").html("");
+                        $("#employee-grid").append('<tbody class="employee-grid-error"><tr><th colspan="5">No data found in the server</th></tr></tbody>');
+                        $("#employee-grid_processing").css("display","none");
+     
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

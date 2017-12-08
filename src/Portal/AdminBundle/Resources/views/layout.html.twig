@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{%block head %}
+    	{{ render(controller("PortalAdminBundle:Partial:head"))}}
+    {% endblock %}
+</head>
+<body>
+    <div id="p-container">
+    	{% block pheader %}
+        <div id="p-header">
+            <div id="p-header-cnt">
+                <div id="p-logo">
+                    <h1>
+                        {{ global_cms_name }}</h1>
+                    <h2>
+                        {{"Administration" | trans}}</h2>
+                    <h4>
+                        {{ global_cms_version }}</h4>
+                </div>
+                <!-- enddiv: #p-logo -->
+                <div id="p-name">
+                    <h2>
+                        {{ "CMS Management System" | trans}}</h2>
+                    <h1>{{ global_site_name }}</h1>
+                </div>
+                 <div id="p-nav">
+                 	{% block logon %}
+                 		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+		                            <ul>
+		                            <li></li>
+							        <li>{{ app.user.name }} </li>
+							        <li><a href="/auth/uac/info">{{ "Account Information" | trans }}</a></li>
+							        <li><a href="{{ path('_security_logout') }}">{{ "Logout" | trans }}</a></li>
+							    </ul>
+		                 {% endif %}
+		            {% endblock %}
+               </div><!-- enddiv: #p-nav -->
+                <!-- enddiv: #p-name -->
+            </div>
+            <!-- enddiv: # -->
+        </div>
+         {% endblock %}
+        <!-- enddiv: #p-header -->
+        <div id="p-content" class="clearfix">
+			{% block content %}
+			{% endblock %}
+        </div>
+        <!-- enddiv: #p-content -->
+        {% block footer %}
+        <div id="p-footer">
+            <div id="p-footer-cnt">
+                <div id="p-footerA">
+                    {{ global_cms_copyright|raw }}
+                </div>
+                <!-- enddiv: #p-footerA -->
+                <div id="p-footerB">
+                    {{ global_cms_footer|raw }}
+                </div>
+                <!-- enddiv: #p-footerB -->
+            </div>
+            <!-- enddiv: #p-footer-cnt -->
+        </div>
+        {% endblock %}
+        <!-- enddiv: #p-footer -->
+    </div>
+    <!-- enddiv: #p-container -->
+</body>
+</html>

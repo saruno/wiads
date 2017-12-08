@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href='/bundles/advertiser/assets/css/wifi_login.css' />
+    <script src="/bundles/advertiser/assets/js/jquery-1.11.0.min.js"></script>
+</head>
+<body onload="changeScreenSize()">
+    <div class="container">
+        <header>
+            <div class="head">
+                <a href="">
+                    <div class="logo_wiads">
+                        <img src="/bundles/advertiser/assets/img/logo_wiads.png" alt="LOGO WIADS">
+                    </div>
+                    <!-- LOGO QUÁN -->
+                    <div class="logo_accesspoint" style="background: url('/bundles/advertiser/assets/img/logo_accesspoint.png') no-repeat center center / auto 100%">
+
+                    </div>
+                    <!-- TEN QUAN -->
+                    <h3>CAFE VIPMON</h3> 
+
+                    <img src="/bundles/advertiser/assets/img/640x152.jpg" alt="640x152 Banner NỀN">
+                </a>
+            </div>
+        </header>
+        <section>
+            <div class="box_a">
+                <a href="#">
+                    <img src="/bundles/advertiser/assets/img/text_1.jpg" alt="300x600"> 
+                </a>
+            </div>
+            <div class="box_b">
+                <div class="box_bb box_b1">
+                    <a href="">
+                        <img src="/bundles/advertiser/assets/img/text_2.jpg" alt="336x280">
+                    </a>
+                </div>
+                <div class="box_bb box_b2">
+                    <a href="">
+                        <img src="/bundles/advertiser/assets/img/text_3.jpg" alt="336x280">
+                    </a>
+                </div>
+            </div>
+            <div class="box_d">
+                <a href="">
+                    <img src="/bundles/advertiser/assets/img/text_4.jpg" alt="300x250">
+                </a>
+            </div>
+            <div class="box_c">
+                <div class="box_c1">
+                    <a href="">
+                        <img src="/bundles/advertiser/assets/img/335x100.jpg">
+                    </a>
+                </div>
+                <div class="box_c2">
+                    <a href="">
+                        <img src="/bundles/advertiser/assets/img/335x114.jpg">
+                    </a>
+                </div>
+            </div>
+        
+        </section>
+    </div>
+    <script type="text/javascript" charset="utf-8" async defer>
+        jQuery(document).ready(function() {
+            
+
+        });
+        function changeScreenSize(){
+            var wi = $("section").width();
+            if(parseInt(wi) < 640){
+                var section = $("section").height();
+                var box1 = $("div.box_b").height();
+                var box2 = $("div.box_d").height();
+
+                var cu = parseInt(section) - ( parseInt(box1) + parseInt(box2) + 6 );
+
+                var box_e = $("div.box_e");
+                //box_e.css({"height":cu,"float":"left","width":"50%","background":"#a1a1a0"});
+
+                //
+               
+                var a2 = parseInt(box1)+ 30 ;
+                $("div.box_a").css({"height":a2+"px"});
+
+                var x = (30*100)/wi; var hai_px = (2*100)/wi;
+                var c = 50+x-hai_px;
+                var d= 50-x;
+                $("div.box_c").css({"width":c+"%","margin-right":hai_px+"%"});
+                $("div.box_d").css({"width":d+"%"});
+
+                var box_d = $("div.box_d").height();
+                var bt = box_d - 30;
+                $("div.box_c").css({"height":bt+"px"});
+
+                $("div.box_c1").css({"height":"50%"});
+                $("div.box_c2").css({"height":"50%"});
+                
+            }
+        }
+
+        window.onresize = function(event) {
+            changeScreenSize();
+        };
+    </script>
+</body>
+</html>

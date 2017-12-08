@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href='/bundles/advertiser/assets/css/wifi_promotion.css' />
+</head>
+<body>
+<div class="container">
+    <div class="screen">
+        <div class="wrap_connect">
+            <div class="head">
+                {% if params['apName'] is not empty %}
+                    {% if params['apImage'] is not empty %}
+                        <img src="{{ params['apImage'] }}" alt="{{ params['apName'] }}">
+                    {% else %}
+                        <h3>{{ params['apName'] }}</h3>
+                        <img src="/bundles/advertiser/assets/img/banner_640x152.jpg" alt="640x152">
+                    {% endif %}
+                {% endif %}
+
+                <div class="logo">
+                    <a href="http://wiads.vn" target="_blank">
+                        <img src="/bundles/advertiser/assets/img/logo_wiads.png" alt="LOGO WIADS">
+                    </a>
+                </div>
+
+            </div>
+            <div class="wrap_button_success">
+                <div class="wrap_v">
+                    <p>Giải pháp của Wiads <br>CPC rẻ nhất thị trường</p>
+                    <a href="http://wiads.vn" target="_blank">Kết nối thành công</a>
+                </div>
+            </div>
+            <div class="wrap_button">
+
+            </div>
+            <div class="footer">
+                <p>Cảm ơn bạn đã sử dụng dịch vụ WiAds</p>
+                <a href="http://wiads.vn" target="_blank">www.wiads.vn</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

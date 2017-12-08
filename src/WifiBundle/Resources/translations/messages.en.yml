@@ -1,0 +1,77 @@
+register:
+    li_1: It's free ALWAYS WILL BE
+    li_2: Easy to deploy, easy to operate
+    li_3: Old access points can be reused for Wifi Marketing
+    li_3: Reports in detail, new features are released frequently
+    li_4: Expand your brand with lowest cost
+    title: WiAds Wifi Marketing Solution
+    wiads: Wiads
+form:
+    email: Email
+    password: Create a password
+    confirm_password: Confirm your password
+    fullname: Fullname
+    phone: Phone 
+    address: Address
+    lastname: Lastname
+    firstname: Firstname
+    gender: Gender
+    male: Male
+    female: Female
+    access: I agree
+    rules:  Terms of Service
+    and: and
+    privacy: Privacy Policy
+    ofwiads: of Wiads
+    privacy_rule: Privacy and Terms
+    help: Help
+    more_information: Learn more 
+    about: about why we ask for this information.
+    code_active: Code
+    remember: Remember me
+    have_account: Dont't have a WiAds account?
+    sign_now: Sign now
+    error_login: Tài khoản hoặc mật khẩu không đúng
+button:
+    login: Login
+    register: Register
+    password: Password
+    forgot: Forgot your password
+    confirm: Confirm
+    restore_pass: Restore password
+title:
+    t1: Create account
+    t2: Active account
+validation:
+    email: Nhập đúng địa chỉ email
+    pass: Mật khẩu ít nhất phải 6 ký tự
+    comfirm_pass: Mật khẩu phải khớp nhau
+    title: Không được để trống
+    phone: Số điện thoại phải là số
+    privacy: Vui lòng đồng ý các điều khoản của chúng tôi
+    register_fail: Đăng ký thất bại
+validation2:
+  email1: Địa chỉ email không hợp lệ
+  email2: Email này đã sử dụng
+  password1: Mật khẩu phải lớn hơn 5 ký tự
+  password2: Mật khẩu không khớp
+  fullname1: Tên chứa các ký tự đặc biệt
+  fullname2: Tên không được bỏ trống
+  phone1: Số điện thoại không hợp lệ
+  address1: Địa chỉ chứa các ký tự đặc biệt
+  address2: Địa chỉ không được để trống
+  gender: Giới tính không hợp lệ
+notification:
+  register1: Đăng ký thành công.Kích hoạt tài khoản qua mail
+  register_active_emai: Kích hoạt tài khoản wiads # Tiêu đề gửi email kích hoạt tài khoản
+  register_active_emai2: Kích hoạt tài khoản Wiads # Đoạn mô tả gửi mail
+  active_success: Kích hoạt tài khoản thành công.
+  active_account: Tài khoản đã kích hoạt.
+  email_no_exist: Email không tồn tại
+  incorrect_fail: Mã kích hoạt không đúng
+  no_active: User account is disabled.
+  locked: User account is locked.
+  restore_pass_success: Khôi phục mật khẩu thành công, vui lòng kiểm tra email để hoàn tất.
+  pass_new: This is password new:
+error:
+  captcha: Chưa xác nhận captcha

@@ -1,0 +1,231 @@
+{% extends 'PortalAdminBundle::layout.html.twig' %}
+{% block head %}
+{{ parent() }}
+<script src="/assets/portalauth/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+<script src="/assets/portalauth/js/ckfinder/ckfinder.js" type="text/javascript"></script> 
+{% endblock %}   
+{% block pheader %}
+{% endblock %}
+{% block content %}
+            <div id="p-toolbox" class="p-box">
+                <div class="p-box-bottom">
+                <div class="p-box-top clearfix">                    
+                    <ul id="p-commands">
+                    	<li><a id = "cmd-save_" href="javascript:saveDlg();"> {{"Add news"|trans}}</a></li>
+                    	<!-- 
+                		<li><a id = "cmd-close_"  href="javascript:closeDlg()"> {{"Close"|trans}}</a></li>
+                         -->
+                    </ul>
+                    <div class="p-module-title">
+                    </div>
+                </div><!-- enddiv: #p-box-top -->
+                </div><!-- enddiv: #p-box-bottom -->
+            </div><!-- enddiv: #p-toolbox -->
+
+            <div id="Div1" class="p-box p-box-space">
+                <div class="p-box-bottom">
+                <div class="p-box-top clearfix">
+					
+                    <div id="p-options">
+                    
+                    <form method="post" name='frm_news_relative_List' action="">
+						<input type="hidden" name='action_' id='action_' value='{{ action|default('') }}'>
+						<input type="hidden" name='action_id_' id='action_id_' value=''>
+                        <ul>
+                        	<li>{{ "Language"|trans }}:
+								<select id="lang_" name="lang_">
+								{% for l in langs %}
+									<option value="{{l.code}}" {% if l.code == lang %}selected="selected" {% endif %} >{{l.title}}</option>
+								{% endfor %}
+								</select>
+							</li>
+                            <li>{{ "Section"|trans }}
+                                <select id="section_" name="section_">
+                                    <option value="-1">---------- {{ "All"|trans }} ------------</option>
+                                    {% for section in sections %}
+									<option value="{{section.id}}" {% if section.id == currentSection|default(-1) %}selected="selected" {% endif %}>{% for i in 1..section.deep-1 if section.deep != 1 %}&nbsp;&nbsp;{% endfor %}{{section.title}}</option>
+									{% endfor %}
+                                </select>
+                            </li>
+                            <li>{{ "Page Size"|trans }}:
+					        	<select id="page_size_" name="page_size_">
+									<option value="20" {% if page_size == 20 %}selected="selected" {% endif %}>20</option>
+									<option value="30" {% if page_size == 30 %}selected="selected" {% endif %}>30</option>
+									<option value="40" {% if page_size == 40 %}selected="selected" {% endif %}>40</option>
+									<option value="50" {% if page_size == 50 %}selected="selected" {% endif %}>50</option>
+									<option value="100" {% if page_size == 100 %}selected="selected" {% endif %}>100</option>
+								</select>
+								<input id="currentPage_" name="currentPage_"  type="hidden" value="{{ page }}"/> 
+                            </li>
+                            <li>
+                            {{ "Status" |trans }}
+                            <select id="status_" name="status_">
+	                            <option value="" {{ ((status|default(""))=="")?"selected='selected'":"" }}>{{ "All" | trans}}</option>
+	                            <option value="submit"  {{ ( (status|default(""))=="submit")?"selected='selected'":"" }}>{{ "Waiting approved" | trans}}</option>
+	                            <option value="approved"  {{(  (status|default(""))=="approved")?"selected='selected'":"" }}>{{ "Approved" | trans}}</option>
+	                            <option value="draft"  {{ ( (status|default(""))=="draft")?"selected='selected'":"" }}>{{ "Draft" | trans}}</option>
+	                            <option value="back"  {{ ( (status|default(""))=="back")?"selected='selected'":"" }}>{{ "Sent back" | trans}}</option>
+                            </select>
+                            </li>
+                        </ul>
+                        <br/>
+                        <ul>
+                        <li><input type="text" size="50" id="txtSearch" name="txtSearch" value="{{ txtSearch | default('') }}"/>
+                        <input id="btSearch" name="btSearch" type="button" value="{{ 'Search' |trans }}" /></li>
+                        </ul>
+                        <input id="SubmitSearch_" type="submit" value="search" style="display:none"/>
+                    </form>
+                    
+                    </div><!-- enddiv: #p-options -->
+                    <div id="p-search" style="display: none;">
+                    <form method="post" name='frm_newsSearch_' action="">
+                    <ul>
+                        	<li style="clear:left">{{ "Keywords"|trans }}
+                                <input id="keyword" type="text" />&nbsp;
+                            </li>
+                            <li>{{ "Status"|trans }}
+                            	<select id="publish" name="publish">
+                            		<option>---------- {{ "All"|trans }} ------------</option>
+									<option value="1" {% if publish|default("") == 1 %}selected="selected" {% endif %}>{{ "Published"|trans }}</option>
+									<option value="0" {% if publish|default("") == 0 %}selected="selected" {% endif %}>{{ "Unpublished"|trans }}</option>
+								</select>
+                            </li>
+                            <li>
+                            	{{ "Created At"|trans }}
+                            	<select id="created_at_operator" name="created_at_operator">
+                            		<option>None</option>
+									<option value=">" {% if createdAt|default("") == ">" %}selected="selected" {% endif %}>{{ "Greater than"|trans }}</option>
+									<option value=">=" {% if createdAt|default("") == ">=" %}selected="selected" {% endif %}>{{ "Greater than or Equal"|trans }}</option>
+									<option value="<" {% if createdAt|default("") == "<" %}selected="selected" {% endif %}>{{ "Less than"|trans }}</option>
+									<option value="<=" {% if createdAt|default("") == "<=" %}selected="selected" {% endif %}>{{ "Less than or Equal"|trans }}</option>
+								</select>
+								<input id="created_at_value" type="text" />
+                            </li>
+                            <li>
+                            	{{ "Published At"|trans }}
+                            	<select id="published_at_operator" name="published_at_operator">
+                            		<option>None</option>
+									<option value=">" {% if createdAt|default("") == ">" %}selected="selected" {% endif %}>{{ "Greater than"|trans }}</option>
+									<option value=">=" {% if createdAt|default("") == ">=" %}selected="selected" {% endif %}>{{ "Greater than or Equal"|trans }}</option>
+									<option value="<" {% if createdAt|default("") == "<" %}selected="selected" {% endif %}>{{ "Less than"|trans }}</option>
+									<option value="<=" {% if createdAt|default("") == "<=" %}selected="selected" {% endif %}>{{ "Less than or Equal"|trans }}</option>
+								</select>
+								<input id="published_at_value" type="text" />
+                            </li>
+                            <li>
+                            	<input id="search" type="button" value="{{ "Search"|trans }}" />
+                            </li>
+                        </ul>
+                        </form>
+                    </div>
+                    <table class="p-grid" id="grid_section">
+               			<tr>
+               				<th> <input id="checkAll_" type="checkbox" class="checkAll_"/></th>
+                            <th>{{ "ID"|trans }}</th>
+                            <th>{{ "Title"|trans }}</th>
+                            <th>{{ "Created At"|trans }}</th>
+               				<th>{{ "Edited At"|trans }}</th>
+               				<th>{{ "Publish"|trans }}</th>
+                            <th>{{  "Status"|trans}}</th>
+                        </tr>
+                        {% for news in newsPager %}
+                        <tr>
+                            <td>
+                            	<input id="check__{{ news.id }}" type="checkbox" value="{{ news.id }}" class="cb-element_"/>
+                            	<input type="hidden"  name="h_{{ news.id}}" value="{{ news.title|default("No Title"|trans) }}"/>
+                            </td>
+                            <td>{{ news.id }}</td>
+                            <td style="text-align:left !important;">
+                            	<a href="javascript:void(0)">{{ news.title|default("No Title"|trans) }}</a>
+                            </td>
+                            <td>{{ news.createdAt|date("d/m/Y") }}</td>
+                            <td>{{ news.updatedAt|date("d/m/Y")  }}</td>
+                            <td>
+                            	{% if not news.locked %}
+               					<a onclick="togglePublish(this,'{{ lang }}',{{ news.id }}); return false;"><img src="/assets/portalauth/images/enable.gif"> </img> </a>
+	               				{% else %}
+	               				<a onclick="togglePublish(this,'{{ lang }}',{{ news.id }}); return false;"><img src="/assets/portalauth/images/disable.gif"> </img> </a>
+	               				{% endif %}
+                            </td>
+                            <td>{{ (news.draft ==true?"draft":news.status) |trans}}</td>
+                        </tr>
+	               		{% endfor %}
+                    </table>
+					 <ul class="p-paging">
+					 	{% if newsPager and newsPager.haveToPaginate %}
+	                       <ul>
+							 <li><a href="javascript:void(0)" onclick="PageRelative(1)">&laquo;	</a></li>
+							  
+							  <li class="previous"><a href="javascript:void(0)" onclick="PageRelative({{ newsPager.getPreviousPage}})" >&lsaquo;</a></li>
+							  
+							   {% for page in newsPager.getLinks %}
+							  	 {% set p=page%}
+							  	 	{% if page == newsPager.getPage %}
+							  	 		<li class="active"><a href="javascript:void(0)">{{ p }}</a></li>
+							  	 	{% else %}
+							  	 		<li><a href="javascript:void(0)" onclick="PageRelative({{ page }})" >{{ page }}</a></li>
+							  	 	{% endif %}
+							  {% endfor %}
+							  <li class="next" ><a href="javascript:void(0)" onclick="PageRelative({{ newsPager.getNextPage}})" >&rsaquo;</a></li>
+							  
+							  <li class="last"><a href="javascript:void(0)" onclick="PageRelative({{ newsPager.getLastPage}})">&raquo;</a></li>
+						 </ul>     
+					    {% endif %}  
+                     </ul><!-- enddiv: #p-paging -->    
+
+                </div><!-- enddiv: #p-box-top -->
+                </div><!-- enddiv: #p-box-bottom -->
+            </div><!-- enddiv: #p-toolbox -->
+<script>
+    	$(function () {
+    		$('#lang_').change(function () {
+          	 	PageRelative(1);
+       		});
+       		$('#section_').change(function () {
+       			PageRelative(1);
+        		});
+       		$('#page_size_').change(function () {
+       			PageRelative(1);
+       		});
+       		$('#btSearch').click(function () {
+       			PageRelative(1);
+       		});
+       		$('#status_').change(function () {
+       			PageRelative(1);
+        		});
+       		$('body').on('change', '.checkAll_',function () {
+                $('.cb-element_').prop('checked', $('.checkAll_').is(':checked') ?  true : false);
+            });
+            $('body').on('change','.cb-element_', function () {
+                $('.cb-element_').length == $('.cb-element_:checked').length ? $('.checkAll_').prop('checked', true) : $('.checkAll_').prop('checked', false);
+            });
+    	});
+    	function  saveDlg() {
+	            $('.cb-element_:checked').each(function () {
+	            	var title_id="h_"+$(this).val();
+	            	var title= $(":input[name='" + title_id + "']").val();
+		          
+	            	$("#relative_news").append("<li class='relative-news-li' value='"+$(this).val()+"'>"+title+"&nbsp;&nbsp;&nbsp;&nbsp;<a style='color: red;'>{{ 'Remove' |trans }}</a></li>");
+	            });
+	            
+    		/*$('#relative_news li:last').remove();*/
+			
+   			//$("#dialog-form").dialog("close");
+	    	//return false;
+	    };	
+    	function closeDlg() {
+    		$("#dialog-form").dialog().dialog("close");
+    		//return false;
+	    }; 
+    	function PageRelative(page) {
+    	    $("#currentPage_").val(page);
+    	    var url='/auth}/add_relative_news/' + $('#lang_').val()+'/'+$('#section_').val()+'/'+$('#currentPage_').val()+'/'+$('#page_size_').val()+'?status='+$('#status_').val()+'&txtSearch='+encodeURIComponent($('#txtSearch').val());
+    	    //alert(url);
+    	    $('#dialog-form').load(url);
+	    	//return false;
+    	    //$("#frm_sectionList").submit();
+    	}
+    </script>
+{% endblock %}	
+{% block footer %}
+{% endblock %}

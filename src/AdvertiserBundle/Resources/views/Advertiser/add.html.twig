@@ -1,0 +1,271 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+                <a href="#" class="">Quảng cáo</a> 
+                <a href="#" class="current">Thêm mới</a> 
+            </div>
+            
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    {{ form_start(form, {'attr': {'method': 'post', 'action': '','onsubmit':'return frmSub()' ,'enctype': 'multipart/form-data','class': 'form-horizontal'} }) }}
+                        <input type="hidden" name="submit" value="1" >
+                        <div class="widget-box">
+                            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                              <h5>Thông tin quảng cáo</h5>
+                            </div>
+                            <div class="widget-content nopadding">
+                                {% if app.session.flashBag.has('success') %}
+                                    <div class="alert alert-success alert-block"> 
+                                        <a class="close" data-dismiss="alert" href="#">×</a>
+                                        {% for msg in app.session.flashBag.get('success') %}
+                                            {{ msg }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if app.session.flashBag.has('error') %}
+                                    <div class="alert alert-block"> 
+                                        <a class="close" data-dismiss="alert" href="#">×</a>
+                                        {% for msg in app.session.flashBag.get('error') %}
+                                            {{ msg }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="control-group">
+                                    <label class="control-label">Tên chiến dịch :</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.campagin, { 'attr': {'class': 'span11','placeholder': 'Tên chiến dịch'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Tên quảng cáo :</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.title, { 'attr': {'class': 'span11','placeholder': 'Tên quảng cáo'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Mô tả quảng cáo :</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.description, { 'attr': {'class': 'span11'} }) }}
+                                        <span class="help-block">Mô tả chi tiết thông tin quảng cáo</span> 
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Khách hàng:</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.customer, { 'attr': {'class': 'span11 position'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Trạng thái:</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.locked, { 'attr': {'class': 'span11 position'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Ngày bắt đầu</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.published_at, { 'attr': {'class': 'datepicker span11','value': params['published'],'data-date': '01-01-2016','data-date-format': 'dd-mm-yyyy'} }) }}
+                                        <span class="help-block">Ngày bắt đầu quảng cáo</span> 
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Ngày kết thúc</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.expired_at, { 'attr': {'class': 'datepicker span11','value': params['expired'],'data-date': '01-01-2016','data-date-format': 'dd-mm-yyyy'} }) }}
+                                        <span class="help-block">Ngày kết thúc quảng cáo</span> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-box">
+                            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                              <h5>Cài đặt các thông số liên quan</h5>
+                            </div>
+                            <div class="widget-content nopadding">
+                                <div class="control-group">
+                                    <label class="control-label">Vị trí quảng cáo:</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.home_position, { 'attr': {'class': 'span11 position'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Hình ảnh:</label>
+                                    <div class="controls">
+                                        <div class="uploader" id="uniform-undefined">
+                                            <div class="uploader" id="uniform-undefined">
+                                                <input type="file" name="img[]" id="img_login" size="19" style="opacity: 0;" required>
+                                                <span class="filename">No file selected</span>
+                                                <span class="action">Choose File</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Hình ảnh login thành công:</label>
+                                    <div class="controls">
+                                        <div class="uploader" id="uniform-undefined">
+                                            <div class="uploader" id="uniform-undefined">
+                                                <input type="file" name="img[]" id="img_login_success" size="19" style="opacity: 0;">
+                                                <span class="filename">No file selected</span>
+                                                <span class="action">Choose File</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">URL Login:</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.link_to, { 'attr': {'class': 'span11'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">URL Login thành công:</label>
+                                    <div class="controls">
+                                        {{ form_widget(form.link, { 'attr': {'class': 'span11'} }) }}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Địa điểm</label>
+                                    <div class="controls">
+                                        <select name="location[]" class="span11" multiple>
+                                            {{ option_province|raw }}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Target theo quán:</label>
+                                    <div class="controls">
+                                        <input type="text" name="location_mac" placeholder="Lưu ý: 53-4G-DF-G4-JG-HJ;EC-08-6B-66-D7-CC" class="span11" >
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Hệ điều hành</label>
+                                    <div class="controls">
+                                        <select name="platform[]" class="span11" multiple>
+                                            {{ option_platform|raw }}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <a onclick="goBack();" class="btn btn-danger">Huỷ</a>
+                                    <button type="submit" class="btn btn-success" id="submit">Lưu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var w1 = 0, w2 = 0, h1 = 0, h2 = 0;
+        var chon = 0;
+        $(document).ready(function() {
+            
+
+            var _URL = window.URL || window.webkitURL;
+            $("#img_login").change(function (e) {
+                var file, img;
+                if ((file = this.files[0])) {
+                    img = new Image();
+                    img.onload = function () {
+                        w1 = this.width;
+                        h1 = this.height;
+                    };
+                    img.src = _URL.createObjectURL(file);
+                }
+            });
+            $("#img_login_success").change(function (e) {
+                chon = 1;
+                var file, img;
+                if ((file = this.files[0])) {
+                    img = new Image();
+                    img.onload = function () {
+                        w2 = this.width;
+                        h2 = this.height;
+                    };
+                    img.src = _URL.createObjectURL(file);
+                }
+            });
+        });
+        function frmSub(){
+            return true;
+            var m1 = 0, m2 = 0;
+            var r_width = 0, r_height = 0, mgs = '';
+            var type = $('#advert_home_position').val();
+            if(type == 'QA0'){
+                r_width = 1242;
+                r_height = 698;
+                mgs = 'Kích cỡ ảnh (QA0) phải là 1242x698';
+            }else if(type == 'QA1'){
+                r_width = 842;
+                r_height = 740;
+                mgs = 'Kích cỡ ảnh (QA1) phải là 842x740';
+            }else if(type == 'QA2'){
+                r_width = 401;
+                r_height = 590;
+                mgs = 'Kích cỡ ảnh (QA2) phải là 401x590';
+            }else if(type == 'QA0_v4'){
+                r_width = 300;
+                r_height = 600;
+                mgs = 'Kích cỡ ảnh (QA0_v4) phải là 300x600';
+            }else if(type == 'QA1_v4'){
+                r_width = 336;
+                r_height = 280;
+                mgs = 'Kích cỡ ảnh (QA1_v4) phải là 336x280';
+            }else if(type == 'QA2_v4'){
+                r_width = 336;
+                r_height = 280;
+                mgs = 'Kích cỡ ảnh (QA2_v4) phải là 336x280';
+            }else if(type == 'QA3_v4'){
+                r_width = 300;
+                r_height = 250;
+                mgs = 'Kích cỡ ảnh (QA3_v4) phải là 300x250';
+            }else if(type == 'QAF_v4'){
+                r_width = 640;
+                r_height = 717;
+                mgs = 'Kích cỡ ảnh (QAF_v4) tối thiểu 640x717';
+            }
+            if(r_width == w1 && r_height == h1){
+                m1 = 1;
+            }
+            if(type == 'QAF_v4' && r_width == 640 && r_height <= h1){
+                m1 = 1;
+            }
+            if(w2 == 640 && h2 == 910){
+                chon = 0;
+                m2 = 1;
+            }
+            if(type == 'QAF_v4' && w2 == 640 && h2 >= 910){
+                chon = 0;
+                m2 = 1;
+            }
+            if(m1 == 0){
+                alert(mgs);
+                return false;
+            }
+            if(chon == 1){
+                alert('Ảnh login thành công phải 640x910');
+                return false;
+            } else{
+                m2 = 1;
+            }
+            if(m1 == 1 && m2 == 1){
+                return true;
+            }
+            //return true;
+            return false;
+        }
+
+        $(document).ready(function(){
+
+          
+        });
+        
+    </script>
+{% endblock %}

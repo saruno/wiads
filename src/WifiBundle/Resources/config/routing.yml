@@ -1,0 +1,31 @@
+wifi_homepage:
+    path:     /
+    defaults: { _controller: WifiBundle:Default:index }
+wifi_language_en:
+    path: /language/en
+    defaults: { _controller: 'WifiBundle:Language:english' }
+wifi_language_vi:
+    path: /language/vi
+    defaults: { _controller: 'WifiBundle:Language:vietnam' }
+wifi_login_check:
+    path: /login_check
+wifi_security_logout:
+    path: /logout
+wifi_login:
+    path: /login
+    defaults: { _controller: 'WifiBundle:Login:index' }
+wifi_register:
+    path: /register
+    defaults: { _controller: 'WifiBundle:Register:index' }
+wifi_forgot:
+    path: /forgot
+    defaults: { _controller: 'WifiBundle:ForgotPassword:index' }
+wifi_forgot_confirm:
+    path: /forgot/confirm
+    defaults: { _controller: 'WifiBundle:ForgotPassword:confirm' }
+wifi_register_success:
+    path: /register/success
+    defaults: { _controller: 'WifiBundle:Register:success' }
+wifi_active_user:
+    path: /user/active
+    defaults: { _controller: 'WifiBundle:UserActive:index' }

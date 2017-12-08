@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+<wordsgameX enable="1" forceReload="0">
+  <description>xxx</description>
+   <appId>55b2c1f943150f46ccaa821c</appId>
+   <appSignature>b7e1d504a6ad834cfe4bee42b5a89312dca8d2f3</appSignature>
+    <chartboost enable="0" forceReload="0">
+         <description>xxx</description>
+          <appId>55b2c1f943150f46ccaa821c</appId>
+          <appSignature>b7e1d504a6ad834cfe4bee42b5a89312dca8d2f3</appSignature>
+    </chartboost>
+    <appodeal enable="1" forceReload="1" showVideo="1">
+     <description>Appodeal</description>
+      <appKey>4fea01c687937b75beb3ea0ef01a2411eb613f87219f3d83</appKey>
+      <disableNetwork attr1="" attr2="" attr3="" attr4="" attr5="" attr6="" attr7="" attr8="" attr9="" attr10=""></disableNetwork>
+    </appodeal>
+    <admob enable="1" forceReload="0" showVideo="1">
+      <description>Google AdMob</description>
+        <testDevice>xxx</testDevice>
+       <appKey>xxx</appKey>
+    </admob>
+</wordsgameX>
+-->
+<wordsgame enable="1" forceReload="0">
+    <params rate="1">
+    </params>
+    <applovin enable="0" forceReload="0" showVideo="0">
+    </applovin>
+    <appodeal enable="1" forceReload="0" showVideo="0">
+        <description>Appodeal</description>
+        <appKey>17df794469fcbe1ad8b95e45898c0ea543a16ba15a090a6c</appKey>
+        <!-- "amazon_ads", "applovin", "chartboost", "mopub", "unity_ads", "mailru", "facebook", "adcolony", "vungle" -->
+        <disableNetwork attr1="" attr2="" attr3="" attr4="" attr5="" attr6="" attr7="" attr8="" attr9="" attr10=""></disableNetwork>
+    </appodeal>
+    <admob enable="1" forceReload="0" showVideo="1">
+        <description>Google AdMob</description>
+        <testDevice>kGADSimulatorID</testDevice>
+        <appKey>ca-app-pub-4838303149686936/3911656601</appKey>
+        <appKeyBanner>ca-app-pub-4838303149686936/4330459006</appKeyBanner>
+    </admob>
+</wordsgame>
+
+<touchpicturedictionary enable="1" forceReload="0">
+    <params rate="5">
+    </params>
+    <applovin enable="0" forceReload="0" showVideo="0">
+    </applovin>
+    <appodeal enable="0" forceReload="0" showVideo="0">
+     <description>Appodeal</description>
+      <appKey>547fca8bd68d0198d8fdb18651767eed5d6de4d3cff0b94d</appKey>
+      <!-- "amazon_ads", "applovin", "chartboost", "mopub", "unity_ads", "mailru", "facebook", "adcolony", "vungle" -->
+      <disableNetwork attr1="adcolony" attr2="" attr3="" attr4="" attr5="" attr6="" attr7="" attr8="" attr9="" attr10=""></disableNetwork>
+    </appodeal>
+    <admob enable="1" forceReload="0" showVideo="1">
+      <description>Google AdMob</description>
+        <testDevice>kGADSimulatorID</testDevice>
+       <appKey>ca-app-pub-4838303149686936/3230657807</appKey>
+       <appKeyBanner>ca-app-pub-4838303149686936/4986592600</appKeyBanner>
+    </admob>
+</touchpicturedictionary>
+<baucua enable="1" forceReload="0">
+    <params rate="3" foregroundShow="1">
+    </params>
+    <appodeal enable="1" forceReload="0" showVideo="1">
+     <description>Appodeal</description>
+      <appKey>8de55bdd36233cc930f91b32149efb1dc0cc6c55b866fd60</appKey>
+      <!-- "admob", "amazon_ads", "applovin", "chartboost", "heyzap", "mopub" -->
+      <disableNetwork attr1="admob" attr2="startapp" attr3="" attr4="" attr5="" attr6="" attr7="" attr8="" attr9="" attr10=""></disableNetwork>
+    </appodeal>
+    <admob enable="1" forceReload="0" showVideo="1">
+      <description>Google AdMob</description>
+        <testDevice>no kGADSimulatorID</testDevice>
+       <appKey>ca-app-pub-4838303149686936/2074996602</appKey>
+       
+    </admob>
+</baucua>
+<evdict enable="1" forceReload="0">
+    <params rate="3" foregroundShow="1">
+    </params>
+    <appodeal enable="1" forceReload="0" showVideo="1">
+     <description>Appodeal</description>
+      <!--
+      <appKey>8a692738791b21ba25d6290039a9e9b08e034e8da3597e97</appKey>
+      -->
+      <appKey>8de55bdd36233cc930f91b32149efb1dc0cc6c55b866fd60</appKey>
+      <!-- "admob", "amazon_ads", "applovin", "chartboost", "heyzap", "mopub" -->
+      <disableNetwork attr1="" attr2="" attr3="" attr4="" attr5="" attr6="" attr7="" attr8="" attr9="" attr10=""></disableNetwork>
+    </appodeal>
+    <admob enable="0" forceReload="0" showVideo="1">
+      <description>Google AdMob</description>
+        <testDevice>kGADSimulatorID</testDevice>
+       <appKey>ca-app-pub-4838303149686jdfdf/184589008</appKey>
+    </admob>
+</evdict>

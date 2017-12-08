@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <title>LOGIN</title>
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/vendor.css">
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/main.css">
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/responsive.css">
+    <script>
+        function Login(value)
+        {
+            $('#advertId').val(value);
+            $( "#login_frm" ).submit();
+        }
+    </script>
+</head>
+
+<body>
+<div class="container-wrap login-n1">
+    <main class="wrapper">
+        <div class="content">
+            <div class="content-top">
+                <h2 class="heading">Kính chào quý khách</h2>
+                <div class="owl-carousel owl-theme owl-login-n1">
+                    {% if ads['QAF_v4'] is not empty %}
+                        <a href="javascript:Login('{{ ads['QAF_v4'].id }}');">
+                            <div class="item" style="background-image: url('/ap/display.html?id={{ ads['QAF_v4'].id }}&link={{ ads['QAF_v4'].linkTo | url_encode}}&position=QAF_v4&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}');">
+                            </div>
+                        </a>
+                    {% endif %}
+                    <a href="javascript:Login('-1');">
+                        <div class="item" style="background-image: url('{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg' }}');">
+                            {% if params['apName'] is not empty %}
+                                <!--
+                            <h1 class="title-slide">{{ params['apName'] | upper | replace ({'WIADS':'', '-' :''}) }}</h1>
+                            -->
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="content-bottom">
+                {% if params['apName'] is not empty %}
+                    <h3 class="status">SỬ DỤNG WIFI TẠI {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h3>
+                {% endif %}
+                <a href="javascript:Login('-1');" class="btn-connect">Kết nối</a>
+                <p class="text-content">Để trải nghiệm wifi một cách tốt nhất vui lòng nhấn KẾT NỐI để tiếp tục</p>
+                <a class="btn-login" href="javascript:sub_face('-1');" title="login-with-facebook"><img src="/bundles/hotspotaccesspoint/v6/images/login-facebook-button.svg" alt=""></a>
+            </div>
+        </div>
+    </main>
+    <div style="display: none">
+        <form class="login-form" novalidate="novalidate" id='login_frm' name='login_frm' method='post' action='{{params['loginpath']}}'>
+            <input type='hidden' name='called' value='{{params['called']}}'>
+            <input type='hidden' name='mac' value='{{params['mac']}}'>
+            <input type='hidden' name='challenge' value='{{params['challenge']}}'>
+            <input type='hidden' name='uamip' value='{{params['uamip']}}'>
+            <input type='hidden' name='ip' value='{{params['ip']}}'>
+            <input type='hidden' name='uamport' value='{{params['uamport']}}'>
+            <input type='hidden' name='userurl' value='{{params['userurl']|url_encode}}'>
+            <input type='hidden' id='advertId' name='advertId' value='-1'>
+            <input type='hidden' name='button' value='Free Internet'>
+        </form>
+        <li><img src="/ap/track_login.html?called={{ params['called'] }}&mac={{ params['mac'] }}&challenge={{ params['challenge'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}"/></li>
+    </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="/bundles/hotspotaccesspoint/v6/scripts/jquery.min.js"></script>
+<script src="/bundles/hotspotaccesspoint/v6/scripts/vendor.js"></script>
+<script src="/bundles/hotspotaccesspoint/v6/scripts/app.js"></script>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1170851923040308',
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+        /*FB.getLoginStatus(function(response) {
+         statusChangeCallback(response);
+         });*/
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<script>
+    function sub_face(value){
+        FB.login(function(response) {
+            if (response.authResponse) {
+                loginSuccess(value);
+            } else {
+                //console.log('User cancelled login or did not fully authorize.');
+            }
+        }, {
+            scope: 'email'
+        });
+    }
+    function loginSuccess(value) {
+        FB.api('/me?fields=id,name,email,picture', function(response) {
+            var uid     = response.id;
+            var name    = response.name;
+            var email   = response.email;
+            //console.log('UID:' +uid);
+            //console.log('NAME:' +name);
+            //console.log('EMAIL:' +email);
+            //console.log('INFO:', +response);
+            $.ajax({
+                type : 'POST',
+                url : "{{ path('advertiser_saverequest_userlogin') }}",
+                //dataType : 'json',
+                data: {
+                    type:'facebook',uid:uid, name:name, email:email, phone:'', address:'', mac: "{{params['called']}}"
+                },
+                success : function(data){
+                    if(data.status == 1){
+
+                    }
+
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {}
+            });
+
+            $('#advertId').val(value);
+            $( "#login_frm" ).submit();
+        });
+    }
+</script>
+</body>
+</html>

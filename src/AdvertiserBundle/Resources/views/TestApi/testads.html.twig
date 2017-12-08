@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script type="text/javascript" src="https://campaigns-assets-vp.daumcdn.net/websdk/vp-latest.min.js"></script>
+</head>
+<body>
+	<div id="ads"></div>
+
+	<script type="text/javascript">
+
+		VP.init({
+			clientId: "fa2ed2e05dcbcaf9cfb8c0c41f3f63b3",
+			pageUrl: "http://wiads.vn/"
+		});
+		var opts = {
+		    callback: function (filled) {
+		        if (filled) {
+		            console.log("ad loaded");
+		        } else {
+		            console.log("no ad");
+		        }
+		    },
+		    textAdStyle: {
+		        "color": "red",
+		        "font-size": "28px",
+		        "font-weight": "bold"
+		    }
+		}
+		VP.ad('ads', 'ads', '300', '250', opts);
+	</script>
+</body>
+</html>

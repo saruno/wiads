@@ -1,0 +1,460 @@
+{% extends 'AdvertiserBundle::layout_alba.html.twig' %}
+
+{% block breadcrumb %}
+
+	<ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item active">Report</li>
+    </ol>
+
+{% endblock %}
+
+{% block content %}
+	<link href="{{ asset('/bundles/advertiser/alba/css/jquery-ui.css') }}" rel="stylesheet">
+	<script src="{{ asset('/bundles/advertiser/alba/js/views/jquery-ui.js') }}"></script>
+	<div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Report
+                </div>
+                <form action="" method="post" accept-charset="utf-8">
+	                <div class="card-block">
+                    	<div class="form-group row">
+                            <div class="col-md-12">
+                            	<div class="form-group">   
+                            		<label for="name">Địa chỉ MAC:</label>    
+	                                <div class="input-group">
+	                                    <input type="email" id="input2-group2" id="macaddr" name="macaddr" value="" class="form-control" placeholder="MAC">
+	                                    <span class="input-group-btn">
+	                                        <button type="button" class="btn btn-primary" name="refreshConfig" id="refreshConfig">Nạp cấu hình nhanh</button>
+	                                    </span>
+	                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <button type="button" class="btn btn-primary col-sm-12" name="verifyMac" id="verifyMac">Kiểm tra MAC</button>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <button type="button" class="btn btn-success col-sm-12" name="viewMacImage" id="viewMacImage">Kiểm tra ảnh banner</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Tên Quán:</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="" placeholder="Tên quán">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary">Liên lạc gần nhất vào</button>
+                                    </span>
+                                    <input type="text" disabled="disabled"  id="time" name="time" value="" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Địa chỉ:</label>
+                                    <input type="text" class="form-control" id="address" name="address" value="" placeholder="Địa chỉ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Link quán:</label>
+                                    <input type="text" class="form-control" id="detail_url" name="detail_url" value="" placeholder="Link quán">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        	<div class="form-group col-sm-12">
+	                        	<table class="table table-bordered table-striped table-condensed">
+	                                <thead>
+	                                    <tr>
+	                                    	<th>Tùy chọn</th>
+	                                        <th>Thông tin</th>
+	                                        <th>Giá trị</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    <tr>
+	                                        <td>
+	                                        	<label class="switch switch-3d switch-primary">
+				                                    <input type="checkbox" class="switch-input" name="disable_img" id="disable_img" value="1">
+				                                    <span class="switch-label"></span>
+				                                    <span class="switch-handle"></span>
+				                                </label>
+	                                        </td>
+	                                        <td>Mật khẩu</td>
+	                                        <td>
+	                                        	<input type="text" class="form-control" id="wifipass" name="wifipass" value="" placeholder="Mật khẩu">
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>
+	                                        	<label class="switch switch-3d switch-primary">
+				                                    <input type="checkbox" class="switch-input" name="activated" id="activated" value="1">
+				                                    <span class="switch-label"></span>
+				                                    <span class="switch-handle"></span>
+				                                </label>
+	                                        </td>	                                        
+	                                        <td>Đang hoạt động (Nếu muốn kích hoạt thì đánh dấu trước khi lưu)</td>
+	                                        <td></td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>
+	                                        	<label class="switch switch-3d switch-primary">
+				                                    <input type="checkbox" class="switch-input" name="change_img" id="change_img" value="1">
+				                                    <span class="switch-label"></span>
+				                                    <span class="switch-handle"></span>
+				                                </label>
+	                                        </td>
+	                                        <td>Đổi ảnh quán (1242x300 hoặc 1242x450)</td>
+	                                        <td>
+	                                        	<input type="file" id="form_image_file" name="form[image_file]">
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                    	<td>
+		                                    	<label class="switch switch-3d switch-primary">
+				                                    <input type="checkbox" class="switch-input" name="disable_img" id="disable_img" value="1">
+				                                    <span class="switch-label"></span>
+				                                    <span class="switch-handle"></span>
+				                                </label>
+			                                </td>
+			                                <td>Xoá ảnh quán</td>
+			                                <td></td>
+	                                    </tr>
+	                                    <tr>
+	                                    	<td>
+	                                    		<label class="switch switch-3d switch-primary">
+				                                    <input type="checkbox" class="switch-input" name="firmware_upgrade" id="firmware_upgrade" value="1">
+				                                    <span class="switch-label"></span>
+				                                    <span class="switch-handle"></span>
+				                                </label>
+	                                    	</td>
+	                                    	<td>Cập nhật phần mềm mới</td>
+	                                    	<td>
+	                                    		<select id="firmware_file" name="firmware_file" style="padding: 0.5rem 0.75rem;font-size: 0.875rem;line-height: 1.25;color: #55595c;">
+                                                    <option value="/fw/20170505.01.740n.v5.bridge.factory.bin">20170505.01.bridge-Gộp cổng TP-740n-v5</option>
+                                                    <option value="/fw/20170505.01.740n.v6.bridge.factory.bin">20170505.01.bridge-Gộp cổng TP-740n-v6</option>
+                                            	</select>
+	                                    	</td>
+	                                    </tr>
+	                                    <tr>
+	                                    	<td>
+	                                    	</td>
+	                                    	<td>Phần mềm hiện tại</td>
+	                                    	<td>
+	                                    		<input type='text' disabled="disabled" id='firmware_current' name='firmware_current' value="" class="form-control">
+	                                    	</td>
+	                                    </tr>
+	                                </tbody>
+	                            </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Chọn chế độ hoạt động (QC/Thường):</label>
+                                    <select id="ap_mode" name="ap_mode" class="form-control">
+                                        <option value="option normal_mode 0">Chế độ hiển thị LOGIN (QC)</option>
+                                        <option value="option normal_mode 1">Chế độ thường</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Chọn tốc độ dụng+thời gian sử dụng:</label>
+                                    <select id="bw_profile" name="bw_profile" class="form-control">
+                                        <option value="option normal_mode 0">Chế độ hiển thị LOGIN (QC)</option>
+                                        <option value="option normal_mode 1">Chế độ thường</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Chọn mẫu màn hình login:</label>
+                                    <select id="login_template" name="login_template" class="form-control">
+                                        <option value="option normal_mode 0">Chế độ hiển thị LOGIN (QC)</option>
+                                        <option value="option normal_mode 1">Chế độ thường</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Tỉnh thành:</label>
+                                    <select id="province" name="province" class="form-control">
+                                        <option value="option normal_mode 0">Chế độ hiển thị LOGIN (QC)</option>
+                                        <option value="option normal_mode 1">Chế độ thường</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Công ty:</label>
+                                    <select id="company" name="company" class="form-control">
+                                        <option value="option normal_mode 0">Chế độ hiển thị LOGIN (QC)</option>
+                                        <option value="option normal_mode 1">Chế độ thường</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+	                </div>
+	                <div class="card-footer">
+	                    <button type="submit" class="btn btn-sm btn-primary">Lưu dữ liệu</button>
+	                    <input type="hidden" id="reboot" name="reboot" value="0" />
+	                    <button type="button" class="btn btn-sm btn-primary" id="reboot_me" onclick="javascript:rebootAP();">Reboot</button>
+	                </div>
+                </form>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+
+    <!-- TÌNH TRẠNG THIẾT BỊ -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Tình trạng thiết bị
+                </div>
+                <form id="view_form" name ="view_form" action="/ap/report" accept-charset="utf-8">
+	                <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Tỉnh thành:</label>
+                                    <select id="province" name="province" class="form-control">
+                                    	<option value="-1">Tất cả</option>
+                                        <option value="option normal_mode 0">Chế độ hiển thị LOGIN (QC)</option>
+                                        <option value="option normal_mode 1">Chế độ thường</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Công ty:</label>
+                                    <select id="company" name="company" class="form-control">
+                                    	<option value="-1">Tất cả</option>
+                                        <option value="option normal_mode 0">Chế độ hiển thị LOGIN (QC)</option>
+                                        <option value="option normal_mode 1">Chế độ thường</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+	                </div>
+	                <div class="card-footer">
+	                    <input type="hidden" name="status_view" value="1"/>
+	                    <button type="submit" name="view_button" id="view_button" class="btn btn-sm btn-primary">Xem tình trạng thiết bị</button>
+	                </div>
+                </form>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+
+    <!-- THỐNG KÊ -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Thống kê
+                </div>
+                <form  id="statistic_form" name ="statistic_form" action="/ap/report" method="post" accept-charset="utf-8">
+	                <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Tỉnh thành:</label>
+                                    <select id="province" name="province" class="form-control">
+                                    	<option value="-1">Tất cả</option>
+                                        <option value="option normal_mode 0">Chế độ hiển thị LOGIN (QC)</option>
+                                        <option value="option normal_mode 1">Chế độ thường</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Công ty:</label>
+                                    <select id="company" name="company" class="form-control">
+                                    	<option value="-1">Tất cả</option>
+                                        <option value="option normal_mode 0">Chế độ hiển thị LOGIN (QC)</option>
+                                        <option value="option normal_mode 1">Chế độ thường</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Từ ngày:</label>
+                                    <input type="text" class="form-control" name="from" value="" id="from" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Đến ngày:</label>
+                                    <input type="text" class="form-control" name="to" value="" id="to" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+	                </div>
+	                <div class="card-footer">
+	                    <input type="hidden" name="report_view" value="1"/>
+	                    <button type="submit" class="btn btn-sm btn-primary">Xem thống kê</button>
+	                </div>
+                </form>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+
+    <!-- DỮ LIỆU -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Dữ liệu
+                </div>
+                <div class="card-block">
+                    <table class="table-data table-bordered">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>MAC</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Province</th>
+                                <th>Date created</th>
+                                <th>Last online</th>
+                                <th>01</th>
+                                <th>02</th>
+                                <th>03</th>
+                                <th>04</th>
+                                <th>05</th>
+                                <th>06</th>
+                                <th>07</th>
+                                <th>08</th>
+                                <th>09</th>
+                                <th>10</th>
+                                <th>11</th>
+                                <th>12</th>
+                                <th>13</th>
+                                <th>14</th>
+                                <th>15</th>
+                                <th>16</th>
+                                <th>17</th>
+                                <th>18</th>
+                                <th>19</th>
+                                <th>20</th>
+                                <th>21</th>
+                                <th>22</th>
+                                <th>23</th>
+                                <th>24</th>
+                                <th>25</th>
+                                <th>26</th>
+                                <th>27</th>
+                                <th>28</th>
+                                <th>29</th>
+                                <th>30</th>
+                                <th>31</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	<tr>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        		<td style="" class="td_day">1</td>
+                        	</tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+
+    <style type="text/css" media="screen">
+    	table td input,select{
+    		width: 100%;
+    	}
+    	form button {
+    		cursor: pointer;
+    	}
+
+    	.table-data {
+    		width: 100%;
+    		max-width: 100%;
+    		font-size: 11px;
+    	}
+    	.table-data thead tr th {
+    		vertical-align:middle;
+    	}
+    </style>
+    <script>
+    	$(document).ready(function(){
+        	$( "#from" ).datepicker();
+        	$( "#to" ).datepicker();
+    	});
+
+    </script>
+{% endblock %}

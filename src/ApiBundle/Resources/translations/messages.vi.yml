@@ -1,0 +1,15 @@
+success: Success
+error_0: Lỗi hệ thống
+error_negative_1: Lỗi không có quyền truy cập
+error_negative_2: Client id hoặc client secret không đúng
+error_negative_3: Tài khoản hoặc mật khẩu không đúng
+error_negative_4: Tài khoản không tồn tại
+error_negative_5: Thiếu tham số
+error_negative_6: Mật khẩu hiện tại không đúng
+error_negative_7: Độ dài dữ liệu không hợp lệ
+error_negative_8: Không tồn tại dữ liệu
+error_negative_9: Không đúng định dạng Base64
+error_negative_10: Dữ liệu mã Base64 phải là image
+error_negative_11: Dữ liệu upload lớn hơn 5MB
+error_negative_12: API đang cập nhật :)
+

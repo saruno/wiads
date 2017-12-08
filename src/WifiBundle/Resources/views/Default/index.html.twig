@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title></title>
+</head>
+<style type="text/css">
+	*{
+		margin: 0; padding: 0;
+	}
+	h2{
+		text-align: center; 
+		margin-top: 40px;
+		text-transform: uppercase;
+	}
+	p{
+		text-align: center;
+	}
+</style>
+<body>
+	<h2 style="text-align: center" >This is Dashboard User</h2>
+	<p><span>{{ app.user.name is defined ? app.user.name : '' }}</span> <a href="{{ path('wifi_security_logout') }}">Logout</a></p>
+</body>
+</html>

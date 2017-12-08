@@ -1,0 +1,2391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0029)http://127.0.0.1:8000/api/doc -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- Always force latest IE rendering engine (even in intranet) and Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <title>API documentation WiAds </title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/sc.js" type="text/javascript" charset="utf-8" ></script>
+</head>
+
+<body>
+    <div id="header">
+        <a href="http://127.0.0.1:8000/api/doc">
+            <h1>API documentation WiAds</h1>
+        </a>
+
+        <br style="clear: both;">
+    </div>
+    <div class="motd"></div>
+    <div class="container" id="resources_container">
+        <ul id="resources">
+            <div id="summary">
+                <ul>
+                    <li><a href="http://127.0.0.1:8000/api/doc#section-_others"></a></li>
+                </ul>
+            </div>
+            <a id="section-_others"></a>
+            <li class="resource">
+                <div class="heading">
+                    <h2>Bảng mã</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="post operation" id="post---oauth-v2-token">
+                                <div class="heading toggler" data-href="#post--api-oauths-v2s-tokens.{_format}">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>CODE</i>
+                                        </span>
+                                       
+                                    </h3>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Code</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>&nbsp;1</td>
+                                                        <td>Thành công</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>&nbsp;0</td>
+                                                        <td>Lỗi hệ thống</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>-1</td>
+                                                        <td>Lỗi không có quyền truy cập</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>-2</td>
+                                                        <td>Client id hoặc client secret không đúng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>-3</td>
+                                                        <td>Tài khoản hoặc mật khẩu không đúng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>-4</td>
+                                                        <td>Tài khoản không tồn tại</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>-5</td>
+                                                        <td>Thiếu tham số</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>-6</td>
+                                                        <td>Mật khẩu hiện tại không đúng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>-7</td>
+                                                        <td>Độ dài dữ liệu không hợp lệ</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>-8</td>
+                                                        <td>Không tồn tại dữ liệu</td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/oauth/v2/token</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="post operation" id="post---oauth-v2-token">
+                                <div class="heading toggler" data-href="#post--api-oauths-v2s-tokens.{_format}">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>POST</i>
+                                        </span>
+                                        <span class="path">
+                                            /oauth/v2/token
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Login</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>client_id</td>
+                                                        <td>String</td>
+                                                        <td>true</td>
+                                                        <td>1_4qoctizwwaw4gwc400go84gwksswo04cw040scgog44kw4kcc0</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>client_secret</td>
+                                                        <td>String</td>
+                                                        <td>true</td>
+                                                        <td>490drpedg8u84ckcgg84wok0g8o4ckck88o4gcoc0scsk80o40</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>grant_type</td>
+                                                        <td>String</td>
+                                                        <td>true</td>
+                                                        <td>grant_type=password || grant_type=refresh_token</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>username</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td>Tài khoản đăng nhập (Có nếu đăg nhập)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>password</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td>Mật khẩu (Có nếu đăg nhập)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>refresh_token</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td>Refresh token (Có nếu refresh token)</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{">▿{</span><span class="json-collapse-content" style="display: inline;"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="str">"access_token"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">"ODE3ZDVmNzM5YWY0OWEyODEyNTNjZjE2ZDU3OGY4MjdiNmY3Yzk2N2Y0MGRkMWNhOTY0NzVhN2I3OGE5MjM3Mg"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"expires_in"</span><span class="pun">:</span><span class="pln"> </span><span class="str">3600</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"token_type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"bearer"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"scope"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"user"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"refresh_token"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Mjk2YWM2ZmNlYTExOTJmMGQxMGE1NWQ1MWRiMGIwMzE2MTU5MTc5ZjUxOWVkODdiODliMWNlZmQ5Mzk3Nzg4MQ"</span><span class="pln">
+  </span><span class="pun">}</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <a id="section-_others"></a>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/users</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-users">
+                                <div class="heading toggler" data-href="#get--api-users">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/users
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get one user</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{">▿{</span><span class="json-collapse-content" style="display: inline;"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"username"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"wiads"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Join"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"company"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"WiAds"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"phone"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"0543345234"</span><span class="pln">
+  </span><span class="pun">}</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/role</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-role">
+                                <div class="heading toggler" data-href="#get--api-role">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/role
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get role of user</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="[">▿[</span><span class="json-collapse-content" style="display: inline;"><span class="pln">
+    </span><span class="str">"ROLE_USER"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"ROLE_ADS_REPORT"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"ROLE_OPERATOR_LEVEl_02"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"ROLE_AP_GENERAL"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"ROLE_REPORT_GENERAL"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"ROLE_OPERATOR_GENERAL"</span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/users/edit</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="put operation" id="put--api-users-edit">
+                                <div class="heading toggler" data-href="#put--api-users-edit">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>PUT</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/users/edit
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Edit info user</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Content-Type</td>
+                                                        <td>true</td>
+                                                        <td>application/x-www-form-urlencoded</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>name</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>company</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>phone</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/users/changepass</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="put operation" id="put--api-users-changepass">
+                                <div class="heading toggler" data-href="#put--api-users-changepass">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>PUT</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/users/changepass
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Change password user</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Content-Type</td>
+                                                        <td>true</td>
+                                                        <td>application/x-www-form-urlencoded</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>pw_current</td>
+                                                        <td>String</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>pw_new</td>
+                                                        <td>String</td>
+                                                        <td>Length >= 6 </td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/province</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-province">
+                                <div class="heading toggler" data-href="#get--api-province">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/province
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list province</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{">▿{</span><span class="json-collapse-content" style="display: inline;"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Hà Nội"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"HANOI"</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Thanh Hoá"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"THANHHOA"</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{">▿{</span><span class="json-collapse-content" style="display: inline;"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Thừa Thiên Huế"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TTHUE"</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/accesspoint</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-accesspoint">
+                                <div class="heading toggler" data-href="#get--api-accesspoint">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/accesspoint
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list accesspoint</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Format</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>province</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>macaddr</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>text</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td>Từ khóa tìm kiếm (Địa chỉ mac, tên quán, ssid, địa chỉ)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>owner</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>from_date</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td>Y-m-d</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>to_date</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td>Y-m-d</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>page</td>
+                                                        <td>Integer</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>limit</td>
+                                                        <td>Integer</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td>0 <= limit <= 20</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"page_info"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="str">"total"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">734</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"current"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"limit"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2"</span><span class="pln">
+  </span><span class="pun">},</span></span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1599</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"macaddr"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"F8-D1-11-A4-1C-A8"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"WiAds-TuoiNgoc1 Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"address"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"7C Lý Tự Trọng"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"province"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Khánh Hòa"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"ssid"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"  WiAds-TuoiNgoc1 Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"key"</span><span class="pun">:</span><span class="pln"> </span><span class="str">" 12345678"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lat"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">12.2474894</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lng"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">109.1930954</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"created_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500462143000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"last_online"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1598</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"macaddr"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"D4-6E-0E-C1-66-66"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"WiAds-TuoiNgoc Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"address"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"7C Lý Tự Trọng"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"province"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Khánh Hòa"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"ssid"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"  WiAds-TuoiNgoc Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"key"</span><span class="pun">:</span><span class="pln"> </span><span class="str">" 12345678"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lat"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">12.2474894</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lng"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">109.1930954</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"created_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500462143000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"last_online"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/accesspoint/info</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-accesspoint">
+                                <div class="heading toggler" data-href="#get--api-accesspoint-info">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/accesspoint/info
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get info accesspoint</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Format</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>macaddr</td>
+                                                        <td>String</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="str">"macaddr"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"18-A6-F7-53-C0-80"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"fw_version"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"20161223.01-tl-740n-v5.bridge.generic"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"last_online"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"key"</span><span class="pun">:</span><span class="pln"> </span><span class="str">" 12345678"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"PHONGTRO.OHUE.VN"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"address"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"13 Lý Thường Kiệt"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"province"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Thừa Thiên Huế"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"owner"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Socify"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"isUsingKey"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"trash"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"mode"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Chế độ hiển thị LOGIN (QC)"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"bw_profile"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"login_template"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Tự động login - Quảng cáo chung - 640x710"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"detail_url"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+  </span><span class="pun">}</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/accesspoint/update</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="put operation" id="put--api-accesspoint-update">
+                                <div class="heading toggler" data-href="#put--api-accesspoint-update">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>PUT</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/accesspoint/update
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Update accesspoint</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <h4 style="text-align: center;" >Api này làm sau :))</h4>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/accesspoint/reboot</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="put operation" id="put--api-accesspoint-reboot">
+                                <div class="heading toggler" data-href="#put--api-accesspoint-reboot">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>PUT</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/accesspoint/reboot
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Reboot accesspoint</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <h4 style="text-align: center;" >Api này làm sau :))</h4>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/accesspoint/location</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-accesspoint-location">
+                                <div class="heading toggler" data-href="#get--api-accesspoint-location">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/accesspoint/location
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list accesspoint location</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Format</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>lat</td>
+                                                        <td>String</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>lng</td>
+                                                        <td>String</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>radius</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td>(km)</td>
+                                                        <td>Default = 10000, Max = 10000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>page</td>
+                                                        <td>Integer</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>limit</td>
+                                                        <td>Integer</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td>0 <= limit <= 20, Default = 20, Max:20</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"page_info"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="str">"total"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">734</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"current"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"limit"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2"</span><span class="pln">
+  </span><span class="pun">},</span></span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1599</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"macaddr"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"F8-D1-11-A4-1C-A8"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"WiAds-TuoiNgoc1 Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"address"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"7C Lý Tự Trọng"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"province"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Khánh Hòa"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"ssid"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"  WiAds-TuoiNgoc1 Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"key"</span><span class="pun">:</span><span class="pln"> </span><span class="str">" 12345678"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lat"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">12.2474894</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lng"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">109.1930954</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"created_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"distance"</span><span class="pun">:</span><span class="pln"> </span><span class="str">0.41 (km)</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1598</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"macaddr"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"D4-6E-0E-C1-66-66"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"WiAds-TuoiNgoc Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"address"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"7C Lý Tự Trọng"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"province"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Khánh Hòa"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"ssid"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"  WiAds-TuoiNgoc Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"key"</span><span class="pun">:</span><span class="pln"> </span><span class="str">" 12345678"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lat"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">12.2474894</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lng"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">109.1930954</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"created_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"distance"</span><span class="pun">:</span><span class="pln"> </span><span class="str">0.63 (km)</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/accesspoint/firmware</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-accesspoint-firmware">
+                                <div class="heading toggler" data-href="#get--api-accesspoint-firmware">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/accesspoint/firmware
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list accesspoint firmware</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{">▿{</span><span class="json-collapse-content" style="display: inline;"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"20170505.01.bridge - Gộp cổng TP-740n-v6"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"/fw/20170505.01.740n.v6.bridge.factory.bin"</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{">▿{</span><span class="json-collapse-content" style="display: inline;"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"20170422.01.bridge - Gộp cổng TP-1043nd-v3"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"/fw/20170422.01.1043nd.v3.bridge.factory.bin"</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{">▿{</span><span class="json-collapse-content" style="display: inline;"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"20170504.01.none.bridge - Tách cổng TP-740n-v5"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"/fw/20170504.01.740n.v5.none.bridge.factory.bin"</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/accesspoint/mode</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-accesspoint-mode">
+                                <div class="heading toggler" data-href="#get--api-accesspoint-mode">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/accesspoint/mode
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list accesspoint mode</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Chế độ hiển thị LOGIN (QC)"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"option normal_mode 0"</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Chế độ thường"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"option normal_mode 1"</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/accesspoint/bwprofile</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-accesspoint-bwprofile">
+                                <div class="heading toggler" data-href="#get--api-accesspoint-bwprofile">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/accesspoint/bwprofile
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list accesspoint bwprofile (Danh sách các tốc độ và thời gian sử dụng)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Tốc độ 10Mb - 60 phút"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Tốc độ 10Mb - 120 phút"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Tốc độ 10Mb - Không giới hạn giờ"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">3</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/accesspoint/templatelogin</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-accesspoint-templatelogin">
+                                <div class="heading toggler" data-href="#get--api-accesspoint-templatelogin">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/accesspoint/templatelogin
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list accesspoint template login (Danh sách màn hình login)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Tự động login - Quảng cáo chung - 640x710"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"captival_full_screen_v4.html.twig"</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Login bằng Facebook"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"captival_fblogin_v1.html.twig"</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{">▿{</span><span class="json-collapse-content" style="display: inline;"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Share Facebook để dùng Internet"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"captival_fb_share_login.html.twig"</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/company</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-company">
+                                <div class="heading toggler" data-href="#get--api-company">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/company
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list company</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"WiAds"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"wiads"</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/customer</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-customer">
+                                <div class="heading toggler" data-href="#get--api-customer">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/customer
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list customer</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <h4 style="text-align: center;" >Api này chưa được cung cấp :))</h4>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/platform</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-platform">
+                                <div class="heading toggler" data-href="#get--api-platform">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/platform
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list platform</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Android"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Android"</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"iPhone"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"iPhone"</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/advertiser</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-advertiser">
+                                <div class="heading toggler" data-href="#get--api-advertiser">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/advertiser
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list advertiser</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Format</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>location</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>platform</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>status</td>
+                                                        <td>Integer</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td>0:Kích hoạt, 1: Đóng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>owner</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>customer</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>from_date</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td>Y-m-d</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>to_date</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td>Y-m-d</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>page</td>
+                                                        <td>Integer</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>limit</td>
+                                                        <td>Integer</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td>0 <= limit <= 20</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"page_info"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="str">"total"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"current"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"limit"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2"</span><span class="pln">
+  </span><span class="pun">},</span></span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">230</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"title"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Meganet 5/2017"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"status"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"customer"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"meganet"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"owner"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"wiads"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"published_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"expired_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"created_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"position"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Full màn hình quảng cáo"</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">229</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"title"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"new"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"status"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"customer"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"vip123"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"owner"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"quannuongdathanh.wiads"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"published_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"expired_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"created_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"position"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Full màn hình quảng cáo"</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/advertiser/detail</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-advertiser-detail">
+                                <div class="heading toggler" data-href="#get--api-advertiser-detail">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/advertiser/detail
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get advertiser detail</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Format</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>id</td>
+                                                        <td>Integer</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td>Id quảng cáo</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">192</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"title"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"IBIG ANDROID 3-HANOI-GPlay"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"status"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"customer"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"ibig"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"owner"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"wiads"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"location"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"HANOI"</span><span class="pln">
+    </span><span class="pun">],</span></span><span class="pln">
+    </span><span class="str">"platform"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"Android"</span><span class="pln">
+    </span><span class="pun">],</span></span><span class="pln">
+    </span><span class="str">"published_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"expired_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"created_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"description"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"IBIG ANDROID 3-HANOI-GPlay"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"campagin"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"IBIG ANDROID 3-HANOI-GPlay"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"link"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"https://play.google.com/store/apps/details?id=game.ibig.android.lite"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"img_1"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://enter.wiads.vn/media/uploads/713b0c0ce8bf6d0c0b16616e255d2b55.jpg"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"img_2"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://enter.wiads.vn/media/uploads/89a158432c165856c25d7c026c3c628d.jpg"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"position"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Full màn hình quảng cáo"</span><span class="pln">
+  </span><span class="pun">}</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/advertiser/update</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="put operation" id="put--api-advertiser-update">
+                                <div class="heading toggler" data-href="#put--api-advertiser-update">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>PUT</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/advertiser/update
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Edit advertiser</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Content-Type</td>
+                                                        <td>true</td>
+                                                        <td>application/x-www-form-urlencoded</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Format</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>id</td>
+                                                        <td>Integer</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td>Mã quảng cáo</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>title</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>campagin</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>description</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>location</td>
+                                                        <td>Array</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td>[HANOI,TTHUE,DANANG]</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>platform</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td>[iPhone,Android]</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>published_at</td>
+                                                        <td>Datetime</td>
+                                                        <td>false</td>
+                                                        <td>Y-m-d H:i:s</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>expired_at</td>
+                                                        <td>Datetime</td>
+                                                        <td>false</td>
+                                                        <td>Y-m-d H:i:s</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>link</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>img_1</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td>Base64</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>img_2</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td>Base64</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>status</td>
+                                                        <td>Integer</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td>0:Kích hoạt, 1: Đóng</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/accesspoint/total</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-advertiser-total">
+                                <div class="heading toggler" data-href="#get--api-advertiser-total">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/accesspoint/total
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get accesspoint total</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Format</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>province</td>
+                                                        <td>String</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td>Mã tỉnh thành</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>company</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td>Mã công ty</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="str">"total"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">187</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"online"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"offline_yesterday"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">186</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"offline_today"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pln">
+  </span><span class="pun">}</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/accesspoint/total/detail</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-total-detail">
+                                <div class="heading toggler" data-href="#get--api-total-detail">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/accesspoint/total/detail
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Get list accesspoint status device</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Format</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>province</td>
+                                                        <td>String</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td>Mã tỉnh thành</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>company</td>
+                                                        <td>String</td>
+                                                        <td>false</td>
+                                                        <td></td>
+                                                        <td>Mã công ty</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>status</td>
+                                                        <td>Integer</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td>Trạng thái thiết bị: 0:online, 1: offline hôm nay, 2:offline từ hôm qua</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>page</td>
+                                                        <td>Integer</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>limit</td>
+                                                        <td>Integer</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td>0 <= limit <= 20</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"page_info"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="str">"total"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">734</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"current"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"limit"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2"</span><span class="pln">
+  </span><span class="pun">},</span></span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1599</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"macaddr"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"F8-D1-11-A4-1C-A8"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"WiAds-TuoiNgoc1 Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"address"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"7C Lý Tự Trọng"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"province"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Khánh Hòa"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"ssid"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"  WiAds-TuoiNgoc1 Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"key"</span><span class="pun">:</span><span class="pln"> </span><span class="str">" 12345678"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lat"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">12.2474894</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lng"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">109.1930954</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"created_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500462143000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"last_online"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1598</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"macaddr"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"D4-6E-0E-C1-66-66"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"WiAds-TuoiNgoc Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"address"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"7C Lý Tự Trọng"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"province"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Khánh Hòa"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"ssid"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"  WiAds-TuoiNgoc Cafe"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"key"</span><span class="pun">:</span><span class="pln"> </span><span class="str">" 12345678"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lat"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">12.2474894</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"lng"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">109.1930954</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"created_at"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500462143000 (milliseconds)</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"last_online"</span><span class="pun">:</span><span class="pln"> </span><span class="str">1500479216000 (milliseconds)</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="resource">
+                <div class="heading">
+                    <h2>/api/advertiser/analytics</h2>
+                </div>
+                <ul class="endpoints">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="get operation" id="get--api-analytics">
+                                <div class="heading toggler" data-href="#get--api-analytics">
+                                    <h3>
+                                        <span class="http_method">
+                                            <i>GET</i>
+                                        </span>
+                                        <span class="path">
+                                            /api/advertiser/analytics
+                                        </span>
+                                    </h3>
+                                    <ul class="options">
+                                        <li>Thông tin chi tiết về quảng cáo của từng AccessPoint</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content" style="display: none;">
+                                    <ul class="tabs">
+                                        <li class="selected" data-pane="content">Documentation</li>
+                                    </ul>
+
+                                    <div class="panes">
+                                        <div class="pane content selected">
+
+                                            <h4>Headers</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Required?</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Authorization</td>
+                                                        <td>true</td>
+                                                        <td>Bearer Token</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Parameters</h4>
+                                            <table class="fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Type</th>
+                                                        <th>Required?</th>
+                                                        <th>Format</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>macaddr</td>
+                                                        <td>String</td>
+                                                        <td>true</td>
+                                                        <td></td>
+                                                        <td>Địa chỉ macaddr</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>from_date</td>
+                                                        <td>Date</td>
+                                                        <td>true</td>
+                                                        <td>Y-m-d</td>
+                                                        <td>Từ ngày</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>to_date</td>
+                                                        <td>Date</td>
+                                                        <td>true</td>
+                                                        <td>Y-m-d</td>
+                                                        <td>Đến ngày</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h4>Return</h4>
+                                            <pre class="response prettyprint prettyprinted"><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+  </span><span class="str">"code"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"message"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Success"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"info"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="str">"macaddr"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"F8-1A-67-40-27-78"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">614</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">347</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"ctr"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">56.51</span><span class="pln">
+  </span><span class="pun">},</span></span><span class="pln">
+  </span><span class="str">"data"</span><span class="pun">:</span><span class="pln"> </span><span class="json-collapse-section" data-section-open-character="["><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">[</span></span><span class="json-collapse-content"><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">17</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">7</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-08"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">66</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">42</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-09"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">67</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">33</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-10"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">47</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">29</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-11"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">75</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">38</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-12"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">69</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">32</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-13"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">35</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">19</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-14"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">63</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">42</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-15"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">59</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">37</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-16"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">64</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">36</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-17"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">51</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">32</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-18"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">null</span><span class="pln">
+    </span><span class="pun">},</span></span><span class="pln">
+    </span><span class="json-collapse-section" data-section-open-character="{"><span class="json-collapse-marker"><span class="pun">▿</span></span><span class="pun">{</span></span><span class="json-collapse-content"><span class="pln">
+      </span><span class="str">"impression"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"click"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"date"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2017-06-19"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"advert_id"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">235</span><span class="pln">
+    </span><span class="pun">}</span></span><span class="pln">
+  </span><span class="pun">]</span></span><span class="pln">
+</span><span class="pun">}</span></span></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <a id="section-_others"></a>
+        </ul>
+    </div>
+    <p id="colophon">
+        Cập nhật lúc 15h 26/07/2017
+    </p>
+    <script src="js/sv.js" type="text/javascript" charset="utf-8" ></script>
+</body>
+
+</html>

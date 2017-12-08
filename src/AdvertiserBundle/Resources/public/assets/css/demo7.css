@@ -1,0 +1,315 @@
+*{
+    margin: 0;
+    padding:0;
+}
+html {
+    min-height: 100%;
+    width: 100%;
+}
+body{
+    font-size: 14px;
+    font-family: Tahoma;
+    color:#000000;
+    height: 100%;
+    width: 100%;
+}
+a{
+    text-decoration: none;
+}
+.clear{
+    clear: both;
+}
+
+.container{
+    max-width: 640px;
+    margin: 0 auto;
+    height:100%;
+    background-color: #333;
+}
+
+.container .screen {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.container .screen .head{
+
+}
+.container .screen div.wrap_connect{
+    display: block; 
+    /*min-height: 100%;*/
+    position: relative;
+    overflow: hidden;
+}
+
+.container .screen div.wrap_connect img { width:100%;height: 100%;}
+
+.container header{
+    height: 60px;
+}
+
+.container header .head {
+    width: 100%;
+    height: 100%;
+}
+.container header .head  p{
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 60px;
+    font-size: 16px;
+    color: #fff;
+    background: #c7c6c6;
+    text-align: center;
+}
+.container header .head  a .logo_wiads{
+    height: 60px;
+    left: 11px;
+    position: absolute;
+    top: 11px;
+    width: 110px;
+}
+.container header .head  a .logo_wiads img{
+    width: 100%;
+    height:100%;
+}
+.container header .head  h3{
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: lightgrey;
+    font-size: 28px;
+    font-family: tahoma;
+    letter-spacing: 3px;
+    line-height: 152px;
+}
+.container header .head  a .logo_accesspoint{
+    height: 111px;
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    width: 263px;
+    background-size: auto 100%;
+}
+.container .screen div.wrap_connect .wrap_text{
+    position: absolute;
+    top: 200px;
+    height: auto;    
+    width: 100%;
+}
+.container .screen div.wrap_connect .wrap_text .text{
+
+}
+.container .screen div.wrap_connect  .wrap_text .text p {
+   
+    border: 2px dotted;
+    color: #fff;
+    font-size: 18px;
+    margin: 0 auto;
+    padding: 15px;
+    max-width: 50%;
+    background:rgba(0,0,0,0.4);
+}
+
+.container .screen  .wrap_button {
+    position: absolute;
+    bottom: -5px;
+    width: 100%;
+}
+.container .screen  .wrap_button p{
+    text-align: center;
+    font-size: 19px;
+    color: #fff;
+    font-weight: normal;
+    padding-top: 15px;
+   
+}
+.container .screen  .wrap_button span{
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: #fff;
+    font-style: italic;
+    padding-top: 10px;
+}
+.container .screen  .button_login{
+    width: 100%;
+    height: 120px;
+    background: #636363;
+    margin: 0 auto;
+
+}
+.container .screen  .button_login a{
+    display: block;
+    width: 100%;
+    height: 55px;
+    margin: 0 auto;
+    background: #c7c6c6;
+    text-align: center;
+    line-height: 55px;
+    font-size: 25px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+}
+
+.container .screen div.wrap_connect .footer{
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    background: #333;
+}
+
+.container .screen div.wrap_connect .footer p{
+    text-align: center;
+    font-size: 14px;
+    color:#e6e4e4;
+    margin: 0px;
+    padding-top: 30px;
+}
+.container .screen div.wrap_connect .footer a{
+    text-align: center;
+    font-size: 12px;
+    color:#e6e4e4;
+    display: block;
+    padding-top: 10px;
+}
+
+
+/* STYLE LAYOUT RESPONSIVE */
+/* MEDIA 640px */
+@media only screen and (max-width: 640px) {
+    html{width: 100%;height: 100%;}
+    body{width: 100%;height: 100%;}
+    
+    .container .screen {height: 100%;}
+    .container .screen div.wrap_connect .head { height: 110px; }
+
+    .container header{
+        height: 60px;
+    }
+    .container header .head a {  display: block;  width: 100%;  height: 100%;  }
+    .container header .head  h3{ line-height: 110px; font-size: 23px; }
+    .container header .head a img {  width: 100%;  height: 100%;  }
+
+
+    .container header .head  a .logo_accesspoint{
+        height: 95px;
+        position: absolute;
+        right: 30px;
+        top: 10px;
+        width: 215px;
+        background-size: auto 100%;
+    }
+
+    .container .screen .button_login{ height: 100px;  }
+
+    .container .screen  div.wrap_connect .head .logo_accesspoint{
+        height: 90px;
+        position: absolute;
+        right: 30px;
+        top: 10px;
+        width: 250px;
+
+    }
+}
+@media only screen and (max-width: 560px) {
+    .container header .head  a .logo_accesspoint{
+       
+        background-size: auto 80% !important;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .container header{
+        height: 60px;
+    }
+    .container header .head  h3{ line-height: 100px; font-size: 20px; }
+    .container div.wrap_connect  .head  h3{
+        line-height: 100px;
+    }
+    .container header .head  a .logo_accesspoint{
+        height: 95px;
+        position: absolute;
+        right: 20px;
+        top: 3px;
+        width: 150px;
+        background-size: auto 70% !important;
+    }
+    .container header .head  a .logo_wiads{
+        height: 45px;
+        left: 8px;
+        top: 8px;
+        width: 80px;
+    }
+   
+ 
+
+    .container .screen div.wrap_connect .wrap_text {
+        top: 150px;
+    }
+
+    .container .screen div.wrap_connect .wrap_button {
+        bottom: 90px;
+    }
+
+    .container .screen div.wrap_connect div.footer{
+        height: 60px;
+    }
+
+    .container .screen div.wrap_connect div.footer p{
+        padding-top: 14px;
+    }
+    .container .screen div.wrap_connect div.footer a{
+        padding-top: 5px;
+    }
+
+    .container .screen div.wrap_connect .button_login a{
+        height: 60px;
+        line-height: 60px;
+        font-size: 20px;
+        letter-spacing: 6px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .container header {
+        height: 55px;
+    }
+    .container header .head p{
+        line-height: 55px;
+    }
+    .container header .head  a .logo_accesspoint{
+        right: 10px;
+        background-size: auto 65% !important;
+    }
+
+}
+@media only screen and (max-width: 360px) {
+
+    .container header .head  h3{ line-height: 100px; font-size: 20px; }
+}
+/* IPHONE 4 */
+@media only screen and (max-width: 320px) {
+    .container header .head  h3{ font-size: 18px; }
+    .container .screen .button_login{
+        height: 40px;
+    }
+    .container .screen div.wrap_connect .wrap_text {
+        top: 120px;
+    }
+    .container .screen div.wrap_connect .wrap_text .text p{
+        max-width: 60%;
+    }
+    .container .screen .wrap_button {
+        bottom: 15px;
+    }
+    .container .screen div.wrap_connect .button_login a{
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        letter-spacing: 6px;
+    }
+}

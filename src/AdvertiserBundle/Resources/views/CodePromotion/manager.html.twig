@@ -1,0 +1,134 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Mã khuyến mãi</a> </div>
+            <h1>Mã khuyến mãi</h1>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+                            <h5>Kiểm tra</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            {% if app.session.flashBag.has('success') %}
+                                <div class="alert alert-success">
+                                    {% for msg in app.session.flashBag.get('success') %}
+                                        {{ msg }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if app.session.flashBag.has('error') %}
+                                <div class="alert alert-danger">
+                                    {% for msg in app.session.flashBag.get('error') %}
+                                      {{ msg }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <form class="form-horizontal" method="post" action="">
+                                <div class="control-group">
+                                    <label class="control-label">Mã Số</label>
+                                    <div class="controls">
+                                        <input type="text" required value="{{ code }}" name="code" autocomplete="off" style="text-transform: uppercase">
+                                        <input type="submit" value="Kiểm tra" name="check_code" class="btn btn-success">
+                                    </div>
+                                </div>
+                            </form>
+                            {% if status == 1 %}
+                                <hr>
+                                <form class="form-horizontal" method="post" action="">
+                                    <input type="hidden" name="code" value="{{ code }}" >
+                                    <div class="control-group">
+                                        <label class="control-label">Họ tên</label>
+                                        <div class="controls">
+                                            <input type="text" value="{{ fullname }}" required name="fullname" >
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Số Điện Thoại</label>
+                                        <div class="controls">
+                                            <input type="text" value="{{ phone }}" required name="phone">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Địa Chỉ</label>
+                                        <div class="controls">
+                                            <input type="text" value="{{ address }}" required name="address">
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <input style="margin-left: 180px;" type="submit" name="_update" value="Cập nhật" class="btn btn-success">
+                                    </div>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Danh sách mã khuyến mãi</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
+                                <table id="data_table" class="display table table-bordered data-table dataTable" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th width="3%">ID</th>
+                                        <th>Khách hàng</th>
+                                        <th>Mã số</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Họ tên</th>
+                                        <th>Trạng thái</th>
+                                        <th>Ngày tạo</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var table = $('#data_table').DataTable({
+                dom: 'lBfrtip',
+                serverSide: true,
+                ajax: {
+                    url: "{{ path('advertiser_promotion_list') }}",
+                    method: 'POST'
+                },
+                "aoColumns": [
+                    { "data": "id"},
+                    { "data": "customer" },
+                    { "data": "code" },
+                    { "data": "phone" },
+                    { "data": "fullname" },
+                    { "data": "status" },
+                    { "data": "cretead_at" },
+                ],
+                "bDestroy": true
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+  <title>Report</title>
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="MobileOptimized" content="width"/>
+
+    <meta name="HandheldFriendly" content="true"/>
+	<meta content="" name="description">
+<meta content="" name="author">
+<script type="text/javascript" src="/bundles/hotspotaccesspoint/act/js/jquery-1.11.1.min.js"></script>
+
+<body>
+<form id="view_form" name ="view_form" action="/ap/report_v2" method="post">
+Chọn Tỉnh:
+<select id="province" name="province">
+	<option value="-1">Tất cả</option>
+	<option value="TTHUE">{{ "TT Huế"|trans }}</option>
+	<option value="DANANG">{{ "Đà Nẵng"|trans }}</option>
+	<option value="HANOI">{{ "Hà Nội"|trans }}</option>
+</select>
+Chọn Công ty:
+<select id="company" name="company">
+{% if app.user and is_granted('ROLE_OPERATOR_LEVEl_01') %}
+	<option value="-1">Tất cả</option>
+{% endif %}
+    {% for owner in owners %}
+	<option value="{{ owner['company'] }}">{{ owner['company'] }}</option>
+	{% endfor %}
+</select>
+</br>
+Năm:<input type="text" name="year" value="{{ params['year'] }}"/>, tháng <input type="text" name="month" value="{{ params['month'] }}"/>
+<input type="hidden" name="report" value="1"/>
+<input type="submit" value="Xem thống kê">
+</form>
+<hr/>
+{% if is_granted('ROLE_OPERATOR_LEVEl_01') %}
+    <p>Thống kê thiết bị {{ params['year'] }}, tháng {{ params['month'] }}</p>
+{% endif %}
+<table style="border: 1px solid grey; border-collapse: collapse;font-size:8pt;">
+
+<tr style="border: 1px solid grey;">
+ <td style="border: 1px solid grey;">STT</td>
+ <td style="border: 1px solid grey;">MAC</td>
+ <td style="border: 1px solid grey;">Name</td>
+ <td style="border: 1px solid grey;">Address</td>
+ <td style="border: 1px solid grey;">Province</td>
+ <td style="border: 1px solid grey;">Last online</td>
+ <td colspan="1" style="border: 1px solid grey;">01</td>
+ <td colspan="1" style="border: 1px solid grey;">02</td>
+ <td colspan="1" style="border: 1px solid grey;">03</td>
+ <td colspan="1" style="border: 1px solid grey;">04</td>
+ <td colspan="1" style="border: 1px solid grey;">05</td>
+ <td colspan="1" style="border: 1px solid grey;">06</td>
+ <td colspan="1" style="border: 1px solid grey;">07</td>
+ <td colspan="1" style="border: 1px solid grey;">08</td>
+ <td colspan="1" style="border: 1px solid grey;">09</td>
+ <td colspan="1" style="border: 1px solid grey;">10</td>
+ <td colspan="1" style="border: 1px solid grey;">11</td>
+ <td colspan="1" style="border: 1px solid grey;">12</td>
+ <td colspan="1" style="border: 1px solid grey;">13</td>
+ <td colspan="1" style="border: 1px solid grey;">14</td>
+ <td colspan="1" style="border: 1px solid grey;">15</td>
+ <td colspan="1" style="border: 1px solid grey;">16</td>
+ <td colspan="1" style="border: 1px solid grey;">17</td>
+ <td colspan="1" style="border: 1px solid grey;">18</td>
+ <td colspan="1" style="border: 1px solid grey;">19</td>
+ <td colspan="1" style="border: 1px solid grey;">20</td>
+ <td colspan="1" style="border: 1px solid grey;">21</td>
+ <td colspan="1" style="border: 1px solid grey;">22</td>
+ <td colspan="1" style="border: 1px solid grey;">23</td>
+ <td colspan="1" style="border: 1px solid grey;">24</td>
+ <td colspan="1" style="border: 1px solid grey;">25</td>
+ <td colspan="1" style="border: 1px solid grey;">26</td>
+ <td colspan="1" style="border: 1px solid grey;">27</td>
+ <td colspan="1" style="border: 1px solid grey;">28</td>
+ <td colspan="1" style="border: 1px solid grey;">29</td>
+ <td colspan="1" style="border: 1px solid grey;">30</td>
+ <td colspan="1" style="border: 1px solid grey;">31</td>
+
+</tr>
+{% set i=0 %}
+{% for row in result %}
+{% set i = i + 1 %}
+<tr style="border: 1px solid grey;{% if i  is divisible by(2)  %}background-color:#CEECF5;{% endif %}">
+   <td style="border: 1px solid grey;">{{ i }}</td>
+    <td style="border: 1px solid grey;">{{row['macaddr']}}</td>
+    <td style="border: 1px solid grey;">{{row['name']}}</td>
+    <td style="border: 1px solid grey;">{{row['address']}}</td>
+    <td style="border: 1px solid grey;">{{row['province']}}</td>
+    <td style="border: 1px solid grey;
+    {% if date(row['updated_at']) < date('-2days') %}
+            background-color:#F3565D;
+    {% elseif date(row['updated_at']) < date('-1days') %}
+            background-color:#F4C20B;
+    {% endif %}">
+        {{row['updated_at']}}</td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{row['01']}}</td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['01']<row['02']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['02']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['02']<row['03']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['03']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['03']<row['04']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['04']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['04']<row['05']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['05']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['05']<row['06']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['06']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['06']<row['07']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['07']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['07']<row['08']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['08']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['08']<row['09']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['09']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['09']<row['10']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['10']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['10']<row['11']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['11']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['11']<row['12']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['12']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['12']<row['13']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['13']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['13']<row['14']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['14']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['14']<row['15']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['15']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['15']<row['16']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['16']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['16']<row['17']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['17']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['17']<row['18']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['18']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['18']<row['19']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['19']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['19']<row['20']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['20']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['20']<row['21']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['21']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['21']<row['22']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['22']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['22']<row['23']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['23']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['23']<row['24']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['24']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['24']<row['25']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['25']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['25']<row['26']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['26']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['26']<row['27']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['27']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['27']<row['28']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['28']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['28']<row['29']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['29']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['29']<row['30']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['30']}}</span></td>
+    <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['30']<row['31']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{row['31']}}</span></td>
+</tr>
+ <!--
+ <tr style="border: 1px solid grey;{% if i  is divisible by(2)  %}background-color:#CEECF5;{% endif %}">
+  <td style="border: 1px solid grey;">{{ i }}</td>
+  <td style="border: 1px solid grey;">{{row['ap_macaddr']}}</td>
+  <td style="border: 1px solid grey;">{{row['01']}}</td>
+  <td style="border: 1px solid grey;">{{row['01_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['02']}}</td>
+  <td style="border: 1px solid grey;">{{row['02_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['03']}}</td>
+  <td style="border: 1px solid grey;">{{row['03_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['04']}}</td>
+  <td style="border: 1px solid grey;">{{row['04_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['05']}}</td>
+  <td style="border: 1px solid grey;">{{row['05_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['06']}}</td>
+  <td style="border: 1px solid grey;">{{row['06_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['07']}}</td>
+  <td style="border: 1px solid grey;">{{row['07_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['08']}}</td>
+  <td style="border: 1px solid grey;">{{row['08_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['09']}}</td>
+  <td style="border: 1px solid grey;">{{row['09_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['10']}}</td>
+  <td style="border: 1px solid grey;">{{row['10_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['11']}}</td>
+  <td style="border: 1px solid grey;">{{row['11_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['12']}}</td>
+  <td style="border: 1px solid grey;">{{row['12_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['13']}}</td>
+  <td style="border: 1px solid grey;">{{row['13_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['14']}}</td>
+  <td style="border: 1px solid grey;">{{row['14_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['15']}}</td>
+  <td style="border: 1px solid grey;">{{row['15_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['16']}}</td>
+  <td style="border: 1px solid grey;">{{row['16_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['17']}}</td>
+  <td style="border: 1px solid grey;">{{row['17_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['18']}}</td>
+  <td style="border: 1px solid grey;">{{row['18_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['19']}}</td>
+  <td style="border: 1px solid grey;">{{row['19_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['20']}}</td>
+  <td style="border: 1px solid grey;">{{row['20_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['21']}}</td>
+  <td style="border: 1px solid grey;">{{row['21_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['22']}}</td>
+  <td style="border: 1px solid grey;">{{row['22_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['23']}}</td>
+  <td style="border: 1px solid grey;">{{row['23_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['24']}}</td>
+  <td style="border: 1px solid grey;">{{row['24_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['25']}}</td>
+  <td style="border: 1px solid grey;">{{row['25_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['26']}}</td>
+  <td style="border: 1px solid grey;">{{row['26_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['27']}}</td>
+  <td style="border: 1px solid grey;">{{row['27_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['28']}}</td>
+  <td style="border: 1px solid grey;">{{row['28_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['29']}}</td>
+  <td style="border: 1px solid grey;">{{row['29_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['30']}}</td>
+  <td style="border: 1px solid grey;">{{row['30_click']}}</td>
+  <td style="border: 1px solid grey;">{{row['31']}}</td>
+  <td style="border: 1px solid grey;">{{row['31_click']}}</td>
+ </tr>
+ -->
+{% endfor %}
+</table>
+</body>
+</html>

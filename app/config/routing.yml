@@ -1,0 +1,139 @@
+wifi:
+    resource: "@WifiBundle/Resources/config/routing.yml"
+    prefix:   /wifi
+
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
+advertiser:
+    resource: "@AdvertiserBundle/Resources/config/routing.yml"
+    prefix:   /advertiser
+
+hotspot_access_point:
+    resource: "@HotspotAccessPointBundle/Resources/config/routing.yml"
+    prefix:   /ap
+api:
+    resource: "@ApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+fos_oauth_server_token:
+  resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+fos_oauth_server_authorize:
+  resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+#common_db:
+#    resource: "@CommonDbBundle/Resources/config/routing.yml"
+#    prefix:   /
+
+#Portal_admin:
+#    resource: "@PortalAdminBundle/Resources/config/routing.yml"
+#    prefix:   /auth
+
+#Portal_front:
+#    resource: "@PortalFrontBundle/Resources/config/routing.yml"
+#    prefix:   /portal
+test_api:
+  path: /test/api/linkportal
+  defaults: { _controller: 'AdvertiserBundle:TestApi:getLinkPortal' }
+test_ads:
+  path: /test/api/ads
+  defaults: { _controller: 'AdvertiserBundle:TestApi:testads' }
+
+advertiser_list:
+  path: /ads/list
+  defaults: { _controller: 'AdvertiserBundle:Index:list' }
+
+advertiser_add:
+  path: /ads/add
+  defaults: { _controller: 'AdvertiserBundle:Index:add' }
+
+advertiser_position_ads:
+  path: /ads/positionads
+  defaults: { _controller: 'AdvertiserBundle:Index:positionads' }
+
+
+advertiser_accesspoint_templateLogin:
+  path: /accesspoint/templateLogin
+  defaults: { _controller: 'AdvertiserBundle:AccessPoint:templateLogin' }
+
+advertiser_accesspoint_templateLoginFullScreen:
+  path: /accesspoint/templateLoginFullScreen
+  defaults: { _controller: 'AdvertiserBundle:AccessPoint:templateLoginFullScreen' }
+
+advertiser_accesspoint_templateLoginSuccess:
+  path: /accesspoint/templateLoginSuccess
+  defaults: { _controller: 'AdvertiserBundle:AccessPoint:templateLoginSuccess' }
+
+advertiser_codepromotion:
+  path: /ads/promotion
+  defaults: { _controller: 'AdvertiserBundle:CodePromotion:index' }
+
+advertiser_getpromotion:
+  path: /ads/getpromotion
+  defaults: { _controller: 'AdvertiserBundle:CodePromotion:getCodePromotion' }
+
+advertiser_layout_demo1:
+  path: /layout/demo1
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo1' }
+
+advertiser_layout_demo2:
+  path: /layout/demo2
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo2' }
+
+advertiser_layout_demo3:
+  path: /layout/demo3
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo3' }
+
+advertiser_layout_demo4:
+  path: /layout/demo4
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo4' }
+
+advertiser_layout_demo5:
+  path: /layout/demo5
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo5' }
+advertiser_layout_demo6:
+  path: /layout/demo6
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo6' }
+advertiser_layout_demo7:
+  path: /layout/demo7
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo7' }
+advertiser_layout_demo8:
+  path: /layout/demo8
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo8' }
+advertiser_layout_demo9:
+  path: /layout/demo9
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo9' }
+advertiser_layout_demo10:
+  path: /layout/demo10
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo10' }
+advertiser_layout_demo11:
+  path: /layout/demo11
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo11' }
+advertiser_layout_demo12:
+  path: /layout/demo12
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo12' }
+advertiser_layout_demo13:
+  path: /layout/demo13
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo13' }
+advertiser_layout_demo14:
+  path: /layout/demo14
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo14' }
+advertiser_layout_demo15:
+  path: /layout/demo15
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo15' }
+advertiser_layout_demo16:
+  path: /layout/demo16
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo16' }
+advertiser_layout_demo17:
+  path: /layout/demo17
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo17' }
+advertiser_layout_demo18:
+  path: /layout/demo18
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo18' }
+advertiser_layout_demo19:
+  path: /layout/demo19
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo19' }
+advertiser_layout_demo20:
+  path: /layout/demo20
+  defaults: { _controller: 'AdvertiserBundle:Layout:demo20' }
+#app:
+#    resource: "@AppBundle/Controller/"
+#    type:     annotation

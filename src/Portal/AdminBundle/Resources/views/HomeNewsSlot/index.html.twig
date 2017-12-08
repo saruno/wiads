@@ -1,0 +1,290 @@
+{% extends 'PortalAdminBundle::layout.html.twig' %}
+{% block head %}
+   {{ parent() }}
+    <script>
+    	$(function () {
+    		$('#lang').change(function () {
+    			window.location.href = '{{ asset(global_auth_path) }}/home_news_zones/' + $('#lang').val()+'/'+$('#position').val();
+       		});
+       		$('#position').change(function () {
+       			window.location.href = '{{ asset(global_auth_path) }}/home_news_zones/' + $('#lang').val()+'/'+$('#position').val();
+        		});
+       		
+       		$('body').on('change', '.checkAll',function () {
+	            $('.cb-element').prop('checked', $('.checkAll').is(':checked') ?  true : false);
+	        });
+	        $('body').on('change','.cb-element', function () {
+	            $('.cb-element').length == $('.cb-element:checked').length ? $('.checkAll').prop('checked', true) : $('.checkAll').prop('checked', false);
+	        });
+       		$('#cmd-new').click(function () {
+    	    	window.location.href = $(this).attr('href') + /*'?section_type='+ $('#section_type').val()+*/'?lang='+$('#lang').val();
+    	    	return false;
+    	    });
+       		$('#cmd-del').click(function () {
+       	        if ($('.cb-element:checked').length == 0) {
+       	            $('#dialog-form').html("<div style='text-align:center;padding-top:30px'><h3>{{ 'Please check menu to delete' | trans }}</h3><div>");
+       	         	var opt={
+      					'title': "{{ 'Delete Menu'|trans }}"
+      					};
+               		$('#dialog-form').dialog(opt);
+       	            $('#dialog-form').dialog("open");
+       	        }
+       	        else {
+       	            var strIDs = "";
+       	            $('.cb-element:checked').each(function () {
+       	                strIDs += (strIDs != "") ? "," : "";
+       	                strIDs += $(this).val();
+       	            });
+
+       	            $('#action_id').val(strIDs);
+       	            $('#action').val('delete');
+       	         	$("#SubmitSearch").click();
+       	        }
+       	        return false;
+
+       	    });
+    	});
+    	function Page(page) {
+    	    $("#currentPage").val(page);
+    	    $("#SubmitSearch").click();
+    	}
+    	function MoveUp(id)
+    	{
+    		$('#action').val('up');
+    		$('#action_id').val(id);
+    		$("#SubmitSearch").click();
+        }
+    	function MoveDown(id)
+    	{
+    		$('#action').val('down');
+    		$('#action_id').val(id);
+    		$("#SubmitSearch").click();
+        }
+    	function setPublish(object, id, isPublish)
+    	{
+			object.innerHTML= 'saving';
+        	
+    		var request = $.ajax({
+    		  url: "{{ asset(global_auth_path) }}/home_news_zones/publish/"+id+"/"+isPublish,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json"
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+	        		if (isPublish)
+	        			object.innerHTML= '<img src=\"/assets/portalauth//images/enable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth//images/disable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+        			var opt={
+          					'title': "{{ 'Publish Menu'|trans }}"
+          					};
+                   	$('#dialog-form').dialog(opt);
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (isPublish)
+       					object.innerHTML= '<img src=\"/assets/portalauth//images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth//images/enable.gif\"> </img>';
+        		}
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+    			var opt={
+      					'title': "{{ 'Publish Menu'|trans }}"
+      					};
+               	$('#dialog-form').dialog(opt);
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth//images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth//images/enabled.gif\"> </img>';
+    		});
+  			
+        }
+    	function togglePublish(object, id, isPublish)
+    	{
+			object.innerHTML= 'saving';
+        	
+    		var request = $.ajax({
+    		  url: "{{ asset(global_auth_path) }}/home_news_zones/togglepublish/"+id,
+    		  type: "POST",
+    		  cache: false,
+    		  dataType: "json",
+    		});
+
+    		request.success(function(data) {
+        		if (data.status == "OK")
+        		{
+        			if (data.message == true)
+	        			object.innerHTML= '<img src=\"/assets/portalauth//images/disable.gif\"> </img>';
+	        		else
+	        			object.innerHTML= '<img src=\"/assets/portalauth//images/enable.gif\"> </img>';
+        		}
+        		else
+        		{
+            		var message = "";
+            		for(var i=0; i<data.message.length;i++)
+            		{
+						message += "<li>" + data.message[i] + "</li>";
+            		}
+        			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+        			var opt={
+          					'title': "{{ 'Publish Menu'|trans }}"
+          					};
+                   	$('#dialog-form').dialog(opt);
+       	            $('#dialog-form').dialog("open");
+
+       	            //Reset current publish status
+       	         	if (data.message == true)
+       					object.innerHTML= '<img src=\"/assets/portalauth//images/disable.gif\"> </img>';
+       				else
+       					object.innerHTML= '<img src=\"/assets/portalauth//images/enable.gif\"> </img>';
+        		};
+    		});
+
+    		request.fail(function(jqXHR, textStatus) {
+    			$('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+    			var opt={
+      					'title': "{{ 'Publish Menu'|trans }}"
+      					};
+               	$('#dialog-form').dialog(opt);
+   	            $('#dialog-form').dialog("open");
+    		  	
+    		  	//Reset current publish status
+    		  	if (value)
+      				object.innerHTML= '<img src=\"/assets/portalauth//images/disable.gif\"> </img>';
+      			else
+      				object.innerHTML= '<img src=\"/assets/portalauth//images/enabled.gif\"> </img>';
+    		});
+  			
+        }        
+    </script>
+{% endblock %}
+{% block content %}
+<div id="p-toolbox" class="p-box">
+    <div class="p-box-bottom">
+        <div class="p-box-top clearfix">
+            <ul id="p-commands">
+                <li><a id = "cmd-new" href="{{ asset(global_auth_path) }}/home_news_zones/add"> {{"Add"|trans}}</a></li>
+                <li><a id = "cmd-del" href="{{ asset(global_auth_path) }}/home_news_zones/del"> {{"Delete"|trans}}</a></li>
+                <li><a id = "cmd-close" href="{{ asset(global_auth_path) }}"> {{"Close"|trans}}</a></li>
+                
+            </ul>
+            <div class="p-module-title">
+                <a id="menu-showhide" href="{{ asset(global_auth_path) }}">{{ "Main Menu"|trans }}</a><h1>{{ "Menu management"|trans }}</h1></h1>
+            </div>
+        </div>
+        <!-- enddiv: #p-box-top -->
+    </div>
+    <!-- enddiv: #p-box-bottom -->
+</div>
+<!-- enddiv: #p-toolbox -->
+<div id="Div1" class="p-box p-box-space">
+    <div class="p-box-bottom">
+        <div class="p-box-top clearfix">
+            <div id="p-options">
+            	
+<form method="post" name='frm_home_news_zone_List' action="">
+	<input type="hidden" name='action' id='action' value='{{ action }}'>
+	<input type="hidden" name='action_id' id='action_id' value=''>
+	<ul>
+		<li>
+			{{ "Position"|trans }}
+			<select id="position" name="position">
+				<option value="A0" {{ position == "A0"?"selected='selected'": "" }}>{{ "A0"|trans }}</option>
+				<option value="A" {{ position == "A"?"selected='selected'": "" }}>{{ "A"|trans }}</option>
+				<option value="B" {{ position == "B"?"selected='selected'": "" }}>{{ "B"|trans }}</option>
+				<option value="C" {{ position == "C"?"selected='selected'": "" }}>{{ "C"|trans }}</option>
+				<option value="D" {{ position == "D"?"selected='selected'": "" }}>{{ "D"|trans }}</option>
+				<option value="NA" {{ position == "NA"?"selected='selected'": "" }}>{{ "NA"|trans }}</option>
+				<option value="NB" {{ position == "NB"?"selected='selected'": "" }}>{{ "NB"|trans }}</option>
+				<option value="N_VIDEO" {{ position == "N_VIDEO"?"selected='selected'": "" }}>{{ "Video News"|trans }}</option>
+				<option value="N_PHOTO" {{ position == "N_PHOTO"?"selected='selected'": "" }}>{{ "Photo News"|trans }}</option>
+				
+			</select>
+		</li>
+		<li>{{ "Language"|trans }}:
+			<select id="lang" name="lang">
+			{% for l in langs %}
+				<option value="{{l.code}}" {% if l.code == lang %}selected="selected" {% endif %} >{{l.title}}</option>
+			{% endfor %}
+			</select>
+		</li>
+	</ul>
+	<input id="SubmitSearch" type="submit" value="search" style="display:none"/>
+</form>
+
+            </div>
+            <div id="searchresults">
+          	{% if responses != null %}
+            	<ul>
+            	{% for response in responses %}
+            		<li> {{ response }}</li>
+            	{% endfor %}
+            	</ul>
+           	{% endif %}
+               <table class="p-grid" id="grid_section">
+               		<tr>
+               			<th> <input id="checkAll" type="checkbox" class="checkAll"/></th>
+               			<th>{{ "Title"|trans }}</th>
+               			<th>{{ "Order"|trans }}</th>
+               			<th>{{ "Publish"|trans }}</th>
+               		</tr>
+               		{% for menu in menus %}
+               		<tr>
+               			<td>
+               				<input id="check_{{ menu.id }}" type="checkbox" value="{{ menu.id }}" class="cb-element"/>
+               			</td>
+               			<td style="text-align: left;">
+							{% for i in 1..menu.deep-1 if menu.deep != 1  %} &nbsp;&nbsp;{% endfor %}
+							<a href="{{ asset(global_auth_path) }}/home_news_zones/detail/{{ menu.id }}/{{ menu.locale }}">{{ menu.title|default("No Title"|trans) }}</a>
+               			</td>
+               			<td>
+               				<a onclick='MoveUp({{ menu.id }})'><img src='/assets/portalauth//images/arrow_up.png'> </img></a>
+               				<a onclick='MoveDown({{ menu.id }})'><img src='/assets/portalauth//images/arrow_down.png'> </img></a>
+               			</td>
+               			
+               			<td>
+               				{% if menu.locked %}
+               					<a onclick="togglePublish(this,{{ menu.id }}); return false;"><img src="/assets/portalauth//images/disable.gif"> </img> </a>
+               				{% else %}
+               					<a onclick="togglePublish(this,{{ menu.id }}); return false;"><img src="/assets/portalauth//images/enable.gif"> </img> </a>
+               				{% endif %}
+               				
+               			</td>
+               		</tr>
+					{% endfor %}
+               </table>
+                
+            </div>
+            <!-- enddiv: #p-options -->
+            <div id="dialog-form" title="Menu">
+            
+       
+</div>
+
+        </div>
+        <!-- enddiv: #p-box-top -->
+    </div>
+    <!-- enddiv: #p-box-bottom -->
+</div>
+
+
+	
+{% endblock %}	

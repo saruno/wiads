@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<circleblock enable="0" forceReload="0">
+    <params rate="1">
+    </params>
+    <applovin enable="0" forceReload="0" showVideo="0">
+    </applovin>
+    <appodeal enable="1" forceReload="0" showVideo="0">
+        <description>Appodeal</description>
+        <appKey>32d5b304e94dcffd34a3c49b5962887d77182b37b50bcb38</appKey>
+        <!-- "admob", "amazon_ads", "applovin", "chartboost", "mopub", "unity_ads", "mailru", "facebook", "adcolony", "vungle" -->
+        <disableNetwork attr1="mraid" attr2="" attr3="" attr4="" attr5="" attr6="" attr7="" attr8="" attr9="" attr10=""></disableNetwork>
+    </appodeal>
+    <admob enable="1" forceReload="0" showVideo="1">
+        <description>Google AdMob</description>
+        <testDevice>kGADSimulatorID</testDevice>
+        <appKey>ca-app-pub-4838303149686936/3593937064</appKey>
+        <appKeyBanner>ca-app-pub-4838303149686936/1542488795</appKeyBanner>
+    </admob>
+</circleblock>

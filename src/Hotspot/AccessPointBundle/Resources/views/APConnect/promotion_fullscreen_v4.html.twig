@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href='/bundles/advertiser/assets/css/demo13.css' />
+</head>
+<body>
+<div class="container">
+    <div class="screen">
+        <header>
+            <div class="head">
+                <p>Kết nối thành công</p>
+            </div>
+        </header>
+        <div class="wrap_connect">
+            {% if adv is not empty %}
+            <a href="{%if adv.link is empty%}javascript:void(0){% else %}{{addv.link}}{% endif %}"><img src="/ap/display2.html?id={{ adv.id }}&link={{ adv.linkTo | url_encode}}&position=QAF_v4" alt="BANNER"></a>
+            {% else %}
+                <img src="/bundles/advertiser/assets/img/bg.png" alt="BANNER">
+            {% endif %}
+            <div class="wrap_button_success">
+                <div class="wrap_v">
+                    {% if adv is empty %}
+                    <span><img src="/bundles/advertiser/assets/img/logo_cafe.png"></span>
+                    <p>Giải pháp của Wiads <br>CPC rẻ nhất thị trường</p>
+                        <!--
+                    <a>Kết nối thành công</a>
+                    -->
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Mã giảm giá: {{ code }}</p>
+            <span>Vui lòng chụp lại mã giảm giá để sử dụng</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

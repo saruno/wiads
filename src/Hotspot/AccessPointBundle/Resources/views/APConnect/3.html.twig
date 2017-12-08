@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+  <title>{{ title }}</title>
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  
+  <meta http-equiv="refresh" content="0;url=http://{{uamip}}:{{uamport}}/prelogin">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="MobileOptimized" content="width"/>
+
+    <meta name="HandheldFriendly" content="true"/>
+	<meta content="" name="description">
+<meta content="" name="author">
+<script type="text/javascript">
+
+	function doTime() {
+		window.setTimeout( doTime(), 1000 );
+		t = new Date();
+		time = Math.round((t.getTime() - starttime.getTime())/1000);
+
+		if (mytimeleft) {
+			time = mytimeleft - time;
+
+		        if (time <= 0) {
+		          window.location = "{{loginpath}}?res=popup3&uamip={{uamip}}&uamport={{uamport}}";
+		        }
+		}
+
+		if (time < 0) time = 0;
+
+		hours = (time - (time % 3600)) / 3600;
+		time = time - (hours * 3600);
+		mins = (time - (time % 60)) / 60;
+		secs = time - (mins * 60);
+		if (hours < 10) hours = 0 + hours;
+		if (mins < 10) mins = 0 + mins;
+		if (secs < 10) secs = 0 + secs;
+		title = "Online time:"  + hours + ":" + mins + ":" + secs;
+
+		if (mytimeleft) {
+			title = "Remaining time:"  + hours + ":" + mins + ":" + secs;
+		}
+
+		if (document.all || document.getElementById) {
+			document.title = title;
+		} else {
+			self.status = title;
+		}
+
+	}
+	
+</script>
+<script src='/bundles/hotspotaccesspoint/js/hotspotlogin.js'></script>
+</head>
+<body class="login" onLoad="javascript:doOnLoad({{result}}, '{{loginpath}}?res=popup2&uamip={{uamip}}&uamport={{uamport}}&userurl={{userurl}}&redirurl={{redirurl}}&timeleft={{timeleft}}','{{userurldecode}}', '{{redirurldecode}}', '{{timeleft}}')" onBlur = 'javascript:doOnBlur({{result}})' bgColor = '#c0d8f4'>
+<h1 style="text-align: center;">{{h1Loggedout}}</h1>
+  <center>
+    <a href="http://{{uamip}}:{{uamport}}/prelogin">{{centerLogin}}</a>
+    <script language="text/javascript">
+        window.location="http://{{uamip}}:{{uamport}}/prelogin";
+    </script>
+  </center>
+</body>
+</html>

@@ -1,0 +1,652 @@
+{% extends 'HotspotAccessPointBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb">
+                <a href="#" class="tip-bottom"><i class="icon-home"></i> Home</a>
+            </div>
+            <h1>Cập nhật thông tin thiết bị</h1>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div><span style="color: blue;" id="statusText" name="statusText"> {{saveStatus}}</span></div>
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                            <h5>Thiết bị</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            {{ form_start(form,{'attr': {'id':'form_config','class':'form-horizontal','novalidate': 'novalidate','action':'/ap/report','method':'post'}}) }}
+                            <div class="control-group">
+                                <label class="control-label">Mac:</label>
+                                <div class="controls" style="overflow: hidden;">
+                                    <div class="input-append span12">
+                                        <input type="text" class="span6" id="macaddr" name="macaddr" value="" />
+                                        <input type="button" value="Liên lạc nhanh" name="refreshConfig" id="refreshConfig" class="btn btn-primary span3">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Mac:</label>
+                                <div class="controls" style="overflow: hidden;">
+                                    <div class="input-append span12">
+                                        <input type="button" value="Kiểm tra MAC" name="verifyMac" id="verifyMac" class="btn btn-primary span3">
+                                        <input type="button" value="Kiểm tra ảnh banner" name="viewMacImage" id="viewMacImage" class="btn btn-primary span3"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Liên lạc gần nhất vào:</label>
+                                <div class="controls controls-row">
+                                    <div class="input-append span12">
+                                        <input type="text" disabled="disabled" style="margin:0;" id="time" name="time" value="" class="span6">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Phiên bản phần mềm <br/>/phần cứng:</label>
+                                <div class="controls">
+                                    <input type='text' disabled="disabled" id='firmware_current' name='firmware_current' value="" class="span6">
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Tên Quán:</label>
+                                <div class="controls controls-row">
+                                    <div class="input-append span12">
+                                        <input type="text" id="name"  name="name" value="" class="span6" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Tên Wifi:</label>
+                                <div class="controls controls-row">
+                                    <div class="input-append span12">
+                                        <input type="text" id="ssid" name="ssid" value="" class="span6" readonly="readonly" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Tùy chọn:</label>
+                                <div class="controls">
+                                    <label class="span2">
+                                        <input type="checkbox" name="usewifipass" id="usewifipass" value='1'>Dùng mật khẩu:
+                                    </label>
+                                    <input type="text" id="wifipass" name="wifipass" value="" class="span4">
+                                </div>
+
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Tùy chọn:</label>
+                                <div class="controls">
+                                    <label>
+                                        <input type="checkbox" name="activated" id="activated" value="1" />Đang hoạt động (Nếu muốn kích hoạt thì đánh dấu trước khi lưu)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Địa chỉ:</label>
+                                <div class="controls controls-row">
+                                    <div class="input-append span12">
+                                        <input type="text"  id="address" name="address" value="" class="span6" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Tùy chọn:</label>
+                                <div class="controls">
+                                    <label>
+                                        <input type="checkbox" name="change_img" id="change_img" value='1' />Đổi ảnh quán (1242x300 hoặc 1242x450):
+                                        {{ form_widget(form.image_file) }}
+                                        {{ form_errors(form.image_file) }}
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="disable_img" id="disable_img" value='1' />Xoá ảnh quán
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Link quán <br/>(Gõ DEL -> xoá link):</label>
+                                <div class="controls controls-row">
+                                    <div class="input-append span12">
+                                        <input type="text"  id="detail_url" name="detail_url" value=""  class="span6" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Tùy chọn:</label>
+                                <div class="controls">
+                                    <label class="span2">
+                                        <input type="checkbox" name="firmware_upgrade" id="firmware_upgrade" value='1' />Cập nhật phần mềm mới:
+                                    </label>
+                                    <select id="firmware_file" name="firmware_file" class="span6">
+                                        {% for firmware in firmwares %}
+                                            <option value="{{ firmware.file }}">{{ firmware.fwVersion ~'-' ~ firmware.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Chọn chế độ hoạt động (QC/Thường)</label>
+                                <div class="controls">
+                                    <select id="ap_mode" name="ap_mode" class="span11">
+                                        <option value="option normal_mode 0">Chế độ hiển thị LOGIN (QC)</option>
+                                        <option value="option normal_mode 1">Chế độ thường</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Chọn tốc độ dụng+thời gian sử dụng:</label>
+                                <div class="controls">
+                                    <select id="bw_profile" name="bw_profile" class="span11">
+                                        {% for profile in bwProfiles %}
+                                            <option value="{{ profile.id }}">{{ profile.title }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Chọn mẫu màn hình login:</label>
+                                <div class="controls">
+                                    <select id="login_template" name="login_template" class="span11">
+                                        {% for key,value in templates %}
+                                            <option value="{{ key }}">{{ value }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Tỉnh:</label>
+                                <div class="controls">
+                                    <select id="province" name="province" class="span11">
+                                        {% for province in provinces %}
+                                            <option value="{{ province.code }}">{{ province.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Đơn vị Quản lý::</label>
+                                <div class="controls">
+                                    <select id="company" name="company" class="span11">
+                                        {% if app.user and is_granted('ROLE_OPERATOR_LEVEl_01') %}
+                                            {% for owner in owners %}
+                                                <option value="{{ owner['company'] }}">{{ owner['name'] }}</option>
+                                            {% endfor %}
+                                        {% else %}
+                                            <option value="{{ app.user.company }}">{{ app.user.name }}</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            {% if app.user and not is_granted('ROLE_OPERATOR_LEVEl_05') %}
+                            <div class="form-actions">
+                                <input type="submit" value="Lưu dữ liệu" class="btn btn-success" />
+                                <input type="hidden" id="reboot" name="reboot" value="0" />
+                                <input type="hidden" id="reset" name="reset" value="0" />
+                                <input type="button" name="reboot_me" id="reboot_me" value="Reboot" onclick="javascript:rebootAP();" class="btn btn-success">
+                                <input type="button" name="reset_me" id="reset_me" value="Reset" onclick="javascript:resetAP();" class="btn btn-success">
+                            </div>
+                            {% endif %}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function refreshUserListOfCompany(selectOpt) {
+                    //alert($(selectOpt).val());
+                    //$('#statusText').html("Vui lòng chờ ...");
+                    var request = $.ajax({
+                        url: "/ap/report/user_list_company?company="+$(selectOpt).val(),
+                        cache: false,
+                        //dataType: "json",
+                    });
+                    request.success(function(result, status, jqXHR) {
+                        //$('#statusText').html(result.message);
+                        $('#user_input').html(result);
+                    });
+                    request.fail(function(jqXHR, textStatus) {
+
+                    });
+                }
+            </script>
+            <script>
+                $(function() {
+                    $('.datepicker').datepicker({
+                        format: 'yyyy-mm-dd',
+                        startDate: '-3d'
+                    });
+                });
+                function rebootAP()
+                {
+                    $('#reboot').val(1);
+                    $( "#form_config" ).submit();
+                }
+                function resetAP()
+                {
+                    $('#reset').val(1);
+                    $( "#form_config" ).submit();
+                }
+            </script>
+            <script>
+                function refreshConfig()
+                {
+                    $('#statusText').html("Vui lòng chờ ...");
+                    var request = $.ajax({
+                        url: "/ap/report/refresh_config?mac="+$('#macaddr').val(),
+                        cache: false,
+                        dataType: "json",
+                    });
+                    request.success(function(result, status, jqXHR) {
+                        $('#statusText').html(result.message);
+                    });
+                    request.fail(function(jqXHR, textStatus) {
+
+                    });
+                }
+                function verifyMacAddr()
+                {
+                    $('#statusText').html("");
+                    $('#name').val('');
+                    $('#wifipass').val('');
+                    $('#address').val('');
+                    $('#time').val('');
+                    $('#firmware_current').val('');
+
+                    $('#usewifipass').prop('checked', false);
+                    $('#wifipass').val('');
+                    $('#usewifipass').closest("span").removeClass("checked");
+
+                    $('#activated').prop('checked', false);
+                    $('#activated').closest("span").removeClass("checked");
+
+                    var request = $.ajax({
+                        url: "/ap/report/verify_mac?mac="+$('#macaddr').val(),
+                        cache: false,
+                        dataType: "json",
+                    });
+
+                    request.success(function(ap, status, jqXHR) {
+                        //var ap = $.parseJSON(returndata);
+                        $('#name').val(ap.name);
+                        $('#ssid').val(ap.ssid);
+                        $('#wifipass').val(ap.key);
+                        $('#address').val(ap.address);
+                        $('#time').val(ap.time);
+                        $('#firmware_current').val(ap.fw_version+ "-" + ap.platform);
+                        if(ap.province!=-1) {
+                            $('#province').val(ap.province);
+                            $('#s2id_province').find("span").html($("#province option:selected").text());
+                            //$('#province').closet('.controls').find("span").html(ap.province);
+                        }
+                        if(ap.owner!=-1) {
+                            $('#company').val(ap.owner);
+                            $('#s2id_company').find("span").html($("#company option:selected").text());
+                        }
+                        if(ap.mode=="option normal_mode 1" || ap.mode=="option normal_mode 0") {
+                            $('#ap_mode').val(ap.mode);
+                            $('#s2id_ap_mode').find("span").html($("#ap_mode option:selected").text());
+                        }
+
+                        $('#login_template').val(ap.login_template);
+                        $('#s2id_login_template').find("span").html($("#login_template option:selected").text());
+
+                        $('#bw_profile').val(ap.bw_profile);
+                        $('#s2id_bw_profile').find("span").html($("#bw_profile option:selected").text());
+
+                        $('#detail_url').val(ap.detail_url);
+
+
+                        if(ap.trash){
+                            $('#activated').prop('checked', false);
+                            $('#activated').closest("span").removeClass("checked");
+                        }
+                        else{
+                            $('#activated').prop('checked', true);
+                            $('#activated').closest("span").addClass("checked" );
+                        }
+                        if(ap.isUsingKey==true){
+                            $('#usewifipass').prop('checked', true);
+                            $('#usewifipass').closest("span").addClass("checked" );
+                        }
+                        else{
+                            $('#usewifipass').prop('checked', false);
+                            //$('#wifipass').val('');
+                            $('#usewifipass').closest("span").removeClass("checked");
+                        }
+
+                        if(ap.hasNewFirmware==true)
+                            $('#statusText').html('Vui lòng cập nhật phiên bản phần mềm mới cho thiết bị: <span style="color: #9f041b">'+ ap.firmware+"</span>") ;
+                    });
+                    request.fail(function(jqXHR, textStatus) {
+                    });
+
+                }
+                function viewMacImage() {
+                    window.open("http://enter.wiads.vn/ap/?res=success&called="+$('#macaddr').val()+'&userurl=195___','_blank');
+                }
+                </script>
+                <script>
+                $('#verifyMac').click(function () {
+                    verifyMacAddr();
+                });
+                $('#viewMacImage').click(function () {
+                    viewMacImage();
+                });
+                $('#refreshConfig').click(function () {
+                    refreshConfig();
+                });
+
+            </script>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                            <h5>Tình trạng thiết bị</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <form id="view_form" name ="view_form" action="/ap/report" method="post" class="form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label">Tỉnh:</label>
+                                    <div class="controls">
+                                        <select id="province" name="province" class="span11">
+                                            <option value="-1">Tất cả</option>
+                                            {% for province in provinces %}
+                                                <option value="{{ province.code }}">{{ province.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Đơn vị Quản lý:</label>
+                                    <div class="controls">
+                                        <select id="company" name="company" class="span11" onchange="refreshUserListOfCompany(this)">
+                                            {% if app.user and is_granted('ROLE_OPERATOR_LEVEl_01') %}
+                                                <option value="-1">Tất cả</option>
+                                                {% for owner in owners %}
+                                                    <option value="{{ owner['company'] }}">{{ owner['name'] }}</option>
+                                                {% endfor %}
+                                            {% else %}
+                                                <option value="{{ app.user.company }}">{{ app.user.name }}</option>
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Người nhập:</label>
+                                    <div class="controls" id="user_input" name ="user_input">
+                                        <select id="user_company" name="user_company" class="span11">
+                                            <option value="-1">Tất cả</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <input type="hidden" name="status_view" value="1"/>
+                                    <input type="submit" name="view_button" id="view_button" value="Xem tình trạng thiết bị" class="btn btn-success">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                            <h5>Thống kê</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            {% if is_granted('ROLE_REPORT_GENERAL') %}
+                                <form id="statistic_form" name ="statistic_form" action="/ap/report" method="post" class="form-horizontal">
+                                    <div class="control-group">
+                                        <label class="control-label">Tỉnh:</label>
+                                        <div class="controls">
+                                            <select id="province" name="province" class="span11">
+                                                <option value="-1">Tất cả</option>
+                                                {% for province in provinces %}
+                                                    <option value="{{ province.code }}">{{ province.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Đơn vị Quản lý::</label>
+                                        <div class="controls">
+                                            <select id="company" name="company" class="span11">
+                                                {% if app.user and is_granted('ROLE_OPERATOR_LEVEl_01') %}
+                                                    <option value="-1">Tất cả</option>
+                                                    {% for owner in owners %}
+                                                        <option value="{{ owner['company'] }}">{{ owner['name'] }}</option>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <option value="{{ app.user.company }}">{{ app.user.name }}</option>
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Từ ngày:</label>
+                                        <div class="controls">
+                                            <div  data-date="12-02-2012" class="input-append date datepicker1">
+                                                <input class="span11" type="text" name="from" value="{{ params['from_0'] }}"/>
+                                                <span class="add-on"><i class="icon-th"></i></span> \
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Đến ngày:</label>
+                                        <div class="controls">
+                                            <div  data-date="12-02-2012" class="input-append date datepicker1">
+                                                <input type="text" name="to" value="{{ params['to'] }}" class="span11" />
+                                                <span class="add-on"><i class="icon-th"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Tùy chọn:</label>
+                                        <div class="controls">
+                                            <label>
+                                                <input type="checkbox" name="click_view" id="click_view" value='1'  {{ click_view==1?'checked="checked"' }}>Xem click (nếu không chọn tức là xem lượt hiển thị).
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <input type="hidden" name="report_view" value="1"/>
+                                        <input type="submit" value="Xem thống kê" class="btn btn-success">
+                                    </div>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Dữ liệu</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <div class="dataTables_wrapper">
+                                {% if status_view is defined and  status_view == 1 %}
+                                    <span>{{ company!=-1?company~'->':'' }}{{ user_company!=-1?user_company~':':'' }}Tổng số thiết bị: {{ ap_number }}</span>
+                                    <table class="table table-bordered" id="tba" class="font-size:8pt;">
+                                        <thead>
+                                        <tr>
+                                            <th>STT</th><th>AP</th><th>Tỉnh</th><th>Tên Quán</th><th>Địa chỉ (+GPS (lat,lng))</th><th>SSID</th><th>Pass</th><th>Ngày tạo</th><th>Lần online cuối</th><th>Nhà mạng</th>
+                                        </tr>
+                                        </thead>
+                                        {% set i=0 %}
+                                        {% for row in result %}
+                                            {% set i = i + 1 %}
+                                            <tr style="border: 1px solid grey;{% if i  is divisible by(2)  %}background-color:#CEECF5;{% endif %}">
+                                                <td style="border: 1px solid grey;">{{ i }}</td>
+                                                <td style="border: 1px solid grey;">{{row['macaddr']}}</td>
+                                                <td style="border: 1px solid grey;">{{row['province']}}</td>
+                                                <td style="border: 1px solid grey;{% if row['name'] =='---Chưa có tên---' %}background-color:#F5A9A9;{% endif %}">{{row['name']}}</td>
+                                                <td style="border: 1px solid grey;">{{row['address']}} {#-{{row['lat']}}:{{row['lng']}} #}</td>
+                                                <td style="border: 1px solid grey;">{{row['ssid']}}</td>
+                                                <td style="border: 1px solid grey;">{{row['key']}}</td>
+                                                <td style="border: 1px solid grey;">{{row['created_at']}}</td>
+                                                <td style="border: 1px solid grey;
+                                                {% if date(row['updated_at']) < date('-24hours') %}
+                                                        background-color:red;
+                                                {% elseif date(row['updated_at']) < date('-12hours') %}
+                                                        background-color:orange;
+                                                {% elseif date(row['updated_at']) < date('-2hours') %}
+                                                        background-color:yellow;
+                                                {% endif %}
+                                                        ">{{row['updated_at']}}</td>
+                                                <td style="border: 1px solid grey;">{{row['isp']}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                {% endif %}
+                                {% if report_view is defined and report_view ==1  %}
+                                    <span>Thống kê thiết bị từ {{ params['from_0'] }} đến {{ params['to'] }}: {{ popup_0 }}/{{ login_0 }} lượt popup/click login, ngày trước: {{ popup_1  }}/{{ login_1 }}</span>
+                                    <span>Tổng số thiết bị: {{ ap_number }}</span>
+                                    <table class="table table-bordered" id="tba" class="font-size:8pt;">
+                                        <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>MAC</th>
+                                            <th>Name</th>
+                                            <th>Address</th>
+                                            <th>Province</th>
+                                            <th>Date created</th>
+                                            <th>Last online</th>
+                                            <th>01</th>
+                                            <th>02</th>
+                                            <th>03</th>
+                                            <th>04</th>
+                                            <th>05</th>
+                                            <th>06</th>
+                                            <th>07</th>
+                                            <th>08</th>
+                                            <th>09</th>
+                                            <th>10</th>
+                                            <th>11</th>
+                                            <th>12</th>
+                                            <th>13</th>
+                                            <th>14</th>
+                                            <th>15</th>
+                                            <th>16</th>
+                                            <th>17</th>
+                                            <th>18</th>
+                                            <th>19</th>
+                                            <th>20</th>
+                                            <th>21</th>
+                                            <th>22</th>
+                                            <th>23</th>
+                                            <th>24</th>
+                                            <th>25</th>
+                                            <th>26</th>
+                                            <th>27</th>
+                                            <th>28</th>
+                                            <th>29</th>
+                                            <th>30</th>
+                                            <th>31</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        {% set i=0 %}
+                                        {% for row in result %}
+                                            {% set i = i + 1 %}
+                                            <tr style="border: 1px solid grey;{% if i  is divisible by(2)  %}background-color:#CEECF5;{% endif %}">
+                                                <td style="border: 1px solid grey;">{{ i }}</td>
+                                                <td style="border: 1px solid grey;">{{row['macaddr']}}</td>
+                                                <td style="border: 1px solid grey;">{{row['name']}}</td>
+                                                <td style="border: 1px solid grey;">{{row['address']}}</td>
+                                                <td style="border: 1px solid grey;">{{row['province']}}</td>
+                                                <td style="border: 1px solid grey;">{{row['created_at']}}</td>
+                                                <td style="border: 1px solid grey;
+                                                {% if date(row['updated_at']) < date('-2days') %}
+                                                        background-color:#F3565D;
+                                                {% elseif date(row['updated_at']) < date('-1days') %}
+                                                        background-color:#F4C20B;
+    {% endif %}">{{row['updated_at']}}</td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{click_view==0?row['01']:row['01_click']}}</td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['01']<row['02']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['02']:row['02_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['02']<row['03']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['03']:row['03_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['03']<row['04']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['04']:row['04_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['04']<row['05']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['05']:row['05_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['05']<row['06']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['06']:row['06_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['06']<row['07']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['07']:row['07_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['07']<row['08']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['08']:row['08_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['08']<row['09']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['09']:row['09_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['09']<row['10']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['10']:row['10_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['10']<row['11']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['11']:row['11_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['11']<row['12']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['12']:row['12_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['12']<row['13']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['13']:row['13_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['13']<row['14']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['14']:row['14_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['14']<row['15']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['15']:row['15_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['15']<row['16']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['16']:row['16_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['16']<row['17']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['17']:row['17_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['17']<row['18']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['18']:row['18_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['18']<row['19']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['19']:row['19_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['19']<row['20']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['20']:row['20_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['20']<row['21']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['21']:row['21_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['21']<row['22']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['22']:row['22_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['22']<row['23']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['23']:row['23_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['23']<row['24']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['24']:row['24_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['24']<row['25']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['25']:row['25_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['25']<row['26']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['26']:row['26_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['26']<row['27']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['27']:row['27_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['27']<row['28']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['28']:row['28_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['28']<row['29']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['29']:row['29_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#CEECF5;" class="td_day">{{ row['29']<row['30']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['30']:row['30_click']}}</span></td>
+                                                <td style="border: 1px solid grey;background-color:#f0f0f0;" class="td_day">{{ row['30']<row['31']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['31']:row['31_click']}}</span></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                                <div class="notifition">
+                                    <p>Không có dữ liệu</p>
+                                </div>
+                                <div class="loading" >
+                                    <img src="/bundles/advertiser/matrix/img/loading_icon.gif">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+        div.notifition p{
+            margin: 30px 0px;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+        div.loading {
+            background: white;
+        }
+        div.loading img{
+            height: 150px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .table th{
+            padding: 0px;
+        }
+        .table td {
+            padding: 3px;
+        }
+        .table tbody tr td{
+            font-size: 11px;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ 'notification.register_active_emai'|trans }}</title>
+</head>
+<body>
+	<p>Hello  <span style="color:red;">{{ fullname }}</span>,</p>
+	<p>Thank you for registering at WiAds. Before we can activate your account, please complete the registration process by clicking on the following link:</p>
+	<p><a href="{{ url_active }}">{{ url_active }}</a></p>
+	<p>In case your email program does not recognize the above link as, please direct your browser to the following URL and enter the activation code:</p>
+	<p><a href="{{ app.request.getSchemeAndHttpHost()~'/wifi/user/active' }}">{{ app.request.getSchemeAndHttpHost()~'/wifi/user/active' }}</a></p>
+	<p>Activation Code: {{ code }}</p>
+	<p>Hotline: 0511.3605133</p>
+	<p>Thank you!</p>
+	<p><b>WiAds Team</b></p>
+</body>
+</html>

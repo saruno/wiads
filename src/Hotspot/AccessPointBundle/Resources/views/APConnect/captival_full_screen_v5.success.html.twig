@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <title>SUCCESS</title>
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/vendor.css">
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/main_n2_01.css">
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/responsive_n2_01.css">
+
+</head>
+
+
+<body>
+<div class="container-wrap login-n2">
+    <main class="wrapper">
+        <div class="content">
+            <div class="content-top">
+                <h2 class="heading">Kết nối thành công</h2>
+                <div class="owl-carousel owl-theme owl-login-n2">
+                    {% if params['apName'] is not empty and params['apImage'] is not empty %}
+                        {% if params['apUrl'] is not empty %}
+                            <a class="image" href="{{params['apUrl']}}" target="_blank">
+                                <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n2_slide_img_1.jpg'}}" alt="">
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                    {% if ads is not empty %}
+                            <a class="image" href="{{linkTo}}" target="_blank">
+                                <img src="/ap/display.html?id={{ ads[0].Id }}&link={{ ads[0].linkTo | url_encode}}&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="">
+                            </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="content-bottom">
+                {% if params['apName'] is not empty %}
+                    <h3 class="status">{{ params['apName'] |upper | replace ({'WIADS':'', '-' :''})}}</h3>
+                {% endif %}
+                <p class="text-content">Bắt đầu sử dụng wifi</p>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- SCRIPTS -->
+<script src="/bundles/hotspotaccesspoint/v6/scripts/jquery.min.js"></script>
+<script src="/bundles/hotspotaccesspoint/v6/scripts/vendor.js"></script>
+<script src="/bundles/hotspotaccesspoint/v6/scripts/app_n2_01.js"></script>	</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/bundles/advertiser/matrix/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/bundles/advertiser/assets/css/demo11.css" />
+</head>
+<body>
+<div class="container">
+    <div class="screen">
+        <header>
+            <button onclick="fb_login();">Login Facebook</button>
+            <div class="head">
+                <a href="">
+                    <div class="logo_wiads">
+                        <img src="/bundles/advertiser/assets/img/logo_wiads.png" alt="LOGO WIADS">
+                    </div>
+                    <!-- LOGO QUÁN -->
+                    <div class="logo_accesspoint" style="background: url('/bundles/advertiser/assets/img/logo_accesspoint.png') no-repeat center right / auto 100%">
+
+                    </div>
+                    <!-- TEN QUAN -->
+                    <h3>CAFE VIPMON</h3> 
+
+                    <img src="/bundles/advertiser/assets/img/banner_640x152.jpg" alt="640x152 Banner NỀN">
+                </a>
+            </div>
+        </header>
+        <div class="wrap_connect">
+            <img src="/bundles/advertiser/assets/img/bg_cuahang.png" alt="BANNER NEN">
+           
+            <div class="wrap_text">
+                <div class="text">
+                    <p>Mua 2 doi giay <font color="#fcb017">tang</font> 1 doi giay bat ky</p>
+                </div>
+            </div>
+
+
+            <span>263 Nguyễn Chí Thanh - Hotline: 05113.616.659</span>
+        </div>
+        <div class="wrap_button">
+            <!-- <span>263 Nguyễn Chí Thanh - Hotline: 05113.616.659</span> -->
+            <div class="button_login">
+                <a href="#">
+                    Login
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    function fb_login(){
+        FB.login(function(response) {
+            if (response.authResponse) {
+               loginSuccess();
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        }, {
+            scope: 'email'
+        });
+    }
+   
+    function loginSuccess() {
+        FB.api('/me?fields=id,name,email,picture', function(response) {
+            var uid     = response.id;
+            var name    = response.name;
+            var email   = response.email;
+            console.log('UID:'+uid);
+            console.log('NAME:'+name);
+            console.log('EMAIL:'+email);
+            alert('Login Success!');
+        });
+    }
+</script>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '130152824152845',
+          xfbml      : true,
+          version    : 'v2.8'
+        });
+        /*FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });*/
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>

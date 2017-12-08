@@ -1,0 +1,9 @@
+<select id="section_link_type" name="section_link_type">
+    <option value="1" {% if section_link_type|default(1) == 1 %}selected="selected" {% endif %}>Tin tức</option>
+    <option value="2" {% if section_link_type|default(1) == 2 %}selected="selected" {% endif %}>Địa điểm</option>
+    <!--
+	<option value="2" {% if section_link_type|default(1) == 2 %}selected="selected" {% endif %}>Liên kết</option>
+	<option value="3" {% if section_link_type|default(1) == 3 %}selected="selected" {% endif %}>Quảng cáo</option>
+	<option value="4" {% if section_link_type|default(1) == 4 %}selected="selected" {% endif %}>Bình chọn</option>
+	 -->
+</select>

@@ -1,0 +1,105 @@
+{% extends 'AdvertiserBundle::layout.html.twig' %}
+
+{% block content %}
+    <!-- HEADR -->
+    <ol class="breadcrumb bc-3">
+        <li>
+            <a href="{{ path('advertiser_homepage') }}"><i class="entypo-home"></i>Test API</a>
+        </li>
+        <li class="active">
+            <strong>Get LinkPortal</strong>
+        </li>
+    </ol>
+    <br /> <!-- END HEADR -->
+    <!-- ALERT -->
+    <div class="row">
+        <div class="col-sm-12">
+            {% if app.session.flashBag.has('success') %}
+                <div class="alert alert-success">
+                    {% for msg in app.session.flashBag.get('success') %}
+                       {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if app.session.flashBag.has('error') %}
+                <div class="alert alert-danger">
+                    {% for msg in app.session.flashBag.get('error') %}
+                       {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- END -->
+    <!-- FORM -->
+    <div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-primary" data-collapsed="0">
+
+            <div class="panel-heading">
+                <div class="panel-title">
+                    {{ 'main.input_data'|trans }}
+                </div>
+
+                <div class="panel-options">
+                    <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a>
+                    <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                    <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                    <a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <form action="" method="post">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="field-1" class="col-sm-3 control-label">Accesspoint Id</label>
+                                <div class="col-sm-9">
+                                    <input type="text" required name="accesspoint_id" value="1" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="field-1" class="col-sm-3 control-label">SSID</label>
+                                <div class="col-sm-9">
+                                    <input type="text" required name="ssid"  value="1" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="field-1" class="col-sm-3 control-label">Trạng thái</label>
+                                <div class="col-sm-9">
+                                    <select name="status" class="form-control">
+                                        <option value="ON">Mở</option>
+                                        <option value="ON">Đóng</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="field-1" class="col-sm-3 control-label">Tên định danh hotspot</label>
+                                <div class="col-sm-9">
+                                    <input type="text" required name="fullname"  value="CAFE EDEN" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-5">
+                                <button type="submit" class="btn btn-default">Xác nhận</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <ul id="events_11"></ul>
+    </div>
+{% endblock %}

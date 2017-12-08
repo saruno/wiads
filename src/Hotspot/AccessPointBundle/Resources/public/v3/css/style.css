@@ -1,0 +1,151 @@
+/*
+@font-face {
+    font-family: "tahoma";
+    src: url('../fonts/tahoma.ttf');
+}
+*/
+/* =Reset default browser CSS.
+-------------------------------------------------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {border: 0;font-family: inherit;font-size: 100%;font-style: inherit;font-weight: inherit;margin: 0;outline: 0;padding: 0;vertical-align: baseline;}
+:focus {outline: 0;}
+
+ol, ul {list-style: none;}
+table {border-collapse: separate;border-spacing: 0;}
+caption, th, td {font-weight: normal;text-align: left;}
+blockquote:before, blockquote:after,q:before, q:after {content: "";}
+blockquote, q {quotes: "" "";}
+a img{border: 0;}
+figure{margin:0}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}
+/* -------------------------------------------------------------- */
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	font-family: 'tahoma';
+	line-height: 1;
+	font-size: 13px;
+	background-color:#656565;
+
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+p{
+	color: #000000;
+}
+a:hover, a:focus, a:hover p, select:hover, select:focus, select:active{
+	text-decoration: none !important;
+	outline: none !important;
+}
+a, a:link,a:active{
+	text-decoration: none;
+	outline: none !important;
+}
+.clearfix{
+	clear: both;
+}
+.container a img{
+	width: 100%;
+}
+.container .row:first-child a{
+	width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+}
+.container .row:first-child a p{
+    position: absolute;
+    right: 0%;
+    top: 50%;
+	/*
+    transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    */
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 58px;
+}
+.container .row .last{
+	position: relative;
+    overflow: hidden;
+}
+.container .menu{
+    display: block;
+   	width: 32.3%;
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    background-color: #424242;
+}
+.container .menu ul li a{
+	width: 100%;
+	display: block;
+}
+footer p a,
+footer p{
+	text-align: center;
+	color: #fff;
+	font-size: 30px;
+	/*line-height: 18px;*/
+}
+footer .container .row{
+    padding: 50px 0 61px 0;
+}
+
+@media only screen and (max-width: 1366px){
+	.container .row:first-child a p{
+	    font-size: 44px;
+	}
+}
+@media only screen and (max-width: 1024px){
+	.container .row:first-child a p {
+	    font-size: 27px;
+	}
+}
+@media only screen and (max-width: 768px){
+	.container {
+	    width: 100%;
+	}
+}
+@media only screen and (max-width: 414px){
+	footer p a, footer p {
+	    font-size: 18px;
+	}
+	.container .row:first-child a p {
+	    font-size: 19px;
+	}
+}
+@media only screen and (max-width: 375px){
+	.container .row:first-child a p {
+	    font-size: 16px;
+	}
+	footer p a, footer p {
+	    font-size: 15px;
+	}
+}
+@media only screen and (max-width: 320px){
+	footer .container .row {
+	    padding: 19px 0 20px 0;
+	}
+	.container .row:first-child a p {
+	    font-size: 15px;
+	}
+}

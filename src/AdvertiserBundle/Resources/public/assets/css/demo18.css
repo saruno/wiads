@@ -1,0 +1,70 @@
+@font-face {
+    src: url("../fonts/MyriadPro-Regular.otf");
+    font-family: 'Myriad'; 
+}
+*{
+    margin: 0;
+    padding:0;
+}
+html {
+    min-height: 100%;
+    width: 100%;
+}
+body{
+    font-size: 14px;
+    font-family: Tahoma;
+    color:#000000;
+    height: 100%;
+    width: 100%;
+}
+a{
+    text-decoration: none;
+}
+.clear{
+    clear: both;
+}
+
+.container{
+    max-width: 640px;
+    margin: 0 auto;
+    height:100%;
+    background-color: #333;
+}
+
+.container .screen {
+    min-height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.tem2 .title h2{
+    font-family: "Myriad";
+    font-size: 28px;
+    text-align: center;
+    color: #e6f5ff;
+    font-weight: normal;
+    text-transform: uppercase;
+    padding-top: 20px;
+}
+
+.tem2 .title h1{
+    font-family: "Myriad";
+    font-size: 48px;
+    text-align: center;
+    color: #e6f5ff;
+    font-weight: normal;
+    padding-top: 2px;
+}
+
+@media only screen and (max-width: 640px) {
+    html{
+        width: 100%;
+        height: 100%;
+    }
+	.tem2 .title h2{
+		font-size: 20px;
+	}
+	.tem2 .title h1{
+		font-size: 38px;
+	}
+}

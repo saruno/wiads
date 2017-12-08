@@ -1,0 +1,21 @@
+imports:
+  - { resource: security.yml }
+##
+parameters:
+  auth_locale: en
+  auth_site_title: WiAds
+ #auth_site_css: /css/jquery/redmond/jquery-ui-1.9.1.custom.min.css,/css/main.css,/css/jquery/jquery-ui-timepicker-addon.css
+  auth_site_fonts: 
+ #auth_site_js: /js/jquery/jquery-1.8.3.min.js,/js/jquery/jquery-ui-1.9.1.custom.min.js,/js/jquery/jquery.bgiframe-2.1.2.js,/js/jquery/jquery-ui-timepicker-addon.js
+  auth_site_img: /images/
+  
+# Twig Configuration
+twig:
+    globals:
+        global_web_path: /assets/portalauth/
+        global_auth_path: /auth
+        global_cms_name: "WiAds"
+        global_cms_version: "2.0"
+        global_site_name: "WiAds" 
+        global_cms_footer: "XXX"
+        global_cms_copyright: "XXX" 

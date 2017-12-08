@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        body{
+            font-family: Tahoma;
+            font-size: 14px;
+        }
+        .wrap {
+            width: 450px;
+            height: auto;
+            min-height: 300px;
+            border: 1px solid rgba(178, 228, 106, 0.91);
+            background: #c3c3c3;
+        }
+        p{
+            font-size: 14px;
+            line-height: 25px;
+            margin-left: 15px;
+        }
+        ul{
+            list-style: none;
+            margin-left: 15px;
+            margin-top: 5px;
+        }
+        ul li {
+
+            line-height: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="w">
+        <h4>Kính gửi quý khách hàng,</h4>
+
+        <p>Chào mừng quý khách đến với iBig online, đánh nhanh thắng lớn, rút thưởng thẻ cào.
+
+        Để thuận tiện cho quá trình trải nghiệm của quý khách, chúng tôi xin cung cấp cho quý khách những thông tin sau:</p>
+
+        <h4>A.Thông tin cài đặt:</h4>
+        <ul>
+            <li>- Dành cho Android: <a href="{{ link_ch is defined ? link_ch : '#' }}">Link</a></li>
+            <li>- Dành cho iOS: <a href="{{ link_store is defined ? link_store : '#' }}">Link</a></li>
+        </ul>
+
+        <h4>B.Giftcode và cách sử dụng:</h4>
+        <ul>
+            <li>- Tải và cài đặt game</li>
+            <li>- Vào game, đăng ký tài khoản hoặc chơi nhanh</li>
+            <li>- Nhập vào chuỗi giftcode sau trong phần Nhận xu - Giftcode</li>
+        </ul>
+
+        <p>Giftcode: <b>{{ code is defined ? code : '' }}</b></p>
+        <p>Seri: <b>123456</b></p>
+        <p>Chú ý: Chỉ cần nhập mã giftcode vào phần mã thẻ</p>    
+
+        <p>Chúc quý khách thắng lớn cùng iBIG</p>
+
+        <p>Trân trọng,</p>
+
+        <h4><b>Ban điều hành.</b></h4>
+    </div>
+</body>
+</html>

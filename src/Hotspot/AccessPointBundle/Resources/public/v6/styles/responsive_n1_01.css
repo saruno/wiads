@@ -1,0 +1,209 @@
+@-webkit-keyframes rotate360 {
+  0% {
+    -webkit-transform: rotate(360deg); } }
+@keyframes rotate360 {
+  0% {
+    transform: rotate(360deg); } }
+@-webkit-keyframes coffeebean {
+  0% {
+    -webkit-top: 0px; }
+  50% {
+    -webkit-top: 100px; }
+  100% {
+    -webkit-top: 0px; } }
+@keyframes coffeebean {
+  0% {
+    top: 0px; }
+  50% {
+    top: 100px; }
+  100% {
+    top: 0px; } }
+@-webkit-keyframes circlewater {
+  0% {
+    -webkit-bottom: 0;
+    -webkit-left: 0; }
+  15% {
+    -webkit-bottom: 0;
+    -webkit-left: 29px; }
+  20% {
+    -webkit-bottom: 6px;
+    -webkit-left: 33px; }
+  50% {
+    -webkit-bottom: 84px;
+    -webkit-left: 33px; }
+  55% {
+    -webkit-bottom: 88px;
+    -webkit-left: 40px; }
+  65% {
+    -webkit-bottom: 88px;
+    -webkit-left: 54px; }
+  85% {
+    -webkit-bottom: 42px;
+    -webkit-left: 54px; }
+  90% {
+    -webkit-bottom: 37px;
+    -webkit-left: 60px; }
+  100% {
+    -webkit-bottom: 37px;
+    -webkit-left: 72px; } }
+@keyframes circlewater {
+  0% {
+    bottom: 0;
+    left: 0; }
+  15% {
+    bottom: 0;
+    left: 29px; }
+  20% {
+    bottom: 6px;
+    left: 33px; }
+  50% {
+    bottom: 84px;
+    left: 33px; }
+  55% {
+    bottom: 88px;
+    left: 40px; }
+  65% {
+    bottom: 88px;
+    left: 53px; }
+  85% {
+    bottom: 41px;
+    left: 53px; }
+  90% {
+    bottom: 36px;
+    left: 60px; }
+  100% {
+    bottom: 36px;
+    left: 72px; } }
+@-webkit-keyframes chemistrywater {
+  0% {
+    -webkit-bottom: 0px; }
+  100% {
+    -webkit-bottom: 150px; } }
+@keyframes chemistrywater {
+  0% {
+    bottom: 0px; }
+  100% {
+    bottom: 150px; } }
+@-webkit-keyframes fire {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -webkit-width: 16px; }
+  25% {
+    -webkit-transform: rotate(-5deg);
+    -webkit-width: 17px; }
+  50% {
+    -webkit-transform: rotate(5deg);
+    -webkit-width: 16px; }
+  75% {
+    -webkit-transform: rotate(-5deg);
+    -webkit-width: 17px; }
+  100% {
+    -webkit-transform: rotate(0deg);
+    -webkit-width: 16px; } }
+@keyframes fire {
+  0% {
+    transform: rotate(0deg);
+    width: 16px; }
+  25% {
+    transform: rotate(-5deg);
+    width: 17px; }
+  50% {
+    transform: rotate(5deg);
+    width: 16px; }
+  75% {
+    transform: rotate(-5deg);
+    width: 17px; }
+  100% {
+    transform: rotate(0deg);
+    width: 16px; } }
+@-webkit-keyframes coffeedrop {
+  0% {
+    -webkit-width: 0;
+    -webkit-top: 0; }
+  80% {
+    -webkit-width: 100%;
+    -webkit-top: 0; }
+  100% {
+    -webkit-width: 100%;
+    -webkit-top: 100%; } }
+@keyframes coffeedrop {
+  0% {
+    width: 0;
+    top: 0; }
+  80% {
+    width: 100%;
+    top: 0; }
+  100% {
+    width: 100%;
+    top: 100%; } }
+@-webkit-keyframes socialbounce {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0); }
+  30% {
+    -webkit-transform: translate3d(0, -12px, 0); }
+  35% {
+    -webkit-transform: translate3d(0, 0, 0); }
+  45% {
+    -webkit-transform: translate3d(0, -6px, 0); }
+  50% {
+    -webkit-transform: translate3d(0, 0, 0); }
+  100% {
+    -webkit-transform: none; } }
+@keyframes socialbounce {
+  0% {
+    transform: translate3d(0, 0, 0); }
+  30% {
+    transform: translate3d(0, -12px, 0); }
+  35% {
+    transform: translate3d(0, 0, 0); }
+  45% {
+    transform: translate3d(0, -6px, 0); }
+  50% {
+    transform: translate3d(0, 0, 0); }
+  100% {
+    transform: none; } }
+@-webkit-keyframes dotarea {
+  0% {
+    -webkit-transform: scale(0); }
+  50% {
+    -webkit-transform: scale(1); }
+  100% {
+    -webkit-transform: scale(0); } }
+@keyframes dotarea {
+  0% {
+    transform: scale(0); }
+  50% {
+    transform: scale(1); }
+  100% {
+    transform: scale(0); } }
+@media screen and (max-width: 500px) {
+  body {
+    background-color: #fff; }
+
+  .login-n1 .wrapper .content-bottom {
+    padding: 0 10px; }
+  .login-n1 .wrapper .heading {
+    font-size: 24px; }
+  .login-n1 .wrapper .owl-login-n1 {
+    margin-bottom: 20px; }
+    .login-n1 .wrapper .owl-login-n1 .item .title-slide {
+      font-size: 50px;
+      max-height: 110px; }
+    .login-n1 .wrapper .owl-login-n1 .owl-dots .owl-dot span {
+      height: 15px;
+      width: 15px;
+      border: 2px solid #fff; }
+  .login-n1 .wrapper .status {
+    padding: 0;
+    font-size: 24px;
+    margin-bottom: 15px; }
+  .login-n1 .wrapper .btn-login {
+    margin-bottom: 20px; }
+    .login-n1 .wrapper .btn-login img {
+      width: 100%; }
+  .login-n1 .wrapper .text-content {
+    font-size: 20px; }
+  .login-n1 .wrapper .btn-connect {
+    margin-bottom: 20px;
+    font-size: 24px;
+    padding: 12px 10px 10px; } }

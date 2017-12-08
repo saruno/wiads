@@ -1,0 +1,43 @@
+{% extends 'AdvertiserBundle::layout_show.html.twig' %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                    <h5>Chi tiết</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Tên quảng cáo</th>
+                            <th>Link</th>
+                            <th>Vị trí</th>
+                            <th>Địa điểm</th>
+                            <th>HĐH</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Màn hình 1</th>
+                            <th>Màn hình 2</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ record.title }}</td>
+                                <td>{{ record.link }}</td>
+                                <td>{{ record.homeposition }}</td>
+                                <td>{{ record.location == '' ? 'Tất cả' : record.location }}</td>
+                                <td>{{ record.platform == '' ? 'Tất cả' : record.platform }}</td>
+                                <td>{{ record.publishedat.format('d-m-Y') }}</td>
+                                <td>{{ record.expiredat.format('d-m-Y') }}</td>
+                                <td><img src="{{ img }}" style="height: 200px"></td>
+                                <td><img src="{{ img_logo }}" style="height: 200px"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

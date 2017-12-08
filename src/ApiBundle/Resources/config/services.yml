@@ -1,0 +1,15 @@
+services:
+    platform.user.manager:
+        class: Doctrine\ORM\EntityManager
+        factory: ['@doctrine','getManagerForClass']
+        arguments: ['ApiBundle\Entity\User']
+    platform.user.repository:
+        class: Api\Repository\UserRepository
+        factory: ['@platform.user.manager','getRepository']
+        arguments: ['ApiBundle\Entity\User']
+    platform.user.provider:
+        class: ApiBundle\Provider\UserProvider
+        arguments: ['@platform.user.repository']
+    fos_oauth_server.controller.token:
+        class: ApiBundle\Controller\TokenController
+        arguments: [@fos_oauth_server.server]

@@ -1,0 +1,102 @@
+/*------------------------------------------------------------------------------------------
+2. MEDIA QUERIES
+------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------
+We occasionally expand on these media queries to include a max-width to limit CSS to a narrower set of devices:
+@media (max-width: @screen-xs-max) { }
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { }
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { }
+@media (min-width: @screen-lg-min) { }
+-------------------------------------------------------------------------------------------------------------------*/
+
+/* Large devices (large desktops, 1200px and up) */
+/* Container = 1170 */
+@media (min-width: 1367px) { 
+	
+}
+
+/* Container = 970 */
+@media (min-width: 992px) and (max-width: 1199px) {    	
+    #homeCarousel.carousel { padding-top:1em; }
+    /*#homeCarousel.carousel .item { margin-bottom:3em; }*/
+    #homeCarousel .ads-item { margin-bottom:1em; }
+}
+
+/* Medium devices (desktops, 992px and up) */
+/* Container = 750 */
+@media (min-width: 768px) and (max-width: 991px) { 
+    #social-icons { text-align:left; margin-top:1em; }    
+    #social-icons a:first-child { margin-left:0em; }
+}
+
+@media (min-width:767px) and (max-width: 790px) {
+    header .phone-no { line-height:1.5em; margin-top:1em; }
+    header .phone-no small { display:block; }
+    header .phone-no .icon { display:none; }
+
+    #homeCarousel.carousel { padding-top:0.5em; }
+    #homeCarousel.carousel .item { height:100%; margin-bottom:3em; }
+    #homeCarousel .ads-item { width:570px; margin-left:auto; margin-right:auto; margin-bottom:1.5em; }
+    #homeCarousel .ads-item:nth-child(2n) { margin-left:0%; }
+
+    #footer-copyright { text-align:center; }
+    #social-icons { text-align:center; margin-top:1em; }    
+    #social-icons a:first-child { margin-left:0em; }
+}
+
+/* Small devices (tablets, 768px and up) */
+/* Container = None (auto) */
+@media (max-width: 767px) {	
+
+    header .phone-no { line-height:1.5em; margin-top:1em; }
+    header .phone-no small { display:block; }
+    header .phone-no .icon { display:none; }
+
+    #homeCarousel.carousel { padding-top:0.5em; }
+    #homeCarousel.carousel .item { height:100%; margin-bottom:3em; }
+    #homeCarousel .ads-item { width:570px; margin-left:auto; margin-right:auto; margin-bottom:1.5em; }
+    #homeCarousel .ads-item:nth-child(2n) { margin-left:0%; } 
+    
+    #footer-copyright { text-align:center; }
+    #social-icons { text-align:center; margin-top:1em; }    
+    #social-icons a:first-child { margin-left:0em; } 
+}
+
+/* Small devices (mobiles, 480px and up) */
+/* Container = None (auto) */
+@media (max-width: 480px) {
+	.hidden-xs { display:none; }
+
+    header { height:60px; }
+    header svg,
+    header img { width:80px; margin:0 auto; padding:0; margin-top:-1em; }
+    header .phone-no { font-size:1.2em; line-height:1.5em; margin-top:1em; }
+    header .phone-no small { display:block; }
+
+    .alert.alert-warning { text-indent:0; text-align:center !important; font-weight:400; margin-bottom:0.5em; padding-right:15px; }
+    .alert-dismissable .close, 
+    .alert-dismissible .close { right:0; }
+
+    #homeCarousel .ads-item { width:100%; margin-bottom:0.5em; }    
+
+    #footer-copyright { padding-top:1em; padding-bottom:1em; }
+}
+
+@media screen and (max-width:400px) {
+    /* Fix for Windows Phone Browsers */
+    @-ms-viewport{
+        width:320px;
+    }
+}
+
+/* Small devices (mobiles, 320px and up) */
+/* Container = None (auto) */
+@media (max-width: 320px) {
+    
+}
+
+/* Small devices (mobiles, 240px and up) */
+/* Container = None (auto) */
+@media (max-width: 240px) {
+    
+}

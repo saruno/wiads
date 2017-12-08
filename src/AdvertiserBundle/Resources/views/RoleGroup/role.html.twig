@@ -1,0 +1,96 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> 
+                <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+                <a href="#" >Phân quyền</a> 
+                <a href="{{ path('advertiser_permision_group_list') }}">Nhóm</a>
+                <a href="{{ path('advertiser_permision_group_role')~'/'~group.id }}" class="current">Phân quyền</a>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                	<a onclick="goBack();" class="btn btn-danger">Huỷ</a>
+                    <button class="btn btn-success" id="submit">Lưu</button>
+                    {% if app.session.flashBag.has('success') %}
+                        <div class="alert alert-success alert-block"> 
+                            <a class="close" data-dismiss="alert" href="#">×</a>
+                            {% for msg in app.session.flashBag.get('success') %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if app.session.flashBag.has('error') %}
+                        <div class="alert alert-block"> 
+                            <a class="close" data-dismiss="alert" href="#">×</a>
+                            {% for msg in app.session.flashBag.get('error') %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                  	<div class="widget-box">
+
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>Chỉnh sửa nhóm {{ group.name }}</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            
+                        </div>
+                        <div class="widget-title" align="right"> 
+                            
+                            {% if role_all|length > 0 %}
+                                <form method="POST" action="" id="form">
+                                    <input type="hidden" name="sub" value="1" >
+                                    <table  class="table table-bordered table-striped" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Tên</th>
+                                                <th>Quyền</th>
+                                                <th>Mô tả</th>
+                                                <th>Trạng thái</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+        									<tr>
+        										<td rowspan="{{ role_all|length }}" style="vertical-align: middle;text-align: center;">{{ group.id }}</td>
+        										<td rowspan="{{ role_all|length }}" style="vertical-align: middle;text-align: center;">{{ group.name }}</td>
+        										<td>{{ role_all[0].name }}</td>
+                                                <td>{{ role_all[0].description }}</td>
+        										<td><input type="checkbox"  name="role[]" {{ role_all[0].id|in_array(role_active) == true ? 'checked' : '' }} value="{{ role_all[0].id }}" /></td>
+        									</tr>
+                                            {% for i in 1..role_all|length-1 %}
+                                                <tr>   
+                                                    <td>{{ role_all[i].name }}</td>
+                                                    <td>{{ role_all[i].description }}</td>
+                                                    <td>
+                                                        <input type="checkbox" name="role[]" {{ role_all[i].id|in_array(role_active) == true ? 'checked' : '' }}  value="{{ role_all[i].id }}" />
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            
+                                        </tbody>
+                                    </table>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script type="text/javascript">
+        $(document).ready(function(){ 
+            $('#submit').click(function(event) {
+                $('#form').submit();
+            }); 
+        });
+    </script>
+
+{% endblock %}

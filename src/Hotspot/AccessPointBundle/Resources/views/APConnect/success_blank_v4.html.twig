@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Success</title>
+    <link rel="stylesheet" href='/bundles/advertiser/assets/css/demo12.css' />
+</head>
+<body>
+<div class="container">
+    <div class="screen">
+        <header>
+            <div class="head">
+                <a href="{{ params['apUrl'] }}" target="_blank"><p>Kết nối thành công</p></a>
+            </div>
+        </header>
+        <div class="wrap_connect">
+            <div>
+                {% if params['apName'] is not empty %}
+                    {% if params['apUrl'] is not empty %}
+                        <a href="{{params['apUrl']}}" target="_blank" ><img style="max-width: 100%;max-height:240px; " src="{{ params['apImage'] }}" alt="{{ params['apName'] }}"></a>
+                    {% else %}
+                        <img style="max-width: 100%;" src="{{ params['apImage'] }}" alt="{{ params['apName'] }}">
+                    {% endif %}
+                {% endif %}
+            </div>
+                {% if adv is not empty %}
+                    <a href="{{ linkTo | raw }}" target='_blank'><img src="/ap/display2.html?id={{ adv.Id }}&link={{ adv.linkTo | url_encode}}&position={{ adv.homePosition() }}&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="BANNER NEN"></a>
+                {% else %}
+                    <img src="/bundles/advertiser/assets/img/bg.png" alt="BANNER">
+                {% endif %}
+
+            <div class="wrap_button_success">
+                <div class="wrap_v">
+                    {% if adv is empty %}
+                    <span><img src="/bundles/advertiser/assets/img/logo_cafe.png"></span>
+
+                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+                    <!--
+                        <p>Giải pháp của Wiads <br>CPC rẻ nhất thị trường</p>
+                     -->
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            {% if adv is empty %}
+                <a href="http://wiads.vn" target="_blank">www.wiads.vn</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

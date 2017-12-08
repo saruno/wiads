@@ -1,0 +1,5 @@
+Common\DbBundle\Model\User:
+  constraints:
+    - Propel\PropelBundle\Validator\Constraints\UniqueObject:
+        fields: email
+        message: User already exists ().

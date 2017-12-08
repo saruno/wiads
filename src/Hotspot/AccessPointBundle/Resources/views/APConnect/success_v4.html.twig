@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {#% if 'facebook.com' not in linkTo and linkTo is not empty %#}
+    {% if linkTo is not empty %}
+        <meta http-equiv="refresh" content="0;url={{ linkTo | raw }}">
+    {% endif %}
+    <title>Success</title>
+    <link rel="stylesheet" href='/bundles/advertiser/assets/css/demo12.css' />
+</head>
+<body>
+<div class="container">
+    <div class="screen">
+        <header>
+            <div class="head">
+                {% if params['apUrl'] is empty %}
+                    <a href="{{ params['apUrl'] }}" target="_blank"><p>Kết nối thành công</p></a>
+                {% else %}
+                    <a href="{{ linkTo | raw }}" target='_blank'><p>Kết nối thành công</p></a>
+                {% endif %}
+            </div>
+        </header>
+        <div class="wrap_connect">
+            {% if adv is not empty %}
+                <a href="{{ linkTo | raw }}" target='_blank'>
+                    <!--
+                    <img src="/ap/display2.html?id={{ adv.Id }}&link={{ adv.linkTo | url_encode}}&position={{ adv.homePosition() }}&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="BANNER NEN">
+                    -->
+                    <img src="/ap/display.html?id={{ adv.Id }}&link={{ adv.linkTo | url_encode}}&position={{ adv.homePosition() }}&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="BANNER NEN">
+                </a>
+            {% else %}
+                <img src="/bundles/advertiser/assets/img/bg.png" alt="BANNER">
+            {% endif %}
+            <div class="wrap_button_success">
+                <div class="wrap_v">
+                    {% if adv is empty %}
+                        <span><img src="/bundles/advertiser/assets/img/logo_cafe.png"></span>
+                        <p>Giải pháp của Wiads <br>CPC rẻ nhất thị trường</p>
+                    {% endif %}
+                    <!--
+                    <a href="http://wiads.vn" target="_blank">Kết nối thành công</a>
+                    -->
+
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            {% if adv is empty %}
+                <a href="http://wiads.vn" target='_blank'>www.wiads.vn</a>
+            {% else %}
+                <a href="{{ linkTo | raw }}" target='_blank'>OK</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

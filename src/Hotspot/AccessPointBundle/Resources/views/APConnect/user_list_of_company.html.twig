@@ -1,0 +1,6 @@
+<select id="user_company" name ="user_company" class="span11">
+    <option value="-1">Tất cả</option>
+    {% for u in users %}
+        <option value="{{ u['username'] }}">{{ u['username'] }}</option>
+    {% endfor %}
+</select>

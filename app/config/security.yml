@@ -1,0 +1,176 @@
+security:
+#
+    access_denied_url: /ap/report
+#
+    firewalls:
+        advertiser_area:
+            pattern:    ^/advertiser
+            provider: main
+            anonymous: ~
+            form_login:
+                login_path:  /advertiser/login
+                check_path:  /advertiser/login_check
+                default_target_path: /advertiser
+            logout:
+                path:   /advertiser/logout
+                target: /advertiser/login
+                delete_cookies:
+                    USER_NAME: { path: null, domain: null }
+                    MEDIA_POST: { path: null, domain: null }
+                    PHPSESSID: { path: null, domain: null }
+                    CKFinder_Path: { path: null, domain: null }
+            security: true
+            anonymous: ~
+        # user wifi
+        wifi_area:
+            pattern:    ^/wifi
+            provider: main
+            form_login:
+                login_path:  /wifi/login
+                check_path:  /wifi/login_check
+                default_target_path: /wifi
+                username_parameter: _username
+                password_parameter: _password
+                remember_me: true
+            logout:
+                path:   /wifi/logout
+                target: /wifi/login
+                delete_cookies:
+                    USER_NAME: { path: null, domain: null }
+                    MEDIA_POST: { path: null, domain: null }
+                    PHPSESSID: { path: null, domain: null }
+                    CKFinder_Path: { path: null, domain: null }
+            security: true
+            remember_me:
+                secret:      '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                always_remember_me: true
+                path: /
+                domain: ~
+            anonymous: ~
+        #admin_area:
+        #    pattern:    ^/auth
+        #    provider: main
+        #    anonymous: ~
+        #    form_login:
+        #        login_path:  /auth/login
+        #        check_path:  /auth/login_check
+        #        default_target_path: /auth
+        #    logout:
+        #        path:   /auth/logout
+        #        target: /auth/login
+        #        delete_cookies:
+        #            USER_NAME: { path: null, domain: null }
+        #            MEDIA_POST: { path: null, domain: null }
+        #            PHPSESSID: { path: null, domain: null }
+        #            CKFinder_Path: { path: null, domain: null }
+        #    security: true
+        #    anonymous: true
+        wifi_operator_area_hotspot:
+            pattern:    ^/ap/report
+            provider: main
+            anonymous: ~
+            form_login:
+                login_path:  /ap/report/login
+                check_path:  /ap/report/login_check
+                default_target_path: /ap/report
+#            http_basic: ~
+#              realm: Input Password
+#              provider: in_memory
+            logout:
+                path:   /ap/report/logout
+                target: /ap/report
+#
+#        ads_tracking_report:
+#            pattern:    ^/ap/member
+#            http_basic: ~
+#              realm: Input Password
+#              provider: in_memory
+        api_doc_area:
+            pattern: ^/api/doc
+            security: false       
+            anonymous: ~
+        api_area:
+            pattern: ^/api
+            security: true       
+            anonymous: ~
+            provider: user_provider
+            fos_oauth: true
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
+        
+    role_hierarchy:
+        ROLE_SYSTEM_GROUP:       [ROLE_UAC,ROLE_SYSTEM]
+        ROLE_POST_GROUP:  [ROLE_NEWS_POST,ROLE_ADS_POST,ROLE_MEDIA_POST]
+        ROLE_APPROVE_GROUP: [ROLE_NEWS_APPROVE,ROLE_ADS_APPROVE,ROLE_VOTE]
+        ROLE_SITE_GROUP: [ROLE_SECTION,ROLE_MENU,ROLE_LANGUAGE,ROLE_COMMENT]
+        ROLE_ADMIN_GROUP:       [ROLE_SYSTEM_GROUP,ROLE_POST_GROUP,ROLE_APPROVE_GROUP,ROLE_SITE_GROUP]
+#
+    access_control:
+        - { path: ^/auth/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/advertiser/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/ap/report/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #TESTACTIONS
+        - { path: ^/advertiser/test, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/advertiser/saverequest, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #
+        #MEDIA
+        - { path: ^/auth/media/fileManager, roles: ROLE_MEDIA_POST }
+        #auth
+        - { path: ^/auth, roles: IS_AUTHENTICATED_FULLY }
+        #ads
+        - { path: ^/ap/member, roles: ROLE_ADS_REPORT }
+        #report
+        - { path: ^/ap/report, roles: ROLE_USER }
+        #admin
+        #- { path: ^/advertiser/permision/, roles: ROLE_SYS_ADMIN }
+        #advertiser
+        - { path: ^/advertiser, roles: IS_AUTHENTICATED_FULLY }
+        #wifi user
+        - { path: ^/wifi/login, roles: [IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_REMEMBERED] }
+        - { path: ^/wifi/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/wifi/user/active, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/wifi/forgot, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/wifi, roles: IS_AUTHENTICATED_FULLY }
+        #api
+        - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/api/doc, roles:  IS_AUTHENTICATED_ANONYMOUSLY }
+    providers:
+        main:
+            propel:
+                 class: Common\DbBundle\Model\User
+                 property: username
+#        in_memory:
+#            memory:
+#                users:
+#                    wiads:
+#                        password: wiads.vn
+#                        roles: 'ROLE_USER'
+        user_provider:
+            id: platform.user.provider
+    encoders:
+        Common\DbBundle\Model\User:
+            algorithm: bcrypt
+            cost: 12
+        ApiBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+    acl:
+        provider: propel.security.acl.provider
+#    encoders:
+#        Common\DbBundle\Model\User:
+#            algorithm: plaintext
+#            encode_as_base64: false
+#    providers:
+#        in_memory:
+#            memory:
+#                users:
+#                    aaa:
+#                        password: aaa
+#                        roles: 'ROLE_USER'
+#                    admin:
+#                        password: kitten
+#                        roles: 'ROLE_ADMIN'
+#    encoders:
+#            Symfony\Component\Security\Core\User\User: plaintext

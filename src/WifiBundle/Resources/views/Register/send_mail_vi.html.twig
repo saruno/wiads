@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ 'notification.register_active_emai'|trans }}</title>
+</head>
+<body>
+	<p>Bạn <span style="color:red;">{{ fullname }}</span> thân mến,</p>
+	<p>Cảm ơn bạn đã đăng ký tài khoản tại WiAds. Để kích hoạt tài khoản và hoàn tất quá trình đăng ký, vui lòng bấm (click) vào liên kết sau:</p>
+	<p><a href="{{ url_active }}">{{ url_active }}</a></p>
+	<p>Trong trường hợp liên kết trên không hoạt động, hãy sử dụng trình duyệt của bạn để  truy cập trang web sau và nhập mã kích hoạt:</p>
+	<p><a href="{{ app.request.getSchemeAndHttpHost()~'/wifi/user/active' }}">{{ app.request.getSchemeAndHttpHost()~'/wifi/user/active' }}</a></p>
+	<p>Mã kích hoạt: {{ code }}</p>
+	<p>Nếu bạn gặp khó khăn trong việc kích hoạt tài khoản, hãy gọi tới hotline của chúng tôi: 0511.3605133</p>
+	<p>Trân trọng,</p>
+	<p><b>WiAds Team</b></p>
+</body>
+</html>

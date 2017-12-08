@@ -1,0 +1,385 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> 
+            	<a href="#" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+            </div>
+            <h1>Cập nhật thông tin thiết bị</h1>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                          <h5>Thiết bị</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <form action="#" method="get" class="form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label">Mac:</label>
+                                    <div class="controls" style="overflow: hidden;">
+                                        <div class="input-append span12">
+                                            <input type="text" class="span6" id="macaddr" name="macaddr" value="" placeholder="Mac" />
+                                            <input type="button" value="Kiểm tra MAC" name="verifyMac" id="verifyMac" class="btn btn-primary span3">
+                                            <input type="button" value="Kiểm tra ảnh banner" name="viewMacImage" id="viewMacImage" class="btn btn-primary span3"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Tên Quán:</label>
+                                    <div class="controls controls-row">
+                                        <div class="input-append span12">
+                                            <input type="text" id="name" placeholder="Tên quán" name="name" value="" class="span6" >
+                                            <span class="span2 add-on" style="margin:0;">Liên lạc gần nhất vào:</span>
+                                            <input type="text" disabled="disabled" style="margin:0;" id="time" name="time" value="" class="span4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Tùy chọn:</label>
+                                    <div class="controls">
+                                        <label>
+                                            <input type="checkbox" name="activated" id="activated" value="1" checked="checked" />Sử dụng mật khẩu:
+                                            <input type="text" id="wifipass" name="wifipass" value="" class="span4">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Tùy chọn:</label>
+                                    <div class="controls">
+                                        <label>
+                                            <input type="checkbox" name="activated" id="activated" value="1" checked="checked" />Đang hoạt động (Nếu muốn kích hoạt thì đánh dấu trước khi lưu)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Địa chỉ:</label>
+                                    <div class="controls controls-row">
+                                        <div class="input-append span12">
+                                            <input type="text"  id="address" name="address" value="" placeholder="Địa chỉ"  class="span6" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Tùy chọn:</label>
+                                    <div class="controls">
+                                        <label>
+                                            <input type="checkbox" name="change_img" id="change_img" value='1' />Đổi ảnh quán (1242x300 hoặc 1242x450):
+                                            <input type="file" id="form_image_file" name="form[image_file]" required="required">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Tùy chọn:</label>
+                                    <div class="controls">
+                                        <label class="span2">
+                                            <input type="checkbox" name="firmware_upgrade" id="firmware_upgrade" value='1' />Cập nhật phần mềm mới:
+                                        </label>
+                                        <select id="firmware_file" name="firmware_file" class="span6">
+                                            <option value="/fw/20161223.01-tl-740n-v5.bridge.generic-upgrade.bin">20161223.01-tl-740n-v5.bridge.generic-Gộp cổng TP-740n-v5</option>
+                                            <option value="/fw/20170123.01-tl-740n-v5.generic-upgrade.bin">20170123.01-tl-740n-v5.generic-Tách cổng TP-740n-v5</option>
+                                            <option value="/fw/20161223.01-tl-740n-v6.bridge.generic-upgrade.bin">20161223.01-tl-740n-v6.bridge.generic-Gộp cổng TP-740n-v6</option>
+                                            <option value="/fw/20170123.01-tl-740n-v6.generic-upgrade.bin">20170123.01-tl-740n-v6.generic-Tách cổng TP-740n-v6</option>
+                                            <option value="/fw/wiads.vn-wr941nd-v4-20161222.01.generic.bin">20161222.01.generic-Tách cổng TP-wr941nd-v4</option>
+                                            <option value="/fw/wiads.vn-bufalo-wzr-hp-g450h-20161223.01.generic">20161223.01.generic-Tách cổng Buffalo-wzr-hp-g450h</option>
+                                        </select>
+                                        (Hiện tại:<input type='text' disabled="disabled" id='firmware_current' name='firmware_current' value="" class="span3"> )
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Chọn tốc độ dụng+thời gian sử dụng:</label>
+                                    <div class="controls">
+                                        <select id="bw_profile" name="bw_profile" class="span11">
+                                            <option value="1">Tốc độ 10Mb - 60 phút</option>
+                                            <option value="2">Tốc độ 10Mb - 120 phút</option>
+                                            <option value="3">Tốc độ 10Mb - Không giới hạn giờ</option>
+                                            <option value="4">Tốc độ 10Mb - 30 phút</option>
+                                            <option value="5">Tốc độ 5Mb - 60 phút</option>
+                                            <option value="6">Tốc độ 3Mb - 60 phút</option>
+                                            <option value="7">Không giới hạn tốc độ - Không giới hạn giờ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Chọn mẫu màn hình login:</label>
+                                    <div class="controls">
+                                        <select id="login_template" name="login_template" class="span11">
+                                            <option value="captival_full_screen_v4.html.twig">Quảng cáo chung - 640x710</option>
+                                            <option value="captival_fblogin_v1.html.twig">Login bằng Facebook</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Tỉnh:</label>
+                                    <div class="controls">
+                                        <select id="province" name="province" class="span11">
+                                            <option value="HANOI">Hà Nội</option>
+                                            <option value="THANHHOA">Thanh Hoá</option>
+                                            <option value="TTHUE">Thừa Thiên Huế</option>
+                                            <option value="DANANG">Đà Nẵng</option>
+                                            <option value="HAIPHONG">Hải Phòng</option>
+                                            <option value="NGHEAN">Nghệ An</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Công ty:</label>
+                                    <div class="controls">
+                                        <select id="company" name="company" class="span11">
+                                            <option value="Socify">Socify</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <input type="submit" value="Lưu dữ liệu" class="btn btn-success" />
+                                    <input type="hidden" id="reboot" name="reboot" value="0" />
+                                    <input type="button" name="reboot_me" id="reboot_me" value="Reboot" onclick="javascript:rebootAP();" class="btn btn-success">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                            <h5>Tình trạng thiết bị</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <form id="view_form" name ="view_form" action="/ap/report" method="post" class="form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label">Tỉnh:</label>
+                                    <div class="controls">
+                                        <select id="province2" name="province" class="span11">
+                                            <option value="HANOI">Hà Nội</option>
+                                            <option value="THANHHOA">Thanh Hoá</option>
+                                            <option value="TTHUE">Thừa Thiên Huế</option>
+                                            <option value="DANANG">Đà Nẵng</option>
+                                            <option value="HAIPHONG">Hải Phòng</option>
+                                            <option value="NGHEAN">Nghệ An</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Công ty:</label>
+                                    <div class="controls">
+                                        <select id="company2" name="company" class="span11">
+                                            <option value="Socify">Socify</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <input type="hidden" name="status_view" value="1"/>
+                                    <input type="submit" name="view_button" id="view_button" value="Xem tình trạng thiết bị" class="btn btn-success">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                            <h5>Thống kê</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <form id="statistic_form" name ="statistic_form" action="/ap/report" method="post" class="form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label">Tỉnh:</label>
+                                    <div class="controls">
+                                        <select id="province3" name="province" class="span11">
+                                            <option value="HANOI">Hà Nội</option>
+                                            <option value="THANHHOA">Thanh Hoá</option>
+                                            <option value="TTHUE">Thừa Thiên Huế</option>
+                                            <option value="DANANG">Đà Nẵng</option>
+                                            <option value="HAIPHONG">Hải Phòng</option>
+                                            <option value="NGHEAN">Nghệ An</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Công ty:</label>
+                                    <div class="controls">
+                                        <select id="company3" name="company" class="span11">
+                                            <option value="Socify">Socify</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Từ ngày:</label>
+                                    <div class="controls">
+                                        <div  data-date="12-02-2012" class="input-append date datepicker">
+                                            <input type="text" name="from" value="12-02-2012"  data-date-format="mm-dd-yyyy" class="span11" >
+                                            <span class="add-on"><i class="icon-th"></i></span> \
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Đến ngày:</label>
+                                    <div class="controls">
+                                        <div  data-date="12-02-2012" class="input-append date datepicker">
+                                            <input type="text" name="to" value="12-02-2012"  data-date-format="mm-dd-yyyy" class="span11" >
+                                            <span class="add-on"><i class="icon-th"></i></span> 
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="control-group">
+                                    <label class="control-label">Tùy chọn:</label>
+                                    <div class="controls">
+                                        <label>
+                                            <input type="checkbox" name="click_view" id="click_view" value='1'  >Xem click (nếu không chọn tức là xem lượt hiển thị).
+                                        </label>
+                                    </div>
+                                </div>
+                                  
+                                <div class="form-actions">
+                                    <input type="hidden" name="report_view" value="1"/>
+                                    <input type="submit" value="Xem thống kê" class="btn btn-success">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Dữ liệu</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <div class="dataTables_wrapper">
+                                <span>Thống kê thiết bị từ 2017-02-28 đến 2017-03-01: 0/0 lượt popup/click login, ngày trước: 0/0</span>
+                                <table class="table table-bordered" id="tba">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>MAC</th>
+                                            <th>Name</th>
+                                            <th>Address</th>
+                                            <th>Province</th>
+                                            <th>Date created</th>
+                                            <th>Last online</th>
+                                            <th>01</th>
+                                            <th>02</th>
+                                            <th>03</th>
+                                            <th>04</th>
+                                            <th>05</th>
+                                            <th>06</th>
+                                            <th>07</th>
+                                            <th>08</th>
+                                            <th>09</th>
+                                            <th>10</th>
+                                            <th>11</th>
+                                            <th>12</th>
+                                            <th>13</th>
+                                            <th>14</th>
+                                            <th>15</th>
+                                            <th>16</th>
+                                            <th>17</th>
+                                            <th>18</th>
+                                            <th>19</th>
+                                            <th>20</th>
+                                            <th>21</th>
+                                            <th>22</th>
+                                            <th>23</th>
+                                            <th>24</th>
+                                            <th>25</th>
+                                            <th>26</th>
+                                            <th>27</th>
+                                            <th>28</th>
+                                            <th>29</th>
+                                            <th>30</th>
+                                            <th>31</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        <tr style="border: 1px solid grey;">
+                                            <td style="border: 1px solid grey;">1</td>
+                                            <td style="border: 1px solid grey;">18-A6-F7-53-B8-80</td>
+                                            <td style="border: 1px solid grey;">Cafe Phong Lan</td>
+                                            <td style="border: 1px solid grey;">16 Đoàn Hữu Trưng</td>
+                                            <td style="border: 1px solid grey;">TTHUE</td>
+                                            <td style="border: 1px solid grey;">2016-07-04 17:56:03</td>
+                                            <td style="border: 1px solid grey;background-color:#F3565D;">2016-08-24 22:56:23</td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;">0</td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#CEECF5;"><span style="color:#8f5536">0</span></td>
+                                            <td style="border: 1px solid grey;background-color:#f0f0f0;"><span style="color:#8f5536">0</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <div class="notifition">
+                                    <p>Không có dữ liệu</p>
+                                </div>
+                                <div class="loading" >
+                                    <img src="/bundles/advertiser/matrix/img/loading_icon.gif">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+           
+        });
+    </script>
+    <style type="text/css">
+        div.notifition p{
+            margin: 30px 0px;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+        div.loading {
+            background: white;
+        }
+        div.loading img{
+            height: 150px;
+            margin: 0 auto;
+            display: none;
+        }
+    </style>
+{% endblock %}

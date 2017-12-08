@@ -1,0 +1,63 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> 
+                <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+                <a href="#" >Phân quyền</a> 
+                <a href="{{ path('advertiser_permision_group_list') }}">Nhóm</a>
+                <a href="{{ path('advertiser_permision_group_add') }}" class="current">Thêm mới</a>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <form method="POST" action="" class="form-horizontal">
+                        <input type="hidden" name="submit" value="1" >
+                        <div class="widget-box">
+                            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                                <h5>Nhập thông tin nhóm</h5>
+                            </div>
+                            <div class="widget-content nopadding">
+                                {% if app.session.flashBag.has('success') %}
+                                    <div class="alert alert-success alert-block">
+                                        <a class="close" data-dismiss="alert" href="#">×</a>
+                                        {% for msg in app.session.flashBag.get('success') %}
+                                            {{ msg|raw }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if app.session.flashBag.has('error') %}
+                                    <div class="alert alert-block">
+                                        <a class="close" data-dismiss="alert" href="#">×</a>
+                                        {% for msg in app.session.flashBag.get('error') %}
+                                            {{ msg }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="control-group">
+                                    <label class="control-label">Tên nhóm:</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6" name="name" value="{{ name }}" required />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Mô tả:</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6" name="description" value="{{ description }}" required />
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <a onclick="goBack();" class="btn btn-danger">Huỷ</a>
+                                    <button type="submit" class="btn btn-success">Lưu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset=utf-8>
+  <title>{{ title }}</title>
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	{% if uamsecret and userpassword %}
+ <meta http-equiv="refresh" content="1;url=http://{{uamip}}:{{uamport}}/logon?username={{username}}&password={{pappassword}}&userurl={{userurl | url_encode}}">
+  	{% else %}
+    	<meta http-equiv="refresh" content="1;url=http://{{uamip}}:{{uamport}}/logon?username={{username}}&response={{response}}&userurl={{userurl | url_encode}}">
+	{% endif %}
+
+    <link rel="stylesheet" href="/bundles/hotspotaccesspoint/v2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/bundles/hotspotaccesspoint/v2/css/style_progress.css"/>
+
+    
+</head>
+<body>
+    <article>
+        <div class="container">
+          <h2>Đang kết nối...</h2>
+          <div class="progress">
+            <span style="width: 100%"></span>
+          </div>
+        </div>
+    </article>
+      <iframe src="" style="width: 0px;height: 0px; visibility:hidden;display:none" id="iframe"></iframe>
+</body>
+<!-- jQuery first, then Bootstrap JS. -->
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/v2/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/v2/js/bootstrap.min.js"></script>
+    <script>
+        $(function() {
+          $(".progress > span").each(function() {
+            $(this)
+              .data("origWidth", $(this).width())
+              .width(0)
+              .animate({
+                width: $(this).data("origWidth")
+              }, 12000);
+          });
+        });
+        var iframe = document.getElementById("iframe");
+        //iframe.setAttribute("src","http://junoteam.com/blog}}");
+
+    </script>
+
+</html>

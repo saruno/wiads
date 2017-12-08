@@ -1,0 +1,346 @@
+{% extends 'PortalAdminBundle::layout.html.twig' %}
+{% block head %}
+	{{ parent() }}
+    <script>
+        $(function () {
+            $('#lang').change(function () {
+                Page(1);
+            });
+            $('#section_type').change(function () {
+                Page(1);
+            });
+            $('#page_size').change(function () {
+                Page(1);
+            });
+            $('body').on('change', '.checkAll',function () {
+                $('.cb-element').prop('checked', $('.checkAll').is(':checked') ?  true : false);
+            });
+            $('body').on('change','.cb-element', function () {
+                $('.cb-element').length == $('.cb-element:checked').length ? $('.checkAll').prop('checked', true) : $('.checkAll').prop('checked', false);
+            });
+            $('#cmd-new').click(function () {
+                window.location.href = $(this).prop('href') + '?section_type='+ $('#section_type').val()+'&lang='+$('#lang').val();
+                return false;
+            });
+            $('#cmd-del').click(function () {
+                if ($('.cb-element:checked').length == 0) {
+                    $('#dialog-form').html("<div style='text-align:center;padding-top:30px'>{{ 'Please choose section' |trans }}<div>");
+                    var opt={
+        					'title': "{{ 'Delete Section'|trans }}"
+        					};
+                 	$('#dialog-form').dialog(opt);
+                    $('#dialog-form').dialog("open");
+                }
+                else {
+                	Delete();
+                }
+                return false;
+            });
+        });
+        function Delete()
+    	{
+    		
+   	        $('#dialog-form').dialog({
+	   	            buttons : {
+	   	             "{{ 'Confirm'|trans }}" : function() {
+	   	            	var strIDs = "";
+	                    $('.cb-element:checked').each(function () {
+	                        strIDs += (strIDs != "") ? "," : "";
+	                        strIDs += $(this).val();
+	                    });
+
+	                    $('#action_id').val(strIDs);
+	                    $('#action').val('delete');
+	                    $("#SubmitSearch").click();
+   	             },
+   	            "{{'Cancel'|trans }}" : function() {
+   	          	   $(this).dialog("close");
+   	             }
+   	            }
+   	          	});
+   	        $('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>{{ 'Are you sure?'|trans }}<div>");
+			var opt={
+					'title': "{{ 'Advertising management'|trans }}"
+					};
+         	$('#dialog-form').dialog(opt);
+   	        $("#dialog-form").dialog("open");
+   	       	
+        }
+        function Page(page) {
+            $("#currentPage").val(page);
+            window.location.href = '/auth/section/'+$('#currentPage').val()+'/'+$('#page_size').val()+'/?section_type='+$('#section_type').val()+ '&lang='+$('#lang').val();
+            return false;
+            //$("#SubmitSearch").click();
+        }
+        function MoveUp(id)
+        {
+            $('#action').val('up');
+            $('#action_id').val(id);
+            $("#SubmitSearch").click();
+        }
+        function MoveDown(id)
+        {
+            $('#action').val('down');
+            $('#action_id').val(id);
+            $("#SubmitSearch").click();
+        }
+        function setPublish(object, id, isPublish)
+        {
+            object.innerHTML= 'saving';
+
+            var request = $.ajax({
+                url: "/auth/section/publish/"+id+"/"+isPublish,
+                type: "POST",
+                cache: false,
+                dataType: "json",
+            });
+
+            request.success(function(data) {
+                if (data.status == "OK")
+                {
+                    if (isPublish)
+                        object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+                    else
+                        object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+                }
+                else
+                {
+                    var message = "";
+                    for(var i=0; i<data.message.length;i++)
+                    {
+                        message += "<li>" + data.message[i] + "</li>";
+                    }
+                    $('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+                    var opt={
+        					"title":"{{ "Publish Section"|trans }}"
+        					};
+        	        $('#dialog-form').dialog(opt);
+                    $('#dialog-form').dialog("open");
+
+                    //Reset current publish status
+                    if (isPublish)
+                        object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+                    else
+                        object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+                };
+            });
+
+            request.fail(function(jqXHR, textStatus) {
+                $('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+                var opt={
+    					"title":"{{ "Publish Section"|trans }}"
+    					};
+    	        $('#dialog-form').dialog(opt);
+                $('#dialog-form').dialog("open");
+
+                //Reset current publish status
+                if (value)
+                    object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+                else
+                    object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+            });
+
+        }
+        function togglePublish(object, id)
+        {
+            object.innerHTML= 'saving';
+
+            var request = $.ajax({
+                url: "/auth/section/togglepublish/"+id,
+                type: "POST",
+                cache: false,
+                dataType: "json",
+            });
+
+            request.success(function(data) {
+
+                if (data.status == "OK")
+                {
+                    if (data.message == true)
+                        object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+                    else
+                        object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+                }
+                else
+                {
+                    var message = "";
+                    for(var i=0; i<data.message.length;i++)
+                    {
+                        message += "<li>" + data.message[i] + "</li>";
+                    }
+                    $('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'><ul>"+message+"</ul><div>");
+                    var opt={
+        					"title":"{{ "Publish Section"|trans }}"
+        					};
+        	        $('#dialog-form').dialog(opt);
+                    $('#dialog-form').dialog("open");
+
+                    //Reset current publish status
+                    if (data.message == true)
+                        object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+                    else
+                        object.innerHTML= '<img src=\"/assets/portalauth/images/enable.gif\"> </img>';
+                };
+            });
+
+            request.fail(function(jqXHR, textStatus) {
+                $('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>Request failed: " + textStatus+"<div>");
+                var opt={
+    					"title":"{{ "Publish Section"|trans }}"
+    					};
+    	        $('#dialog-form').dialog(opt);
+                $('#dialog-form').dialog("open");
+
+                //Reset current publish status
+                if (value)
+                    object.innerHTML= '<img src=\"/assets/portalauth/images/disable.gif\"> </img>';
+                else
+                    object.innerHTML= '<img src=\"/assets/portalauth/images/enabled.gif\"> </img>';
+            });
+
+        }
+    </script>
+{% endblock %}
+{% block content %}
+<div id="p-toolbox" class="p-box">
+    <div class="p-box-bottom">
+        <div class="p-box-top clearfix">
+            <ul id="p-commands">
+                <li><a id = "cmd-new" href="/auth/section/add"> {{"Add"|trans}}</a></li>
+                <li><a id = "cmd-del" href="/auth/section/del"> {{"Delete"|trans}}</a></li>
+                <li><a id = "cmd-close" href="/auth"> {{"Close"|trans}}</a></li>
+                
+            </ul>
+            <div class="p-module-title">
+                <a id="menu-showhide" href="/auth">{{ "Main Menu"|trans }}</a><h1>{{ "Manage Section"|trans }}</h1></h1>
+            </div>
+        </div>
+        <!-- enddiv: #p-box-top -->
+    </div>
+    <!-- enddiv: #p-box-bottom -->
+</div>
+<!-- enddiv: #p-toolbox -->
+<div id="Div1" class="p-box p-box-space">
+    <div class="p-box-bottom">
+        <div class="p-box-top clearfix">
+            <div id="p-options">
+            	
+<form method="post" name='frm_sectionList' action="">
+	<input type="hidden" name='action' id='action' value='{{ action }}'>
+	<input type="hidden" name='action_id' id='action_id' value=''>
+	<ul>
+		<li>{{ "Language"|trans }}:
+			<select id="lang" name="lang">
+			{% for l in langs %}
+				<option value="{{l.code}}" {% if l.code == lang %}selected="selected" {% endif %} >{{l.title}}</option>
+			{% endfor %}
+			</select>
+		</li>
+    	<li>{{ "Section Type"|trans }}:
+        	{% include "PortalAdminBundle:Section:section_type_list.html.twig" %}
+		</li>
+        <li>{{ "Page Size"|trans }}:
+        	<select id="page_size" name="page_size">
+				<option value="20" {% if page_size == 20 %}selected="selected" {% endif %}>20</option>
+				<option value="30" {% if page_size == 30 %}selected="selected" {% endif %}>30</option>
+				<option value="40" {% if page_size == 40 %}selected="selected" {% endif %}>40</option>
+				<option value="50" {% if page_size == 50 %}selected="selected" {% endif %}>50</option>
+				<option value="100" {% if page_size == 100 %}selected="selected" {% endif %}>100</option>
+			</select>
+			<input id="currentPage" name="currentPage"  type="hidden" value="{{ page }}"/> 
+             
+		</li>
+	</ul>
+	<input id="SubmitSearch" type="submit" value="search" style="display:none"/>
+</form>
+
+            </div>
+            <div id="searchresults">
+               <table class="p-grid" id="grid_section">
+               		<tr>
+               			<th> <input id="checkAll" type="checkbox" class="checkAll"/></th>
+               			<th>{{ "Title"|trans }}</th>
+               			<th>{{ "Order"|trans }}</th>
+               			<th>{{ "Created At"|trans }}</th>
+               			<th>{{ "Edited At"|trans }}</th>
+               			<th>{{ "Publish"|trans }}</th>
+               		</tr>
+               		{% for section in sections %}
+               		<tr>
+               			<td>
+               				<input id="check_{{ section.id }}" type="checkbox" value="{{ section.id }}" class="cb-element"/>
+               			</td>
+               			<td style="text-align: left;">
+							{% for i in 1..section.deep-1 if section.deep != 1  %}   &nbsp;&nbsp;{% endfor %}
+							<a href="/auth/section/detail/{{ section.id }}/{{ section.locale }}">{{ section.title|default("No Title"|trans) }}</a>
+               			</td>
+               			<td>
+               				<a onclick='MoveUp({{ section.id }})'><img src='{{ asset(global_web_path) }}/images/arrow_up.png'> </img></a>
+               				<a onclick='MoveDown({{ section.id }})'><img src='{{ asset(global_web_path) }}/images/arrow_down.png'> </img></a>
+               			</td>
+               			<td>
+							<span class="ndatetime">{{ section.createdAt|date("d/m/Y") }}</span>               				
+               			</td>
+               			
+               			<td>
+               				<span class="ndatetime">{{ section.updatedAt|date("d/m/Y")  }}</span>
+               			</td>
+               			
+               			<td>
+               				{% if not section.locked %}
+               					<a onclick="togglePublish(this,{{ section.id }}); return false;"><img src="{{ asset(global_web_path) }}/images/enable.gif"> </img> </a>
+               				{% else %}
+               					<a onclick="togglePublish(this,{{ section.id }}); return false;"><img src="{{ asset(global_web_path) }}/images/disable.gif"> </img> </a>
+               				{% endif %}
+               				
+               			</td>
+               		</tr>
+					{% endfor %}
+               </table>
+               <ul class="p-paging">
+                       {% if paginator.currentpage != 1 %}
+					       <li> <a class="previous" href="javascript:Page({{paginator.currentpage-1}})">{{ 'Previous' | trans}}</a>
+					   {% endif %}
+					   {% for i in 1..paginator.numpages%}
+					
+						   {% if paginator.range.0 > 2 and i == paginator.range.0 %}
+						         
+						   {% endif %}
+						
+						
+						     {%  if(i==1 or i==paginator.numpages or i in paginator.range) %}
+						
+						       {% if i==paginator.currentpage %}
+						       <li><a class="active" href="javascript:void(0)">{{i}}</a></li>
+						       {% else %}
+						       <li><a href="javascript:Page({{ i }})"> {{i}}</a></li>
+						       {% endif %}
+						     {% endif %}
+						
+						    {% if paginator.range[paginator.midrange -1] < paginator.numpages -1 and i == paginator.range[paginator.midrange-1] %}
+						         
+						    {% endif %}
+					
+					   {% endfor %}
+					
+						{% if paginator.currentpage +1 <= paginator.numpages %}
+					       <li> <a class="next" href="javascript:Page({{ paginator.currentpage+ 1  }})">{{ 'Next'|trans }}</a>
+					    {% endif %}       
+                     </ul><!-- enddiv: #p-paging --> 
+            </div>
+            <!-- enddiv: #p-options -->
+            <div id="dialog-form" title="Create new user">
+            
+       
+</div>
+
+        </div>
+        <!-- enddiv: #p-box-top -->
+    </div>
+    <!-- enddiv: #p-box-bottom -->
+</div>
+
+
+	
+{% endblock %}	
+

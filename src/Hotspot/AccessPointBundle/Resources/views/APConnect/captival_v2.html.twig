@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    {% if params['called']=='18-A6-F7-54-03-A8' %}
+    <!-- 
+    <meta http-equiv="refresh" content="10;url={{params['loginpath']}}/?called={{params['called']}}&mac={{params['mac']}}&challenge={{params['challenge']}}&uamip={{params['uamip']}}&ip={{params['ip']}}&uamport={{params['uamport']}}&userurl={{params['userurl']|url_encode}}&res=notyet&advertId={{ads[0].Id}}&button=Free%20Internet">
+     -->
+    {% endif %}
+    <!-- <link href="images/favicon.ico" rel="shortcut icon"> -->
+    <link rel="stylesheet" href="/bundles/hotspotaccesspoint/v2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/bundles/hotspotaccesspoint/v2/css/style.css"/>
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/v2/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/v2/js/bootstrap.min.js"></script>
+    <script>
+    function Login(value)
+	{
+		$('#advertId').val(value);
+		$( "#login_frm" ).submit();
+		}
+	</script>
+	<script>
+
+</script>
+  </head>
+  <body>
+
+    
+    <article class="body">
+        <div class="container">
+          <div class="row">
+                    {% if params['apName'] is not empty %}
+                    	{% if params['apImage'] is not empty %}
+                    		<a href="javascript:Login('-2');"><img style="display: block;margin: auto;max-width: 100%; max-height: 236px;" src="{{ params['apImage'] }}" alt="{{ params['apName'] }}"></a>
+                    	{% else %}
+                    		<div class="title"
+                    		{% if params['apName']|length <= 10 %}
+                    		style="font-size: 2em!important;"
+                    		{% elseif params['apName']|length <= 15 %}
+                    		style="font-size: 1.5em!important;"
+                    		{% endif %} 
+                    		>
+                    		{{ params['apName'] | upper }}
+                    		</div>
+                    		<a href="javascript:Login('-1');"><img class="" src="/bundles/hotspotaccesspoint/v2/images/img-1.jpg" alt="image"></a>
+                    	{% endif %}
+                    {% endif %}
+          	
+          </div>
+          {% for adv in ads %}
+          <div class="row">
+            <div class="">
+          		<a href="javascript:Login('{{ adv.Id }}');"><img class=""  src="/ap/display.html?id={{ adv.Id }}&link={{ adv.linkTo | url_encode}}&position={{ params['position'] }}&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="Ads here" /></a>
+          	</div>
+          </div>
+          {% endfor %}
+          <div class="row">
+            <div class="last">
+              {% for adv1 in ads1 %}
+              <!-- 
+              <div><a href="javascript:Login('-1');"><img class="" src="/bundles/hotspotaccesspoint/v2/images/img-3.jpg" alt="image"></a></div>
+               -->
+               <div class='qa1'>
+               	<a href="javascript:Login('{{ adv1.Id }}');"><img class=""  src="/ap/display.html?id={{ adv1.Id }}&link={{ adv1.linkTo | url_encode}}&position={{ params1['position'] }}&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="Ads here" /></a>
+               </div>
+              {% endfor %}
+              <div class="menu">
+                <ul>
+                <!-- 
+                 <li class="apName">
+                  	{% if params['apName'] is not empty %}
+                    	{% if params['apImage'] is empty %}
+                    		{{ params['apName'] }}
+                    	{% endif %}
+                    {% endif %}
+                  </li>
+                 -->
+                  <form class="login-form" novalidate="novalidate" id='login_frm' name='login_frm' method='post' action='{{params['loginpath']}}'>
+                  	<input type='hidden' name='called' value='{{params['called']}}'>
+                  	<input type='hidden' name='mac' value='{{params['mac']}}'>
+            		<input type='hidden' name='challenge' value='{{params['challenge']}}'>
+            		<input type='hidden' name='uamip' value='{{params['uamip']}}'>
+            		<input type='hidden' name='ip' value='{{params['ip']}}'>
+            		<input type='hidden' name='uamport' value='{{params['uamport']}}'>
+            		<input type='hidden' name='userurl' value='{{params['userurl']|url_encode}}'>
+            		<input type='hidden' id='advertId' name='advertId' value='-1'>
+            		<input type='hidden' name='button' value='Free Internet'>
+                 <li>
+                  <a href="javascript:Login('-1');"><img class="" src="/bundles/hotspotaccesspoint/v2/images/img-4.jpg" alt="image"></a>
+                 </li>
+                  </form>
+                  
+                  <li><img src="/ap/track_login.html?called={{ params['called'] }}&mac={{ params['mac'] }}&challenge={{ params['challenge'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}"/></li>
+                  
+                  <li class="apName">
+                  	<a href="javascript:Login('-1');"><img class="" src="/bundles/hotspotaccesspoint/v2/images/img-7.jpg" alt="image"></a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </article>
+    <footer>
+      <div class="container">
+        <div class="row">
+        	<p><a href="javascript:Login('-1');">KẾT NỐI</a></p>
+          <p>© CTCP Công Nghệ WiADS</p>
+          <p><a href="javascript:Login('-1');">www.wiads.vn</a></p>
+          
+        </div>
+      </div>
+    </footer>
+    
+    
+  </body>
+  {% if (params['os'] !='iPhone') and  (params['os'] !='iPad') %}
+	<script>
+	/*
+	$( document ).ready(function() {
+		setTimeout(function() {
+	        //Login(-1);
+	    }, 2000);
+    });
+    */
+	</script>
+	{% endif %}
+</html>

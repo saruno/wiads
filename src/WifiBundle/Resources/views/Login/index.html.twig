@@ -1,0 +1,69 @@
+{% extends 'WifiBundle::Layout/user_register.html.twig' %}
+
+{% block content %}
+	<div class="signuponepage main content clearfix">
+		
+		<h1>{{ 'register.title'|trans }}</h1>
+		<div class="clearfix" >
+			<div class="sign-up" style="margin:0 auto;clear:both;float:initial">
+				<div class="signup-box">
+					<h2>{{ 'button.login'|trans }}</h2>
+					<p>
+						{% if error %}
+                            <div style="text-align: center;color: red;">
+                            	{% if error.message == 'Bad credentials.' %}
+                                    {{ error.message | replace({"Bad credentials." : 'form.error_login'|trans }) }}
+                                {% elseif error.message == 'User account is disabled.' %}
+                                    {{ error.message | replace({"User account is disabled." : 'notification.no_active'|trans }) }}
+                                {% elseif error.message == 'User account is locked.' %}
+                                    {{ error.message | replace({"User account is locked." : 'notification.locked'|trans }) }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+					</p>
+					<form class="createaccount-form" id="createaccount" action="{{ path('wifi_login_check') }}" method="post">
+						<input type="hidden" name="submit" value="1" />
+						<div class="form-element email-address" id="gmail-address-form-element">
+							<label id="gmail-address-label"> 
+								<strong> {{ 'form.email'|trans }} </strong>
+								<input type="text" maxlength="30"  autocomplete="off" required name="_username" id="Email" value="{{ last_username }}">
+							</label>
+							<span role="alert" class="errormsg" id="errormsg_0_Email"></span>
+						</div>
+						<div class="form-element" id="password-form-element">
+							<label id="password-label"> <strong>{{ 'button.password'|trans }}</strong> 
+								<input type="password" name="_password" id="Passwd" required value="">
+							</label> 
+							<span role="alert" class="errormsg" id="errormsg_0_Passwd"></span>
+						</div>
+						
+						<div class="forgot">
+							<p style="text-align: center;"><a id="TosLink" href="{{ path('wifi_forgot') }}">{{ 'button.forgot'|trans }}</a></p>
+						</div>
+						
+						<div class="form-element terms-of-service"
+							id="termsofservice-form-element">
+							<label id="termsofservice-label"> 
+								<input type="checkbox" id="remember_me" name="_remember_me" checked />
+								<span id="terms-of-service-label"> 
+									<strong>{{ 'form.remember'|trans }}
+								</strong>
+							</span>
+							</label> <span role="alert" class="errormsg"
+								id="errormsg_0_TermsOfService"> </span>
+						</div>
+												
+						<div class="form-element nextstep-button">
+							<input id="submitbutton" name="submitbutton" type="submit" value="{{ 'button.login'|trans }}" class="g-button g-button-submit" style="width:100%">
+						</div>
+					</form>
+				</div>
+				<div class="box-register" style="text-align:center;margin-top:20px;">
+					<p>{{ 'form.have_account'|trans }}</p>
+					<p><a href="{{ path('wifi_register') }}" style="text-transform: uppercase;">{{ 'form.sign_now'|trans }}</a></p>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+{% endblock %}

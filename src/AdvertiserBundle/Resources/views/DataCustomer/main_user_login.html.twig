@@ -1,0 +1,263 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> 
+            	<a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+            	<a href="{{ path('advertiser_datacustomer_main_user_login') }}" class="current">Thông tin</a> 
+            </div>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <div class="controls form-horizontal">
+                            <div class="span3">
+                                <div class="control-group">
+                                    <label class="control-label" style="width:75px;">Tỉnh/TP:</label>
+                                    <div class="controls" style="margin-left:90px">
+                                        <select name="province" id="province" class="span12">
+                                            {% for key,value in params['province'] %}
+                                                <option value="{{ key }}">{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <div class="control-group">
+                                    <label class="control-label" style="width:75px;">Loại:</label>
+                                    <div class="controls" style="margin-left:90px">
+                                        <select name="type" id="type" class="span12">
+                                            <option value="all">Tất cả</option>
+                                            <option value="facebook">Facebook</option>
+                                            <option value="form">Form</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span4">
+                                <!-- <div class="control-group">
+                                    <label class="control-label" style="width:75px;">Từ ngày:</label>
+                                    <div class="controls" style="margin-left:110px">
+                                        <input type="text" id="d_from"  data-date-format="dd-mm-yyyy" data-date="" value="{{ d_from }}" class="datepicker span11">
+                                    </div>
+                                </div> -->
+                                <div class="control-group">
+                                    <label class="control-label" style="width:75px;">Từ ngày:</label>
+                                    <div class="controls" style="margin-left:110px">
+                                        <div id="d_from" class="pull-right" style="background: #fff; cursor: pointer; padding: 4px 10px; border: 1px solid #ccc;width:100%">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                                            <span></span> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="span2">
+                                <button style="margin:12px 0;" class="btn btn-success" id="sub">Xem</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Data table</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <div class="dataTables_wrapper">
+                                <table class="table table-bordered" id="tba">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Uid</th>
+                                            <th>Email</th>
+                                            <th>Loại</th>
+                                            <th>Họ tên</th>
+                                            <th>ĐT</th>
+                                            <th>Mac</th>
+                                            <th>Ngày</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                                
+                                <div class="notifition">
+                                    <p>Không có dữ liệu</p>
+                                </div>
+                                <div class="loading" >
+                                    <img src="/bundles/advertiser/matrix/img/loading_icon.gif">
+                                </div>
+                                <div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix">
+                                    <div class="dataTables_paginate">
+                                        <!-- <a tabindex="0" class="first ui-corner-tl ui-corner-bl fg-button ui-button ui-state-default ui-state-disabled">First</a>
+                                        <a tabindex="0" class="previous fg-button ui-button ui-state-default ui-state-disabled">Previous</a>
+                                        <span>
+                                            <a tabindex="0" class="fg-button ui-button ui-state-default ui-state-disabled">1</a>
+                                            <a tabindex="0" class="fg-button ui-button ui-state-default">2</a>
+                                            <a tabindex="0" class="fg-button ui-button ui-state-default">3</a>
+                                            <a tabindex="0" class="fg-button ui-button ui-state-default">4</a>
+                                            <a tabindex="0" class="fg-button ui-button ui-state-default">5</a>
+                                        </span>
+                                        <a tabindex="0" class="next fg-button ui-button ui-state-default">Next</a>
+                                        <a tabindex="0" class="last ui-corner-tr ui-corner-br fg-button ui-button ui-state-default">Last</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+        div.notifition p{
+            margin: 30px 0px;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+        div.loading {
+            background: white;
+        }
+        div.loading img{
+            height: 150px;
+            margin: 0 auto;
+            display: none;
+        }
+    </style>
+    <script>
+        var sub_start, sub_end;
+        $(function() {
+            
+            var start = moment("{{ d_from }}", "YYYYMMDD");
+            var end = moment();
+            
+            sub_start = start, sub_end = end;
+
+            function cb(start, end) {
+                $('#d_from span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+                console.log('START: ', start.format('YYYY-MM-DD'));
+                console.log('END: ', end.format('YYYY-MM-DD'));
+                sub_start = start.format('YYYY-MM-DD');
+                sub_end = end.format('YYYY-MM-DD');
+            }
+
+            $('#d_from').daterangepicker({
+                locale: {
+                    customRangeLabel:"Tùy chỉnh"
+                },
+                startDate: start,
+                endDate: end,
+                ranges: {
+                   'Hôm nay': [moment(), moment()],
+                   'Hôm qua': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                   '7 ngày qua': [moment().subtract(6, 'days'), moment()],
+                   '30 ngày qua': [moment().subtract(29, 'days'), moment()],
+                   'Tháng này': [moment().startOf('month'), moment().endOf('month')],
+                   'Tháng trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                   //'Toàn bộ thời gian': [moment().subtract(1, 'year').startOf('month'), moment()]
+                },
+            
+            }, cb);
+
+            cb(start, end); 
+            
+
+            $('#sub').click(function(){
+                _ajax(1);
+            });
+
+            
+        });
+
+        
+
+        function load(_obj){
+            var page = $(_obj).attr("page");
+            _ajax(page);
+        }
+
+        function _ajax(page){
+            
+            $('div.loading img').css('display','block');
+            $('div.notifition p').css('display','none');
+
+            var province = $('#province').val();
+            var type = $('#type').val();
+            //var d_from = $('#d_from').val(); 
+
+            
+            $('#tba tbody tr').remove();
+            $('.dataTables_paginate a').remove();
+            $('.dataTables_paginate span').remove();
+            
+            $.ajax({
+                type : 'POST',
+                url : "{{ path('advertiser_datacustomer_user_login_request') }}",
+                dataType : 'json',
+            
+                data: {
+                    type: type, province: province, sub_start: sub_start, sub_end: sub_end, page: page
+                },
+                success : function(data){
+                    console.log(data.data);
+                    var list = data.data;
+                    if(list.length > 0){
+                        for (var i = 0 ; i < list.length; i++) {
+                            var tr = '<tr><td>'+list[i].stt+'</td><td>'+list[i].uid+'</td><td>'+list[i].email+'</td><td>'+list[i].type+'</td><td>'+list[i].fullname+'</td><td>'+list[i].phone+'</td><td>'+list[i].app_macaddr+'</td><td>'+list[i].created_at+'</td></tr>';   
+                            
+                            $('#tba tbody').append(tr); 
+                        }
+                    }else{
+                        $('div.notifition p').css('display', 'block');
+                    }
+                    var pagin = data.pagin;
+                    if(pagin.total > 1){
+                        var str = '';
+                        if(pagin.page > 1){
+                            var previous = pagin.page - 1;
+                            str += '<a page="1" onclick="load(this);" class="ui-button ui-state-default">First</a>';
+                            str += '<a page="'+previous+'" onclick="load(this);" class="previous fg-button ui-button ui-state-default">Previous</a>';
+                        }
+                        str += '<span>';
+                        for (var i = 1; i <= pagin.total; i++) {
+                            var active = '';
+                            if(pagin.page == i){
+                                active = 'ui-state-disabled';
+                                str += '<a class=" ui-button ui-state-default '+active+'">'+i+'</a>';
+                            }else{
+                                str += '<a page="'+i+'" onclick="load(this);" class="ui-button ui-state-default '+active+'">'+i+'</a>';
+                            }
+                            
+                        }
+                        str += '<span>';
+
+                        if (pagin.page < pagin.total) {
+                            var next = parseInt(pagin.page) + 1, last = pagin.total;
+
+                            str += '<a page="'+next+'" onclick="load(this);" class="next fg-button ui-button ui-state-default">Next</a>';
+                            str += '<a page="'+last+'" onclick="load(this);" class="last ui-corner-tr ui-corner-br fg-button ui-button ui-state-default">Last</a>';
+                        }
+
+                        $('.dataTables_paginate').append(str);
+                    }
+                   
+                    $('div.loading img').css('display', 'none');
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                    $('div.loading img').css('display', 'none');
+                }
+            }); 
+        }
+    </script>
+{% endblock %}

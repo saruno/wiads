@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Redirecting...</title>
+
+<meta http-equiv="REFRESH" content="5;url={{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}"></HEAD>
+
+<BODY>
+
+<a href="javascript:goLink('{{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}')" target="_blank">
+    Vui lòng chờ 5s hoặc nhấn vào đây
+</a>
+</BODY>
+<script src="/bundles/hotspotaccesspoint/v6/scripts/jquery.min.js"></script>
+<script>
+    function goLink(link) {
+        setTimeout (function () {
+
+            var A = document.createElement ("a")
+            A.setAttribute ("href", link);
+            A.setAttribute ("target", "_blank");
+            var Body = document.getElementsByTagName ("body");
+            if (Body.length > 0) {
+                Body = Body [0];
+            } else {
+                Body = document.createElement ("body");
+                document.getElementsByTagName ("html") [0].appendChild (Body);
+            }
+            Body.appendChild (A);
+            A.click ();
+            //window.document.write('Bạn đã có thể dùng Internet');
+        }, 500)
+    }
+    $(function() {
+        var link = "{{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}";
+        goLink(link);
+    });
+</script>
+</HTML>

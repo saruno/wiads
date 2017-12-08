@@ -1,0 +1,243 @@
+{% extends 'PortalAdminBundle::layout.html.twig' %}
+{% block head %}
+{{ parent() }}
+<script src="/assets/portalauth/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+<script src="/assets/portalauth/js/ckfinder/ckfinder.js" type="text/javascript"></script>
+	<script>
+    	$(function (){
+    		$('#lang').change(function () {
+    			window.location.href = '/auth/menu/detail/' + $('#id').val() + '/' + $('#lang').val();
+    			return;
+    	    });
+    		$('#section_type').change(function () {
+    			$('#action').val('change');
+    			$('#description').val(getDescription());
+    			$(this).closest('form').submit();
+    	    });
+    		$('#section').change(function () {
+    			if($('#section').val()==-2){
+        			
+    				$('#link_to').removeAttr('disabled');
+        			}
+    			else{
+    					$('#link_to').attr('disabled', 'disabled');
+        			}
+    	    });
+    		$('#position').change(function () {
+    			$('#action').val('change');
+    			$('#description').val(getDescription());
+    			$(this).closest('form').submit();
+    	    });
+    	    $('#btnsubmit').click(function(){
+    	    	$('#description').val(getDescription());
+				$('#action').val('save');
+				$(this).closest('form').submit();
+    	    });
+    	    
+    	    $('#menu-showhide').click(function () {
+    	    	window.location.href = $(this).attr('href') + '?position='+ $('#position').val()+'&lang='+$('#lang').val();
+    	    	return false;
+    	    });	
+    	    $('#cmd-close').click(function () {
+    	    	window.location.href = $(this).attr('href') + '?position='+ $('#position').val()+'&lang='+$('#lang').val();
+    	    	return false;
+    	    });	
+    	    $('#cmd-save').click(function () {
+    	    	$('#btnsubmit').click();
+    	    	return false;
+    	    });	
+    	    
+    	});
+    </script>
+{% endblock %}
+{% block content %}
+
+<div id="p-toolbox" class="p-box">
+    <div class="p-box-bottom">
+        <div class="p-box-top clearfix">
+            <ul id="p-commands">
+                <li><a id = "cmd-save" href="/auth/menu/add"> {{"Save"|trans}}</a></li>
+                <li><a id = "cmd-close" href="/auth/menu"> {{"Close"|trans}}</a></li>
+            </ul>
+            <div class="p-module-title">
+                <a id="menu-showhide" href="/auth/">{{ "Main Menu"|trans }}</a><h1>{{ "Edit section"|trans }}</h1></h1>
+            </div>
+        </div>
+        <!-- enddiv: #p-box-top -->
+    </div>
+    <!-- enddiv: #p-box-bottom -->
+</div>
+<!-- enddiv: #p-toolbox -->
+<div id="Div1" class="p-box p-box-space">
+    <div class="p-box-bottom">
+        <div class="p-box-top clearfix">
+            <div id="p-options">
+            </div>
+            <div id="searchresults">
+			{% if errors is not null %}
+	        	<ul class="error">
+	            		
+	            		{% for error in errors %}
+		            		<li> {{ error|trans }}</li>
+		            	{% endfor %}
+	            </ul>
+	        {% endif %}
+            	<form method="post" name='frm_sectionAdd' action="">
+            		<input type="hidden" name='action' id='action' value='{{ action|default("view") }}'>
+					<input type="hidden" name='id' id='id' value='{{ menu.id|default(0) }}'>
+					<input type="hidden" name='description' id='description'>
+					<table class="p-insert">
+						<tr>
+							<td  style="width: 150px;">
+								{{ "Language"|trans }}
+							</td>
+							<td>
+								<select id="lang" name="lang"  style="width:200px" >
+								{% for l in langs %}
+									<option value="{{l.code}}" {% if l.code == menu.locale %}selected="selected" {% endif %} >{{l.title}}</option>
+								{% endfor %}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>{{ "Position"|trans }}
+							</td>
+							<td>
+								<select id="position" name="position">
+									<option value="M0" {{ menu.pos  == "M0"?"selected='selected'": "" }}>{{ "M0"|trans }}</option>
+									<option value="M1" {{ menu.pos  == "M1"?"selected='selected'": "" }}>{{ "M1"|trans }}</option>
+									<option value="M2" {{ menu.pos  == "M2"?"selected='selected'": "" }}>{{ "M2"|trans }}</option>
+									<option value="M3" {{ menu.pos  == "M3"?"selected='selected'": "" }}>{{ "M3"|trans }}</option>
+									<option value="M4" {{ menu.pos  == "M4"?"selected='selected'": "" }}>{{ "M4"|trans }}</option>
+								</select>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>{{ "Publish"|trans }}
+							</td>
+							<td>
+								<select id="publish" name="publish"  style="width:200px">
+									<option value="0" {% if menu.locked|default(1) == 0 %}selected="selected" {% endif %}>{{ "Yes"|trans }}</option>
+									<option value="1" {% if menu.locked|default(1) == 1 %}selected="selected" {% endif %}>{{ "No"|trans }}</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>{{ "Parent menu"|trans }}
+							</td>
+							<td>
+								<select id="parent_section" name="parent_section"  style="width:400px">
+								<option value='-1'>---- {{ "No"|trans }} ----</option>
+								{% for parent in parent_menus %}
+									<option value="{{parent.id}}" {% if menu.parent == parent.id|default(-1) %}selected="selected" {% endif %}>{% for i in 1..parent.deep-1 if parent.deep != 1 %}&nbsp;&nbsp;{% endfor %}{{parent.title}}</option>
+								{% endfor %}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{{ "Title"|trans }}
+							</td>
+							<td>
+								<input id="title" name="title"  style="width:400px" value="{{ menu.title|default("") }}" ></input>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{{ "Link to"|trans }}
+							</td>
+							<td>
+								{%  set section_type = menu.bundleId %}
+								{% include "PortalAdminBundle:Section:section_type_list.html.twig" %}
+								<select id="section" name="section">
+									<option value="-2">----{{"Choose" | trans}}---</option>
+									{% if(section_type==-1)%}<option value="-1">{{"Home" | trans}}</option>{% endif %}
+									{% for section in sections %}
+										<option value={{ section.id}} {% if menu.sectionId == section.id|default(-1) %}selected="selected" {% endif %}>
+											{% for d in 1..section.deep %}&nbsp;{% endfor %}{{section.title}}
+										</option>
+									{% endfor %}
+								</select>
+								<br/>{{"Or use link below" | trans}}
+								<br/>
+										<input type="text" id="link_to" name="link_to" style="width:400px" value="{{ menu.linkTo }}" {% if menu.sectionId!=-2 %} disabled="disabled" {% endif %}>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								{{ "Description"|trans }}
+							</td>
+							<td>
+								<textarea id="description_" name="description_" style = "width:400px !important; height:200px;">{{ menu.brief|default("")}}</textarea>
+								<script type="text/javascript">
+										CKEDITOR.replace( 'description_',
+										    {
+												filebrowserImageBrowseUrl  : '/auth/media/fileManager/popup?Type=Images',
+												filebrowserBrowseUrl :       '/auth/media/fileManager/popup',
+												toolbar : 'Compact',
+										        height:'200',
+										        width: '780'
+										    });
+										function getDescription(){
+											
+											var editor = CKEDITOR.instances.description_;
+											return editor.getData();
+											
+										}
+								 </script>
+							</td>
+						</tr>
+						
+					   
+						<tr>
+							<td>
+							</td>
+							<td>
+								<input id="btnsubmit" type="submit" value="{{ "Save"|trans }}"/>
+							</td>
+						</tr>
+					</table>
+					<style type="text/css">
+						select#position { width: 200px; }
+						.required{border-color: red;}
+					</style>
+					
+				</form>
+            	
+               
+            </div>
+           
+
+        </div>
+        <!-- enddiv: #p-box-top -->
+    </div>
+    <!-- enddiv: #p-box-bottom -->
+</div>
+{% if errors != null %}
+	<script>
+	{% for key in errors|keys %}
+		{% if key|lower == 'menu.bundle_id' %}
+			$('#position').addClass('required');
+		{% elseif  key|lower == 'menu.locale'%}
+			$('#lang').addClass('required');
+		{% elseif key|lower == 'menu.parent' %}
+			$('#parent_section').addClass('required');
+		{% elseif key|lower == 'menu.title' %}
+			$('#title').addClass('required');			
+		{% elseif key|lower == 'menu.order' %}
+			$('#order').addClass('required');
+		{% elseif key|lower == 'menu.locked' %}
+			$('#publish').addClass('required');
+		{% elseif key|lower == 'menu.brief' %}
+			$('#description').addClass('required');
+		{% endif %}
+	{% endfor %}
+	</script>
+{% endif %}	
+{% endblock %}	

@@ -1,0 +1,9 @@
+services:
+    app.twig_extension:
+        class: AdvertiserBundle\Twig\AppExtension
+        public: false
+        calls:
+            - [setRequest, ["@?request="]]
+            - [setContainer, [@service_container]]
+        tags:
+            - { name: twig.extension }

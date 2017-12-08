@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <!-- <link href="images/favicon.ico" rel="shortcut icon"> -->
+    <link rel="stylesheet" href="/bundles/hotspotaccesspoint/v3/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/bundles/hotspotaccesspoint/v3/css/style.css"/>
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/v3/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/v3/js/bootstrap.min.js"></script>
+    <script>
+    function Login(value)
+	{
+		$('#advertId').val(value);
+		$( "#login_frm" ).submit();
+	}
+	</script>
+  </head>
+  <body>
+
+    
+    <article class="body">
+        <div class="container">
+          <div class="row">
+             {% if params['apName'] is not empty %}
+            	{% if params['apImage'] is not empty %}
+            		<a href="javascript:Login('-2');">
+            			<p class="title"
+                    		{% if params['apName']|length <= 10 %}
+                    		style="font-size: 2em!important;"
+                    		{% elseif params['apName']|length <= 15 %}
+                    		style="font-size: 1.5em!important;"
+                    		{% endif %}
+                    	>
+                        {#{ params['apName'] | upper }#}  
+                		</p>
+            			<img style="display: block;margin: auto;max-width: 100%; max-height: 300px;width: auto;height: auto;" src="{{ params['apImage'] }}" alt="{{ params['apName'] }}">
+            		</a>
+            	{% else %}
+            		<a href="javascript:Login('-1');">
+                		<p class="title"
+                    		{% if params['apName']|length <= 10 %}
+                    		style="font-size: 2em!important;"
+                    		{% elseif params['apName']|length <= 15 %}
+                    		style="font-size: 1.5em!important;"
+                    		{% endif %}
+                    	>
+                    	{{ params['apName'] | upper }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                		</p>
+            			<img class="" src="/bundles/hotspotaccesspoint/v3/images/img-1.jpg" alt="image">
+            		</a>
+            	{% endif %}
+            {% endif %}
+          </div>
+          {% if ads['QA0'] is empty %}
+          <div class="row">
+            <a href="javascript:Login('-1');"><img class="" src="/bundles/hotspotaccesspoint/v3/images/img-2.jpg" alt="image"></a>
+          </div>
+          {% else %}
+          <div class="row">
+            <a href="javascript:Login('{{ ads['QA0'].Id }}');"><img class="" style="max-width: 100%;max-height: 698px;" src="/ap/display.html?id={{ ads['QA0'].Id }}&link={{ ads['QA0'].linkTo | url_encode}}&position=QA0&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="image"></a>
+          </div>
+          {% endif %}
+          <div class="row">
+            <div class="last">
+            {% if ads['QA1'] is empty %}
+              <div><a href="javascript:Login('-1');"><img class=""  src="/bundles/hotspotaccesspoint/v3/images/img-3.jpg" alt="image"></a></div>
+            {% else %}
+              <div>
+                  <!-- 
+                  <div style="float:left;width:400px;">&nbsp;</div>
+                   -->
+                  <div>
+                  	<a href="javascript:Login('{{ ads['QA1'].Id }}');"><img class=""  src="/ap/display.html?id={{ ads['QA1'].Id }}&link={{ ads['QA1'].linkTo | url_encode}}&position=QA1&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="image" /></a>
+                  </div>
+              </div>
+            {% endif %}
+              <div class="menu">
+                <ul>
+                <form class="login-form" novalidate="novalidate" id='login_frm' name='login_frm' method='post' action='{{params['loginpath']}}'>
+                  	<input type='hidden' name='called' value='{{params['called']}}'>
+                  	<input type='hidden' name='mac' value='{{params['mac']}}'>
+            		<input type='hidden' name='challenge' value='{{params['challenge']}}'>
+            		<input type='hidden' name='uamip' value='{{params['uamip']}}'>
+            		<input type='hidden' name='ip' value='{{params['ip']}}'>
+            		<input type='hidden' name='uamport' value='{{params['uamport']}}'>
+            		<input type='hidden' name='userurl' value='{{params['userurl']|url_encode}}'>
+            		<input type='hidden' id='advertId' name='advertId' value='-1'>
+            		<input type='hidden' name='button' value='Free Internet'>
+                  <li>
+                      {% set ad = random(['QA0', 'QA1']) %}
+                      {% if ads[ad] is not empty %}
+                          <a href="javascript:Login('{{ ads[ad].id }}');">
+                              <img class="" src="/bundles/hotspotaccesspoint/v3/images/img-4.jpg" alt="image">
+                          </a>
+                      {% else %}
+                          <a href="javascript:Login('-1');">
+                              <img class="" src="/bundles/hotspotaccesspoint/v3/images/img-4.jpg" alt="image">
+                          </a>
+                      {% endif %}
+                      </a>
+                  </li>
+                 </form>
+                    {% if ads['QA2'] is empty %}
+                      <li><a href="javascript:Login('-1');"><img class="" src="/bundles/hotspotaccesspoint/v3/images/img-5.jpg" alt="image"></a></li>
+                    {% else %}
+                        <a href="javascript:Login('{{ ads['QA2'].Id }}');"><img class=""  src="/ap/display.html?id={{ ads['QA2'].Id }}&link={{ ads['QA2'].linkTo | url_encode}}&position=QA2&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="image" /></a>
+                    {% endif %}
+                    <li><img src="/ap/track_login.html?called={{ params['called'] }}&mac={{ params['mac'] }}&challenge={{ params['challenge'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}"/></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </article>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <p>Nhấn vào quảng cáo để kết nối</p>
+          <p>
+              <a href="javascript:Login('-1');">www.wiads.vn</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+    
+    
+  </body>
+</html>

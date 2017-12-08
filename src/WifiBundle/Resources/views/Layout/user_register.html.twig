@@ -1,0 +1,38 @@
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Tạo tài khoản Wiads của bạn</title>
+    <link href="/bundles/wifi/css/register.css" rel="stylesheet">
+    <script src="/bundles/wifi/js/jquery-1.11.0.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?hl={{ app.request.locale }}" async defer></script>
+</head>
+<body>
+<div class="wrapper" id="wrapper">
+    <div class="google-header-bar">
+        <div class="header content clearfix">
+            <img class="logo logo-w" src="http://wiads.vn/wp-content/uploads/2016/11/logo_300x157.png"
+                 alt="Google">
+            <span class="signin-button">
+					<a class="lang vi" href="{{ path('wifi_language_vi') }}">Vi</a>
+					<a class="lang en" href="{{ path('wifi_language_en') }}">En</a>
+					<a href="{{ path('wifi_login') }}" id="link-signin" class="g-button g-button-submit" href="">{{ 'button.login'|trans }}</a>
+				</span>
+        </div>
+    </div>
+    {% block content %}
+
+    {% endblock %}
+    <div class="google-footer-bar">
+        <div class="footer content clearfix">
+            <ul id="footer-list">
+                <li><a href="http://wiads.vn" target="_blank">{{ 'register.wiads'|trans }}</a></li>
+                <li><a href="">{{ 'form.privacy_rule'|trans }}</a></li>
+                <li id="footer-help"><a href="">{{ 'form.help'|trans }}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

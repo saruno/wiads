@@ -1,0 +1,279 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> 
+                <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+                <a href="{{ path('advertiser_datacustomer_giftcode') }}" class="current">Dữ liệu khách hàng</a> 
+            </div>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <h5>
+                {% if advert is defined and advert|length > 0 %}
+                    Chiến dịch: {{ advert.title }}
+                {% elseif customer is defined and customer|length > 0 %}
+                    Khách hàng: {{ customer.name }}
+                {% endif %}
+            </h5>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>Dữ liệu nhận giftcode theo tháng <span>{{month}}/{{year}}</span></h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+                            <div class="load_">
+                                <img src="/bundles/advertiser/assets/images/loader-1.gif" />
+                            </div>
+                        </div>
+                        <div class="widget-title" style="height:50px;"> 
+                           <div class="control-group">
+                                <div class="controls form-horizontal">
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            <label class="control-label" style="width:75px;">Loại code:</label>
+                                            <div class="controls" style="margin-left:90px">
+                                                <select name="type1" id="type1" class="span12">
+                                                    <option value="ALL" selected>Tất cả</option>
+                                                    <option value="1000">1K</option>
+                                                    <option value="5000">5K</option>
+                                                    <option value="10000">10K</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            <label class="control-label" style="width:75px;">Tháng:</label>
+                                            <div class="controls" style="margin-left:90px">
+                                                <select name="month1" id="month1" class="span12">
+                                                    {% for i in 1..12 %}
+                                                        <option value="{{i}}" {{ month == i ? 'selected' : '' }}>Tháng {{i}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            <label class="control-label" style="width:75px;">Năm:</label>
+                                            <div class="controls" style="margin-left:90px">
+                                                <select name="year1" id="year1" class="span12">
+                                                    <option value="2016" {{ year == 2016 ? 'selected' : '' }}>2016</option>
+                                                    <option value="2017" {{ year == 2017 ? 'selected' : '' }}>2017</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span2">
+                                        <button style="margin:10px 0;" class="btn btn-success" id="sub1">Xem</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>Chi tiết nhận giftcode</h5>
+                        </div>
+                        
+                        <div class="widget-title" style="height:50px;"> 
+                           <div class="control-group">
+                                <div class="controls form-horizontal">
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            <label class="control-label" style="width:75px;">Loại code:</label>
+                                            <div class="controls" style="margin-left:90px">
+                                                <select name="type2" id="type2" class="span12">
+                                                    <option value="ALL" selected>Tất cả</option>
+                                                    <option value="1000">1K</option>
+                                                    <option value="5000">5K</option>
+                                                    <option value="10000">10K</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            <label class="control-label" style="width:75px;">Từ ngày:</label>
+                                            <div class="controls" style="margin-left:90px">
+                                                <input type="text" name="date_from" id="date_from" value="{{ d_from }}" class="datepicker span12" data-date="" data-date-format="dd-mm-yyyy" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            <label class="control-label" style="width:75px;">Đến ngày:</label>
+                                            <div class="controls" style="margin-left:90px">
+                                                <input type="text" name="date_to" id="date_to" value="{{ d_current }}" class="datepicker span12" data-date="" data-date-format="dd-mm-yyyy" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span2">
+                                        <button style="margin:10px 0;" class="btn btn-success" id="sub2">Xem</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content nopadding">
+
+                            <table class="table table-bordered table-striped" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Email</th>
+                                        <th>Code</th>
+                                        <th>Loại</th>
+                                        <th>Chiến dịch</th>
+                                        <th>Khách hàng</th>
+                                        <th>Ngày nhận</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tb_data">
+                                    {% if list_email is defined and list_email|length > 0 %}
+                                        {% set stt = 1 %}
+                                        {% for key,value in list_email %}
+                                            <tr class="odd gradeX" style="font-size:12px">
+                                                <td >{{ stt }}</td>
+                                                <td>{{ value.email }}</td>
+                                                <td>{{ value.value }}</td>
+                                                <td>{{ value.type }}</td>
+                                                <td>{{ value.title != '' ? value.title : 'N/A' }}</td>
+                                                <td>{{ value.customer != '' ? value.customer : 'N/A' }}</td>
+                                                <td>{{ value.updated_at }}</td>
+                                            </tr>
+                                            {% set stt = stt + 1 %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script type="text/javascript">
+        window.onload = function () {
+            
+            var dataPoints = {{point|raw}};
+            var chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: ""
+                },
+                data: [{
+                    type: "spline",
+                    markerSize: 10,
+                    dataPoints: dataPoints
+                }]
+            });
+            chart.render();
+
+            
+            
+            $('button#sub1').click(function(event) {
+                $('.load_').css({"display":"block"});
+                
+                var type = $('#type1').val();
+                var month = $('#month1').val();
+                var year = $('#year1').val();
+
+                var advert = "{{ advert is defined and advert|length > 0 ? advert.id : '' }}";
+                var customer = "{{ customer is defined and customer|length > 0 ? customer.id : '' }}";
+
+                $.ajax({
+                    type : 'POST',
+                    url : "{{ path('advertiser_datacustomer_giftcode_ajax') }}",
+                    dataType : 'json',
+                    async: false,
+                    data: {
+                        type: type, month: month, year: year, advert: advert, customer: customer
+                    },
+                    success : function(data){ 
+                        if(data.code == 1){
+                            var c = [];
+                            
+                            var res = data.data;
+                            var i;
+                            for (i = 0; i < res.length; i++){
+                                c.push({
+                                   x: res[i].x,
+                                   y: res[i].y
+                               });
+                            }
+                            
+                            var chart = new CanvasJS.Chart("chartContainer", {
+                                title: {
+                                    text: ""
+                                },
+                                data: [{
+                                    type: "spline",
+                                    markerSize: 10,
+                                    dataPoints: c
+                                }]
+                            });
+                            chart.render();
+
+                            $('.load_').css({"display":"none"});
+                        }
+                    },
+                    error : function(XMLHttpRequest, textStatus, errorThrown) {
+                        
+                    }
+                });
+
+            });
+
+            $('button#sub2').click(function(event) {
+                var tbody = $('.tb_data');
+                tbody.find('tr').slideUp(400);
+                tbody.find('p').remove();
+
+                var type = $('#type2').val();
+                var date_from = $('#date_from').val();
+                var date_to = $('#date_to').val();
+
+                var advert = "{{ advert is defined and advert|length > 0 ? advert.id : '' }}";
+                var customer = "{{ customer is defined and customer|length > 0 ? customer.id : '' }}";
+
+                $.ajax({
+                    type : 'POST',
+                    url : "{{ path('advertiser_datacustomer_giftcode_email_ajax') }}",
+                    dataType : 'json',
+                    async: false,
+                    data: {
+                        type: type, date_from: date_from, date_to: date_to, advert: advert, customer: customer
+                    },
+                    success : function(data){ 
+                        if(data.code == 1){
+                            var data = data.data;
+                            if(data.length > 0){
+                                var tr = '';
+                                var stt = 1;
+                                for (var i = 0; i < data.length; i++) {
+                                    tr += '<tr><td>'+stt+'</td><td>'+data[i].email+'</td><td>'+data[i].value+'</td><td>'+data[i].type+'</td><td>'+data[i].title+'</td><td>'+data[i].customer+'</td><td>'+data[i].updated_at+'</td></tr>';
+                                    stt++;
+                                };
+                                tbody.append(tr);
+                            }else{
+                                tbody.append('<p style="text-align:center">Không có dữ liệu!</p>');
+                            }
+                        }
+                    },
+                    error : function(XMLHttpRequest, textStatus, errorThrown) {
+                        
+                    }
+                });
+
+            });
+        }
+    </script>
+{% endblock %}

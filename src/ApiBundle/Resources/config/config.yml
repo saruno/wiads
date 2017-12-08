@@ -1,0 +1,28 @@
+fos_oauth_server:
+    db_driver: orm
+    client_class:        ApiBundle\Entity\Client
+    access_token_class:  ApiBundle\Entity\AccessToken
+    refresh_token_class: ApiBundle\Entity\RefreshToken
+    auth_code_class:     ApiBundle\Entity\AuthCode
+    service:
+        user_provider: platform.user.provider
+        options:
+            supported_scopes: user
+fos_rest:
+    view:
+        view_response_listener: force
+        formats:
+            json: true
+        templating_formats:
+            xml: true
+        mime_types:
+            json: ['application/json', 'application/json;version=1.0', 'application/json;version=1.1']
+            jpg: 'image/jpeg'
+            png: 'image/png'
+    body_listener: true
+    param_fetcher_listener: true
+    allowed_methods_listener: true
+    format_listener:
+        rules:
+            - { path: ^/, priorities: [html, json], fallback_format: json, prefer_extension: false }
+nelmio_api_doc: ~

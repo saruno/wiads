@@ -1,0 +1,124 @@
+
+@font-face {
+    font-family: "tahoma";
+    /*src: url('../fonts/tahoma.ttf');*/
+}
+
+/* =Reset default browser CSS.
+-------------------------------------------------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {border: 0;font-family: inherit;font-size: 100%;font-style: inherit;font-weight: inherit;margin: 0;outline: 0;padding: 0;vertical-align: baseline;}
+:focus {outline: 0;}
+
+ol, ul {list-style: none;}
+table {border-collapse: separate;border-spacing: 0;}
+caption, th, td {font-weight: normal;text-align: left;}
+blockquote:before, blockquote:after,q:before, q:after {content: "";}
+blockquote, q {quotes: "" "";}
+a img{border: 0;}
+figure{margin:0}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}
+/* -------------------------------------------------------------- */
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	font-family: 'tahoma';
+	line-height: 1;
+	font-size: 13px;
+	background-color:#656565;
+
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+p{
+	color: #000000;
+}
+a:hover, a:focus, a:hover p, select:hover, select:focus, select:active{
+	text-decoration: none !important;
+	outline: none !important;
+}
+a, a:link,a:active{
+	text-decoration: none;
+	outline: none !important;
+}
+.clearfix{
+	clear: both;
+}
+.container a img{
+	width: 100%;
+}
+.container .row .last{
+	position: relative;
+    overflow: hidden;
+}
+.title{
+	position: absolute;
+	text-align: right;
+	width: 80%;
+	color: white;
+	font-size: 2em;
+	padding-top: 20px;
+	padding-right: 0px;
+}
+.container .menu{
+	margin: auto;
+    display: block;
+    width: 30%;
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    background-color: #424242;
+}
+.container .menu img{
+	display: block;
+    margin: auto;
+}
+.container .menu ul li a{
+	width: 100%;
+	margin: auto;
+	display: block;
+}
+.container .apName{
+	background-color: white !important;
+	text-align: center;
+	text-transform:uppercase;
+	font-size:20px;
+	color:grey;
+	margin: auto;
+    display: block;
+    outline: none !important;
+    max-height: 100px;
+}
+.embed-responsive-16by9 {
+    /*padding-bottom: 76.25%;*/
+}
+.qa1 {
+    padding-left: 30%;
+}
+footer p a,
+footer p{
+	text-align: center;
+	color: #fff;
+	line-height: 18px;
+}
+footer .container .row{
+    padding: 6px 0 4px 0;
+}

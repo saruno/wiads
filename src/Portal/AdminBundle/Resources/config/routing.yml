@@ -1,0 +1,307 @@
+Portal_adminpage:
+    path:     /
+    defaults: { _controller: 'PortalAdminBundle:Default:index' }
+Portal_adminpage_html:
+    path:     /index.html
+    defaults: { _controller: 'PortalAdminBundle:Default:index' }
+#Login
+login:
+    path:  /login/
+    defaults: { _controller: 'PortalAdminBundle:Auth:login' }
+login_check:
+    path:   /login_check
+_security_logout:
+    path:  /logout
+#File manager
+file_manager_embedded:
+    path:  /media/fileManager/popup/
+    defaults: { _controller: 'PortalAdminBundle:FileManager:embedded' }
+file_manager_01:
+    path:  /media/fileManager/
+    defaults: { _controller: 'PortalAdminBundle:FileManager:index' }    
+file_manager:
+    path:  /fileManager/
+    defaults: { _controller: 'PortalAdminBundle:FileManager:index' } 
+#Section
+Section_togglepublish:
+    path: /section/togglepublish/{id}/
+    defaults: { _controller: 'PortalAdminBundle:Section:togglepublish'} 
+Section_add:
+    path:  /section/add/
+    defaults: { _controller: 'PortalAdminBundle:Section:add' }      
+Section_list_page_pagesize:
+    path:  /section/{page}/{pageSize}/
+    defaults: { _controller: 'PortalAdminBundle:Section:index'}
+    methods:  [GET,POST]
+Section_list_page:
+    path:  /section/{page}/
+    defaults: { _controller: 'PortalAdminBundle:Section:index', pageSize: 20}    
+    methods:  [GET,POST]
+Section_view_lang:
+    path:  /section/detail/{id}/{lang}/
+    defaults: { _controller: 'PortalAdminBundle:Section:view'}   
+    methods:  [GET,POST] 
+Section_view:
+    path:  /section/detail/{id}/
+    defaults: { _controller: 'PortalAdminBundle:Section:view' }   
+    methods:  [GET,POST] 
+Section_list:
+    path:  /section/
+    defaults: { _controller: 'PortalAdminBundle:Section:index', page: 1, pageSize: 20 }    
+    methods:  [GET,POST]
+#Menu
+Menu_add:
+    path:  /menu/add/
+    defaults: { _controller: 'PortalAdminBundle:Menu:add'}  
+    methods:  [GET,POST]      
+Menu_togglepublish:
+    path: /menu/togglepublish/{id}/
+    defaults: { _controller: 'PortalAdminBundle:Menu:togglepublish'}    
+    requirements:
+      id:     \d+ 
+    methods:  [GET,POST]
+Menu_view_lang:
+    path:  /menu/detail/{id}/{lang}/
+    defaults: { _controller: 'PortalAdminBundle:Menu:view'} 
+    requirements:
+      lang:  en|vi
+      id:     \d+ 
+    methods:  [GET,POST]
+Menu_view:
+    path:  /menu/detail/{id}/
+    defaults: { _controller: 'PortalAdminBundle:Menu:view' }   
+    requirements:
+      id:     \d+ 
+    methods:  [GET,POST] 
+Menu_list_lang_position:    
+    path:  /menu/{lang}/{position}/
+    defaults: { _controller: 'PortalAdminBundle:Menu:index'}   
+    requirements:
+      lang:  en|vi 
+      id:     \d+ 
+    methods:  [GET,POST]
+Menu_list_lang:
+    path:  /menu/{lang}/
+    defaults: { _controller: 'PortalAdminBundle:Menu:index', position: 'M1'}    
+    requirements:
+      lang:  en|vi
+    methods:  [GET,POST]
+Menu_list:
+    path:  /menu/
+    defaults: { _controller: 'PortalAdminBundle:Menu:index', lang: 'en', position: 'M1'} 
+    methods:  [GET,POST]
+ #Advert
+Advert_list:
+    path:  /advert/
+    defaults: { _controller: 'PortalAdminBundle:Advert:index', lang: 'en', customerId: -1, page: 1, pageSize: 20 }  
+    methods:  [GET,POST]
+Advert_list_page:
+    path:  /advert/{lang}/{customerId}/{page}/{pageSize}/
+    defaults: { _controller: 'PortalAdminBundle:Advert:index' }
+    requirements:
+      lang:  en|vi
+    methods:  [GET,POST]  
+Advert_list_page_pagesize:
+    path:  /advert/{lang}/{customerId}/{page}/
+    defaults: { _controller: 'PortalAdminBundle:Advert:index', pageSize: 20 }
+    requirements:
+      lang:  en|vi
+    methods:  [GET,POST]  
+Advert_add:
+    path:  /advert/add/
+    defaults: { _controller: 'PortalAdminBundle:Advert:add', lang: 'en'}
+    methods:  [GET,POST]
+Advert_add_lang_id:
+    path:  /advert/add/{lang}/
+    defaults: { _controller: 'PortalAdminBundle:Advert:add' }
+    requirements:
+      lang:  en|vi
+    methods:  [GET,POST]    
+Advert_view:
+    path:  /advert/detail/{id}/
+    defaults: { _controller: 'PortalAdminBundle:Advert:view', lang: 'en' }
+    methods:  [GET,POST]
+Advert_view_lang:
+    path:  /advert/detail/{id}/{lang}/
+    defaults: { _controller: 'PortalAdminBundle:Advert:view'}
+    methods:  [GET,POST]  
+Advert_togglepublish:
+    path: /advert/togglepublish/{lang}/{id}/
+    defaults: { _controller: 'PortalAdminBundle:Advert:togglepublish'}
+    requirements:
+      lang:  en|vi
+    methods:  [GET,POST]      
+#News
+News_add_relative_page:
+    path:  /add_relative_news/{lang}/{sectionId}/{page}/{pageSize}/
+    defaults: { _controller: 'PortalAdminBundle:News:relativeForm' } 
+    requirements:
+      lang:  en|vi   
+    methods:  [GET,POST]  
+News_add_relative:
+    path:  /add_relative_news/
+    defaults: { _controller: 'PortalAdminBundle:News:relativeForm', lang: '', sectionId: -1, page: 1, pageSize: 20 }
+    methods:  [GET,POST]     
+News_approve_list:
+    path:  /news_approve/
+    defaults: { _controller: 'PortalAdminBundle:News:approve', lang: '', sectionId: -1, page: 1, pageSize: 20 }
+    methods:  [GET,POST]
+News_approve_list_page_pagesize:
+    path:  /news_approve/{lang}/{sectionId}/{page}/{pageSize}
+    defaults: { _controller: 'PortalAdminBundle:News:approve' }  
+    requirements:
+      lang:  en|vi
+    methods:  [GET,POST]
+News_approve_list_page:
+    path:  /news_approve/{lang}/{sectionId}/{page}/
+    defaults: { _controller: 'PortalAdminBundle:News:approve', pageSize: 20 } 
+    requirements:
+      lang:  en|vi
+    methods:  [GET,POST]
+News_add_lang_id:
+    path:  /news/add/{lang}/{sectionId}/
+    defaults: { _controller: 'PortalAdminBundle:News:add', lang: '', sectionId: -1 }
+    requirements:
+      lang:  en|vi
+    methods:  [GET,POST]          
+News_add:
+    path:  /news/add/
+    defaults: { _controller: 'PortalAdminBundle:News:add', lang: '', sectionId: -1 }
+    methods:  [GET,POST]
+News_list_page:
+    path:  /news/{lang}/{sectionId}/{page}/{pageSize}/
+    defaults: { _controller: 'PortalAdminBundle:News:index' } 
+    requirements:
+      lang:  en|vi
+    methods:  [GET,POST] 
+News_list_page_pagesize:
+    path:  /news/{lang}/{sectionId}/{page}/
+    defaults: { _controller: 'PortalAdminBundle:News:index', pageSize: 20 }
+    requirements:
+      lang:  en|vi
+    methods:  [GET,POST]     
+News_list:
+    path:  /news/
+    defaults: { _controller: 'PortalAdminBundle:News:index', lang: '', sectionId: -1, page: 1, pageSize: 20 }
+    methods:  [GET,POST]      
+News_view_lang:
+    path:  /news/detail/{id}/{lang}/
+    defaults: { _controller: 'PortalAdminBundle:News:view' }
+    requirements:
+      lang:  en|vi
+News_view:
+    path:  /news/detail/{id}/
+    defaults: { _controller: 'PortalAdminBundle:News:view', lang: '' }       
+News_togglepublish:
+    path: /news/togglepublish/{lang}/{id}/
+    defaults: { _controller: 'PortalAdminBundle:News:togglepublish'}
+    requirements:
+      lang:  en|vi        
+News_toggleheadline:
+    path: /news/toggleheadline/{lang}/{id}/
+    defaults: { _controller: 'PortalAdminBundle:News:toggleheadline'}  
+    requirements:
+      lang:  en|vi  
+News_togglecomment:
+    path: /news/togglecomment/{lang}/{id}/
+    defaults: { _controller: 'PortalAdminBundle:News:togglecomment'} 
+    requirements:
+      lang:  en|vi
+News_preview:
+    path:  /news_preview/{locale}/{sectionId}/{newsId}/{sectionTitle}/{newsTitle}/
+    defaults: { _controller: 'PortalAdminBundle:News:preview' }    
+    requirements:
+      locale:  en|vi
+#HomeNewsSlot
+HomeNewsSlot_list:
+    path:  /home_news_zones/
+    defaults: { _controller: 'PortalAdminBundle:HomeNewsSlot:index', lang: '', position: 'A'}
+HomeNewsSlot_list_lang:
+    path:  /home_news_zones/{lang}/
+    defaults: { _controller: 'PortalAdminBundle:HomeNewsSlot:index', position: 'A'}
+HomeNewsSlot_list_lang_position:    
+    path:  /home_news_zones/{lang}/{position}/
+    defaults: { _controller: 'PortalAdminBundle:HomeNewsSlot:index'}
+HomeNewsSlot_add:
+    path:  /home_news_zones/add/
+    defaults: { _controller: 'PortalAdminBundle:HomeNewsSlot:add'}
+HomeNewsSlot_togglepublish:
+    path: /home_news_zones/togglepublish/{id}/
+    defaults: { _controller: 'PortalAdminBundle:HomeNewsSlot:togglepublish'}     
+HomeNewsSlot_view:
+    path:  /home_news_zones/detail/{id}/
+    defaults: { _controller: 'PortalAdminBundle:HomeNewsSlot:view', lang: '' }
+HomeNewsSlot_view_lang:
+    path:  /home_news_zones/detail/{id}/{lang}/
+    defaults: { _controller: 'PortalAdminBundle:HomeNewsSlot:view'}          
+#Map
+Map_add_relative_page:
+    path:  /add_relative_markers/{lang}/{sectionId}/{page}/{pageSize}/
+    defaults: { _controller: 'PortalAdminBundle:Map:relativeForm' }        
+    requirements:
+      lang:  en|vi
+Map_add_relative:
+    path:  /add_relative_markers/
+    defaults: { _controller: 'PortalAdminBundle:Map:relativeForm', lang: '', sectionId: -1, page: 1, pageSize: 20 }        
+Map_list_page:
+    path:  /map/{lang}/{sectionId}/{page}/{pageSize}/
+    defaults: { _controller: 'PortalAdminBundle:Map:index' }  
+    requirements:
+      lang:  en|vi
+Map_list_page_pagesize:
+    path:  /map/{lang}/{sectionId}/{page}/
+    defaults: { _controller: 'PortalAdminBundle:Map:index', pageSize: 20 }
+    requirements:
+      lang:  en|vi 
+Map_approve_list_page_pagesize:
+    path:  /map_approve/{lang}/{sectionId}/{page}/{pageSize}
+    defaults: { _controller: 'PortalAdminBundle:Map:approve' }
+    requirements:
+      lang:  en|vi       
+Map_approve_list_page:
+    path:  /map_approve/{lang}/{sectionId}/{page}/
+    defaults: { _controller: 'PortalAdminBundle:Map:approve', pageSize: 20 }
+    requirements:
+      lang:  en|vi      
+Map_approve_list:
+    path:  /map_approve/
+    defaults: { _controller: 'PortalAdminBundle:Map:approve', lang: '', sectionId: -1, page: 1, pageSize: 20 }   
+Map_add_lang_id:
+    path:  /map/add/{lang}/{sectionId}/
+    defaults: { _controller: 'PortalAdminBundle:Map:add', lang: '', sectionId: -1 } 
+    requirements:
+      lang:  en|vi         
+Map_add:
+    path:  /map/add/
+    defaults: { _controller: 'PortalAdminBundle:Map:add', lang: '', sectionId: -1 }   
+Map_view_lang:
+    path:  /map/detail/{id}/{lang}/
+    defaults: { _controller: 'PortalAdminBundle:Map:view', lang: '' }
+    requirements:
+      lang:  en|vi
+Map_view:
+    path:  /map/detail/{id}/
+    defaults: { _controller: 'PortalAdminBundle:Map:view', lang: '' }      
+Map_togglepublish:
+    path: /map/togglepublish/{lang}/{id}/
+    defaults: { _controller: 'PortalAdminBundle:Map:togglepublish'}  
+    requirements:
+      lang:  en|vi      
+Map_toggleheadline:
+    path: /map/toggleheadline/{lang}/{id}/
+    defaults: { _controller: 'PortalAdminBundle:Map:toggleheadline'}
+    requirements:
+      lang:  en|vi    
+Map_togglecomment:
+    path: /map/togglecomment/{lang}/{id}/
+    defaults: { _controller: 'PortalAdminBundle:Map:togglecomment'} 
+    requirements:
+      lang:  en|vi
+Map_preview:
+    path:  /map_preview/{locale}/{markerId}/
+    defaults: { _controller: 'PortalAdminBundle:Map:preview' }
+    requirements:
+      locale:  en|vi   
+Map_list:
+    path:  /map/
+    defaults: { _controller: 'PortalAdminBundle:Map:index', lang: '', sectionId: -1, page: 1, pageSize: 20 }

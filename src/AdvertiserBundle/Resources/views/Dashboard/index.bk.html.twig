@@ -1,0 +1,327 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %} 
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{ path('advertiser_ads_list') }}" class="current">Dashboard</a> </div>
+        </div>
+        <div class="container-fluid" id="load_view">
+            <h4>Dashboard</h4>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <div class="controls form-horizontal">
+                            <div class="span3">
+                                <div class="control-group">
+                                    <label class="control-label" style="width:75px;">Tỉnh/TP:</label>
+                                    <div class="controls" style="margin-left:90px">
+                                        <select name="province" id="province" class="span12">
+                                            {% if is_granted('ROLE_OPERATOR_LEVEl_01') %}
+                                                <option value="all" {{ province_choice is null ? 'selected' : '' }} selected>Tất cả</option>
+                                            {% endif %}
+                                            {% for key,value in province %}
+                                                <option value="{{ key }}" {{ province_choice == key ? 'selected' : '' }} >{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label" style="width:75px;">Thời gian</label>
+                                    <div class="controls" style="margin-left:110px">
+                                        <div id="date_time" class="pull-right" style="background: #fff; cursor: pointer; padding: 4px 10px; border: 1px solid #ccc;width:100%">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                                            <span></span> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="span2">
+                                <button style="margin:11px 0;" class="btn btn-success" id="sub">Xem</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="quick-actions_homepage" style="margin-top:0">
+                <ul class="quick-actions">
+                    <li class="bg_lb"> <a title="Tổng số điểm wifi"> <i class="icon-sitemap"></i>Tổng AP: {{ data['ap_total'] }} (Online:{{ data['ap_total_online'] }}/Offline:{{ data['ap_total'] - data['ap_total_online'] }})</a> </li>
+                    <li class="bg_lg" style="display: none"> <a> <i class="icon-home"></i>Tỉnh/TP: {{ data['province'] }}</a> </li>
+                    <li class="bg_ly" style="display: none"> <a> <i class="icon-user"></i>Tổng user: {{ data['user_total'] }}</a> </li>
+                    <li class="bg_lo" style="display: none"> <a> <i class="icon-link"></i>Tổng kết nối: {{ data['conn_total']|number_format(0, '.', '.') }}</a> </li>
+                    <li class="bg_ls" style="display: none"> <a> <i class="icon-th"></i>Tổng kết nối mobile: {{ data['conn_total_mobile']|number_format(0, '.', '.') }}</a> </li>
+                    <li class="bg_lo" style="display: none"> <a> <i class="icon-th"></i>Tổng kết nối pc: {{ data['conn_total_pc']|number_format(0, '.', '.') }}</a> </li>
+                    <!-- <li class="bg_ls"> <a href="buttons.html"> <i class="icon-tint"></i> Buttons</a> </li>
+                    <li class="bg_lb"> <a href="interface.html"> <i class="icon-pencil"></i>Elements</a> </li>
+                    <li class="bg_lg"> <a href="calendar.html"> <i class="icon-calendar"></i> Calendar</a> </li>
+                    <li class="bg_lr"> <a href="error404.html"> <i class="icon-info-sign"></i> Error</a> </li> -->
+                </ul>
+            </div>
+            <div class="row-fluid" style="display: none">
+                <div class="span6">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
+                            <h5>Tỉ lệ phần % Platform kết nối</h5>
+                        </div>
+                        <div class="widget-content">
+                            <ul class="unstyled">
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Android: <b>{{ data['android'] }} (%)</b>
+                                </li>
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> iPhone: <b>{{ data['iphone'] }} (%)</b>
+                                </li>
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-down-2"></span> Windows: <b>{{ data['windows'] }} (%)</b>
+                                </li>
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Windows Phone: <b>{{ data['windows_phone'] }} (%)</b>
+                                </li>
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> BlackBerry: <b>{{ data['blackBerry'] }} (%)</b>
+                                </li>
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Khác: <b>{{ data['other_platform'] }} (%)</b>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
+                            <h5>Tỉ lệ phần % Browser kết nối</h5>
+                        </div>
+                        <div class="widget-content">
+                            <ul class="unstyled">
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Chrome: <b>{{ data['chrome'] }} (%)</b>
+                                </li>
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-down-2"></span> AppleWebKit: <b>{{ data['appleWebKit'] }} (%)</b>
+                                </li>
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Safari: <b>{{ data['safari'] }} (%)</b>
+                                </li>
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Firefox: <b>{{ data['firefox'] }} (%)</b>
+                                </li>
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Opera: <b>{{ data['opera'] }} (%)</b>
+                                </li>
+                                <li> 
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Khác: <b>{{ data['other_browser'] }} (%)</b>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid" style="display: none">
+                <div class="span6">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
+                            <h5>Biểu đồ Platform kết nối</h5>
+                        </div>
+                        <div class="widget-content" style="height:420px">
+                            <div id="chart-platform"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
+                            <h5>Biểu đồ Browser kết nối</h5>
+                        </div>
+                        <div class="widget-content" style="height:420px">
+                            <div id="chart-browser"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="widget-box">
+                    <div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
+                        <h5>Thông tin chiến dịch quảng cáo</h5>
+                    </div>
+                    <div class="widget-content">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div id="chart_ads" style="height: 400px; width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-content">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <ul class="site-stats">
+                                    <li class="bg_lh"><i class="icon-asterisk"></i> <strong>{{ total_advert }}</strong> <small>Total Campaign</small></li>
+                                    <li class="bg_lh"><i class="icon-eye-open"></i> <strong>{{ chart['impression'] }}</strong> <small>Impression</small></li>
+                                    <li class="bg_lh"><i class="icon-plus"></i> <strong>{{ chart['click'] }}</strong> <small>Click</small></li>
+                                    <li class="bg_lh"><i class="icon-plus"></i> <strong>{{ chart['impression'] > 0 ? (chart['click']*100/chart['impression']) |round(1, 'floor') : 0 }}%</strong> <small>CTR</small></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                  	<div class="widget-box">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            //CanvasJS pie chart to show product wise annual revenue for 2015
+            var android = "{{ data['android'] }}", iphone = "{{ data['iphone'] }}", windows = "{{ data['windows'] }}", windows_phone = "{{ data['windows_phone'] }}", blackBerry = "{{ data['blackBerry'] }}", other_platform = "{{ data['other_platform'] }}";
+            var chart_platform = new CanvasJS.Chart("chart-platform", {
+                animationEnabled: true,
+                theme: "theme2",
+                legend: {
+                    fontSize: 11
+                },
+                toolTip: {
+                    borderThickness: 0,
+                    content: "<span style='\"'color: {color};'\"'>{name}</span>: {y} (%)",
+                    cornerRadius: 0
+                },
+                data: [
+                    {       
+                        indexLabelFontColor: "#676464",
+                        indexLabelFontSize: 14,
+                        legendMarkerType: "square",
+                        legendText: "{indexLabel}",
+                        showInLegend: true,
+                        startAngle:  90,
+                        type: "pie",
+                        dataPoints: [
+                            {  y: android, name:"Android", indexLabel: "Android - "+android+"%", legendText: "Android", exploded: false },
+                            {  y: iphone, name:"iPhone", indexLabel: "iPhone - "+iphone+"%", legendText: "iPhone" },
+                            {  y: windows, name:"Windows", indexLabel: "Windows - "+windows+"%", legendText: "Windows", color: "#8064a1" },
+                            {  y: windows_phone, name:"Windows Phone", indexLabel: "Windows Phone - "+windows_phone+"%", legendText: "Windows Phone" },
+                            {  y: blackBerry, name:"BlackBerry", indexLabel: "BlackBerry - "+blackBerry+"%", legendText: "BlackBerry", color: "#5864a1" },
+                            {  y: other_platform, name:"Khác", indexLabel: "Khác - "+other_platform+"%", legendText: "Khác", color: "#2164a1" }
+                        ]
+                    }
+                ]
+            });
+            
+            chart_platform.render();
+
+            //
+            var chrome = "{{ data['chrome'] }}", appleWebKit = "{{ data['appleWebKit'] }}", safari = "{{ data['safari'] }}", firefox = "{{ data['firefox'] }}", opera = "{{ data['opera'] }}", other_browser = "{{ data['other_browser'] }}";
+            var chart_browser = new CanvasJS.Chart("chart-browser", {
+                animationEnabled: true,
+                theme: "theme2",
+                legend: {
+                    fontSize: 11
+                },
+                toolTip: {
+                    borderThickness: 0,
+                    content: "<span style='\"'color: {color};'\"'>{name}</span>: {y} (%)",
+                    cornerRadius: 0
+                },
+                data: [
+                    {       
+                        indexLabelFontColor: "#676464",
+                        indexLabelFontSize: 14,
+                        legendMarkerType: "square",
+                        legendText: "{indexLabel}",
+                        showInLegend: true,
+                        startAngle:  90,
+                        type: "pie",
+                        dataPoints: [
+                            {  y: chrome, name:"Chrome", indexLabel: "Chrome - "+chrome+"%", legendText: "Chrome", exploded: false },
+                            {  y: appleWebKit, name:"AppleWebKit", indexLabel: "AppleWebKit - "+appleWebKit+"%", legendText: "AppleWebKit" },
+                            {  y: safari, name:"Safari", indexLabel: "Safari - "+safari+"%", legendText: "Safari", color: "#8064a1" },
+                            {  y: firefox, name:"Firefox", indexLabel: "Firefox - "+firefox+"%", legendText: "Firefox" },
+                            {  y: opera, name:"Opera", indexLabel: "Opera - "+opera+"%", legendText: "Opera", color: "#5864a1" },
+                            {  y: other_browser, name:"Khác", indexLabel: "Khác - "+other_browser+"%", legendText: "Khác", color: "#2164a1" }
+                        ]
+                    }
+                ]
+            });
+            
+            chart_browser.render();
+
+            //
+            var chart = {{ chart['chart']|raw }};
+            var chart = new CanvasJS.Chart("chart_ads",{   
+                title:{
+                    text: ""  
+                },
+                animationEnabled: true,
+                axisY :{
+                    /*includeZero: false,
+                    suffix: " k",
+                    valueFormatString: "#,,.",*/
+                    //suffix: " mn"
+                },
+                toolTip: {
+                    shared: "true"
+                },
+                data: chart
+            });
+
+            chart.render();
+        });
+
+
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            
+            var start = moment("{{time['start']}}", "YYYYMMDD");
+            var end = moment();
+            
+            var sub_start = start, sub_end = end;
+
+            function cb(start, end) {
+                $('#date_time span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+                console.log('START: ', start.format('YYYY-MM-DD'));
+                console.log('END: ', end.format('YYYY-MM-DD'));
+                sub_start = start.format('YYYY-MM-DD');
+                sub_end = end.format('YYYY-MM-DD');
+            }
+
+            $('#date_time').daterangepicker({
+                locale: {
+                    customRangeLabel:"Tùy chỉnh"
+                },
+                startDate: start,
+                endDate: end,
+                ranges: {
+                   'Hôm nay': [moment(), moment()],
+                   'Hôm qua': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                   '7 ngày qua': [moment().subtract(6, 'days'), moment()],
+                   '30 ngày qua': [moment().subtract(29, 'days'), moment()],
+                   'Tháng này': [moment().startOf('month'), moment().endOf('month')],
+                   'Tháng trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                   'Toàn bộ thời gian': [moment().subtract(1, 'year').startOf('month'), moment()]
+                },
+            
+            }, cb);
+
+            cb(start, end);
+            
+
+            $('#sub').click(function(event) {
+                
+                console.log('START: ', sub_start);
+                console.log('END: ', sub_end);
+                var province = $('#province').val();
+                window.location.href = "{{ path('advertiser_dashboard') }}"+'?province='+province+'&start='+sub_start+'&end='+sub_end;
+
+            });
+        });
+    </script>
+{% endblock %}

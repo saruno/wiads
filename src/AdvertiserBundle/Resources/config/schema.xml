@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="default" defaultIdMethod="native" identifierQuoting='true' namespace="AdvertiserBundle\Model">
+    <!--==== SETTING ====-->
+    <!--http://propelorm.org/documentation/behaviors/validate.html-->
+    <vendor type="mysql">
+        <parameter name="Engine" value="InnoDB"/>
+        <parameter name="Charset" value="utf8"/>
+        <parameter name="Collate" value="utf8_unicode_ci"/>
+    </vendor>
+
+    <!--==== TABLES ====-->
+    <table name="department">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000" />
+        <column name="code" type="varchar" size="1000" />
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="employee">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="department_id" type="INTEGER" />
+        <column name="username" type="varchar" size="1000" />
+        <column name="password" type="varchar" size="1000" />
+        <column name="lastname" type="varchar" size="1000" />
+        <column name="firstname" type="varchar" size="1000" />
+        <column name="phone" type="varchar" size="1000" />
+        <column name="address" type="varchar" size="1000" />
+        <foreign-key foreignTable="department" onDelete="setnull" onUpdate="cascade">
+            <reference local="department_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+    </table>
+
+    <!-- Bảng kho http://doc.edu.vn/tai-lieu/de-tai-phan-tich-thiet-ke-he-thong-thong-tin-quan-li-kho-hang-50693/ -->
+    <table name="warehouse">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="employee_id" type="INTEGER" />
+        <column name="name" type="varchar" size="1000" />
+        <column name="address" type="varchar" size="1000" />
+        <column name="phone" type="varchar" size="1000" />
+        <foreign-key foreignTable="employee" onDelete="setnull" onUpdate="cascade">
+            <reference local="employee_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+    </table>
+
+    <!-- Bảng nhà cung cấp -->
+    <table name="provider">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000" />
+        <column name="address" type="varchar" size="1000" />
+        <column name="phone" type="varchar" size="1000" />
+        <behavior name="timestampable" />
+    </table>
+
+    <!-- Bảng phiếu nhập hàng -->
+    <table name="inventory_receiving_voucher">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="provider_id" type="INTEGER" />
+        <column name="warehouse_id" type="INTEGER" />
+        <column name="created_at" type="TIMESTAMP" />
+        <foreign-key foreignTable="provider" onDelete="setnull" onUpdate="cascade">
+            <reference local="provider_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="warehouse" onDelete="setnull" onUpdate="cascade">
+            <reference local="warehouse_id" foreign="id" />
+        </foreign-key>
+    </table>
+
+    <!-- Danh mục sản phẩm -->
+    <table name="category_product">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000" />
+        <behavior name="timestampable" />
+    </table>
+
+    <!-- Sản phẩm (Thiết bị) -->
+    <table name="product">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="category_id" type="INTEGER" />
+        <column name="warehouse_id" type="INTEGER" />
+        <column name="name" type="varchar" size="1000" />
+        <column name="slton" type="INTEGER" /> <!-- số lượng tồn -->
+        <column name="donvi" type="varchar" /> <!-- đơn vị tính -->
+        <column name="description" type="LONGVARCHAR" />
+        <foreign-key foreignTable="category_product" onDelete="setnull" onUpdate="cascade">
+            <reference local="category_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="warehouse" onDelete="setnull" onUpdate="cascade">
+            <reference local="warehouse_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+    </table>
+
+
+    <!-- Bảng chi tiết phiếu nhập hàng -->
+    <table name="inventory_receiving_voucher_detail">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="inventory_receiving_voucher_id" type="INTEGER" />
+        <column name="product_id" type="INTEGER" />
+        <column name="quantity" type="INTEGER" />
+        <column name="price" type="DECIMAL" />
+        <foreign-key foreignTable="inventory_receiving_voucher" onDelete="setnull" onUpdate="cascade">
+            <reference local="inventory_receiving_voucher_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="product" onDelete="setnull" onUpdate="cascade">
+            <reference local="product_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="customers">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000" />
+        <column name="address" type="varchar" size="1000" />
+        <column name="phone" type="varchar" size="1000" />
+        <behavior name="timestampable" />
+    </table>
+
+    <!-- Bảng phiếu xuất hàng -->
+    <table name="inventory_delivery_voucher">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="warehouse_id" type="INTEGER" />
+        <column name="employee_id" type="INTEGER" />
+         <column name="customer_id" type="INTEGER" />
+        <column name="created_at" type="TIMESTAMP" />
+        <column name="description" type="LONGVARCHAR"  />
+
+        <foreign-key foreignTable="warehouse" onDelete="setnull" onUpdate="cascade">
+            <reference local="warehouse_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="employee" onDelete="setnull" onUpdate="cascade">
+            <reference local="employee_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="customers" onDelete="setnull" onUpdate="cascade">
+            <reference local="customer_id" foreign="id" />
+        </foreign-key>
+    </table>
+
+        <!-- Bảng chi tiết phiếu xuất hàng -->
+    <table name="inventory_delivery_voucher_detail">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="inventory_delivery_voucher_id" type="INTEGER" />
+        <column name="product_id" type="INTEGER" />
+        <column name="quantity" type="INTEGER" />
+        <column name="price" type="DECIMAL" />
+
+        <foreign-key foreignTable="inventory_delivery_voucher" onDelete="setnull" onUpdate="cascade">
+            <reference local="inventory_delivery_voucher_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="product" onDelete="setnull" onUpdate="cascade">
+            <reference local="product_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+    </table>
+
+
+
+</database>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+  <title>Welcome</title>
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="MobileOptimized" content="width"/>
+    <meta name="HandheldFriendly" content="true"/>
+	<meta content="" name="description">
+<meta content="" name="author">
+    {% if linkTo is not empty %}
+<meta http-equiv="refresh" content="0;url={{ linkTo }}">
+    {% endif %}
+<link rel="stylesheet" href="/bundles/hotspotaccesspoint/v3/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/bundles/hotspotaccesspoint/v3/css/style.css"/>
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/v3/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/v3/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <article>
+        <div class="container">
+          
+          <div class="clearfix" style="display: block;margin: auto; text-align: center;">
+          	{% if ads is not empty %}
+              <div>
+                  <!--
+                  No count
+                  <a href="{{linkTo}}"><img class=""  src="/ap/display2.html?id={{ ads[0].Id }}&link={{ ads[0].linkTo | url_encode}}&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="image" /></a>
+                  -->
+                  <a href="{{linkTo}}"><img class=""  src="/ap/display.html?id={{ ads[0].Id }}&link={{ ads[0].linkTo | url_encode}}&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="image" /></a>
+              </div>
+            {% endif %}
+          </div>
+          
+        </div>
+    </article>
+</body>
+</html>

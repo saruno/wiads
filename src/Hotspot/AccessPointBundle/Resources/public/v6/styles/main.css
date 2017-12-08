@@ -1,0 +1,588 @@
+@-webkit-keyframes rotate360 {
+  0% {
+    -webkit-transform: rotate(360deg); } }
+@keyframes rotate360 {
+  0% {
+    transform: rotate(360deg); } }
+@-webkit-keyframes coffeebean {
+  0% {
+    -webkit-top: 0px; }
+  50% {
+    -webkit-top: 100px; }
+  100% {
+    -webkit-top: 0px; } }
+@keyframes coffeebean {
+  0% {
+    top: 0px; }
+  50% {
+    top: 100px; }
+  100% {
+    top: 0px; } }
+@-webkit-keyframes circlewater {
+  0% {
+    -webkit-bottom: 0;
+    -webkit-left: 0; }
+  15% {
+    -webkit-bottom: 0;
+    -webkit-left: 29px; }
+  20% {
+    -webkit-bottom: 6px;
+    -webkit-left: 33px; }
+  50% {
+    -webkit-bottom: 84px;
+    -webkit-left: 33px; }
+  55% {
+    -webkit-bottom: 88px;
+    -webkit-left: 40px; }
+  65% {
+    -webkit-bottom: 88px;
+    -webkit-left: 54px; }
+  85% {
+    -webkit-bottom: 42px;
+    -webkit-left: 54px; }
+  90% {
+    -webkit-bottom: 37px;
+    -webkit-left: 60px; }
+  100% {
+    -webkit-bottom: 37px;
+    -webkit-left: 72px; } }
+@keyframes circlewater {
+  0% {
+    bottom: 0;
+    left: 0; }
+  15% {
+    bottom: 0;
+    left: 29px; }
+  20% {
+    bottom: 6px;
+    left: 33px; }
+  50% {
+    bottom: 84px;
+    left: 33px; }
+  55% {
+    bottom: 88px;
+    left: 40px; }
+  65% {
+    bottom: 88px;
+    left: 53px; }
+  85% {
+    bottom: 41px;
+    left: 53px; }
+  90% {
+    bottom: 36px;
+    left: 60px; }
+  100% {
+    bottom: 36px;
+    left: 72px; } }
+@-webkit-keyframes chemistrywater {
+  0% {
+    -webkit-bottom: 0px; }
+  100% {
+    -webkit-bottom: 150px; } }
+@keyframes chemistrywater {
+  0% {
+    bottom: 0px; }
+  100% {
+    bottom: 150px; } }
+@-webkit-keyframes fire {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -webkit-width: 16px; }
+  25% {
+    -webkit-transform: rotate(-5deg);
+    -webkit-width: 17px; }
+  50% {
+    -webkit-transform: rotate(5deg);
+    -webkit-width: 16px; }
+  75% {
+    -webkit-transform: rotate(-5deg);
+    -webkit-width: 17px; }
+  100% {
+    -webkit-transform: rotate(0deg);
+    -webkit-width: 16px; } }
+@keyframes fire {
+  0% {
+    transform: rotate(0deg);
+    width: 16px; }
+  25% {
+    transform: rotate(-5deg);
+    width: 17px; }
+  50% {
+    transform: rotate(5deg);
+    width: 16px; }
+  75% {
+    transform: rotate(-5deg);
+    width: 17px; }
+  100% {
+    transform: rotate(0deg);
+    width: 16px; } }
+@-webkit-keyframes coffeedrop {
+  0% {
+    -webkit-width: 0;
+    -webkit-top: 0; }
+  80% {
+    -webkit-width: 100%;
+    -webkit-top: 0; }
+  100% {
+    -webkit-width: 100%;
+    -webkit-top: 100%; } }
+@keyframes coffeedrop {
+  0% {
+    width: 0;
+    top: 0; }
+  80% {
+    width: 100%;
+    top: 0; }
+  100% {
+    width: 100%;
+    top: 100%; } }
+@-webkit-keyframes socialbounce {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0); }
+  30% {
+    -webkit-transform: translate3d(0, -12px, 0); }
+  35% {
+    -webkit-transform: translate3d(0, 0, 0); }
+  45% {
+    -webkit-transform: translate3d(0, -6px, 0); }
+  50% {
+    -webkit-transform: translate3d(0, 0, 0); }
+  100% {
+    -webkit-transform: none; } }
+@keyframes socialbounce {
+  0% {
+    transform: translate3d(0, 0, 0); }
+  30% {
+    transform: translate3d(0, -12px, 0); }
+  35% {
+    transform: translate3d(0, 0, 0); }
+  45% {
+    transform: translate3d(0, -6px, 0); }
+  50% {
+    transform: translate3d(0, 0, 0); }
+  100% {
+    transform: none; } }
+@-webkit-keyframes dotarea {
+  0% {
+    -webkit-transform: scale(0); }
+  50% {
+    -webkit-transform: scale(1); }
+  100% {
+    -webkit-transform: scale(0); } }
+@keyframes dotarea {
+  0% {
+    transform: scale(0); }
+  50% {
+    transform: scale(1); }
+  100% {
+    transform: scale(0); } }
+body {
+  height: 100%;
+  width: 100%; }
+
+.container-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  height: 100%; }
+
+.login-n1 .wrapper {
+  width: 100%;
+  background-color: #fff; }
+  .login-n1 .wrapper .content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-height: 100vh; }
+  .login-n1 .wrapper .content-top {
+    width: 100%; }
+  .login-n1 .wrapper .content-bottom {
+    width: 100%;
+    padding: 0 27.5px;
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    text-align: center; }
+  .login-n1 .wrapper .heading {
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 10px; }
+  .login-n1 .wrapper .owl-login-n1 {
+    margin-bottom: 40px; }
+    .login-n1 .wrapper .owl-login-n1 .item {
+      padding-top: 62.5%;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: relative; }
+      .login-n1 .wrapper .owl-login-n1 .item .title-slide {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        color: #fff;
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.075em;
+        max-height: 155px;
+        overflow: hidden; }
+    .login-n1 .wrapper .owl-login-n1 .owl-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translate(-50%); }
+      .login-n1 .wrapper .owl-login-n1 .owl-dots .owl-dot {
+        float: left;
+        margin-right: 15px; }
+        .login-n1 .wrapper .owl-login-n1 .owl-dots .owl-dot:last-child {
+          margin-right: 0; }
+        .login-n1 .wrapper .owl-login-n1 .owl-dots .owl-dot span {
+          background-color: transparent;
+          height: 22px;
+          width: 22px;
+          border-radius: 50%;
+          display: block;
+          border: 3px solid #fff; }
+      .login-n1 .wrapper .owl-login-n1 .owl-dots .active span {
+        background-color: #fff; }
+  .login-n1 .wrapper .status {
+    padding: 0 100px;
+    margin-top: 0;
+    margin-bottom: 23px;
+    text-transform: uppercase; }
+  .login-n1 .wrapper .btn-login {
+    display: inline-block;
+    margin-bottom: 75px;
+    width: 100%; }
+    .login-n1 .wrapper .btn-login img {
+      max-width: 388px;
+      margin: auto; }
+  .login-n1 .wrapper .text-content {
+    font-style: italic;
+    font-size: 20px; }
+  .login-n1 .wrapper .btn-connect {
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;
+    max-width: 585px;
+    max-height: 79px;
+    display: block;
+    font-size: 35px;
+    font-weight: 400;
+    padding: 20px;
+    margin: 0;
+    margin-bottom: 50px; }
+
+.login-n2 .wrapper {
+  width: 100%;
+  background-color: #fff; }
+  .login-n2 .wrapper .content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-height: 100vh; }
+  .login-n2 .wrapper .content-top {
+    width: 100%; }
+  .login-n2 .wrapper .content-bottom {
+    width: 100%;
+    padding: 0 27.5px;
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    text-align: center; }
+  .login-n2 .wrapper .heading {
+    font-size: 32px;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-top: 15px;
+    margin-bottom: 10px; }
+  .login-n2 .wrapper .owl-login-n2 {
+    margin-bottom: 23px; }
+    .login-n2 .wrapper .owl-login-n2 .item {
+      padding-top: 112%;
+      position: relative; }
+      .login-n2 .wrapper .owl-login-n2 .item a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0; }
+      .login-n2 .wrapper .owl-login-n2 .item .img-cover {
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat; }
+    .login-n2 .wrapper .owl-login-n2 .owl-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translate(-50%); }
+      .login-n2 .wrapper .owl-login-n2 .owl-dots .owl-dot {
+        float: left;
+        margin-right: 15px; }
+        .login-n2 .wrapper .owl-login-n2 .owl-dots .owl-dot:last-child {
+          margin-right: 0; }
+        .login-n2 .wrapper .owl-login-n2 .owl-dots .owl-dot span {
+          background-color: transparent;
+          height: 22px;
+          width: 22px;
+          border-radius: 50%;
+          display: block;
+          border: 3px solid #fff; }
+      .login-n2 .wrapper .owl-login-n2 .owl-dots .active span {
+        background-color: #fff; }
+  .login-n2 .wrapper .status {
+    padding: 0 80px;
+    margin-top: 0;
+    margin-bottom: 35px;
+    text-transform: uppercase; }
+  .login-n2 .wrapper .text-content {
+    font-style: italic;
+    font-size: 20px;
+    margin-bottom: 10px; }
+
+.login-n3 .wrapper {
+  width: 100%;
+  background-color: #fff; }
+  .login-n3 .wrapper .content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-height: 100vh; }
+  .login-n3 .wrapper .content-top {
+    width: 100%; }
+  .login-n3 .wrapper .content-bottom {
+    width: 100%;
+    padding: 0 27.5px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    text-align: center; }
+  .login-n3 .wrapper .heading {
+    font-size: 32px;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-top: 15px;
+    margin-bottom: 10px; }
+  .login-n3 .wrapper .video {
+    margin-bottom: 23px;
+    padding-top: 56.25%;
+    position: relative; }
+    .login-n3 .wrapper .video iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border: 0; }
+    .login-n3 .wrapper .video .owl-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translate(-50%); }
+      .login-n3 .wrapper .video .owl-dots .owl-dot {
+        float: left;
+        margin-right: 15px; }
+        .login-n3 .wrapper .video .owl-dots .owl-dot:last-child {
+          margin-right: 0; }
+        .login-n3 .wrapper .video .owl-dots .owl-dot span {
+          background-color: transparent;
+          height: 22px;
+          width: 22px;
+          border-radius: 50%;
+          display: block;
+          border: 3px solid #fff; }
+      .login-n3 .wrapper .video .owl-dots .active span {
+        background-color: #fff; }
+  .login-n3 .wrapper .status {
+    padding: 0 80px;
+    margin-top: 0;
+    margin-bottom: 35px;
+    text-transform: uppercase; }
+  .login-n3 .wrapper .text-content {
+    font-style: italic;
+    font-size: 20px;
+    margin-bottom: 10px; }
+
+.login-n4 .wrapper {
+  width: 100%;
+  background-color: #fff; }
+  .login-n4 .wrapper .content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-height: 100vh; }
+  .login-n4 .wrapper .content-top {
+    width: 100%; }
+  .login-n4 .wrapper .content-bottom {
+    width: 100%;
+    padding: 0 27.5px;
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    text-align: center;
+    padding-bottom: 30px; }
+  .login-n4 .wrapper .heading {
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 10px; }
+  .login-n4 .wrapper .owl-login-n4 {
+    margin-bottom: 40px; }
+    .login-n4 .wrapper .owl-login-n4 .item {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: relative; }
+      .login-n4 .wrapper .owl-login-n4 .item:before, .login-n4 .wrapper .owl-login-n4 .item:after {
+        content: " ";
+        display: table; }
+      .login-n4 .wrapper .owl-login-n4 .item:after {
+        clear: both; }
+      .login-n4 .wrapper .owl-login-n4 .item .title-slide {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        color: #fff;
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.075em;
+        max-height: 155px;
+        overflow: hidden; }
+    .login-n4 .wrapper .owl-login-n4 .owl-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translate(-50%); }
+      .login-n4 .wrapper .owl-login-n4 .owl-dots .owl-dot {
+        float: left;
+        margin-right: 15px; }
+        .login-n4 .wrapper .owl-login-n4 .owl-dots .owl-dot:last-child {
+          margin-right: 0; }
+        .login-n4 .wrapper .owl-login-n4 .owl-dots .owl-dot span {
+          background-color: transparent;
+          height: 22px;
+          width: 22px;
+          border-radius: 50%;
+          display: block;
+          border: 3px solid #fff; }
+      .login-n4 .wrapper .owl-login-n4 .owl-dots .active span {
+        background-color: #fff; }
+  .login-n4 .wrapper .status {
+    padding: 0 100px;
+    margin-top: 0;
+    margin-bottom: 23px;
+    text-transform: uppercase; }
+  .login-n4 .wrapper #form-login {
+    background-color: #f3f3f3;
+    padding: 24px 30px 0;
+    margin-bottom: 14px; }
+    .login-n4 .wrapper #form-login .form-group {
+      margin-bottom: 20px; }
+    .login-n4 .wrapper #form-login h3 {
+      text-transform: uppercase;
+      font-weight: 400;
+      text-align: left;
+      color: #686463;
+      font-size: 20px;
+      margin: 0;
+      margin-bottom: 3px; }
+    .login-n4 .wrapper #form-login input {
+      border-radius: 4px;
+      border: 2px solid #b6b6b6;
+      padding: 12px 20px;
+      height: 54px;
+      color: #686463;
+      font-size: 21px;
+      font-weight: 400; }
+      .login-n4 .wrapper #form-login input:focus {
+        box-shadow: 0 0 0; }
+    .login-n4 .wrapper #form-login input::placeholder {
+      color: #b9b5b2;
+      font-size: 21px;
+      font-weight: 400; }
+    .login-n4 .wrapper #form-login .btn-login {
+      background: linear-gradient(to right, #4fe075 0%, #1ba41f 100%);
+      width: 100%;
+      height: 54px;
+      border: 1px solid #b6daa6;
+      border-radius: 5px;
+      background-color: transparent;
+      font-weight: 600;
+      color: #fff;
+      font-size: 26px;
+      padding: 0;
+      position: relative;
+      padding: 8px; }
+      .login-n4 .wrapper #form-login .btn-login:after {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 5px; }
+    .login-n4 .wrapper #form-login .btn-login-fb {
+      background: linear-gradient(to right, #227ec0 0%, #221f72 100%);
+      width: 100%;
+      height: 54px;
+      border: 1px solid #b6daa6;
+      border-radius: 5px;
+      background-color: transparent;
+      font-weight: 600;
+      color: #fff;
+      font-size: 26px;
+      padding: 0;
+      position: relative;
+      padding: 8px; }
+      .login-n4 .wrapper #form-login .btn-login-fb:after {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 5px; }
+  .login-n4 .wrapper .text-end {
+    font-style: italic;
+    color: #919191;
+    position: relative; }
+    .login-n4 .wrapper .text-end:before {
+      position: absolute;
+      content: "";
+      width: 15.385%;
+      border-top: 1px solid #adadad;
+      border-bottom: 1px solid #e4e4e4;
+      left: 0;
+      top: 50%;
+      margin-top: -1px; }
+    .login-n4 .wrapper .text-end:after {
+      position: absolute;
+      content: "";
+      width: 15.385%;
+      border-top: 1px solid #adadad;
+      border-bottom: 1px solid #e4e4e4;
+      right: 0;
+      top: 50%;
+      margin-top: -1px; }

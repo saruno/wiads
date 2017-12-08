@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+  <title>Report</title>
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="MobileOptimized" content="width"/>
+
+    <meta name="HandheldFriendly" content="true"/>
+	<meta content="" name="description">
+<meta content="" name="author">
+<script type="text/javascript" src="/bundles/hotspotaccesspoint/act/js/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<a href="/ap/report/logout">Logout</a>
+<br/>
+<!--
+<form id="update_form" name ="update_form" action="/ap/report" method="post">
+-->
+{{ form_start(form,{'attr': {'id':'form_config','class':'deposit','novalidate': 'novalidate','action':'/ap/report','method':'post'}}) }}
+<b>Cập nhật thông tin thiết bị: </b><span style="color: blue;"> {{saveStatus}}</span><br/>
+<strong>MAC:</strong><input type="text" id="macaddr" name="macaddr" value="">
+<input type="button" value="Kiểm tra MAC" name='verifyMac' id='verifyMac'/>
+<input type="button" value="Kiểm tra ảnh banner" name='viewMacImage' id='viewMacImage'/>
+<br/>
+<strong>Tên Quán:</strong><input type="text" id="name" name="name" value="">. Liên lạc gần nhất vào:<input type='text' disabled="disabled" id='time' name='time' value="">
+<br/>
+<input type="checkbox" name="usewifipass" id="usewifipass" value='1'><strong>Sử dụng mật khẩu:</strong><input type="text" id="wifipass" name="wifipass" value="">
+<br/>
+<input type="checkbox" name="activated" id="activated" value='1' checked="checked"><strong>Đang hoạt động </strong>(Nếu muốn kích hoạt thì đánh dấu trước khi lưu)
+<br/>
+<strong>Địa chỉ:</strong><input type="text" id="address" name="address" value="">
+<br/>
+<input type="checkbox" name="change_img" id="change_img" value='1'><strong>Đổi ảnh quán (1242x300 hoặc 1242x450):</strong>
+{{ form_widget(form.image_file) }}
+{{ form_errors(form.image_file) }}
+</br>
+<input type="checkbox" name="firmware_upgrade" id="firmware_upgrade" value='1'><strong>Cập nhật phần mềm mới.</strong>
+<select id="firmware_file" name="firmware_file">
+    {% for firmware in firmwares %}
+	<option value="{{ firmware.file }}">{{ firmware.fwVersion ~'-' ~ firmware.name }}</option>
+	{% endfor %}
+</select>
+(Hiện tại:<input type='text' disabled="disabled" id='firmware_current' name='firmware_current' value=""> )
+<br/>
+<strong>Chọn tốc độ dụng+ thời gian sử dụng:</strong>
+    <select id="bw_profile" name="bw_profile">
+        {% for profile in bwProfiles %}
+            <option value="{{ profile.id }}">{{ profile.title }}</option>
+        {% endfor %}
+    </select>
+<br/>
+<strong>Chọn mẫu màn hình login:</strong>
+<select id="login_template" name="login_template">
+    {% for key,value in templates %}
+        <option value="{{ key }}">{{ value }}</option>
+    {% endfor %}
+</select>
+<br/>
+<strong>Tỉnh:</strong>
+<select id="province" name="province">
+    {% for province in provinces %}
+        <option value="{{ province.code }}">{{ province.name }}</option>
+    {% endfor %}
+</select>
+<strong>Chọn Công ty:</strong>
+    <select id="company" name="company">
+        {% if app.user and is_granted('ROLE_OPERATOR_LEVEl_01') %}
+            {% for owner in owners %}
+                <option value="{{ owner['company'] }}">{{ owner['company'] }}</option>
+            {% endfor %}
+        {% else %}
+            <option value="{{ app.user.company }}">{{ app.user.company }}</option>
+        {% endif %}
+    </select>
+<br/>
+---------<input type="submit" value="Lưu dữ liệu">---------
+<br/>
+<input type="hidden" id="reboot" name="reboot" value="0"/>
+---------<input type="button" name="reboot_me" id="reboot_me" value="Reboot" onclick="javascript:rebootAP();">-------------
+
+<hr/>
+<script>
+    function rebootAP()
+    {
+        $('#reboot').val(1);
+        $( "#form_config" ).submit();
+    }
+</script>
+<script>
+function verifyMacAddr()
+{	
+	$('#name').val('');
+	$('#wifipass').val('');
+	$('#address').val('');
+	$('#time').val('');
+	$('#firmware_current').val('');
+	
+	var request = $.ajax({
+	  url: "/ap/report/verify_mac?mac="+$('#macaddr').val(),
+	  cache: false,
+	  dataType: "json",
+	});
+
+	request.success(function(ap, status, jqXHR) {
+		//var ap = $.parseJSON(returndata);
+		$('#name').val(ap.name);
+		$('#wifipass').val(ap.key);
+		$('#address').val(ap.address);
+		$('#time').val(ap.time);
+		$('#firmware_current').val(ap.fw_version);
+        if(ap.province!=-1) {
+            $('#province').val(ap.province);
+        }
+        if(ap.owner!=-1) {
+            $('#company').val(ap.owner);
+        }
+        $('#bw_profile').val(ap.bw_profile);
+		if(ap.trash){
+			$('#activated').prop('checked', false);
+		}
+		else{
+			$('#activated').prop('checked', true);
+			}
+		if(ap.isUsingKey){
+				$('#usewifipass').prop('checked', true);
+			}
+		else{
+				$('#usewifipass').prop('checked', false);
+				$('#wifipass').val('');
+			}
+	});
+	request.fail(function(jqXHR, textStatus) {
+	});
+		
+}
+function viewMacImage() {
+    window.open("http://enter.wiads.vn/ap/?res=notyet&called="+$('#macaddr').val(),'_blank');
+}
+$('#verifyMac').click(function () {
+	verifyMacAddr();
+});
+$('#viewMacImage').click(function () {
+    viewMacImage();
+});
+</script>
+<!--
+</form>
+-->
+{{ form_end(form) }}
+<form id="view_form" name ="view_form" action="/ap/report" method="post">
+    Chọn Tỉnh:
+    <select id="province" name="province">
+        <option value="-1">Tất cả</option>
+        {% for province in provinces %}
+            <option value="{{ province.code }}">{{ province.name }}</option>
+        {% endfor %}
+    </select>
+    Chọn Công ty:
+    <select id="company" name="company">
+        {% if app.user and is_granted('ROLE_OPERATOR_LEVEl_01') %}
+            <option value="-1">Tất cả</option>
+            {% for owner in owners %}
+                <option value="{{ owner['company'] }}">{{ owner['company'] }}</option>
+            {% endfor %}
+        {% else %}
+            <option value="{{ app.user.company }}">{{ app.user.company }}</option>
+        {% endif %}
+    </select>
+    <input type="hidden" name="status_view" value="1"/>
+    <input type="submit" name="view_button" id="view_button" value="Xem tình trạng thiết bị">
+</form>
+<hr/>
+{% if is_granted('ROLE_REPORT_GENERAL') %}
+<form id="statistic_form" name ="statistic_form" action="/ap/report" method="post">
+    Chọn Tỉnh:
+    <select id="province" name="province">
+        <option value="-1">Tất cả</option>
+        {% for province in provinces %}
+            <option value="{{ province.code }}">{{ province.name }}</option>
+        {% endfor %}
+    </select>
+    Chọn Công ty:
+    <select id="company" name="company">
+        {% if app.user and is_granted('ROLE_OPERATOR_LEVEl_01') %}
+            <option value="-1">Tất cả</option>
+            {% for owner in owners %}
+                <option value="{{ owner['company'] }}">{{ owner['company'] }}</option>
+            {% endfor %}
+        {% else %}
+            <option value="{{ app.user.company }}">{{ app.user.company }}</option>
+        {% endif %}
+    </select>
+    </br>
+    <!--
+    Năm:<input type="text" name="year" value="{{ params['year'] }}"/>, tháng <input type="text" name="month" value="{{ params['month'] }}"/>
+    -->
+    Từ:<input type="text" name="from" value="{{ params['from_0'] }}"/>, đến <input type="text" name="to" value="{{ params['to'] }}"/>
+    <br/>
+    <input type="checkbox" name="click_view" id="click_view" value='1'  {{ click_view==1?'checked="checked"' }}>Xem click (nếu không chọn tức là xem lượt hiển thị).
+    <br/>
+    <input type="hidden" name="report_view" value="1"/>
+    <input type="submit" value="Xem thống kê">
+</form>
+<hr/>
+{% endif %}
+{% if status_view is defined and  status_view == 1 %}
+<table style="border: 1px solid grey; border-collapse: collapse;font-size:8pt;">
+
+<tr style="border: 1px solid grey;">
+<td>STT</td><td>AP</td><td>Tỉnh</td><td>Tên Quán</td><td>Địa chỉ (+GPS (lat,lng))</td><td>SSID</td><td>Pass</td><td>Ngày tạo</td><td>Lần online cuối</td><td>Nhà mạng</td>
+</tr>
+{% set i=0 %}
+{% for row in result %}
+{% set i = i + 1 %}
+<tr style="border: 1px solid grey;{% if i  is divisible by(2)  %}background-color:#CEECF5;{% endif %}">
+   <td style="border: 1px solid grey;">{{ i }}</td>
+   <td style="border: 1px solid grey;">{{row['macaddr']}}</td>
+   <td style="border: 1px solid grey;">{{row['province']}}</td>
+   <td style="border: 1px solid grey;{% if row['name'] =='---Chưa có tên---' %}background-color:#F5A9A9;{% endif %}">{{row['name']}}</td>
+   <td style="border: 1px solid grey;">{{row['address']}} {#-{{row['lat']}}:{{row['lng']}} #}</td>
+   <td style="border: 1px solid grey;">{{row['ssid']}}</td>
+   <td style="border: 1px solid grey;">{{row['key']}}</td>
+   <td style="border: 1px solid grey;">{{row['created_at']}}</td>
+    <td style="border: 1px solid grey;
+    {% if date(row['updated_at']) < date('-2days') %}
+            background-color:red;
+    {% elseif date(row['updated_at']) < date('-1days') %}
+            background-color:orange;
+    {% endif %}
+            ">{{row['updated_at']}}</td>
+   <td style="border: 1px solid grey;">{{row['isp']}}</td>
+</tr>   
+{% endfor %}
+</table>
+{% endif %}
+{% if report_view is defined and report_view ==1  %}
+<table style="border: 1px solid grey; border-collapse: collapse;font-size:8pt;">
+    {#
+    {% if is_granted('ROLE_OPERATOR_LEVEl_01') %}
+        <tr style="border: 1px solid grey;"><td colspan="37">Thống kê thiết bị từ {{ params['from_0'] }} đến {{ params['to'] }}: {{ popup_0 }}/{{ login_0 }} lượt popup/click login, ngày trước: {{ popup_1  }}/{{ login_1 }}</td></tr>
+    {% endif %}
+    #}
+    <tr style="border: 1px solid grey;"><td colspan="37">Thống kê thiết bị từ {{ params['from_0'] }} đến {{ params['to'] }}: {{ popup_0 }}/{{ login_0 }} lượt popup/click login, ngày trước: {{ popup_1  }}/{{ login_1 }}</td></tr>
+    <tr style="border: 1px solid grey;">
+        <td style="border: 1px solid grey;">STT</td>
+        <td style="border: 1px solid grey;">MAC</td>
+        <td style="border: 1px solid grey;">Name</td>
+        <td style="border: 1px solid grey;">Address</td>
+        <td style="border: 1px solid grey;">Province</td>
+        <td style="border: 1px solid grey;">Date created</td>
+        <td style="border: 1px solid grey;">Last online</td>
+        <td colspan="1" style="border: 1px solid grey;">01</td>
+        <td colspan="1" style="border: 1px solid grey;">02</td>
+        <td colspan="1" style="border: 1px solid grey;">03</td>
+        <td colspan="1" style="border: 1px solid grey;">04</td>
+        <td colspan="1" style="border: 1px solid grey;">05</td>
+        <td colspan="1" style="border: 1px solid grey;">06</td>
+        <td colspan="1" style="border: 1px solid grey;">07</td>
+        <td colspan="1" style="border: 1px solid grey;">08</td>
+        <td colspan="1" style="border: 1px solid grey;">09</td>
+        <td colspan="1" style="border: 1px solid grey;">10</td>
+        <td colspan="1" style="border: 1px solid grey;">11</td>
+        <td colspan="1" style="border: 1px solid grey;">12</td>
+        <td colspan="1" style="border: 1px solid grey;">13</td>
+        <td colspan="1" style="border: 1px solid grey;">14</td>
+        <td colspan="1" style="border: 1px solid grey;">15</td>
+        <td colspan="1" style="border: 1px solid grey;">16</td>
+        <td colspan="1" style="border: 1px solid grey;">17</td>
+        <td colspan="1" style="border: 1px solid grey;">18</td>
+        <td colspan="1" style="border: 1px solid grey;">19</td>
+        <td colspan="1" style="border: 1px solid grey;">20</td>
+        <td colspan="1" style="border: 1px solid grey;">21</td>
+        <td colspan="1" style="border: 1px solid grey;">22</td>
+        <td colspan="1" style="border: 1px solid grey;">23</td>
+        <td colspan="1" style="border: 1px solid grey;">24</td>
+        <td colspan="1" style="border: 1px solid grey;">25</td>
+        <td colspan="1" style="border: 1px solid grey;">26</td>
+        <td colspan="1" style="border: 1px solid grey;">27</td>
+        <td colspan="1" style="border: 1px solid grey;">28</td>
+        <td colspan="1" style="border: 1px solid grey;">29</td>
+        <td colspan="1" style="border: 1px solid grey;">30</td>
+        <td colspan="1" style="border: 1px solid grey;">31</td>
+
+    </tr>
+    {% set i=0 %}
+    {% for row in result %}
+        {% set i = i + 1 %}
+        <tr style="border: 1px solid grey;{% if i  is divisible by(2)  %}background-color:#CEECF5;{% endif %}">
+            <td style="border: 1px solid grey;">{{ i }}</td>
+            <td style="border: 1px solid grey;">{{row['macaddr']}}</td>
+            <td style="border: 1px solid grey;">{{row['name']}}</td>
+            <td style="border: 1px solid grey;">{{row['address']}}</td>
+            <td style="border: 1px solid grey;">{{row['province']}}</td>
+            <td style="border: 1px solid grey;">{{row['created_at']}}</td>
+            <td style="border: 1px solid grey;
+            {% if date(row['updated_at']) < date('-2days') %}
+                    background-color:#F3565D;
+            {% elseif date(row['updated_at']) < date('-1days') %}
+                    background-color:#F4C20B;
+    {% endif %}">{{row['updated_at']}}</td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{click_view==0?row['01']:row['01_click']}}</td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['01']<row['02']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['02']:row['02_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['02']<row['03']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['03']:row['03_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['03']<row['04']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['04']:row['04_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['04']<row['05']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['05']:row['05_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['05']<row['06']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['06']:row['06_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['06']<row['07']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['07']:row['07_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['07']<row['08']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['08']:row['08_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['08']<row['09']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['09']:row['09_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['09']<row['10']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['10']:row['10_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['10']<row['11']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['11']:row['11_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['11']<row['12']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['12']:row['12_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['12']<row['13']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['13']:row['13_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['13']<row['14']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['14']:row['14_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['14']<row['15']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['15']:row['15_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['15']<row['16']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['16']:row['16_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['16']<row['17']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['17']:row['17_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['17']<row['18']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['18']:row['18_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['18']<row['19']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['19']:row['19_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['19']<row['20']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['20']:row['20_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['20']<row['21']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['21']:row['21_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['21']<row['22']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['22']:row['22_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['22']<row['23']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['23']:row['23_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['23']<row['24']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['24']:row['24_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['24']<row['25']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['25']:row['25_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['25']<row['26']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['26']:row['26_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['26']<row['27']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['27']:row['27_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['27']<row['28']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['28']:row['28_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['28']<row['29']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['29']:row['29_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#CEECF5;">{{ row['29']<row['30']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['30']:row['30_click']}}</span></td>
+            <td style="border: 1px solid grey;background-color:#f0f0f0;">{{ row['30']<row['31']?'<span style="color:blue">':'<span style="color:#8f5536">'}}{{click_view==0?row['31']:row['31_click']}}</span></td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+</body>
+</html>

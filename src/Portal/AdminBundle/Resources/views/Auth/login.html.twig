@@ -1,0 +1,16 @@
+{% extends 'PortalAdminBundle::layout.html.twig' %}
+{% block content %}
+<br/><br/><br/><br/>
+<form class="form-login" action="{{ path('login_check') }}" method="post">
+            <div id="login-panel">
+                <ul>
+                    <li>{{'Account'|trans}}:</li>
+                    <li><input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="{{'Account'|trans}}"></li>
+                    <li>{{'Password'|trans}}:</li>
+                    <li><input type="password" id="password" name="_password"  placeholder="{{'Password'|trans}}"></li>
+                    <li><input type="image" style="width: 42px;height: 42px; margin-left:0px;" src="/assets/portalauth/images/login_sbmit.png" alt="Submit" /></li>
+                </ul>
+            </div><!-- enddiv: #login-panel -->
+            <br/><br/><br/>
+
+{% endblock %}

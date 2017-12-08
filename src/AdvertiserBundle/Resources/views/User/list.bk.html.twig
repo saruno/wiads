@@ -1,0 +1,167 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Danh sách</a> </div>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <a href="{{ path('advertiser_user_add') }}" class="btn btn-success" >Thêm mới</a>
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>Danh sách</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            {% if app.session.flashBag.has('success') %}
+                                <div class="alert alert-success alert-block"> 
+                                    <a class="close" data-dismiss="alert" href="#">×</a>
+                                    {% for msg in app.session.flashBag.get('success') %}
+                                        {{ msg }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if app.session.flashBag.has('error') %}
+                                <div class="alert alert-block"> 
+                                    <a class="close" data-dismiss="alert" href="#">×</a>
+                                    {% for msg in app.session.flashBag.get('error') %}
+                                        {{ msg }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <table id="employee-grid"  cellpadding="0" cellspacing="0" border="0" class="table table-bordered" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tài khoản</th>
+                                        <th>Họ tên</th>
+                                        <th>Công ty</th>
+                                        <th>Loại</th>
+                                        <th>Trạng thái</th>
+                                        <th>Tùy chọn</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <td><input type="hidden"  style="width:10px" type="text" data-column="0"  class="search-input-text"></td>
+                                        <td><input type="text" data-column="1"  class="search-input-text" id="s1"></td>
+                                        <th><input type="text" data-column="2"  class="search-input-text" id="s2"></td>
+                                        <th><input type="text" data-column="3"  class="search-input-text" id="s3"></td>
+                                        <td>
+                                            <select data-column="4"  class="search-input-select" id="s4">
+                                                <option value="all">Tất cả</option>
+                                                <option value="customer">KH QC</option>
+                                                <option value="cafeshop">AP</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select data-column="5"  class="search-input-select" id="s5">
+                                                <option value="all">Tất cả</option>
+                                                <option value="0">Kích hoạt</option>
+                                                <option value="1">Khóa</option>
+                                            </select>
+                                        </td>
+                                        <th><a class="sub-search"><i style="font-size:20px" class="icon-search"></i></a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="widget-title" align="right"> 
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myAlert" class="modal hide">
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">×</button>
+            <h3>Thông báo</h3>
+        </div>
+        <div class="modal-body">
+            <p>Bạn chắc chắn muốn xóa</p>
+        </div>
+        <div class="modal-footer"> <a class="confirm_delete btn btn-primary" href="#">Xác nhận</a> <a data-dismiss="modal" class="btn" href="#">Hủy</a> </div>
+    </div>
+    <style type="text/css">
+        .dataTables_paginate {
+            position: absolute !important;
+            right: 0;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .search-input-text{
+            margin: 0 !important;
+        }
+        .sub-search{
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            
+            var dataTable = $('#employee-grid').DataTable( {
+                "processing": true,
+                "serverSide": true,
+                "bJQueryUI": true,
+                "sPaginationType": "full_numbers",
+                "sDom": 'ftipr',//'<"clear">lfTrtip',
+                "order": [[ 0, "desc" ]],
+                //"bFilter": false,
+                "bInfo": false,
+                "ajax":{
+                    url :"{{ path('advertiser_user_list_get') }}", // json datasource
+                    type: "post",  // method  , by default get
+                    error: function(){  // error handling
+                        $(".employee-grid-error").html("");
+                        $("#employee-grid").append('<tbody class="employee-grid-error"><tr><th colspan="5">No data found in the server</th></tr></tbody>');
+                        $("#employee-grid_processing").css("display","none");
+     
+                    }
+                }
+            });
+            $("#employee-grid_filter").css("display","none");
+            $('.search-input-text').on( 'keyup click', function () {   // for text boxes
+                var i = $(this).attr('data-column');  // getting column index
+                var v = $(this).val();  // getting search input value
+                //dataTable.columns(i).search(v).draw();
+            });
+            $('.search-input-select').on( 'change', function () {   // for select box
+                var i =$(this).attr('data-column');
+                var v =$(this).val();
+                //dataTable.columns(i).search(v).draw();
+            });
+
+            $('.sub-search').click(function(event) {
+                /*var s1 = $('#s1').val();
+                dataTable.columns(1).search(s1).draw();
+                
+                var s2 = $('#s2').val();
+                dataTable.columns(2).search(s2).draw();
+
+                var s3 = $('#s3').val();
+                dataTable.columns(3).search(s3).draw();
+
+                var s4 = $('#s4').val();
+                dataTable.columns(4).search(s4).draw();
+                
+                var s5 = $('#s5').val();
+                dataTable.columns(5).search(s5).draw();*/
+                //filterByDate(1, 1, 1);
+                dataTable.draw();
+            });
+
+
+            
+            $( "a.dele_modal" ).live( "click", function() {
+                var a = $('#myAlert').find('a.confirm_delete');
+                var id = $(this).attr('ref_id');
+                a.attr('href', '{{ path("advertiser_user_delete") }}/'+id);
+            });
+        });
+    </script>
+{% endblock %}

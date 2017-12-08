@@ -1,0 +1,90 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> 
+            	<a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+            	<a href="{{ path('advertiser_permision_role_list') }}" class="current">Loại</a> 
+            </div>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                	<a href="{{ path('advertiser_permision_role_add') }}" class="btn btn-success" >Thêm mới</a>
+                  	<div class="widget-box">
+
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>Danh sách nhóm</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            {% if app.session.flashBag.has('success') %}
+                                <div class="alert alert-success alert-block"> 
+                                    <a class="close" data-dismiss="alert" href="#">×</a>
+                                    {% for msg in app.session.flashBag.get('success') %}
+                                        {{ msg }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if app.session.flashBag.has('error') %}
+                                <div class="alert alert-block"> 
+                                    <a class="close" data-dismiss="alert" href="#">×</a>
+                                    {% for msg in app.session.flashBag.get('error') %}
+                                        {{ msg }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <table  class="table table-bordered table-striped" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tên</th>
+                                        <th>Mô tả</th>
+                                        <th>Tùy chọn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for key,value in list %}
+                                        <tr>
+                                            <td>{{ value.id }}</td>
+                                            <td>{{ value.name }}</td>
+                                            <td>{{ value.description }}</td>
+                                            <td>
+                                                <a href="{{ path('advertiser_permision_role_edit')~'/'~value.id }}"><i style="font-size:20px" class="icon-edit"></i></a>
+                                                <a href="#myAlert" style="margin-left:10px" class="dele_modal" ref_id="{{ value.id }}" data-toggle="modal"><i style="font-size:20px" class="icon-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="widget-title" align="right"> 
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div id="myAlert" class="modal hide">
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">×</button>
+            <h3>Thông báo</h3>
+        </div>
+        <div class="modal-body">
+            <p>Bạn chắc chắn muốn xóa</p>
+        </div>
+        <div class="modal-footer"> <a class="confirm_delete btn btn-primary" href="#">Xác nhận</a> <a data-dismiss="modal" class="btn" href="#">Hủy</a> </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $( "a.dele_modal" ).live( "click", function() {
+                var a = $('#myAlert').find('a.confirm_delete');
+                var id = $(this).attr('ref_id');
+                a.attr('href', '{{ path("advertiser_permision_role_delete") }}/'+id);
+            });   
+        });
+    </script>
+{% endblock %}

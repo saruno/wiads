@@ -1,0 +1,73 @@
+{% extends 'AdvertiserBundle::layout_matrix.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Danh sách quảng cáo</a> </div>
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                          <h5>Nhập địa chỉ MAC</h5>
+                        </div>
+                        <form action="" method="get" class="form-horizontal">
+                            <input type="hidden" name="report" value="1"/>
+                            <div class="widget-content">
+                                <div class="control-group">
+                                    <label class="control-label">MAC:</label>
+                                    <div class="controls">
+                                        <input type="text" name="mac" value="{{ params['ap_mac'] }}" required>
+                                        <input type="submit" value="Xem" class="btn btn-success">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                  	{% if result is defined and result|length > 0 %}
+                        <div class="widget-box">
+                            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                                <h5>Kết quả</h5>
+                            </div>
+                            <div class="widget-content nopadding">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên quảng cáo</th>
+                                            <th>Link track</th>
+                                            <th>Impression</th>
+                                            <th>Lượt click</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for key,row in result %}
+                                            {% set stt = stt + 1 %}
+                                            <tr class="odd {{ key%2 == 0 ? 'odd gradeX' : 'even gradeC' }}">
+                                                <td>{{ stt }}</td>
+                                                <td>{{ row['title'] }}</td>
+                                                <td>{{ row['link_to'] }}</td>
+                                                <td class="center">{{ row['impression'] }}</td>
+                                                <td class="center">{{ row['click'] }} ({{(row['click']*100/row['impression']) |round(1, 'floor') }}%)</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="widget-title" align="right"> 
+                                {{ paging.html|raw }}
+                            </div>
+                        </div>
+                    {% elseif params['report'] == 1 %}
+                        <div class="alert alert-success alert-block"> <a class="close" data-dismiss="alert" href="#">×</a>
+                            Không có dữ liệu
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'PortalAdminBundle::layout.html.twig' %}
+{% block head %}
+    {{render(controller("PortalAdminBundle:Partial:head"))}}
+    <script>
+		function clearCache(object)
+		{
+			 var request = $.ajax({
+			  url: "/auth/home/clearcache",
+			  type: "POST",
+			  cache: false,
+			  dataType: "json",
+			});
+			request.success(function(data) {
+				if (data.status == "OK")
+				{
+					var message = "{{ 'Clear cache successful' | trans }}";
+					$('#dialog-form').dialog({
+						modal: true,
+		   	            buttons : {
+		   	            	"OK" : function() {
+		   	          	   $(this).dialog("close");
+		   	             }
+	   	            }
+	   	          	});
+		   	        $('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>"+message+"<div>");
+		         	$('#dialog-form').dialog("option", "title", "{{'Clear Cache'|trans}}");
+		   	        $("#dialog-form").dialog("open");
+				}
+				else
+				{
+					var message = "{{ 'Clear cache Unsuccessful' | trans }}";
+					$('#dialog-form').dialog({
+						modal: true,
+		   	            buttons : {
+		   	            	"OK" : function() {
+		   	          	   $(this).dialog("close");
+		   	             }
+	   	            }
+	   	          	});
+		   	        $('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>"+message+"<div>");
+		         	$('#dialog-form').dialog("option", "title", "{{'Clear Cache'|trans}}");
+		   	        $("#dialog-form").dialog("open");
+				};
+			});
+		
+			request.fail(function(jqXHR, textStatus) {
+				var message = "{{ 'Clear cache Unsuccessful' | trans }}";
+				$('#dialog-form').dialog({
+					modal: true,
+	   	            buttons : {
+	   	            	"OK" : function() {
+	   	          	   $(this).dialog("close");
+	   	             }
+   	            }
+   	          	});
+	   	        $('#dialog-form').html("<div style='padding-top:10px;paddig-left:20px;'>"+message+"<div>");
+	         	$('#dialog-form').dialog("option", "title", "{{'Clear Cache'|trans}}");
+	   	        $("#dialog-form").dialog("open");
+			});
+				
+		};
+	</script>
+{% endblock %}    
+{% block content %}
+
+<ul id="admin-icons">
+<li><a id="icon-article" class="icon-thumb" href="/auth/news/"></a><span><a href="/auth/news/"> {{"News"|trans}}</a></span></li>
+<li><a id="icon-approve"  class="icon-thumb" href="/auth/news_approve/"></a><span><a href="/auth/news_approve/"> {{"News Approve"|trans}}</a></span></li>
+<li><a id="icon-map" class="icon-thumb" href="/auth/map/"></a><span><a href="/auth/map/"> {{"Place"|trans}}</a></span></li>
+<li><a id="icon-map-approve"  class="icon-thumb" href="/auth/map_approve/"></a><span><a href="/auth/map_approve/"> {{"Place Approve"|trans}}</a></span></li>
+<li><a id="icon-categories" class="icon-thumb" href="/auth/section/"></a><span><a href="/auth/section/"> {{"Sections"|trans}}</a></span></li>
+<li><a id="icon-menu" class="icon-thumb" href="/auth/menu/"></a><span><a href="/auth/menu/">{{ "Menu" |trans }}</a></span></li>
+<li><a id="icon-home-zone" class="icon-thumb" href="/auth/home_news_zones/"></a><span><a href="/auth/home_news_zones/">{{ "Home news slots" |trans }}</a></span></li>
+<li><a id="icon-files"      class="icon-thumb" href="/auth/media/fileManager/"></a><span><a href="/auth/media/fileManager/"> {{"File management"|trans}}</a></span></li>
+<li><a id="icon-advertising" class="icon-thumb" href="/auth/advert/"></a><span><a href="/auth/advert/"> {{"Advertisement"|trans}}</a></span></li>
+<li><a id="icon-voting"   class="icon-thumb" href="/auth/vote/"></a><span><a href="/auth/vote/"> {{"Voting"|trans}}</a></span></li>
+<li><a id="icon-feedback"   class="icon-thumb" href="/auth/comment/"></a><span><a href="/auth/comment/"> {{"Comment"|trans}}</a></span></li>
+<li><a id="icon-language"     class="icon-thumb"  href="/auth/language/"></a><span><a   href="/auth/language/"> {{"Language"|trans}}</a></span></li>
+<li><a id="icon-account"     class="icon-thumb"  href="/auth/uac/"></a><span><a   href="/auth/uac/"> {{"Account management"|trans}}</a></span></li>
+<li><a id="icon-setting"     class="icon-thumb"  href="/auth/uac/"></a><span><a   href="/auth/system/"> {{"System configuration"|trans}}</a></span></li>
+<li><a id="icon-recycle"     class="icon-thumb"  href="javascript:clearCache(this);"></a><span><a   href="javascript:clearCache(this);"> {{"Clear Cache"|trans}}</a></span></li>
+</ul>
+<div id="dialog-form" name="dialog-form" title="{{'Clear Cache'|trans }}"></div>
+{% endblock %}

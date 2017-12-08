@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <!--
+    <services>
+        <service id="api.example" class="ApiBundle\Example">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
+        </service>
+    </services>
+    -->
+    <parameters>
+        <parameter key="platform.entity.user.class">ApiBundle\Entity\User</parameter>
+        <parameter key="platform.user.provider.class">ApiBundle\Provider\UserProvider</parameter>
+    </parameters>
+     
+    <services>
+        <service id="platform.user.manager" class="Doctrine\ORM\EntityManager" factory-service="doctrine" factory-method="getManagerForClass">
+            <argument>%platform.entity.user.class%</argument>
+        </service>
+     
+        <service id="platform.user.repository" class="ApiBundle\Repository\UserRepository" factory-service="platform.user.manager" factory-method="getRepository">
+            <argument>%platform.entity.user.class%</argument>
+        </service>
+     
+        <service id="platform.user.provider" class="%platform.user.provider.class%">
+            <argument type="service" id="platform.user.repository" />
+        </service>
+    </services>
+</container>

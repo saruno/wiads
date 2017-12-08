@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<evdict enable="1" forceReload="0">
+    <params rate="3" foregroundShow="1">
+    </params>
+    <appodeal enable="1" forceReload="0" showVideo="1">
+     <description>Appodeal</description>
+      <!--
+      <appKey></appKey>
+      -->
+      <appKey>8a692738791b21ba25d6290039a9e9b08e034e8da3597e97</appKey>
+      <!-- "amazon_ads", "applovin", "chartboost", "mopub", "unity_ads", "mailru", "facebook", "adcolony", "vungle" -->
+      <disableNetwork attr1="admob" attr2="" attr3="" attr4="" attr5="" attr6="" eattr7="" attr8="" attr9="" attr10=""></disableNetwork>
+    </appodeal>
+    <admob enable="1" forceReload="0" showVideo="0">
+      <description>Google AdMob</description>
+        <testDevice>kGADSimulatorID</testDevice>
+       <appKey>ca-app-pub-4838303149686936/5448968205</appKey>
+       <appKeyBanner>ca-app-pub-4838303149686936/1937098608</appKeyBanner>
+       
+    </admob>
+</evdict>

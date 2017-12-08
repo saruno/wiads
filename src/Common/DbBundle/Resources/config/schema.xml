@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="default" defaultIdMethod="native" identifierQuoting='true' namespace="Common\DbBundle\Model">
+    <!--==== SETTING ====-->
+    <!--http://propelorm.org/documentation/behaviors/validate.html-->
+    <vendor type="mysql">
+        <parameter name="Engine" value="InnoDB"/>
+        <parameter name="Charset" value="utf8"/>
+        <parameter name="Collate" value="utf8_unicode_ci"/>
+    </vendor>
+
+    <!--==== TABLES ====-->
+    <table name="news">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="section_id" type="INTEGER" />
+        <column name="subsection_ids" type="varchar" size="1000" />
+        <column name="orders" type="INTEGER" />
+        <column name="suborder_ids" type="varchar" size="1000" />
+        <column name="front_page" type="boolean" />
+        <column name="has_comment" type="boolean"/>
+        <column name="can_delete" type="boolean" />
+        <column name="trash" type="boolean" />
+        <column name="published_at" type="TIMESTAMP" />
+        <column name="locked" type="boolean"/>
+        <column name="draft" type="boolean"/>
+        <column name="imgs" type="varchar" size="1000" />
+        <column name="title" type="varchar" primaryString="1" size="1000" />
+        <column name="strip_title" type="varchar" primaryString="1" size="1000" />
+        <column name="brief" type="LONGVARCHAR" />
+        <column name="content" type="CLOB" />
+        <column name="short_link" type="varchar" size="1000" />
+        <column name="link" type="varchar" size="1000" />
+        <column name="tag" type="varchar" size="1000" />
+        <column name="status" type="varchar" size="255"/>
+        <column name="pre_status" type="varchar" size="255"/>
+        <column name="status_note" type="varchar" size="1000"/>
+        <column name="keyword" type="varchar" size="1000" />
+        <column name="read" type="INTEGER" default="0"/>
+        <column name="post_by" type="varchar" size="1000" />
+        <column name="edit_by" type="varchar" size="1000" />
+        <column name="relative_news" type="varchar" size="1000" />
+        <foreign-key foreignTable="section" onDelete="setnull" onUpdate="cascade">
+            <reference local="section_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="title, strip_title, brief, content, tag, keyword, post_by, edit_by,short_link,link,locked,trash, status, pre_status, status_note,draft,read" />
+            <parameter name="default_locale" value="" />
+        </behavior>
+    </table>
+    <table name="comment">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="from" type="varchar" size="500" />
+        <column name="email" type="varchar" size="255" />
+        <column name="phone" type="varchar" size="255" />
+        <column name="title" type="varchar" primaryString="1" size="1000" />
+        <column name="strip_title" type="varchar" primaryString="1" size="1000" />
+        <column name="content" type="LONGVARCHAR" />
+        <column name="published_at" type="TIMESTAMP" />
+        <column name="locked" type="boolean" default="true"/>
+        <column name="news_id" type="integer"/>
+        <column name="news_title" type="varchar" size="1000"/>
+        <column name="news_link" type="varchar" size="1000"/>
+        <column name="section_id" type="integer"/>
+        <column name="section_title" type="varchar" size="1000"/>
+        <column name="edit_by" type="varchar" size="1000" />
+        <foreign-key foreignTable="news" onDelete="setnull" onUpdate="cascade">
+            <reference local="news_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="section" onDelete="setnull" onUpdate="cascade">
+            <reference local="section_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="title, strip_title, content, news_link, news_title, section_title,edit_by,locked" />
+            <parameter name="default_locale" value="" />
+        </behavior>
+    </table>
+    <table name="section">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="deep" type="INTEGER"  default="0"/>
+        <column name="parent" type="INTEGER"  default="-1"/>
+        <column name="bundle_id" type="INTEGER"  default="-1"/>
+        <column name="orders" type="INTEGER" />
+        <column name="can_delete" type="boolean" default="0"/>
+        <column name="locked" type="boolean"  default="0"/>
+        <column name="title" type="varchar" primaryString="1" size="1000" />
+        <column name="strip_title" type="varchar" primaryString="1" size="1000" />
+        <column name="brief" type="LONGVARCHAR" />
+        <column name="content" type="LONGVARCHAR" />
+        <column name="link" type="varchar" size="3000" />
+        <foreign-key foreignTable="bundle" onDelete="setnull" onUpdate="cascade">
+            <reference local="bundle_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="title, strip_title, brief, content,link" />
+            <parameter name="default_locale" value="vi" />
+        </behavior>
+    </table>
+    <table name="menu">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="deep" type="INTEGER" />
+        <column name="parent" type="INTEGER" />
+        <column name="section_id" type="INTEGER" />
+        <column name="bundle_id" type="INTEGER" />
+        <column name="orders" type="INTEGER" />
+        <column name="can_delete" type="boolean" default="1" />
+        <column name="locked" type="boolean" />
+        <column name="pos" type="varchar" primaryString="1" size="1000" />
+        <column name="title" type="varchar" primaryString="1" size="1000" />
+        <column name="strip_title" type="varchar" primaryString="1" size="1000" />
+        <column name="brief" type="LONGVARCHAR" />
+        <column name="content" type="LONGVARCHAR" />
+        <column name="link_to" type="varchar" primaryString="1" size="1000" />
+        <foreign-key foreignTable="section" onDelete="setnull" onUpdate="cascade">
+            <reference local="section_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="bundle" onDelete="setnull" onUpdate="cascade">
+            <reference local="bundle_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="title, strip_title, brief, content, link_to" />
+            <parameter name="default_locale" value="vi" />
+        </behavior>
+    </table>
+    <table name="bundle">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="locked" type="boolean" />
+        <column name="title" type="varchar" primaryString="1" size="1000" />
+        <column name="bundle" type="varchar" primaryString="1" size="1000" />
+    </table>
+    <table name="language">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="locked" type="boolean" />
+        <column name="title" type="varchar" primaryString="1" size="1000" />
+        <column name="code" type="varchar" primaryString="1" size="100" />
+        <column name="link" type="varchar" primaryString="1" size="1000" />
+        <column name="img" type="varchar" primaryString="1" size="1000" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="title" />
+            <parameter name="default_locale" value="vi" />
+        </behavior>
+    </table>
+    <table name="useronline">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="session" type="varchar" size="1000"  required="true" />
+        <column name="time" type="INTEGER"/>
+    </table>
+    <table name="counter">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="counter" type="integer" />
+    </table>
+    <table name="app">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000"  required="true" />
+        <column name="bundle_id" type="INTEGER" required="true"/>
+    </table>
+    <table name="advert">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="section_id" type="INTEGER" />
+        <column name="subsection_ids" type="varchar" size="2000" />
+        <column name="bundle_id" type="INTEGER" />
+        <column name="section_link_id" type="INTEGER" />
+        <column name="bundle_link_id" type="INTEGER" />
+        <column name="view_at_homepage" type="boolean" />
+        <column name="home_position" type="varchar"  size="30" />
+        <column name="view_at_section" type="boolean" />
+        <column name="section_position" type="varchar"  size="30" />
+        <column name="location" type="varchar"  size="1024" />
+        <column name="company" type="varchar"  size="1024" />
+        <column name="platform" type="varchar" size="500" />
+        <column name="platform_version" type="varchar" size="500" />
+        <column name="can_delete" type="boolean" />
+        <column name="trash" type="boolean" />
+        <column name="published_at" type="TIMESTAMP" />
+        <column name="expired_at" type="TIMESTAMP" />
+        <column name="customer_id" type="INTEGER" />
+        <column name="ratio" type="FLOAT" default="1"/>
+        <column name="daily_limit" type="INTEGER" />
+        <column name="locked" type="boolean" default="false"/>
+        <column name="draft" type="boolean" />
+        <column name="img" type="varchar" size="1000" />
+        <column name="imgs" type="varchar" size="1000" />
+        <column name="imgs_sizes" type="varchar" size="500" />
+        <column name="title" type="varchar" primaryString="1" size="1000" />
+        <column name="description" type="varchar" size="1000" />
+        <column name="campagin" type="varchar" size="1000" />
+        <column name="strip_title" type="varchar" primaryString="1" size="1000" />
+        <column name="brief" type="LONGVARCHAR" />
+        <column name="type" type="INTEGER" />
+        <column name="link" type="varchar" size="1000" />
+        <column name="link_to" type="varchar" size="1000" />
+        <column name="tag" type="varchar" size="1000" />
+        <column name="view" type="INTEGER" default="0" />
+        <column name="keyword" type="varchar" size="1000" />
+        <column name="read" type="INTEGER" />
+        <column name="post_by" type="varchar" size="1000" />
+        <column name="edit_by" type="varchar" size="1000" />
+        <foreign-key foreignTable="section" onDelete="setnull" onUpdate="cascade">
+            <reference local="section_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="customer" onDelete="setnull" onUpdate="cascade">
+            <reference local="customer_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="bundle" onDelete="setnull" onUpdate="cascade">
+            <reference local="bundle_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="title, description, campagin, strip_title, brief, tag, keyword, post_by, edit_by,link, link_to,view,locked,trash,read" />
+            <parameter name="default_locale" value="vi" />
+        </behavior>
+    </table>
+    <table name="customer">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000" />
+        <column name="username" type="varchar" size="500" />
+        <column name="owner" type="varchar" size="500" />
+        <column name="code" type="varchar" size="50" />
+        <column name="address" type="varchar" size="1000" />
+        <column name="phone" type="varchar" size="1000" />
+        <column name="email" type="varchar" size="1000" />
+        <column name="type" type="varchar" size="500" />
+    </table>
+    <table name="place">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="section_id" type="INTEGER" />
+        <column name="orders_id" type="varchar" size="1000" />
+        <column name="locked" type="boolean" default="false"/>
+        <column name="imgs" type="varchar" size="1000" />
+        <column name="title" type="varchar" primaryString="1" size="1000" />
+        <column name="strip_title" type="varchar" primaryString="1" size="1000" />
+        <column name="brief" type="LONGVARCHAR" />
+        <column name="address"  type="varchar" size="300" />
+        <column name="email"  type="varchar" size="300" />
+        <column name="phone" type="varchar" size="300" />
+        <column name="link" type="varchar" size="1000" />
+        <column name="link_to" type="varchar" size="1000" />
+        <column name="tag" type="varchar" size="1000" />
+        <column name="keyword" type="varchar" size="1000" />
+        <column name="lat" type="varchar" size="30" />
+        <column name="lng" type="varchar" size="30" />
+        <column name="post_by" type="varchar" size="1000" />
+        <column name="edit_by" type="varchar" size="1000" />
+        <foreign-key foreignTable="section" onDelete="setnull" onUpdate="cascade">
+            <reference local="section_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="title, strip_title, brief, tag, keyword, post_by, edit_by, link, link_to" />
+            <parameter name="default_locale" value="vi" />
+        </behavior>
+    </table>
+    <table name="sectioncache">
+        <column name="section_id" type="INTEGER" primaryKey="true" />
+        <column name="news_id" type="INTEGER" primaryKey="true" />
+        <column name="locale" type="varchar" size="30" primaryKey="true" />
+        <column name="link" type="varchar" size="1000" />
+        <column name="orders" type="INTEGER" />
+        <column name="read" type="INTEGER" />
+        <column name="published_at" type="TIMESTAMP" />
+        <column name="locked" type="boolean" default="true"/>
+        <column name="front_page" type="boolean" default="true"/>
+    </table>
+    <table name="advertcache">
+        <column name="section_id" type="INTEGER" primaryKey="true" />
+        <column name="advert_id" type="INTEGER" primaryKey="true" />
+        <column name="locale" type="varchar" size="30" primaryKey="true" />
+        <column name="section_position" type="varchar"  size="30" />
+        <column name="title" type="varchar" size="1000" />
+        <column name="brief" type="LONGVARCHAR" />
+        <column name="link" type="varchar" size="1000" />
+        <column name="link_to" type="varchar" size="1000" />
+        <column name="read" type="INTEGER" default="0"/>
+        <column name="imgs" type="varchar" size="1000" />
+        <column name="imgs_sizes" type="varchar" size="500" />
+        <column name="published_at" type="TIMESTAMP" />
+        <column name="expired_at" type="TIMESTAMP" />
+        <column name="locked" type="boolean" default="true"/>
+    </table>
+    <table name="vote">
+        <column name="id" type="INTEGER" primaryKey="true" autoIncrement="true" />
+        <column name="published_at" type="TIMESTAMP" />
+        <column name="locked" type="boolean" default="true"/>
+        <column name="title" type="varchar" primaryString="1" size="1000" />
+        <column name="content" type="LONGVARCHAR" />
+        <column name="post_by" type="varchar" size="1000" />
+        <column name="edit_by" type="varchar" size="1000" />
+        <behavior name="timestampable" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="title, content, post_by,edit_by" />
+            <parameter name="default_locale" value="vi" />
+        </behavior>
+    </table>
+    <table name="vote_question">
+        <column name="id" type="INTEGER" primaryKey="true" autoIncrement="true" />
+        <column name="vote_id" type="INTEGER" />
+        <column name="count" type="INTEGER" default="0" />
+        <column name="total" type="INTEGER" default="0" />
+        <column name="content" type="LONGVARCHAR" />
+        <foreign-key foreignTable="vote" onDelete="cascade" onUpdate="cascade">
+            <reference local="vote_id" foreign="id" />
+        </foreign-key>
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="content, count, total" />
+            <parameter name="default_locale" value="vi" />
+        </behavior>
+    </table>
+    <table name="logs">
+        <column name="id" type="INTEGER" primaryKey="true" autoIncrement="true" />
+        <column name="edit_by" type="varchar" size="1000" />
+        <column name="table" type="varchar" size="1000"/>
+        <column name="item_id" type="INTEGER" />
+        <column name="old" type="LONGVARCHAR" />
+        <column name="current" type="LONGVARCHAR" />
+        <behavior name="timestampable" />
+    </table>
+    <table name="marker_category">
+        <column name="id" type="INTEGER" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000" />
+        <column name="icon" type="varchar" size="1000" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="name" />
+            <parameter name="default_locale" value="vi" />
+        </behavior>
+    </table>
+    <table name="marker">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000" />
+        <column name="image" type="varchar" size="1000" />
+        <column name="category_id" type="INTEGER" />
+        <column name="longitude" type="varchar" size="1000" />
+        <column name="latitude" type="varchar" size="1000" />
+        <column name="address" type="varchar" size="1000" />
+        <column name="pcontact" type="varchar" size="1000" />
+        <column name="detail_url" type="varchar" size="1000" />
+        <column name="detail_url_id" type="varchar" size="50" />
+
+        <column name="section_id" type="INTEGER" />
+        <column name="subsection_ids" type="varchar" size="1000" />
+        <column name="orders" type="INTEGER" />
+        <column name="suborder_ids" type="varchar" size="1000" />
+        <column name="front_page" type="boolean" />
+        <column name="has_comment" type="boolean"/>
+        <column name="can_delete" type="boolean" />
+        <column name="trash" type="boolean" />
+        <column name="published_at" type="TIMESTAMP" />
+        <column name="locked" type="boolean"/>
+        <column name="draft" type="boolean"/>
+        <column name="imgs" type="varchar" size="1000" />
+        <column name="title" type="varchar" primaryString="1" size="1000" />
+        <column name="strip_title" type="varchar" primaryString="1" size="1000" />
+        <column name="brief" type="LONGVARCHAR" />
+        <column name="content" type="LONGVARCHAR" />
+        <column name="short_link" type="LONGVARCHAR"/>
+        <column name="link" type="LONGVARCHAR"/>
+        <column name="tag" type="LONGVARCHAR"/>
+        <column name="status" type="varchar" size="255"/>
+        <column name="pre_status" type="varchar" size="255"/>
+        <column name="status_note" type="varchar" size="1000"/>
+        <column name="keyword" type="LONGVARCHAR"/>
+        <column name="read" type="INTEGER" default="0"/>
+        <column name="post_by" type="varchar" size="1000" />
+        <column name="edit_by" type="varchar" size="1000" />
+        <column name="relative_news" type="LONGVARCHAR"/>
+        <foreign-key foreignTable="section" onDelete="setnull" onUpdate="cascade">
+            <reference local="section_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="marker_category" onDelete="cascade" onUpdate="cascade">
+            <reference local="category_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="name,address,pcontact,detail_url,title, strip_title, brief, content, tag, keyword, post_by, edit_by,short_link,link,locked,trash, status, pre_status, status_note,draft,read" />
+            <parameter name="default_locale" value="vi" />
+        </behavior>
+    </table>
+    <table name="user">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="username" type="varchar" size="1000"  required="true" />
+        <column name="password" type="varchar" size="1000"  required="true" />
+        <column name="salt" type="varchar" size="1000"  required="true" />
+        <column name="name" type="varchar" size="1000"  required="true" />
+        <column name="email" type="varchar" size="500" />
+        <column name="phone" type="varchar" size="500" />
+        <column name="company" type="varchar" size="500" />
+        <column name="is_active" type="boolean" required="true" default="true"/>
+        <column name="locked" type="boolean" required="true" default="false"/>
+        <column name="description" type="LONGVARCHAR" />
+        <column name="forgot" type="varchar" size="500" />
+        <column name="confirm" type="varchar" size="2000" />
+        <column name="type" type="smallint" />
+        <behavior name="timestampable" />
+    </table>
+    <table name="role_group">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000"  required="true" />
+        <column name="role_id" type="varchar" size="1000"  required="true" />
+        <column name="description" type="LONGVARCHAR" />
+        <column name="type" type="smallint" default="1"/>
+    </table>
+    <table name="role">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="1000"  required="true" />
+        <column name="description" type="LONGVARCHAR" />
+        <column name="type" type="smallint" default="1"/>
+    </table>
+    <table name="role_assign">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="user_id" type="integer" required="true" />
+        <column name="role_id" type="varchar" size="1000"  required="true" />
+        <column name="role_group_id" type="varchar" size="1000"  required="true" />
+        <column name="description" type="LONGVARCHAR" />
+        <foreign-key foreignTable="user">
+            <reference local="user_id" foreign="id" />
+        </foreign-key>
+    </table>
+    <table name="promotion">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="code" type="varchar" size="30" />
+        <column name="customer" type="varchar" size="30" />
+        <column name="url" type="varchar" size="300" />
+        <column name="phone" type="varchar" size="20" />
+        <column name="fullname" type="varchar" size="50" />
+        <column name="address" type="varchar" size="250" />
+        <column name="type" type="varchar"  size="30" />
+        <column name="status" type="INTEGER"   />
+        <column name="used_at" type="TIMESTAMP" />
+        <behavior name="timestampable" />
+    </table>
+    <table name="giftcode" >
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="username" type="varchar" size="50" />
+        <column name="email" type="varchar" size="50" />
+        <column name="value" type="varchar" size="500" />
+        <column name="type" type="varchar" size="50" />
+         <column name="advert_id" type="integer"/>
+        <column name="customer_id" type="integer"/>
+        <foreign-key foreignTable="customer" onDelete="setnull" onUpdate="cascade">
+            <reference local="customer_id" foreign="id" />
+        </foreign-key>
+        <column name="status" type="integer" default="0"  />
+        <behavior name="timestampable" />
+    </table>
+    <table name="user_login" >
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="uid" type="varchar" size="250" />
+        <column name="username" type="varchar" size="250" />
+        <column name="email" type="varchar" size="250" />
+        <column name="type" type="varchar" size="250" />
+        <column name="fullname" type="varchar" size="250" />
+        <column name="address" type="varchar" size="250" />
+        <column name="phone" type="varchar" size="250" />
+        <column name="location" type="varchar" size="250" />
+        <column name="ap_macaddr" type="varchar" size="250" />
+        <column name="advert_id" type="integer"/>
+        <behavior name="timestampable" />
+    </table>
+    <table name="location">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="250" />
+        <column name="code" type="varchar" size="250" />
+        <behavior name="timestampable" />
+    </table>
+</database>

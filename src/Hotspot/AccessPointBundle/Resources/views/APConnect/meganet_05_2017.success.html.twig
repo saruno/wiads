@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {#
+    {% if linkTo is not empty %}
+        <meta http-equiv="refresh" content="0;url={{ linkTo | raw }}">
+    {% endif %}
+    #}
+    <title>Success</title>
+    <script src="/bundles/advertiser/matrix/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/bundles/advertiser/assets/css/demo18.css" />
+</head>
+<body>
+<div class="container">
+    <div class="screen">
+        <div class="tem2">
+            <div class="b1">
+                {% if params['apUrl'] is empty %}
+                    <a href="{{ params['apUrl'] }}" target="_blank">
+                        <img src="/bundles/advertiser/assets/img/b3_1.png">
+                    </a>
+                {% else %}
+                    <a href="{{ linkTo | raw }}" target='_blank'>
+                        <img src="/bundles/advertiser/assets/img/b3_1.png">
+                    </a>
+                {% endif %}
+            </div>
+            {% if params['apName'] is not empty and params['apImage'] is not empty %}
+                <div>
+                    {% if params['apUrl'] is not empty %}
+                        <a href="{{params['apUrl']}}" target="_blank" ><img style="max-width: 100%;max-height:240px;margin: auto " src="{{ params['apImage'] }}" alt="{{ params['apName'] }}"></a>
+                    {% else %}
+                        <img style="max-width: 100%;max-height:240px;margin: auto " src="{{ params['apImage'] }}" alt="{{ params['apName'] }}">
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div class="ads" style="width: 100%;height: auto">
+                <iframe style="width: 100%; height: 1000px!important" src="{{ adv.linkTo | raw}}?mac={{ params['mac'] }}" >
+                </iframe>
+            </div>
+            <div class="footer" style="display: none">
+                <img src="/ap/display.html?id={{ adv.Id }}&link={{ adv.linkTo | raw}}&position={{ adv.homePosition() }}&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="BANNER NEN">
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .tem2{
+        position: relative;
+    }
+
+    .tem2 img{
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .tem2 .title{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: auto;
+    }
+
+    .tem2 .ads{
+        width: 100%;
+
+    }
+
+    .tem2 .ads img{
+
+    }
+
+
+
+    iframe {
+        margin: 0 auto !important;
+    }
+    .container{
+        /*height: auto !important;*/
+        background-color: #112c49;
+    }
+</style>
+</body>
+</html>

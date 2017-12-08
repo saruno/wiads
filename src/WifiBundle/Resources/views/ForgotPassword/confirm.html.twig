@@ -1,0 +1,17 @@
+{% extends 'WifiBundle::Layout/user_register.html.twig' %}
+{% block content %}
+    <div class="signuponepage main content clearfix" style="padding-top: 0">
+        <div class="clearfix">
+            <div class="sign-up" style="width: 100%">
+                <div class="signup-box">
+                    {% if status == -1 or status == -2 %}
+                        <p class="success" style="text-align: center;font-size: 18px;color: green">{{ 'validation2.email1'|trans }}</p>
+                    {% endif %}
+                    {% if status == 1 and param['password'] is defined %}
+                        <p class="success" style="text-align: center;font-size: 18px;color: green">{{ 'notification.pass_new'|trans }} {{ param['password'] }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

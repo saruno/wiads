@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8"/>
+  <title>WiAds Welcome</title>
+  <meta http-equiv="Cache-control" content="no-cache"/>
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="MobileOptimized" content="width"/>
+    <meta name="HandheldFriendly" content="true"/>
+	<meta content="" name="description"/>
+<meta content="" name="author"/>
+
+    {% if 'facebook.com' not in linkTo and linkTo is not empty %}
+<meta http-equiv="refresh" content="0;url={{ linkTo | raw }}">
+{% endif %}
+
+    <noscript><meta http-equiv="refresh" content="0;url={{ linkTo | raw }}"></noscript>
+<link rel="stylesheet" href="/bundles/hotspotaccesspoint/v3/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/bundles/hotspotaccesspoint/v3/css/style.css"/>
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/v3/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/bundles/hotspotaccesspoint/v3/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <article>
+        <div class="container">
+            <div class="clearfix" style="display: block;margin: auto; text-align: center;">
+          	{% if params['apName'] is not empty %}
+            	{% if params['apImage'] is not empty %}
+            		<img style="display: block;margin: auto;max-width: 100%; max-height: 236px;" src="{{ params['apImage'] }}" alt="{{ params['apName'] }}">
+            	{% else %}
+            		<h1>{{params['apName'] |upper }}</h1>
+            	{% endif %}
+             {% endif %}
+          </div>
+          <div class="clearfix" style="display: block;margin: auto; text-align: center;">
+          	<br/>
+          	<h2>Bạn đã có thể dùng Internet.</h2>
+          	<br/>
+          </div>
+          
+          <div class="clearfix" style="display: block;margin: auto; text-align: center;">
+          <a href="{{ linkTo | raw }}" target='_blank' class="btn btn-success btn-md" style="font-size: 40px;">OK</a>
+          </div>
+          
+           
+        </div>
+    </article>
+</body>
+<script type="text/javascript">
+setTimeout(function() { window.open("{{ linkTo | raw }}",'_blank') }, 3000);
+</script>
+</html>

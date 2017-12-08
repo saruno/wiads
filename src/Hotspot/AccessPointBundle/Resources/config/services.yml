@@ -1,0 +1,10 @@
+services:
+    accesspoint.service:
+        class: Hotspot\AccessPointBundle\Service\APSystemService
+        arguments: ["@http_session", "@http_request", "@http_response"]
+    http_session:
+        class: Symfony\Component\HttpFoundation\Session\Session
+    http_request:
+        class: Symfony\Component\HttpFoundation\Request
+    http_response:
+        class: Symfony\Component\HttpFoundation\Response

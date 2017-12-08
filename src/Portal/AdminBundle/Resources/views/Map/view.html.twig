@@ -1,0 +1,478 @@
+{% extends 'PortalAdminBundle::layout.html.twig' %}
+{% block head %}
+{{ parent() }}
+<script src="/assets/portalauth/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+<script src="/assets/portalauth/js/ckfinder/ckfinder.js" type="text/javascript"></script>
+    <script>
+    	$(function (){
+    		$('#lang').change(function () {
+    			$(this).closest('form').submit();
+    	    });
+    		$('#sections').change(function () {
+
+    			//get sections
+    			var multipleValues = $("#sections").val() || [];
+    			if($('#subsection_ids').val()==multipleValues.join(",")){
+        			return false;
+        		};
+    			//$('#subsection_orders').val("");
+    			var multipleValues = $("#sections").val() || [];
+    			if (multipleValues.length > 0)
+    			{
+    				$('#subsection_orders').val("");
+    				jQuery.each(multipleValues, function() {
+        				if($('#subsection_orders').val()=="")
+    						$('#subsection_orders').val($('#subsection_orders').val() + "10" );
+        				else
+        					$('#subsection_orders').val($('#subsection_orders').val() + ",10" );
+    				});
+    			};
+    			
+    	    });
+    	    $('#menu-showhide').click(function () {
+    	    	window.location.href = $(this).attr('href') + '?lang='+$('#lang').val();
+    	    	return false;
+    	    });	
+    	    $('#cmd-close').click(function () {
+    	    	window.location.href = $(this).attr('href') + '?&lang='+$('#lang').val();
+    	    	return false;
+    	    });	
+    	    $('#cmd-save').click(function () {
+    	    	
+    	    	Save('save');
+    	    	return false;
+    	    });	
+			$('#cmd-save2').click(function () {
+    	    	
+    	    	Save('save');
+    	    	return false;
+    	    });	
+			$('#cmd-draft').click(function () {
+    	    	
+    	    	Save('draft');
+    	    	return false;
+    	    });
+			$('#cmd-draft2').click(function () {
+	
+				Save('draft');
+				return false;
+			});
+			$('body').on('click', '.relative-markers-li',function () {
+			    $(this).closest('li').remove();
+			});
+			$('body').on('click', '.relative-news-li',function () {
+			    $(this).closest('li').remove();
+			});
+            // choose either the full version
+            $(".multiselect").multiSelect();
+            // or disable some features
+            $(".multiselect").multiSelect({ sortable: false, searchable: false });
+
+            //$( "#publish_date" ).datepicker();
+            $('#publish_date').datetimepicker({
+          	  dateFormat: 'dd-mm-yy'
+          });
+            var imgArr = $("#imgs").val().split(",");
+
+            /*if (imgArr.length >= 3)*/
+            {
+            	$('#img1').attr('src',imgArr[0]);
+/*
+            	$('#img2').attr('src',imgArr[1]);
+            	$('#img3').attr('src',imgArr[2]);
+*/            	
+            }
+            $('#cmd-del').click(function () {
+       	        Delete();
+       	        return false;
+
+       	    });
+    	});
+    	function Delete()
+    	{
+    		
+   	        	$('#dialog-form_del').dialog({
+	   	            buttons : {
+	   	             "{{ 'Confirm'|trans }}" : function() {
+   	          	$('#action').val('delete');
+   	   	       	$("#btnsubmit").click();
+   	             },
+   	            "{{'Cancel'|trans }}" : function() {
+   	          	   $(this).dialog("close");
+   	             }
+   	            }
+   	          	});
+   	        $('#dialog-form_del').html("<div style='padding-top:10px;paddig-left:20px;'>{{ 'Are you sure?'|trans }}<div>");
+   	        var opt={'title':"{{ 'Place Management'|trans }}"};
+         	$('#dialog-form_del').dialog(opt);
+   	        $("#dialog-form_del").dialog("open");
+   	       	
+        }
+    	function Save(command)
+    	{
+    		var values = $('#relative_news li').map(function() {
+    		    return this.value;
+    		});
+    		var s = values.get().join(',') ; // "(1,2,5,12)"    		
+    		$('#hi_relative_news').val(s);
+    		
+    		$('#action').val(command);
+
+			//get sections
+			var multipleValues = $("#sections").val() || [];
+
+			$('#subsection_ids').val("");
+			$('#suborder_ids').val("");
+			
+			$('#subsection_ids').val(multipleValues.join(","));
+			/*
+			 $('#suborder_ids').val("");
+			//get orders
+			 jQuery.each(multipleValues, function() {
+				 $('#suborder_ids').val($('#suborder_ids').val() + ",0" );
+			   });
+			 $('#suborder_ids').val($('#suborder_ids').val()+",");
+			 */
+			 $('#suborder_ids').val($('#subsection_orders').val());
+			//get image
+			
+			//$('#imgs').val($('#img1').attr('src')+","+$('#img2').attr('src')+","+$('#img3').attr('src'));
+			$('#imgs').val($('#img1').attr('src'));
+			
+			$('#brief').val(getBrief());
+			/*$('#content').val(getContent());*/
+			
+	    	$('#btnsubmit').click();
+	    	
+       	}
+    	// Call back from CKFinder
+    	function BrowseServerIS(functionName)
+    	{
+    	   // You can use the "CKFinder" class to render CKFinder in a page:
+    	   var finder = new CKFinder();
+    	   // The path for the installation of CKFinder (default = "/ckfinder/").
+    	   finder.BasePath = '/auth/media/fileManager/popup?Type=Images';
+    	   // Name of a function which is called when a file is selected in CKFinder.
+    	   finder.selectActionFunction = functionName;
+    	   // Launch CKFinder
+    	   finder.popup();
+    	}
+    	
+    	// InnovaStudio WYSIWYG Editor version
+    	function SetImage1(fileUrl, data)
+    	{
+    		$('#img1').attr('src',fileUrl);
+    	}
+    	/*
+    	function SetImage2(fileUrl, data)
+    	{
+    		$('#img2').attr('src',fileUrl);
+    	}
+    	function SetImage3(fileUrl, data)
+    	{
+    		$('#img3').attr('src',fileUrl);
+    	}
+    	*/
+		function AddRelativeMarkers(){
+        	
+    		$('#dialog-form-markers').dialog({
+	   			modal: true,
+	   			width:1000,
+   				height:600
+	          	});
+	       $('#dialog-form-markers').load("{{ asset(global_auth_path) }}/add_relative_markers/");
+	       $("#dialog-form-markers").dialog("open");
+        }
+		function AddDetailNews(){
+	        	
+	    		$('#dialog-form').dialog({
+		   			modal: true,
+		   			width:1000,
+	   				height:600
+		          	});
+		       $('#dialog-form').load("{{ asset(global_auth_path) }}/add_relative_news/");
+		       $("#dialog-form").dialog("open");
+	        }
+    </script>
+{% endblock %}
+{% block content %}
+
+            <div id="p-toolbox" class="p-box">
+                <div class="p-box-bottom">
+                <div class="p-box-top clearfix">                    
+                    <ul id="p-commands">
+                    	<li><a id = "cmd-save" href="{{ asset(global_auth_path) }}/map/add"> {{"Save"|trans}}</a></li>
+                    	<li><a id = "cmd-draft" href="{{ asset(global_auth_path) }}/map/draft"> {{"Save draft"|trans}}</a></li>
+                    	<li><a id=	"cmd-info" href="{{asset(global_auth_path)~"/map_preview/"~news.locale~"/"~news.id~"/?id="~news.id}}" target="_blank">{{"Preview"|trans}}</a></li>
+                    	<li><a id = "cmd-del" href="{{ asset(global_auth_path) }}/map/del"> {{"Delete"|trans}}</a></li>
+                		<li><a id = "cmd-close" href="{{ asset(global_auth_path) }}/{{back =="index"?"map":"map_approve" }}"> {{"Close"|trans}}</a></li>
+                    </ul>
+                    
+                    <div class="p-module-title">
+                    	<div id="dialog-form_del" name="dialog-form_del"></div>
+                    	<a id="menu-showhide" href="{{ asset(global_auth_path) }}">{{ "Main Menu"|trans }}</a><h1>{{ "Edit Place"|trans }}</h1></h1>
+                    </div>
+                </div><!-- enddiv: #p-box-top -->
+                </div><!-- enddiv: #p-box-bottom -->
+            </div><!-- enddiv: #p-toolbox -->
+
+            <div id="Div1" class="p-box p-box-space">
+                <div class="p-box-bottom">
+                <div class="p-box-top clearfix"> 
+                {% if errors is not null %}
+		        	<ul class="error">
+		            		
+		            		{% for error in errors %}
+			            		<li> {{ error|trans }}</li>
+			            	{% endfor %}
+		            </ul>
+		        {% endif %}
+            	
+            	</ul>
+                <form method="post" name='frm_newsAdd' action="">
+					<input type="hidden" name='action' id='action' value='{{ action|default("view") }}'>
+					<input type="hidden" name='action_id' id='action_id' value='{{  news.id|default(0) }}'>
+					<input type="hidden" name='brief' id='brief'>                   
+					<input type="hidden" name='content' id='content'>
+					<input type="hidden" name='hi_relative_markers' id='hi_relative_markers' value='{{ news.relativeNews }}'>
+					<input type="hidden" name='hi_relative_news' id='hi_relative_news'>
+					<input type="hidden" name='subsection_ids' id='subsection_ids' value='{{ not news.deleted  ? news.subsectionIds|default('') : ""}}'>
+					<input type="hidden" name='suborder_ids' id='suborder_ids' value='{{ not news.deleted ?news.suborderIds|default(''):"" }}'>
+					<input type="hidden" name='imgs' id='imgs' value='{{ news.imgs|default('')}}'>
+                    <table class="p-insert">                        
+                       <tr>
+							<td  style="width: 150px;">
+								{{ "Language"|trans }}
+							</td>
+							<td>
+								<select id="lang" name="lang"  style="width:200px" >
+								{% for l in langs %}
+									<option value="{{l.code}}" {% if l.code == news.locale %}selected="selected" {% endif %} >{{l.title}}</option>
+								{% endfor %}
+								</select>
+								<input disabled="disabled" id="chk_publish" name="chk_publish" type="checkbox" {% if (not news.locked and not news.deleted) %}checked="checked"{% endif %}/><span>{{ "Publish"|trans }}</span>
+	                             <!-- 
+	                             <input id="chk_headline" name="chk_headline" type="checkbox" {% if (news.frontPage and not news.deleted) %}checked="checked"{% endif %}/><span>{{ "Home"|trans }}</span>
+        	                     <input id="chk_comment" name="chk_comment" type="checkbox" {% if (news.hasComment and not news.deleted) %}checked="checked"{% endif %}/><span>{{ "Comment"|trans }}</span>
+        	                      -->
+                                
+							</td>
+						</tr>
+                        <tr>
+							<td>
+								{{ "Title"|trans }}
+							</td>
+							<td>
+								<input id="title" name="title"  size="105" value="{{ not news.deleted ? news.title|default("") : ""}}" ></input>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{{ "Address"|trans }}
+							</td>
+							<td>
+								<input id="address" name="address"  size="105" value="{{ news.address|default("") }}" ></input>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{{ "Contact"|trans }}
+							</td>
+							<td>
+								<input id="contact" name="contact"  size="105" value="{{ news.pcontact | default("") }}" ></input>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{{ "Longitude"|trans }}
+							</td>
+							<td>
+								<input id="longitude" name="longitude"  size="15" value="{{ news.longitude | default("") }}" ></input>
+								<span>{{ "Latitude"|trans }}</span>
+								<input id="latitude" name="latitude""  size="15" value="{{ news.latitude | default("") }}" ></input>
+							</td>
+						</tr>
+						<tr>
+                            <td>{{ "Publish Date"|trans }}</td>
+                            <td><input id="publish_date" name="publish_date" type="text" value="{%  if (news.publishedAt|date("d-m-Y")  != "01-01-1970" and not news.deleted) %} {{ news.publishedAt|date("d-m-Y  H:i")  }} {% endif %} " /> </td>
+                        </tr>
+						<tr>
+                            <td>{{ "Keywords (separated by ';')"|trans}}</td>
+                            <td><input id="keywords" name="keywords" type="text" size="105" value="{{ not news.deleted ? news.keyword|default("") : "" }}" /></td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Tags (separated by ';')"|trans}}</td>
+                            <td><input id="tags" name="tags" type="text" size="105" value="{{ not news.deleted ? news.tag|default("") : ""}}" /></td>
+                        </tr>
+						<tr>
+                            <td>{{ "Relative places"|trans }}</td>
+                            
+                            <td>
+		                         <a id="add-relative-markers" style="color: red;" onclick="javascript:AddRelativeMarkers()">{{ "Click here to choose place" |trans }}</a>
+	                             <div id="dialog-form-markers" name="dialog-form-markers" title="{{'Add Relative Place'|trans }}"></div>
+		                         <ul id="relative_markers" name="relative_markers">
+		                         	{% for rNews in relativeNewsObjs %}
+		                            		<li class='relative-markers-li' value="{{ rNews.id }}">{{ rNews.title }}&nbsp;&nbsp;&nbsp;&nbsp;<a style='color: red;'>{{ 'Remove' |trans }}</a></li>
+		                            {% endfor %}
+		                         </ul>
+                            </td>
+                        </tr>
+                         <tr>
+							<td>{{ "Main Section"|trans }}
+							</td>
+							<td>
+								<select id="sectionId" name="sectionId" style="width:600px;">
+								{% for section in sections %}
+									<option value="{{section.id}}" {% if section.id == news.sectionId %}selected={% endif %}>{% for i in 1..section.deep-1 if section.deep != 1 %}&nbsp;&nbsp;{% endfor %}{{section.title}}</option>
+								{% endfor %}
+								</select>
+								<span>{{ "Order"|trans }}</span>
+								<input type="text" size="3" value="{{ news.orders }}" id="main_section_order" name="main_section_order">
+							</td>
+						</tr>
+                        <tr>
+							<td>{{ "Section"|trans }}
+							</td>
+							<td>
+								<select id="sections" class="multiselect" multiple="multiple" name="sections[]" style="width:670px; height:200px;">
+								{% for section in sections %}
+									<option value="{{section.id}}" {{ section.id in (news.subsectionIds | split(',')) and not news.deleted ? "selected" : ""}}>{% for i in 1..section.deep-1 if section.deep != 1 %}&nbsp;&nbsp;{% endfor %}{{section.title}}</option>
+								{% endfor %}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>{{ "Section Order"|trans }}
+							</td>
+							<td>
+								<input type="text" id="subsection_orders" name="subsection_orders" size="105" value="{{ news.suborderIds }}">
+							</td>
+						</tr>
+						<tr>
+							<td>{{ "Marker Categories"|trans }}
+							</td>
+							<td>
+								<select id="cagegory_id" name="cagegory_id" style="width:600px;">
+								{% for markerCate in markerCategories %}
+									<option value="{{markerCate.id}}" {% if markerCate.id == news.categoryId %}selected="selected"{% endif %}>{{markerCate.name}}</option>
+								{% endfor %}
+								</select>
+							</td>
+						</tr>
+                       <tr>
+							<td>{{ "Thumnail Images"|trans }}
+							</td>
+							<td>
+								<a onclick="javascript:BrowseServerIS(SetImage1);"><img id="img1" style="float:left;width: 100px;" src="{{ asset(global_web_path) }}/images/noimage.jpg"></img></a>
+								<!-- 
+								<a onclick="javascript:BrowseServerIS(SetImage2);"><img id="img2" style="float:left;width: 50px;padding-left: 10px;" src="{{ asset(global_web_path) }}/images/noimage.jpg"></img></a>
+								<a onclick="javascript:BrowseServerIS(SetImage3);"><img id="img3" style="float:left;width: 30px;padding-left: 10px;" src="{{ asset(global_web_path) }}/images/noimage.jpg"></img></a>
+								 -->
+							</td>
+						</tr>
+                        <tr>
+							<td>
+								{{ "Description"|trans }}
+							</td>
+							<td>
+								<textarea id="brief_" name="brief_" style = "width:400px !important; height:200px;">{{ not news.deleted ? news.brief|default("") : ""}}</textarea>
+								<script type="text/javascript">
+										CKEDITOR.replace( 'brief_',
+										    {
+												filebrowserImageBrowseUrl  : '{{ asset(global_auth_path) }}/media/fileManager/popup?Type=Images',
+												filebrowserBrowseUrl :       '{{ asset(global_auth_path) }}/media/fileManager/popup',
+												toolbar : 'Compact',
+										        height:'200',
+										        width: '780'
+										    });
+										function getBrief(){
+											var editor = CKEDITOR.instances.brief_;
+											return editor.getData();
+										}
+								 </script>
+							</td>
+						</tr>
+						<tr>
+                            <td>{{ "Detail Url"|trans }}</td>
+                            
+                            <td>
+                            <a id="add-relative-news" style="color: red;" onclick="javascript:AddDetailNews()">{{ "Click here to choose news" |trans }}</a>
+                            <div id="dialog-form" name="dialog-form" title="{{'Add Relative News'|trans }}"></div>
+	                            <ul id="relative_news" name="relative_news">
+	                            {% if detailNews %}
+                            		<li class='relative-news-li' value="{{detailNews? detailNews.id }}">{{ detailNews.title }}&nbsp;&nbsp;&nbsp;&nbsp;<a style='color: red;'>{{ 'Remove' |trans }}</a></li>
+                            	{% endif %}
+	                            </ul>
+                            </td>
+                        </tr>
+						<!-- 
+						<tr>
+							<td>
+								{{ "Content"|trans }}
+							</td>
+							<td>
+								<textarea id="content_" name="content_" style = "width:400px !important; height:200px;">{{ not news.deleted ? news.content|default("") : "" }}</textarea>
+								<script type="text/javascript">
+										CKEDITOR.replace( 'content_',
+										    {
+												filebrowserImageBrowseUrl  : '{{ asset(global_auth_path) }}/media/fileManager/popup?Type=Images',
+												filebrowserBrowseUrl :       '{{ asset(global_auth_path) }}/media/fileManager/popup',
+												toolbar : 'Compact',
+										        height:'400',
+										        width: '780'
+										    });
+										function getContent(){
+											
+											var editor = CKEDITOR.instances.content_;
+											return editor.getData();
+											
+										}
+								 </script>
+							</td>
+						</tr>
+						 -->
+
+
+                    </table>     
+                    <input id="btnsubmit" type="submit" value="{{ "Save"|trans }}" style="display:none"/>               
+				</form>
+                </div><!-- enddiv: #p-box-top -->
+                </div><!-- enddiv: #p-box-bottom -->
+            </div><!-- enddiv: #p-content -->
+            <div id="p-toolbox2" class="p-box p-box-space">
+                <div class="p-box-bottom">
+                <div class="p-box-top clearfix">                    
+                    <ul id="p-commands2">
+                    	<li><a id = "cmd-save2" href="{{ asset(global_auth_path) }}/map/add"> {{"Save"|trans}}</a></li>
+                    	<li><a id = "cmd-draft2" href="{{ asset(global_auth_path) }}/map/draft"> {{"Save draft"|trans}}</a></li>
+                    	<li><a id = "cmd-del2" href="{{ asset(global_auth_path) }}/map/del"> {{"Delete"|trans}}</a></li>
+                		<li><a id = "cmd-close2" href="{{ asset(global_auth_path) }}/map"> {{"Close"|trans}}</a></li>
+                    </ul>                    
+                </div><!-- enddiv: #p-box-top -->
+                </div><!-- enddiv: #p-box-bottom -->
+            </div><!-- enddiv: #p-toolbox -->
+    
+{% if errors != null %}
+	<script>
+	{% for key in errors|keys %}
+		{% if key|lower == 'news.locale' %}
+			$('#lang').addClass('required');
+		{% elseif  key|lower == 'news.title'%}
+			$('#title').addClass('required');
+		{% elseif key|lower == 'news.subsections_ids' %}
+			$('#sections').addClass('required');
+		{% elseif key|lower == 'news.brief' %}
+			$('#brief').addClass('required');			
+		{% elseif key|lower == 'news.content' %}
+			$('#content').addClass('required');
+		{% elseif key|lower == 'news.published_at' %}
+			$('#publish_date').addClass('required');
+		{% endif %}
+	{% endfor %}
+	</script>
+	<style type="text/css">
+		
+		.required{border-color: red;}
+	</style>
+{% endif %}	
+{% endblock %}	

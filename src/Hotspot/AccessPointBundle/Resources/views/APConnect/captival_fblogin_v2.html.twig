@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <title>LOGIN</title>
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/vendor.css">
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/main.css">
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/responsive.css">
+
+</head>
+<body>
+<div class="container-wrap login-n4">
+    <main class="wrapper">
+        <div class="content">
+            <div class="content-top">
+                <h2 class="heading">Kính chào quý khách</h2>
+                <div class="owl-carousel owl-theme owl-login-n4">
+                    <div class="item">
+                        <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg' }}" alt="">
+                        {% if params['apName'] is not empty %}
+                            <h1 class="title-slide">{{ params['apName'] | upper | replace ({'WIADS':'', '-' :''}) }}</h1>
+                        {% endif %}
+                    </div>
+                    <div class="item">
+                        <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg' }}" alt="">
+                        {% if params['apName'] is not empty %}
+                            <h1 class="title-slide">{{ params['apName'] | upper | replace ({'WIADS':'', '-' :''}) }}</h1>
+                        {% endif %}
+                    </div>
+                    <div class="item">
+                        <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg' }}" alt="">
+                        {% if params['apName'] is not empty %}
+                            <h1 class="title-slide">{{ params['apName'] | upper | replace ({'WIADS':'', '-' :''}) }}</h1>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            <div class="content-bottom">
+                {% if params['apName'] is not empty %}
+                    <h3 class="status">SỬ DỤNG WIFI TẠI {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h3>
+                {% endif %}
+                <form id="form-login" action="#" method="post" accept-charset="utf-8">
+                    <h3 class="title">Đăng nhập</h3>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="email_sdt" id="email_sdt" placeholder="Email hoặc số điện thoại">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-login" onclick="sub_next(-1);" type="button">Kết nối</button>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-login-fb" onclick="sub_face(-1);">Kết nối bằng Facebook</a>
+                    </div>
+                </form>
+                <p class="text-end">Đăng nhập hoặc kết nối với Facebook để tiếp tục</p>
+            </div>
+            <div style="display: none">
+                <form class="login-form" novalidate="novalidate" id='login_frm' name='login_frm' method='post' action='{{params['loginpath']}}'>
+                    <input type='hidden' name='called' value='{{params['called']}}'>
+                    <input type='hidden' name='mac' value='{{params['mac']}}'>
+                    <input type='hidden' name='challenge' value='{{params['challenge']}}'>
+                    <input type='hidden' name='uamip' value='{{params['uamip']}}'>
+                    <input type='hidden' name='ip' value='{{params['ip']}}'>
+                    <input type='hidden' name='uamport' value='{{params['uamport']}}'>
+                    <input type='hidden' name='userurl' value='{{params['userurl']|url_encode}}'>
+                    <input type='hidden' id='advertId' name='advertId' value='-1'>
+                    <input type='hidden' name='button' value='Free Internet'>
+                </form>
+                <li><img src="/ap/track_login.html?called={{ params['called'] }}&mac={{ params['mac'] }}&challenge={{ params['challenge'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}"/></li>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+<!-- SCRIPTS -->
+<script src="/bundles/hotspotaccesspoint/v6/scripts/jquery.min.js"></script>
+<script src="/bundles/hotspotaccesspoint/v6/scripts/vendor.js"></script>
+<script src="/bundles/hotspotaccesspoint/v6/scripts/app.js"></script>
+<script>
+    function Login(value)
+    {
+        //$('#advertId').val(value);
+        //$( "#login_frm" ).submit();
+    }
+
+</script>
+<script>
+    function sub_next(value){
+        var email_sdt = $('#email_sdt').val();
+
+        var email_regex = /^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        var phone_regex = /^[0-9]+$/;
+
+        if(email_sdt == ''){
+            alert('Vui lòng nhập Email hoặc số điện thoại!');
+            $("#email_sdt").focus();
+            return;
+        }
+
+        $.ajax({
+            type : 'POST',
+            url : "{{ path('advertiser_saverequest_userlogin') }}",
+            //dataType : 'json',
+            data: {
+                type:'form', email:email_sdt, mac: "{{params['called']}}"
+            },
+            success : function(data){
+                if(data.status == 1){
+
+                }
+
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {}
+        });
+
+        $('#advertId').val(value);
+        $( "#login_frm" ).submit();
+    }
+
+    function sub_face(value){
+        FB.login(function(response) {
+            if (response.authResponse) {
+                loginSuccess(value);
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        }, {
+            scope: 'email'
+        });
+    }
+    function loginSuccess(value) {
+        FB.api('/me?fields=id,name,email,picture', function(response) {
+            var uid     = response.id;
+            var name    = response.name;
+            var email   = response.email;
+            //console.log('UID:' +uid);
+            //console.log('NAME:' +name);
+            //console.log('EMAIL:' +email);
+            //console.log('INFO:', +response);
+            $.ajax({
+                type : 'POST',
+                url : "{{ path('advertiser_saverequest_userlogin') }}",
+                //dataType : 'json',
+                data: {
+                    type:'facebook',uid:uid, name:name, email:email, phone:'', address:'', mac: "{{params['called']}}"
+                },
+                success : function(data){
+                    if(data.status == 1){
+
+                    }
+
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {}
+            });
+
+            $('#advertId').val(value);
+            $( "#login_frm" ).submit();
+        });
+    }
+</script>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1170851923040308',
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+        /*FB.getLoginStatus(function(response) {
+         statusChangeCallback(response);
+         });*/
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+</html>

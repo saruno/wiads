@@ -1,0 +1,199 @@
+{% extends 'PortalAdminBundle::layout.html.twig' %}
+{% block head %}
+{{ parent() }}
+	<script src="/assets/portalauth/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+	<script src="/assets/portalauth/js/ckfinder/ckfinder.js" type="text/javascript"></script>
+    <script>
+    	$(function (){
+    		$('#lang').change(function () {
+    			$(this).closest('form').submit();
+    	    });
+    		$('#section_type').change(function () {
+    			$(this).closest('form').submit();
+    	    });
+    	    $('#btnsubmit').click(function(){
+    	    	$('#description').val(getDescription());
+				$('#action').val('save');
+				$(this).closest('form').submit();
+				return false;
+    	    });
+    	    
+    	    $('#menu-showhide').click(function () {
+    	    	window.location.href = $(this).attr('href') + '?section_type='+ $('#section_type').val()+'&lang='+$('#lang').val();
+    	    	return false;
+    	    });	
+    	    $('#cmd-close').click(function () {
+    	    	window.location.href = $(this).attr('href') + '?section_type='+ $('#section_type').val()+'&lang='+$('#lang').val();
+    	    	return false;
+    	    });	
+    	    $('#cmd-save').click(function () {
+    	    	$('#btnsubmit').click();
+    	    	return false;
+    	    });	
+    	    
+    	});
+    </script>
+{% endblock %}
+{% block content %}
+
+<div id="p-toolbox" class="p-box">
+    <div class="p-box-bottom">
+        <div class="p-box-top clearfix">
+            <ul id="p-commands">
+                <li><a id = "cmd-save" href="/auth/section/add"> {{"Save"|trans}}</a></li>
+                <li><a id = "cmd-close" href="/auth/section"> {{"Close"|trans}}</a></li>
+            </ul>
+            <div class="p-module-title">
+                <a id="menu-showhide" href="/auth/">{{ "Main Menu"|trans }}</a><h1>{{ "Add section"|trans }}</h1></h1>
+            </div>
+        </div>
+        <!-- enddiv: #p-box-top -->
+    </div>
+    <!-- enddiv: #p-box-bottom -->
+</div>
+<!-- enddiv: #p-toolbox -->
+<div id="Div1" class="p-box p-box-space">
+    <div class="p-box-bottom">
+        <div class="p-box-top clearfix">
+            <div id="p-options">
+            </div>
+            <div id="searchresults">
+            	<ul class="error">
+            	{% for error in errors %}
+            		<li> {{ error }}</li>
+            	{% endfor %}
+            	</ul>
+            	<form method="post" name='frm_sectionAdd' action="">
+					<input type="hidden" name='action' id='action' value='{{ action|default("add") }}'>
+					<input type="hidden" name='action_id' id='action_id' value='{{ action|default(0) }}'>
+					<input type="hidden" name='description' id='description'>
+					<table class="p-insert">
+						<tr>
+							<td  style="width: 150px;">
+								{{ "Language"|trans }}
+							</td>
+							<td>
+								<select id="lang" name="lang"  style="width:200px" >
+								{% for l in langs %}
+									<option value="{{l.code}}" {% if l.code == lang %}selected="selected" {% endif %} >{{l.title}}</option>
+								{% endfor %}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>{{ "Section Type"|trans }}
+							</td>
+							<td>
+								{% include "PortalAdminBundle:Section:section_type_list.html.twig" %}
+							</td>
+						</tr>
+						
+						<tr>
+							<td>{{ "Publish"|trans }}
+							</td>
+							<td>
+								<select id="publish" name="publish"  style="width:200px">
+									<option value="0" {% if publish|default(0) == 0 %}selected="selected" {% endif %}>{{ "Yes"|trans }}</option>
+									<option value="1" {% if publish|default(0) == 1 %}selected="selected" {% endif %}>{{ "No"|trans }}</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>{{ "Parent Section"|trans }}
+							</td>
+							<td>
+								<select id="parent_section" name="parent_section"  style="width:400px">
+								<option value='-1'>---- {{ "No"|trans }} ----</option>
+								{% for section in parent_sections %}
+									<option value="{{section.id}}" {% if section.id == current_parent_section|default(-1) %}selected="selected" {% endif %}>{% for i in 1..section.deep-1 if section.deep != 1 %}&nbsp;&nbsp;{% endfor %}{{section.title}}</option>
+								{% endfor %}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{{ "Title"|trans }}
+							</td>
+							<td>
+								<input id="title" name="title"  style="width:400px" value="{{ title|default("") }}" ></input>
+							</td>
+						</tr>
+
+						
+						<tr>
+							<td>
+								{{ "Description"|trans }}
+							</td>
+							<td>
+								<textarea id="description_" name="description_" style = "width:400px !important; height:100px;">{{ description|default("") }}</textarea>
+								<script type="text/javascript">
+										CKEDITOR.replace( 'description_',
+										    {
+												filebrowserImageBrowseUrl  : '/auth/media/fileManager/popup?Type=Images',
+												filebrowserBrowseUrl :       '/auth/media/fileManager/popup',
+												toolbarStartupExpanded : false,
+												toolbar : 'Compact',
+										        height:'100',
+										        width: '780'
+										    });
+										function getDescription(){
+											
+											var editor = CKEDITOR.instances.description_;
+											return editor.getData();
+											
+										}
+								 </script>
+							</td>
+						</tr>
+						
+					   
+						<tr>
+							<td>
+							</td>
+							<td>
+								<input id="btnsubmit" type="submit" value="{{ "Save"|trans }}"/>
+							</td>
+						</tr>
+					</table>
+					<style type="text/css">
+						select#section_type { width: 200px; }
+						.required{border-color: red;}
+					</style>
+					
+				</form>
+            	
+               
+            </div>
+           
+
+        </div>
+        <!-- enddiv: #p-box-top -->
+    </div>
+    <!-- enddiv: #p-box-bottom -->
+</div>
+{% if errors != null %}
+	<script>
+	{% for key in errors|keys %}
+		{% if key|lower == 'section.bundle_id' %}
+			$('#section_type').addClass('required');
+		{% elseif  key|lower == 'section.locale'%}
+			$('#lang').addClass('required');
+		{% elseif key|lower == 'section.parent' %}
+			$('#parent_section').addClass('required');
+		{% elseif key|lower == 'section.title' %}
+			$('#title').addClass('required');			
+		{% elseif key|lower == 'section.order' %}
+			$('#order').addClass('required');
+		{% elseif key|lower == 'section.locked' %}
+			$('#publish').addClass('required');
+		{% elseif key|lower == 'section.brief' %}
+			$('#description').addClass('required');
+		{% endif %}
+	{% endfor %}
+	</script>
+{% endif %}	
+{% endblock %}	
