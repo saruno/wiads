@@ -454,15 +454,22 @@ class ApLogHelper{
             $post_by_subquery=" and (c.post_by='".$params['post_by']."' or c.post_by is null or c.post_by='') ";
         }
         if($params['user_company']==-1){
-	        $user_company_subquery=' ';
+            $user_company_subquery=' ';
         }
         else{
-	        $user_company_subquery=" and c.post_by='".$params['user_company']."'";
+            $user_company_subquery=" and c.post_by='".$params['user_company']."'";
+        }
+        if($params['ap_name']==-1){
+            $ap_name_subquery=' ';
+        }
+        else{
+            $ap_name_subquery=" and c.name like '%".$params['ap_name']."%'";
         }
 		if(key_exists('level', $params)){
 			if($params['level']==2){
 				$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner,'-' as popup,  '-' as `access_num`  from accesspoint a, accesspoint_i18n c
 					where a.id=c.id
+					".$ap_name_subquery."
 					".$province_subquery."
 					".$company_subquery."
 					".$post_by_subquery."
@@ -483,6 +490,7 @@ class ApLogHelper{
 			$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner,'-' as popup,  '-' as `access_num` 
 			from accesspoint a, accesspoint_i18n c
 					where a.id=c.id
+					".$ap_name_subquery."
 					".$province_subquery."
 					".$company_subquery."
 					".$post_by_subquery."
@@ -510,6 +518,7 @@ class ApLogHelper{
 			//$to=$params["to"];
 			$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner, '-' as popup, '-' as `access_num`  from accesspoint a, accesspoint_i18n c
 					where a.id=c.id
+					".$ap_name_subquery."
 					".$province_subquery."
 					".$company_subquery."
 					".$post_by_subquery."
@@ -532,7 +541,7 @@ class ApLogHelper{
 					
 					order by province,updated_at, created_at";
 		}
-		//echo $query;
+//		echo $query;
 		$stmt = $connection->prepare($query);
 		$stmt->execute();
 		return $stmt->fetchAll(2);

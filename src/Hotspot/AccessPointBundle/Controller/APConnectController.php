@@ -2005,7 +2005,8 @@ class APConnectController extends Controller
 		    'post_by' => '-1'
 	    );
 	    //////////////////////////
-	    if ($this->get('security.authorization_checker')->isGranted('ROLE_OPERATOR_LEVEl_01')
+        /// Quyền cao nhất, làm mọi thứ liên quan đến user,qc
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_OPERATOR_LEVEl_01')
 	    ) {
 		    $params = array_merge($params, array(
 			    'level' => 1
@@ -2026,6 +2027,7 @@ class APConnectController extends Controller
 			    'level' => 4
 		    ));
 	    }
+	    //Chỉ view thông tin
 	    if ($this->get('security.authorization_checker')->isGranted('ROLE_OPERATOR_LEVEl_05')) {
 		    $params = array_merge($params, array(
 			    'level' => 5
@@ -2145,6 +2147,7 @@ class APConnectController extends Controller
         if($status_view==1){
 	        $params['company']=$request->get('company','-1');
 	        $params['user_company']=$request->get('user_company','-1');
+	        $params['ap_name']=$request->get('ap_name', '-1');
             $page = $request->get('page',1);
             $maxPerPage = 50;
             $params = array_merge($params,array(
