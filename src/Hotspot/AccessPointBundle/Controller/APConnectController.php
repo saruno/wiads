@@ -766,24 +766,24 @@ class APConnectController extends Controller
 		//when user click an ads from system
 		if(!empty($linkTo) && $advertId!=-1) {
 			return $this->redirect($linkTo,301);
-			if ( ! empty( $adv ) && $adv->getHomePosition() == 'QAF_v4' ) {
-				//return $this->render('HotspotAccessPointBundle:APConnect:success_v4.html.twig', array('responses' => $responses, 'params' => $params, 'adv' => $adv, 'linkTo' => $linkTo));
-				return $this->render( $template, array(
-					'responses' => $responses,
-					'params'    => $params,
-					'adv'       => $adv,
-					'ads'       => $ads,
-					'linkTo'    => $linkTo
-				) );
-			} else {
-				//return $this->render('HotspotAccessPointBundle:APConnect:success_v4.html.twig', array('responses' => $responses, 'params' => $params, 'adv' => $adv, 'linkTo' => $linkTo));
-				return $this->render( $template, array(
-					'responses' => $responses,
-					'params'    => $params,
-					'adv'       => $adv,
-					'linkTo'    => $linkTo
-				) );
-			}
+//			if ( ! empty( $adv ) && $adv->getHomePosition() == 'QAF_v4' ) {
+//				//return $this->render('HotspotAccessPointBundle:APConnect:success_v4.html.twig', array('responses' => $responses, 'params' => $params, 'adv' => $adv, 'linkTo' => $linkTo));
+//				return $this->render( $template, array(
+//					'responses' => $responses,
+//					'params'    => $params,
+//					'adv'       => $adv,
+//					'ads'       => $ads,
+//					'linkTo'    => $linkTo
+//				) );
+//			} else {
+//				//return $this->render('HotspotAccessPointBundle:APConnect:success_v4.html.twig', array('responses' => $responses, 'params' => $params, 'adv' => $adv, 'linkTo' => $linkTo));
+//				return $this->render( $template, array(
+//					'responses' => $responses,
+//					'params'    => $params,
+//					'adv'       => $adv,
+//					'linkTo'    => $linkTo
+//				) );
+//			}
 		}
 		//if not, redirect to success page
 		else{
