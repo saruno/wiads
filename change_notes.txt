@@ -1,2 +1,6 @@
 ---12/12/2017---
 - Update captival_full_screen_v6.html.twig -> Sửa bấm nút "Kết nối" chuyển thành Login(advert_id) mở sang trang của quảng cáo
+Cũ là bấm "Kết nối" chuyển thành Login(-1)
+
+---14/12/2017---
+- Update redirectAdvert.html.twig -> Sửa đoạn <meta http-equiv="REFRESH"> trực tiếp về url quảng cáo luôn mà không cần đợi (content=0)

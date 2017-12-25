@@ -3,7 +3,7 @@
 <head>
 <title>Redirecting...</title>
 
-<meta http-equiv="REFRESH" content="0;url={{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}"></HEAD>
+<meta http-equiv="REFRESH" content="5;url={{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}"></HEAD>
 
 <BODY>
 
@@ -32,9 +32,9 @@
         }, 500)
     }
     //Tu dong bat ra popup toi trang quang cao chinh la day
-    {#$(function() {#}
-        {#var link = "{{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}";#}
-        {#goLink(link);#}
-    {#});#}
+    $(function() {
+        var link = "{{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}";
+        goLink(link);
+    });
 </script>
 </HTML>

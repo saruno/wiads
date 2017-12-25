@@ -55,7 +55,7 @@
             </div>
             <div class="content-bottom">
                 {% if params['apName'] is not empty %}
-                    <h3 class="status">SỬ DỤNG WIFI TẠI {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h3>
+                    <h3 class="status">SỬ DỤNG WIFI {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h3>
                 {% endif %}
                 {% if ads['QAF_v4'] is not empty %}
                     <a href="javascript:Login('{{ ads['QAF_v4'].id }}');" class="btn-connect">Kết nối</a>
