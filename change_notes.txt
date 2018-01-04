@@ -13,4 +13,5 @@ Cũ là bấm "Kết nối" chuyển thành Login(-1)
 
 ---04/01/2018---
 - Update captival_full_screen_v6.html.twig -> Sửa bấm nút "Kết nối" chuyển thành Login(advert_id) mở sang trang của quảng cáo
-Cũ là bấm "Kết nối" chuyển thành Login(-1). Phải sửa lại thành Login(-1) vì tỉ lệ chuyển đổi user thấp
+Cũ là bấm "Kết nối" chuyển thành Login(-1). Phải sửa lại thành Login(-1) lúc trước vì tỉ lệ chuyển đổi user thấp
+- Update APConnectController, ApConfigHelper, report.html vì thêm đoạn sửa uamdomains

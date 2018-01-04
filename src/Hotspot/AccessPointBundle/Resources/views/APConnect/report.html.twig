@@ -138,7 +138,7 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">Chọn tốc độ dụng+thời gian sử dụng:</label>
+                                <label class="control-label">Chọn tốc độ / Thời gian sử dụng:</label>
                                 <div class="controls">
                                     <select id="bw_profile" name="bw_profile" class="span11">
                                         {% for profile in bwProfiles %}
@@ -179,6 +179,14 @@
                                             <option value="{{ app.user.company }}">{{ app.user.name }}</option>
                                         {% endif %}
                                     </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">UAMDOMAINS<br/>(Nên để mặc định)</label>
+                                <div class="controls controls-row">
+                                    <div class="input-append span12">
+                                        <input type="text"  id="uamdomains" name="uamdomains" value="" class="span6" >
+                                    </div>
                                 </div>
                             </div>
                             {% if app.user and not is_granted('ROLE_OPERATOR_LEVEl_05') %}
@@ -299,7 +307,7 @@
 
                         $('#detail_url').val(ap.detail_url);
 
-
+                        $('#uamdomains').val(ap.uamdomains);
                         if(ap.trash){
                             $('#activated').prop('checked', false);
                             $('#activated').closest("span").removeClass("checked");

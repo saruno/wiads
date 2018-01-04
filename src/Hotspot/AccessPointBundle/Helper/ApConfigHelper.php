@@ -379,8 +379,11 @@ class ApConfigHelper{
 				//$apConfig->setHosts('125.212.233.15 enter.wiads.vn');
 				//$apConfig->setUamformatNext('HS_UAMFORMAT=http://enter.wiads.vn/ap');
 				//$apConfig->setUpdateUamformat('option update_uamformat 1');
-				$apConfig->setUamdomainsNext("HS_UAMDOMAINS='.wiads.vn,.hotspotwifisystem.com,meganet.com.vn,.meganet.com.vn,.valuepotion.com,valuepotion.com,daumcdn.net,.daumcdn.net,bs.serving-sys.com,junoteam.com,.junoteam.com,.facebook.com,.facebook.net,.akamaitechnologies.com,.akamaihd.net,.akamaiedge.net,.akamaitechnologies.com,.fbcdn.net'");
-				if(trim($apConfig->getUamdomains()!=$apConfig->getUamdomainsNext())) {
+//				$apConfig->setUamdomainsNext("HS_UAMDOMAINS='.wiads.vn,.hotspotwifisystem.com,meganet.com.vn,.meganet.com.vn,.valuepotion.com,valuepotion.com,daumcdn.net,.daumcdn.net,bs.serving-sys.com,junoteam.com,.junoteam.com,.facebook.com,.facebook.net,.akamaitechnologies.com,.akamaihd.net,.akamaiedge.net,.akamaitechnologies.com,.fbcdn.net'");
+				if (!empty($params['uamdomains'])) {
+				    $apConfig->setUamdomainsNext($params['uamdomains']);
+                }
+                if(trim($apConfig->getUamdomains()!=$apConfig->getUamdomainsNext())) {
 					$apConfig->setNeedUpdate("1");
 					$apConfig->setUpdateUamdomains( 'option update_uamdomains 1' );
 				}

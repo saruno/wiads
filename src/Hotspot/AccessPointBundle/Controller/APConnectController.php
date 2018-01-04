@@ -1916,6 +1916,7 @@ class APConnectController extends Controller
                 'platform' => $apConfig->getPlatform(),
                 'firmware' => empty($firmware)?'':$firmware->getPlatform()."-".$firmware->getFwVersion(),
                 'hasNewFirmware' => $hasNewFirmware,
+                'uamdomains' => $apConfig->getUamdomains()
                 //'bwProfiles' => $bwProfiles
             )));
         }
@@ -1950,6 +1951,7 @@ class APConnectController extends Controller
         $reboot=$request->get('reboot',0);
 	    $reset=$request->get('reset',0);
         $login_template=$request->get('login_template','');
+        $uamdomains=$request->get('uamdomains', 'HS_UAMDOMAINS=\'.wiads.vn,.hotspotwifisystem.com,meganet.com.vn,.meganet.com.vn,.valuepotion.com,valuepotion.com,daumcdn.net,.daumcdn.net,bs.serving-sys.com,junoteam.com,.junoteam.com,.facebook.com,.facebook.net,.akamaitechnologies.com,.akamaihd.net,.akamaiedge.net,.akamaitechnologies.com,.fbcdn.net,.gstatic.com,.android.com\'');
         $ap_mode=$request->get('ap_mode','option normal_mode 0');
         if($ap_mode!="option normal_mode 0" && $ap_mode!="option normal_mode 1")
             $ap_mode="option normal_mode 0";
@@ -2080,6 +2082,7 @@ class APConnectController extends Controller
                     'disable_img' => $disable_img,
                     'file_name'=>'/media/images/nhnhat/'.$fileName,
                     'detail_url' => $detail_url,
+                    'uamdomains' => $uamdomains
                     //'post_by'=>$this->get('security.token_storage')->getToken()->getUser()->getUsername(),
                     //'user'=>$this->get('security.token_storage')->getToken()->getUser()
                 ));
