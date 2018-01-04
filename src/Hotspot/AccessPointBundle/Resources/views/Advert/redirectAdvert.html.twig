@@ -3,7 +3,7 @@
 <head>
 <title>Redirecting...</title>
 
-<meta http-equiv="REFRESH" content="0;url={{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}"></HEAD>
+<meta http-equiv="REFRESH" content="5;url={{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}"></HEAD>
 
 <BODY>
 
@@ -16,7 +16,7 @@
     function goLink(link) {
         setTimeout (function () {
 
-            var A = document.createElement ("a")
+            var A = document.createElement ("a");
             A.setAttribute ("href", link);
             A.setAttribute ("target", "_blank");
             var Body = document.getElementsByTagName ("body");
@@ -36,5 +36,15 @@
         {#var link = "{{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}";#}
         {#goLink(link);#}
     {#});#}
+    function autoOpenLinkAdv()
+    {
+        var link = "{{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}";
+        var anchor = document.createElement('a');
+        anchor.href = link;
+        window.document.body.insertBefore(anchor, window.document.body.firstChild);
+
+        setTimeout(function(){ anchor.click(); }, 500);
+    }
+    autoOpenLinkAdv();
 </script>
 </HTML>

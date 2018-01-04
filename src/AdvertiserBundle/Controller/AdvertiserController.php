@@ -75,8 +75,8 @@ class AdvertiserController extends Controller
             }
         }
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADS_APPROVE_LEVEL_2')){
-            $customer = CustomerQuery::create()->
-            filterByOwner($usr->getUsername())
+            $customer = CustomerQuery::create()
+                ->filterByOwner($usr->getUsername())
                 ->select(array('id','username'))
                 ->find();
             $company = UserQuery::create()

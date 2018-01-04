@@ -55,7 +55,8 @@
             </div>
             <div class="content-bottom">
                 {% if params['apName'] is not empty %}
-                    <h3 class="status">SỬ DỤNG WIFI {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h3>
+                    {#<h3 class="status">SỬ DỤNG WIFI {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h3>#}
+                    <h3 class="status">CLICK VÀO ẢNH TRÊN ĐỂ SỬ DỤNG WIFI</h3>
                 {% endif %}
                 {% if ads['QAF_v4'] is not empty %}
                     <a href="javascript:Login('{{ ads['QAF_v4'].id }}');" class="btn-connect">Kết nối</a>
@@ -92,6 +93,7 @@
         FB.init({
             appId      : '1170851923040308',
             xfbml      : true,
+            cookie     : false,
             version    : 'v2.8'
         });
         /*FB.getLoginStatus(function(response) {

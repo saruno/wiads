@@ -4,3 +4,13 @@ Cũ là bấm "Kết nối" chuyển thành Login(-1)
 
 ---14/12/2017---
 - Update redirectAdvert.html.twig -> Sửa đoạn <meta http-equiv="REFRESH"> trực tiếp về url quảng cáo luôn mà không cần đợi (content=0)
+
+---28/12/2017---
+- Update captival_full_screen_v6.html.twig -> Sửa FB.init (cookie = false)
+
+---02/01/2018---
+- Update captival_full_screen_v6.html.twig -> Thêm hàm autoOpenLinkAdv() để tắt popup và mở trang web quảng cáo trực tiếp trên trình duyệt
+
+---04/01/2018---
+- Update captival_full_screen_v6.html.twig -> Sửa bấm nút "Kết nối" chuyển thành Login(advert_id) mở sang trang của quảng cáo
+Cũ là bấm "Kết nối" chuyển thành Login(-1). Phải sửa lại thành Login(-1) vì tỉ lệ chuyển đổi user thấp
