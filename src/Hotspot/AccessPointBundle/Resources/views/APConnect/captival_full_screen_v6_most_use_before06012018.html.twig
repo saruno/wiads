@@ -22,7 +22,7 @@
     <main class="wrapper">
         <div class="content">
             <div class="content-top">
-                <p>  </p>
+                <h2 class="heading">Kính chào quý khách</h2>
                 <div class="owl-carousel owl-theme owl-login-n1">
                     {% if params['apImage'] is not empty %}
                         <div class="item">
@@ -54,13 +54,17 @@
                 </div>
             </div>
             <div class="content-bottom">
-                {% if ads['QAF_v4'] is not empty %}
-                    <a href="javascript:Login('{{ ads['QAF_v4'].id }}');" class="btn-connect-normal">Kết nối Wifi</a>
-                {% else %}
-                    <a href="javascript:Login('-1');" class="btn-connect">Kết nối Wif</a>
+                {% if params['apName'] is not empty %}
+                    {#<h3 class="status">SỬ DỤNG WIFI {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h3>#}
+                    <h3 class="status">CLICK VÀO ẢNH TRÊN ĐỂ SỬ DỤNG WIFI</h3>
                 {% endif %}
-                <p class="text-copyright">Liên hệ QC : wiadsjsc@gmail.com</p>
-                {#<a class="btn-login" href="javascript:sub_face('-1');" title="login-with-facebook"><img src="/bundles/hotspotaccesspoint/v6/images/login-facebook-button.svg" alt=""></a>#}
+                {% if ads['QAF_v4'] is not empty %}
+                    <a href="javascript:Login('{{ ads['QAF_v4'].id }}');" class="btn-connect">Kết nối</a>
+                {% else %}
+                    <a href="javascript:Login('-1');" class="btn-connect">Kết nối</a>
+                {% endif %}
+                <p class="text-content">Để trải nghiệm wifi một cách tốt nhất vui lòng mở trình duyệt WEB và LOGIN</p>
+                <a class="btn-login" href="javascript:sub_face('-1');" title="login-with-facebook"><img src="/bundles/hotspotaccesspoint/v6/images/login-facebook-button.svg" alt=""></a>
             </div>
         </div>
     </main>
