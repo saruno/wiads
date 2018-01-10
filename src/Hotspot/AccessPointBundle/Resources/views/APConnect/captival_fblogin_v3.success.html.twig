@@ -31,7 +31,7 @@
                         </div>
                         {% if ads is not empty %}
                             <div class="item">
-                                <a href="javascript:goLink('http://enter.wiads.vn{{ linkTo is not empty?linkTo:ads[0].linkTo~"?called="~params['called']~"&mac="~params['mac']~"&ip="~params['ip']}}')" target="_blank">
+                                <a href="javascript:goLink('{{ linkTo is not empty?linkTo:ads[0].linkTo~"?called="~params['called']~"&mac="~params['mac']~"&ip="~params['ip']}}')" target="_blank">
                                     <img src="/ap/display2.html?id={{ ads[0].Id }}&link={{ ads[0].linkTo | url_encode}}?called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="">
                                 </a>
                             </div>
@@ -39,7 +39,7 @@
                     {% else %}
                         {% if ads is not empty %}
                             <div class="item">
-                                <a href="javascript:goLink('http://enter.wiads.vn{{ linkTo is not empty?linkTo:ads[0].linkTo~"?called="~params['called']~"&mac="~params['mac']~"&ip="~params['ip']}}')" target="_blank">
+                                <a href="javascript:goLink('{{ linkTo is not empty?linkTo:ads[0].linkTo~"?called="~params['called']~"&mac="~params['mac']~"&ip="~params['ip']}}')" target="_blank">
                                     <img src="/ap/display2.html?id={{ ads[0].Id }}&link={{ ads[0].linkTo | url_encode}}?called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="">
                                 </a>
                             </div>
@@ -54,6 +54,11 @@
             </div>
             <div class="content-bottom">
                 <a id="btn-facebook" href="javascript:sub_face('-1');" class="btn-connect-fb">Tiếp tục với Facebook</a>
+                {% if params['apDetailUrl'] is not empty %}
+                    <a href="javascript:goLink('{{ params['apDetailUrl'] }}');" class="btn-connect-normal">Truy cập ngay (Tốc độ thấp)</a>
+                {% elseif ads is not empty %}
+                    <a href="javascript:goLink('{{ linkTo is not empty?linkTo:ads[0].linkTo~"?called="~params['called']~"&mac="~params['mac']~"&ip="~params['ip']}}');" class="btn-connect-normal">Truy cập ngay (Tốc độ thấp)</a>
+                {% endif %}
                 <p class="text-copyright">Powered by Wiads.vn, Liên hệ QC : wiadsjsc@gmail.com</p>
                 {#<a class="btn-login" href="javascript:sub_face('-1');" title="login-with-facebook"><img src="/bundles/hotspotaccesspoint/v6/images/login-facebook-button.svg" alt=""></a>#}
             </div>
@@ -94,7 +99,7 @@
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
                 console.log('We are connected.');
-                $('#btn-facebook').html('Share để vào Internet');
+                $('#btn-facebook').html('Share & Post Facebook');
                 $('#fb-status').val('1');
             } else {
                 console.log('You are not logged into Facebook.');
@@ -118,7 +123,7 @@
             FB.login(function (response) {
                 if (response.authResponse) {
 //                    share_face();
-                    $('#btn-facebook').html('Share để vào Internet');
+                    $('#btn-facebook').html('Share & Post Facebook');
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
@@ -167,6 +172,28 @@
             $('#advertId').val(value);
             $( "#login_frm" ).submit();
         });
+    }
+
+    function goLink(link) {
+        setTimeout (function () {
+            if (!link.startsWith('http')) {
+                link = 'http://enter.wiads.vn' + link;
+            }
+            var A = document.createElement ("a")
+            A.setAttribute ("href", link);
+            A.setAttribute ("target", "_blank");
+            var Body = document.getElementsByTagName ("body");
+            if (Body.length > 0) {
+                Body = Body [0];
+            } else {
+                Body = document.createElement ("body");
+                document.getElementsByTagName ("html") [0].appendChild (Body);
+            }
+            Body.appendChild (A);
+            A.click ();
+            window.document.title = 'Kết nối thành công';
+            window.document.write('Bạn đã có thể dùng Internet');
+        }, 500)
     }
 </script>
 </body>

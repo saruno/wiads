@@ -37,7 +37,7 @@
                     {% endif %}
                     {% if ads is not empty %}
                         <div class="item">
-                            <a href="javascript:goLink('http://enter.wiads.vn{{ linkTo is not empty?linkTo:ads[0].linkTo~"?called="~params['called']~"&mac="~params['mac']~"&ip="~params['ip']}}')" target="_blank">
+                            <a href="javascript:goLink('{{ linkTo is not empty?linkTo:ads[0].linkTo~"?called="~params['called']~"&mac="~params['mac']~"&ip="~params['ip']}}')" target="_blank">
                                 <img src="/ap/display2.html?id={{ ads[0].Id }}&link={{ ads[0].linkTo | url_encode}}?called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="">
                             </a>
                         </div>
@@ -62,7 +62,9 @@
 <script>
     function goLink(link) {
         setTimeout (function () {
-
+            if (!link.startsWith('http')) {
+                link = 'http://enter.wiads.vn' + link;
+            }
             var A = document.createElement ("a")
             A.setAttribute ("href", link);
             A.setAttribute ("target", "_blank");

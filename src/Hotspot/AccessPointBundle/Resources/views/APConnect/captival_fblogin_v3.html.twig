@@ -54,7 +54,12 @@
             </div>
             <div class="content-bottom">
                 <h4 class="status" style="color:#4c4c4c;font-family: Open Sans, Helvetica,Arial,sans-serif;">SỬ DỤNG WIFI : {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h4>
-                <a href="javascript:Login('-3');" class="btn-connect-fb">Bắt đầu sử dụng Internet</a>
+                <a href="javascript:Login('-3');" class="btn-connect-fb">Đăng nhập & Share Facebook</a>
+                {% if ads['QAF_v4'] is not empty %}
+                    <a href="javascript:Login('{{ ads['QAF_v4'].id }}');" class="btn-connect-normal">Đăng nhập nhanh (Tốc độ thấp)</a>
+                {% else %}
+                    <a href="javascript:Login('-1');" class="btn-connect-normal">Đăng nhập nhanh (Tốc độ thấp)</a>
+                {% endif %}
                 <p class="text-copyright">Powered by Wiads.vn, Liên hệ QC : wiadsjsc@gmail.com</p>
                 {#<a class="btn-login" href="javascript:sub_face('-1');" title="login-with-facebook"><img src="/bundles/hotspotaccesspoint/v6/images/login-facebook-button.svg" alt=""></a>#}
             </div>
