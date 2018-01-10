@@ -20,12 +20,12 @@
                 var img = 'http://wiads.vn/wp-content/uploads/2013/04/wifi-mien-phi.png';
                 FB.ui({
                     method: 'feed',
-                    name: 'Share to user Internet',
-                    //link: 'https://www.facebook.com/wicomwifimarketing',
-                    link: '{{ params['apUrl'] }}',
-                    target:'_parent',
-                    picture: img,
-                    description: 'Share to user Internet'
+                    //name: 'Share to user Internet',
+                    //link: '{{ params['apUrl'] }}',
+                    //target:'_parent',
+                    //picture: img,
+                    //description: 'Share to user Internet'
+                    link: img
                 }, function (response) {
                     //console.log(response);
                     if (response && response.post_id) {
