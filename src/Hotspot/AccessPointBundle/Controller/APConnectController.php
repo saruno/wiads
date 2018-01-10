@@ -1971,7 +1971,7 @@ class APConnectController extends Controller
         $provinces= LocationQuery::create()->orderById()->find();
 
         $templates = array('captival_full_screen_v4.html.twig'=>'Quảng cáo chung - 640x710',
-                           'captival_fblogin_v2.html.twig'=>'Login bằng Facebook',
+                           'captival_fblogin_v3.html.twig'=>'Login bằng Facebook',
                            /*'captival_fb_share_login.html.twig'=>'Share Facebook để dùng Internet',
                            'captival_vlp.html.twig'=>'Value point Ads',
                            */

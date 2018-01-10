@@ -93,17 +93,6 @@
         /*FB.getLoginStatus(function(response) {
          statusChangeCallback(response);
          });*/
-        FB.getLoginStatus(function(response) {
-            if (response.status === 'connected') {
-                console.log('We are connected.');
-                $('#btn-facebook').html('Share & Access Internet');
-                $('#fb-status').val('1');
-            } else {
-                console.log('You are not logged into Facebook.');
-                $('#btn-facebook').html('Login with Facebook');
-                $('#fb-status').val('0');
-            }
-        });
     };
 
     (function(d, s, id){
@@ -135,8 +124,8 @@
     function share_face() {
         FB.ui({
             method: 'share',
-            mobile_iframe: true,
-            href: 'https://www.facebook.com/pipochaosknight/',
+//            mobile_iframe: true,
+//            href: 'https://www.facebook.com/pipochaosknight/',
         }, function(response){
             $('#btn-facebook').html('Ready Access Internet');
         });
