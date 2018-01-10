@@ -643,10 +643,14 @@ class APConnectController extends Controller
 			'limit'=>'1'
 		));
 
+		$apInfo = ApConfigHelper::getAPInfo($params['called']);
+		$detailUrl = $apInfo->getDetailUrl();
+
 		$params = array_merge($params,array(
 			'apName'=>ApConfigHelper::getAPName($params['called']),
 			'apImage'=>ApConfigHelper::getAPImage($params['called']),
-			'apUrl'=>ApConfigHelper::getAPUrl($params['called'],$params)
+			'apUrl'=>ApConfigHelper::getAPUrl($params['called'],$params),
+            'apDetailUrl'=> $detailUrl
 		));
 
 		//
@@ -699,6 +703,13 @@ class APConnectController extends Controller
 			return $this->render($template,array('responses'=>$responses,'params' =>$params,'ads'=>$ads,'adv' => $adv, 'linkTo'=>$linkTo) );
 		}
 		*/
+		if($advertId==-3){
+		    $tempUrl='http://enter.wiads.vn/ap/?called=' . $called . '&ip='.$ip . '&mac=' . $mac
+                . '&md=F7BA0A6206F6C499AE0877D697CBF208&nasid=wiads_nasid&res=success&sessionid=' . $sessionid . '&timeleft=' . $timeleft
+                . '&uamip=' . $uamip . '&uamport=' . $uamport . '&uid=wiads_free_unlimited&userurl=';
+            $linkTo = "/ap/go.html?id=-2" . "&link=" . trim(urlencode(trim($tempUrl))) . "&called=" . $params['called'] . "&mac=" . $params['mac'] . "&ip=" . $params['ip'] . "&userurl=" . htmlspecialchars($params['[user_url]']);
+            return $this->redirect($linkTo,301);
+        }
 		if($advertId==-2){
 			//if(empty($template))
 			//    $template = 'HotspotAccessPointBundle:APConnect:' . trim($params['called'] . '.html.twig');
@@ -744,7 +755,7 @@ class APConnectController extends Controller
 			}
 		}
 		if($advertId==-1 && !empty($ads)){
-		    //Nếu click vào nút Kết nối và danh sách quảng cáo truy vấn từ params mà rỗng
+		    //Nếu click vào nút Kết nối và danh sách quảng cáo truy vấn từ params mà ko rỗng
 			$linkTo="";
 			if(empty($linkTo))
 				$linkTo=AdvertHelper::getAdvLink($ads[0]->getId(), $params);

@@ -19,3 +19,8 @@ Cũ là bấm "Kết nối" chuyển thành Login(-1). Phải sửa lại thành
 ---06/01/2018---
 - Update loginning_progress.html.twig -> Thêm ảnh quảng cáo của wiads dưới thanh chạy
 - Update fix giao dien cua captival_full_screen_v6.html.twig
+
+---09/01/2018---
+- Update redirectAdvert.html.twig -> Sửa các link thành {{url | raw}}
+- Update 18-A6-F7-53-E9-1A.html.twig -> Login va share facebook
+- Update APConnectController.php (WifiLoginSuccess) co advertId = 3 -> Login va share facebook

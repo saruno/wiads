@@ -3,11 +3,11 @@
 <head>
 <title>Redirecting...</title>
 
-<meta http-equiv="REFRESH" content="5;url={{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}"></HEAD>
+<meta http-equiv="REFRESH" content="5;url={{ url | raw }}"></HEAD>
 
 <BODY>
 
-<a href="javascript:goLink('{{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}')" target="_blank">
+<a href="javascript:goLink('{{ url | raw }}')" target="_blank">
     Vui lòng chờ 5s hoặc nhấn vào đây
 </a>
 </BODY>
@@ -38,7 +38,8 @@
     {#});#}
     function autoOpenLinkAdv()
     {
-        var link = "{{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}";
+        {#var link = "{{ url|slice(0, 4)!="http"?"http://":""}}{{ url | raw}}";#}
+        var link = "{{ url | raw }}";
         var anchor = document.createElement('a');
         anchor.href = link;
         window.document.body.insertBefore(anchor, window.document.body.firstChild);
