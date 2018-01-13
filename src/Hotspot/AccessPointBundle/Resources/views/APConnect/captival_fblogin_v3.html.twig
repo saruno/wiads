@@ -14,6 +14,20 @@
             $('#advertId').val(value);
             $( "#login_frm" ).submit();
         }
+
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = true;
+            a.src = g;
+            m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', 'http://www.google-analytics.com/analytics.js', 'ga');
+        ga( 'create', 'UA-112383743-1', 'auto' );
+        ga( 'send', 'pageview' );
     </script>
 </head>
 
@@ -25,13 +39,13 @@
                 <div class="owl-carousel owl-theme owl-login-n1">
                     {% if params['apImage'] is not empty %}
                         <div class="item">
-                            <a href="javascript:Login('-2');">
+                            <a href="javascript:Login('-2');ga('send', 'event', 'banner', 'click', 'apImage');">
                                 <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg'}}" alt="">
                             </a>
                         </div>
                         {% if ads['QAF_v4'] is not empty %}
                         <div class="item">
-                            <a href="javascript:Login('{{ ads['QAF_v4'].id }}');">
+                            <a href="javascript:Login('{{ ads['QAF_v4'].id }}');ga('send', 'event', 'banner', 'click', '{{ ads['QAF_v4'].id }}');">
                                 <img src="/ap/display.html?id={{ ads['QAF_v4'].id }}&link={{ ads['QAF_v4'].linkTo | url_encode}}&position=QAF_v4&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="">
                             </a>
                         </div>
@@ -39,13 +53,13 @@
                     {% else %}
                         {% if ads['QAF_v4'] is not empty %}
                             <div class="item">
-                                <a href="javascript:Login('{{ ads['QAF_v4'].id }}');">
+                                <a href="javascript:Login('{{ ads['QAF_v4'].id }}');ga('send', 'event', 'banner', 'click', '{{ ads['QAF_v4'].id }}');">
                                     <img src="/ap/display.html?id={{ ads['QAF_v4'].id }}&link={{ ads['QAF_v4'].linkTo | url_encode}}&position=QAF_v4&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="">
                                 </a>
                             </div>
                         {% endif %}
                         <div class="item">
-                            <a href="javascript:Login('-2');">
+                            <a href="javascript:Login('-2');ga('send', 'event', 'banner', 'click', 'wiadsImage');">
                                 <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg'}}" alt="">
                             </a>
                         </div>
@@ -54,11 +68,11 @@
             </div>
             <div class="content-bottom">
                 <h4 class="status" style="color:#4c4c4c;font-family: Open Sans, Helvetica,Arial,sans-serif;">SỬ DỤNG WIFI : {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h4>
-                <a href="javascript:Login('-3');" class="btn-connect-fb">Đăng nhập & Share Facebook</a>
+                <a href="javascript:Login('-3');ga('send', 'event', 'button facebook', 'click', 'facebook connect');" class="btn-connect-fb">Đăng nhập & Share Facebook</a>
                 {% if ads['QAF_v4'] is not empty %}
-                    <a href="javascript:Login('{{ ads['QAF_v4'].id }}');" class="btn-connect-normal">Đăng nhập nhanh (Tốc độ thấp)</a>
+                    <a href="javascript:Login('{{ ads['QAF_v4'].id }}');ga('send', 'event', 'button quick', 'click', '{{ ads['QAF_v4'].id }}');" class="btn-connect-normal">Đăng nhập nhanh (Tốc độ thấp)</a>
                 {% else %}
-                    <a href="javascript:Login('-1');" class="btn-connect-normal">Đăng nhập nhanh (Tốc độ thấp)</a>
+                    <a href="javascript:Login('-1');ga('send', 'event', 'button quick', 'click', 'no ads');" class="btn-connect-normal">Đăng nhập nhanh (Tốc độ thấp)</a>
                 {% endif %}
                 <p class="text-copyright">Powered by Wiads.vn, Liên hệ QC : wiadsjsc@gmail.com</p>
                 {#<a class="btn-login" href="javascript:sub_face('-1');" title="login-with-facebook"><img src="/bundles/hotspotaccesspoint/v6/images/login-facebook-button.svg" alt=""></a>#}
