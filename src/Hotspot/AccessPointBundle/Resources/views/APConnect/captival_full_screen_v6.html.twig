@@ -41,13 +41,13 @@
                 <div class="owl-carousel owl-theme owl-login-n1">
                     {% if params['apImage'] is not empty %}
                         <div class="item">
-                            <a href="javascript:Login('-2');ga('send', 'event', 'banner', 'click', 'apImage');">
+                            <a href="javascript:Login('-2');ga('send', 'event', 'bannerShop', 'clickBannerShop', 'apImage');">
                                 <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg'}}" alt="">
                             </a>
                         </div>
                         {% if ads['QAF_v4'] is not empty %}
                         <div class="item">
-                            <a href="javascript:Login('{{ ads['QAF_v4'].id }}');ga('send', 'event', 'banner', 'click', '{{ ads['QAF_v4'].id }}');">
+                            <a href="javascript:Login('{{ ads['QAF_v4'].id }}');ga('send', 'event', 'bannerAds', 'clickBannerAds', '{{ ads['QAF_v4'].id }}');">
                                 <img src="/ap/display.html?id={{ ads['QAF_v4'].id }}&link={{ ads['QAF_v4'].linkTo | url_encode}}&position=QAF_v4&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="">
                             </a>
                         </div>
@@ -55,13 +55,13 @@
                     {% else %}
                         {% if ads['QAF_v4'] is not empty %}
                             <div class="item">
-                                <a href="javascript:Login('{{ ads['QAF_v4'].id }}');ga('send', 'event', 'banner', 'click', '{{ ads['QAF_v4'].id }}');">
+                                <a href="javascript:Login('{{ ads['QAF_v4'].id }}');ga('send', 'event', 'bannerAds', 'clickBannerAds', '{{ ads['QAF_v4'].id }}');">
                                     <img src="/ap/display.html?id={{ ads['QAF_v4'].id }}&link={{ ads['QAF_v4'].linkTo | url_encode}}&position=QAF_v4&called={{ params['called'] }}&mac={{ params['mac'] }}&uamip={{ params['uamip'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}" alt="">
                                 </a>
                             </div>
                         {% endif %}
                         <div class="item">
-                            <a href="javascript:Login('-2');ga('send', 'event', 'banner', 'click', 'wiadsImage');">
+                            <a href="javascript:Login('-2');ga('send', 'event', 'bannerWiads', 'clickBannerWiads', 'wiadsImage');">
                                 <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg'}}" alt="">
                             </a>
                         </div>
@@ -72,9 +72,9 @@
                 <h4 class="status" style="color:#4c4c4c;font-family: Open Sans, Helvetica,Arial,sans-serif;">SỬ DỤNG WIFI : {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h4>
                 {% if ads['QAF_v4'] is not empty %}
                     <p class="status" style="color:#ACACAC;font-family: Open Sans, Helvetica,Arial,sans-serif;font-size: 18px">Wifi được tài trợ</p>
-                    <a href="javascript:Login('{{ ads['QAF_v4'].id }}');ga('send', 'event', 'button', 'click', '{{ ads['QAF_v4'].id }}');" class="btn-connect-normal">Khám phá và kết nối Wifi</a>
+                    <a href="javascript:Login('{{ ads['QAF_v4'].id }}');ga('send', 'event', 'buttonAds', 'clickBtnAds', '{{ ads['QAF_v4'].id }}');" class="btn-connect-normal">Khám phá và kết nối Wifi</a>
                 {% else %}
-                    <a href="javascript:Login('-1');ga('send', 'event', 'button', 'click', 'no ads');" class="btn-connect-normal">Kết nối Wifi</a>
+                    <a href="javascript:Login('-1');ga('send', 'event', 'buttonNoAds', 'clickBtnNoAds', 'no ads');" class="btn-connect-normal">Kết nối Wifi</a>
                 {% endif %}
                 <p class="text-copyright">Powered by Wiads.vn, Liên hệ QC : wiadsjsc@gmail.com</p>
                 {#<a class="btn-login" href="javascript:sub_face('-1');" title="login-with-facebook"><img src="/bundles/hotspotaccesspoint/v6/images/login-facebook-button.svg" alt=""></a>#}
