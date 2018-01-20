@@ -29,11 +29,11 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">Mac:</label>
+                                <label class="control-label">    </label>
                                 <div class="controls" style="overflow: hidden;">
                                     <div class="input-append span12">
                                         <input type="button" value="Kiểm tra MAC" name="verifyMac" id="verifyMac" class="btn btn-primary span3">
-                                        <input type="button" value="Kiểm tra ảnh banner" name="viewMacImage" id="viewMacImage" class="btn btn-primary span3"/>
+                                        <input type="button" value="Kiểm tra trang login" name="viewMacImage" id="viewMacImage" class="btn btn-primary span3"/>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">Tùy chọn:</label>
+                                <label class="control-label">Mật khẩu:</label>
                                 <div class="controls">
                                     <label class="span2">
                                         <input type="checkbox" name="usewifipass" id="usewifipass" value='1'>Dùng mật khẩu:
@@ -95,10 +95,18 @@
                                 </div>
                             </div>
                             <div class="control-group">
+                                <label class="control-label">Ảnh Banner Quảng Cáo:</label>
+                                <div class="controls controls-row">
+                                    <a id="ap_image_link" name="ap_image_link" href="#">
+                                        <img id="ap_image" name="ap_image" title="Ảnh Banner" src="https://www.oatey.com/ASSETS/WEB_THEMES//OATEY/images/NoImage.png" style="max-height: 100px; max-width: 100px;" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="control-group">
                                 <label class="control-label">Tùy chọn:</label>
                                 <div class="controls">
                                     <label>
-                                        <input type="checkbox" name="change_img" id="change_img" value='1' />Đổi ảnh quán (1242x300 hoặc 1242x450):
+                                        <input type="checkbox" name="change_img" id="change_img" value='1' />Đổi ảnh quán (Tỉ lệ 640x720):
                                         {{ form_widget(form.image_file) }}
                                         {{ form_errors(form.image_file) }}
                                     </label>
@@ -138,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">Chọn tốc độ / Thời gian sử dụng:</label>
+                                <label class="control-label">Chọn Tốc độ / Thời gian :</label>
                                 <div class="controls">
                                     <select id="bw_profile" name="bw_profile" class="span11">
                                         {% for profile in bwProfiles %}
@@ -187,6 +195,25 @@
                                     <div class="input-append span12">
                                         <input type="text"  id="uamdomains" name="uamdomains" value="" class="span6" >
                                     </div>
+                                </div>
+                            </div>
+                            {#Slide ảnh quảng cáo của quán#}
+                            <div class="control-group">
+                                <label class="control-label">Slide Ảnh (Tối đa 3 ảnh):</label>
+                                <div class="controls controls-row">
+                                    <img id="image_slide_1" name="image_slide_1" title="Ảnh Slide 1" src="https://www.oatey.com/ASSETS/WEB_THEMES//OATEY/images/NoImage.png" style="max-height: 100px; max-width: 100px;" />
+                                    <img id="image_slide_2" name="image_slide_2" title="Ảnh Slide 2" src="https://www.oatey.com/ASSETS/WEB_THEMES//OATEY/images/NoImage.png" style="max-height: 100px; max-width: 100px;" />
+                                    <img id="image_slide_3" name="image_slide_3" title="Ảnh Slide 3" src="https://www.oatey.com/ASSETS/WEB_THEMES//OATEY/images/NoImage.png" style="max-height: 100px; max-width: 100px;" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Đổi ảnh Slide<br/>(Tỉ lệ 640x720):</label>
+                                <div class="controls">
+                                    <label>
+                                        {{ form_widget(form.image_slide_1) }}
+                                        {{ form_widget(form.image_slide_2) }}
+                                        {{ form_widget(form.image_slide_3) }}
+                                    </label>
                                 </div>
                             </div>
                             {% if app.user and not is_granted('ROLE_OPERATOR_LEVEl_05') %}
@@ -308,6 +335,28 @@
                         $('#detail_url').val(ap.detail_url);
 
                         $('#uamdomains').val(ap.uamdomains);
+                        if(ap.ap_image) {
+                            $("#ap_image").attr('src', ap.ap_image);
+                            $("#ap_image_link").attr('href', ap.ap_image);
+                        } else {
+                            $("#ap_image").attr('src', "https://www.oatey.com/ASSETS/WEB_THEMES//OATEY/images/NoImage.png");
+                            $("#ap_image_link").attr('href', "#");
+                        }
+                        if (ap.image_slide_1) {
+                            $("#image_slide_1").attr('src', ap.image_slide_1);
+                        } else {
+                            $("#image_slide_1").attr('src', "https://www.oatey.com/ASSETS/WEB_THEMES//OATEY/images/NoImage.png");
+                        }
+                        if (ap.image_slide_2) {
+                            $("#image_slide_2").attr('src', ap.image_slide_2);
+                        } else {
+                            $("#image_slide_2").attr('src', "https://www.oatey.com/ASSETS/WEB_THEMES//OATEY/images/NoImage.png");
+                        }
+                        if (ap.image_slide_3) {
+                            $("#image_slide_3").attr('src', ap.image_slide_3);
+                        } else {
+                            $("#image_slide_3").attr('src', "https://www.oatey.com/ASSETS/WEB_THEMES//OATEY/images/NoImage.png");
+                        }
                         if(ap.trash){
                             $('#activated').prop('checked', false);
                             $('#activated').closest("span").removeClass("checked");

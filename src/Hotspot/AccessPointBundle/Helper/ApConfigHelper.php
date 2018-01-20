@@ -363,6 +363,9 @@ class ApConfigHelper{
 			if(!empty($params['detail_url']) && trim(strtolower($params['detail_url']))=='del'){
 				$apInfo->setDetailUrl('');
 			}
+			if(!empty($params['apImgs'])) {
+			    $apInfo->setImgs($params['apImgs']);
+            }
 			$apInfo->keepUpdateDateUnchanged();
 			$apInfo->save();
 

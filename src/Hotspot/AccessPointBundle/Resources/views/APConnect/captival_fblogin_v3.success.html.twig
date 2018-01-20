@@ -68,10 +68,10 @@
             </div>
             <div class="content-bottom">
                 <a id="btn-facebook" href="javascript:sub_face('-1');" class="btn-connect-fb">Tiếp tục với Facebook</a>
-                {% if params['apDetailUrl'] is not empty %}
-                    <a id="btn-normal" href="javascript:goLink('{{ params['apDetailUrl'] }}');ga('send', 'event', 'button quick', 'clickBtnQuickNoAds', 'no ads');" class="btn-connect-normal">Truy cập ngay (Tốc độ thấp)</a>
-                {% elseif ads is not empty %}
+                {% if ads is not empty %}
                     <a id="btn-normal" href="javascript:goLink('{{ linkTo is not empty?linkTo:ads[0].linkTo~"?called="~params['called']~"&mac="~params['mac']~"&ip="~params['ip']}}');ga('send', 'event', 'button quick', 'clickBtnQuickAds', '{{ ads[0].Id }}');" class="btn-connect-normal">Truy cập ngay (Tốc độ thấp)</a>
+                {% elseif params['apDetailUrl'] is not empty %}
+                    <a id="btn-normal" href="javascript:goLink('{{ params['apDetailUrl'] }}');ga('send', 'event', 'button quick', 'clickBtnQuickNoAds', 'no ads');" class="btn-connect-normal">Truy cập ngay (Tốc độ thấp)</a>
                 {% endif %}
                 <p class="text-copyright">Powered by Wiads.vn, Liên hệ QC : wiadsjsc@gmail.com</p>
                 {#<a class="btn-login" href="javascript:sub_face('-1');" title="login-with-facebook"><img src="/bundles/hotspotaccesspoint/v6/images/login-facebook-button.svg" alt=""></a>#}

@@ -36,7 +36,8 @@ class AdvertController extends Controller
 		$wan_ip = $request->getClientIp();
 		if(isset($_SERVER["HTTP_CF_CONNECTING_IP"]))
 			$wan_ip = $_SERVER["HTTP_CF_CONNECTING_IP"];
-		
+
+		$autoRedirect = $request->get('autoRedirect', "0");
 		$params=array();
 		$params = array_merge($params,array(
 				//'wan_ip'=>$this->container->get('request')->server->get("REMOTE_ADDR"),
@@ -56,10 +57,14 @@ class AdvertController extends Controller
 		//var_dump($params);
 		AdvertHelper::writeTrackLog($params);
         //$redirUrl=$redirUrl."&id=".$params['id'];
-        $response	=	$this->render('HotspotAccessPointBundle:Advert:redirectAdvert.html.twig', array('baseUrl'=>$request->getHost(),'url'=>$redirUrl."?called=".$params['called']."&mac=".$params['mac']."&ip=" . $params['ip']));
-		//AdvertHelper::updateRead($redirUrl, $locale);
-		$response->headers->setCookie(new Cookie('adsCookie', $adsCookie,$adsCookieTime));
-		return $response;		
+        if ($autoRedirect == 0) {
+            $response = $this->render('HotspotAccessPointBundle:Advert:redirectAdvert.html.twig', array('baseUrl' => $request->getHost(), 'url' => $redirUrl . "?called=" . $params['called'] . "&mac=" . $params['mac'] . "&ip=" . $params['ip']));
+            //AdvertHelper::updateRead($redirUrl, $locale);
+            $response->headers->setCookie(new Cookie('adsCookie', $adsCookie, $adsCookieTime));
+            return $response;
+        } else {
+            return $this->redirect(rawurldecode($redirUrl),301);
+        }
 	}
 	public function displayAction( Request $request,$locale){
         $redirUrl=trim($request->get('link',$request->getHost()));

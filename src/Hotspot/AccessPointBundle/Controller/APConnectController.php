@@ -704,26 +704,16 @@ class APConnectController extends Controller
 		}
 		*/
 		if($advertId==-3){
+		    //Click vao nut Đăng nhập & Share Facebook o captival_fblogin_v3 de chuyen sang trang captival_fblogin_v3.success
 		    $tempUrl='http://enter.wiads.vn/ap/?called=' . $called . '&ip='.$ip . '&mac=' . $mac
                 . '&md=F7BA0A6206F6C499AE0877D697CBF208&nasid=wiads_nasid&res=success&sessionid=' . $sessionid . '&timeleft=' . $timeleft
                 . '&uamip=' . $uamip . '&uamport=' . $uamport . '&uid=wiads_free_unlimited&userurl=';
             $linkTo = "/ap/go.html?id=-2" . "&link=" . trim(urlencode(trim($tempUrl))) . "&called=" . $params['called'] . "&mac=" . $params['mac'] . "&ip=" . $params['ip'] . "&userurl=" . htmlspecialchars($params['[user_url]']);
             return $this->redirect($linkTo,301);
         }
+        //Mac dinh ko co advertId thi advertId = -1
 		if($advertId==-2){
-			//if(empty($template))
-			//    $template = 'HotspotAccessPointBundle:APConnect:' . trim($params['called'] . '.html.twig');
-
-			//if(empty($template))
-			//    $template = 'HotspotAccessPointBundle:APConnect:' . trim($params['called'] . '.success.html.twig');
-			//$linkTo=ApConfigHelper::getAPUrl($params['called']);
 			$linkTo=ApConfigHelper::getAPUrl($params['called'],$params);
-			//if(empty($linkTo))
-			//    $linkTo=AdvertHelper::getAdvLink($ads[0]->getId(), $params);
-			//if(empty($linkTo) && empty($template) && !$is_privated){
-			//    $template = "HotspotAccessPointBundle:APConnect:captival_vlp.success.html.twig";
-			//}
-
 
 			if(!empty($linkTo))
 				return $this->redirect($linkTo,301);
@@ -731,25 +721,14 @@ class APConnectController extends Controller
 				return $this->render($template,array('responses'=>$responses,'params' =>$params,'ads'=>$ads,'adv' => $adv, 'linkTo'=>$linkTo) );
 			}
 			if(empty($linkTo) && !empty($ads)){
-				//if ( !$this->get('templating')->exists($template) ){
-				//    $template='HotspotAccessPointBundle:APConnect:success_fullscreen_ads.html.twig';
-				//}
 				$linkTo=AdvertHelper::getAdvLink($ads[0]->getId(), $params);
-				//if(!$is_privated)
-				//	$template='HotspotAccessPointBundle:APConnect:success_blank_v5.html.twig';
 				return $this->render($template,array('responses'=>$responses,'params' =>$params,'ads'=>$ads,'adv' => $adv, 'linkTo'=>$linkTo) );
 			}
 			else {
 				if(!empty($adv) && $adv->getHomePosition()=='QAF_v4') {
-					//if ( !$this->get('templating')->exists($template) ){
-					//	$template='HotspotAccessPointBundle:APConnect:success_v4.html.twig';
-					//}
 					return $this->render($template, array('responses' => $responses, 'params' => $params, 'ads' => $ads,'adv' => $adv,  'linkTo' => $linkTo));
 				}
 				else{
-					//if ( !$this->get('templating')->exists($template) ){
-					//	$template='HotspotAccessPointBundle:APConnect:success_v4.html.twig';
-					//}
 					return $this->render($template, array('responses' => $responses, 'params' => $params, 'ads' => $ads,'adv' => $adv,  'linkTo' => $linkTo));
 				}
 			}
@@ -777,24 +756,6 @@ class APConnectController extends Controller
 		//when user click an ads from system
 		if(!empty($linkTo) && $advertId!=-1) {
 			return $this->redirect($linkTo,301);
-//			if ( ! empty( $adv ) && $adv->getHomePosition() == 'QAF_v4' ) {
-//				//return $this->render('HotspotAccessPointBundle:APConnect:success_v4.html.twig', array('responses' => $responses, 'params' => $params, 'adv' => $adv, 'linkTo' => $linkTo));
-//				return $this->render( $template, array(
-//					'responses' => $responses,
-//					'params'    => $params,
-//					'adv'       => $adv,
-//					'ads'       => $ads,
-//					'linkTo'    => $linkTo
-//				) );
-//			} else {
-//				//return $this->render('HotspotAccessPointBundle:APConnect:success_v4.html.twig', array('responses' => $responses, 'params' => $params, 'adv' => $adv, 'linkTo' => $linkTo));
-//				return $this->render( $template, array(
-//					'responses' => $responses,
-//					'params'    => $params,
-//					'adv'       => $adv,
-//					'linkTo'    => $linkTo
-//				) );
-//			}
 		}
 		//if not, redirect to success page
 		else{
@@ -1893,6 +1854,10 @@ class APConnectController extends Controller
 
 	        //exec('wiads_config_helper '.$ap->getMacaddr());
 
+            $apSlideImgs = explode(',', $ap->getImgs());
+            $image_slide_1 = isset($apSlideImgs[0]) ? $apSlideImgs[0] : '';
+            $image_slide_2 = isset($apSlideImgs[1]) ? $apSlideImgs[1] : '';
+            $image_slide_3 = isset($apSlideImgs[2]) ? $apSlideImgs[2] : '';
 
             $key=str_replace('"', '', $apConfig->getKeyNext());
 	        $key=str_replace("'", '', $key);
@@ -1927,7 +1892,11 @@ class APConnectController extends Controller
                 'platform' => $apConfig->getPlatform(),
                 'firmware' => empty($firmware)?'':$firmware->getPlatform()."-".$firmware->getFwVersion(),
                 'hasNewFirmware' => $hasNewFirmware,
-                'uamdomains' => $apConfig->getUamdomains()
+                'uamdomains' => $apConfig->getUamdomains(),
+                'ap_image' => $ap->getImage(),
+                'image_slide_1' => $image_slide_1,
+                'image_slide_2' => $image_slide_2,
+                'image_slide_3' => $image_slide_3
                 //'bwProfiles' => $bwProfiles
             )));
         }
@@ -1977,7 +1946,11 @@ class APConnectController extends Controller
                            */
                            'mac.html.twig'=>'Giải pháp riêng theo MAC - Quảng cáo chung - 640x710');
         $form=$this->createFormBuilder()
-            ->add('image_file', FileType::class, array('label' => 'Ảnh quán'))->getForm();
+            ->add('image_file', FileType::class, array('label' => 'Ảnh quán'))
+            ->add('image_slide_1', FileType::class, array('label' => 'Ảnh quán'))
+            ->add('image_slide_2', FileType::class, array('label' => 'Ảnh quán'))
+            ->add('image_slide_3', FileType::class, array('label' => 'Ảnh quán'))
+            ->getForm();
         $form->handleRequest($request);
 
         /////////
@@ -2068,11 +2041,42 @@ class APConnectController extends Controller
 	    ////////////////////////
         if($macaddr!=""){
             if($form->isSubmitted() && $form->isValid()) {
+                $baseDirImage = '/media/images/nhnhat/';
+                //Ảnh Banner (Đổi tên ảnh)
                 $fileName='';
                 $file=$form['image_file']->getData();
                 if(!empty($file)) {
                     $fileName = trim($macaddr) . '_logo.' . $file->guessExtension();
                 }
+                //Ảnh Slide (Đổi tên ảnh)
+                $ap=ApConfigHelper::getAPInfo($macaddr);
+                $arrApSlideImgs = explode(',', $ap->getImgs());
+                $fileNameSlide1 = isset($arrApSlideImgs[0]) ? $arrApSlideImgs[0] : '';
+                $fileNameSlide2 = isset($arrApSlideImgs[1]) ? $arrApSlideImgs[1] : '';
+                $fileNameSlide3 = isset($arrApSlideImgs[2]) ? $arrApSlideImgs[2] : '';
+                $file_slide_1=$form['image_slide_1']->getData();
+                if(!empty($file_slide_1)) {
+                    $fileNameSlide1=trim($macaddr) . '_slide1.' . $file_slide_1->guessExtension();
+                }
+                $file_slide_2=$form['image_slide_2']->getData();
+                if(!empty($file_slide_2)) {
+                    $fileNameSlide2=trim($macaddr) . '_slide2.' . $file_slide_2->guessExtension();
+                }
+                $file_slide_3=$form['image_slide_3']->getData();
+                if(!empty($file_slide_3)) {
+                    $fileNameSlide3=trim($macaddr) . '_slide3.' . $file_slide_3->guessExtension();
+                }
+                $arrApFinalImg = [];
+                if (isset($fileNameSlide1) && !empty($fileNameSlide1)) {
+                    array_push($arrApFinalImg, $baseDirImage.$fileNameSlide1);
+                }
+                if (isset($fileNameSlide2) && !empty($fileNameSlide2)) {
+                    array_push($arrApFinalImg, $baseDirImage.$fileNameSlide2);
+                }
+                if (isset($fileNameSlide3) && !empty($fileNameSlide3)) {
+                    array_push($arrApFinalImg, $baseDirImage.$fileNameSlide3);
+                }
+                $apImgs = implode(",", $arrApFinalImg);
                 $params= $params = array_merge($params,array(
                     'macaddr'=>trim($macaddr),
                     'name'=>trim($name),
@@ -2091,9 +2095,10 @@ class APConnectController extends Controller
                     'login_template' => $login_template,
                     'ap_mode' => $ap_mode,
                     'disable_img' => $disable_img,
-                    'file_name'=>'/media/images/nhnhat/'.$fileName,
+                    'file_name'=>$baseDirImage.$fileName,
                     'detail_url' => $detail_url,
-                    'uamdomains' => $uamdomains
+                    'uamdomains' => $uamdomains,
+                    'apImgs' => $apImgs
                     //'post_by'=>$this->get('security.token_storage')->getToken()->getUser()->getUsername(),
                     //'user'=>$this->get('security.token_storage')->getToken()->getUser()
                 ));
@@ -2103,10 +2108,21 @@ class APConnectController extends Controller
                     $file=$form['image_file']->getData();
                     //$fileName = md5(uniqid()).'.'.$file->guessExtension();
                     //dump($this->container->getParameter('kernel.root_dir') . DIRECTORY_SEPARATOR.'../web/media/images/nhnhat/');
-	                if(!empty($file))
-                        $file->move($this->container->getParameter('kernel.root_dir') . DIRECTORY_SEPARATOR.'../web/media/images/nhnhat/',$fileName);
-	                    exec("rsync -au -e 'ssh -p 2012' /var/www/enter.wiads.vn/web/media/images/nhnhat/$fileName root@125.212.233.60:/var/www/enter.wiads.vn/web/media/images/nhnhat/$fileName");
-
+	                if(!empty($file)) {
+                        $file->move($this->container->getParameter('kernel.root_dir') . DIRECTORY_SEPARATOR . '../web/media/images/nhnhat/', $fileName);
+                        exec("rsync -au -e 'ssh -p 2012' /var/www/enter.wiads.vn/web/media/images/nhnhat/$fileName root@125.212.233.60:/var/www/enter.wiads.vn/web/media/images/nhnhat/$fileName");
+                    }
+                }
+                if($saveStatus=='Saved!') {
+                    if(!empty($file_slide_1)) {
+                        $file_slide_1->move($this->container->getParameter('kernel.root_dir') . DIRECTORY_SEPARATOR . '../web/media/images/nhnhat/', $fileNameSlide1);
+                    }
+                    if(!empty($file_slide_2)) {
+                        $file_slide_2->move($this->container->getParameter('kernel.root_dir') . DIRECTORY_SEPARATOR . '../web/media/images/nhnhat/', $fileNameSlide2);
+                    }
+                    if(!empty($file_slide_3)) {
+                        $file_slide_3->move($this->container->getParameter('kernel.root_dir') . DIRECTORY_SEPARATOR . '../web/media/images/nhnhat/', $fileNameSlide3);
+                    }
                 }
 	            $saveStatus=$saveStatus." ".$macaddr;
             }
