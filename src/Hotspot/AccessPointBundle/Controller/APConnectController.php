@@ -263,7 +263,8 @@ class APConnectController extends Controller
 		$params = array_merge($params,array(
 			'apName'=>ApConfigHelper::getAPName($params['called']),
 			'apImage'=>ApConfigHelper::getAPImage($params['called']),
-			'apUrl'=>ApConfigHelper::getAPUrl($params['called'],$params)
+			'apUrl'=>ApConfigHelper::getAPUrl($params['called'],$params),
+            'apSlides'=>ApConfigHelper::getAPSlideImgs($params['called'])
 		));
 		//Quy dinh
 		//QA0:1242x698
@@ -568,6 +569,7 @@ class APConnectController extends Controller
 		$sessionid	=	$request->get("sessionid","");
 		$email	    =	$request->get("email","");
 		$advertId	=	$request->get("advertId",'-1');
+		$recall     =   $request->get("recall", 'false'); //Duoc truyen vao khi advertId = 3
 
 		$userurldecode = $userurl;
 		$redirurldecode = $redirurl;
@@ -628,10 +630,12 @@ class APConnectController extends Controller
 		$params = array_merge($params,array('adsCookie'=>$adsCookie));
 
 		$urlEx=explode("___",$params['userurl']);//contain advertId
-		$advertId=$urlEx[0];
+        if ($recall != 'true') {
+            $advertId = $urlEx[0];
+            $params['advertId'] = $advertId;
+        }
 		$params['challenge']=$urlEx[1];
 		$params['[user_url]']=end($urlEx);
-		$params['advertId'] = $advertId;
 
 		//Tang click count của ads_daily_counting
 		$responses = $this->forward('HotspotAccessPointBundle:Advert:callSuccessAds', array('request'=>$request,'params' =>$params));
@@ -705,9 +709,9 @@ class APConnectController extends Controller
 		*/
 		if($advertId==-3){
 		    //Click vao nut Đăng nhập & Share Facebook o captival_fblogin_v3 de chuyen sang trang captival_fblogin_v3.success
-		    $tempUrl='http://enter.wiads.vn/ap/?called=' . $called . '&ip='.$ip . '&mac=' . $mac
+		    $tempUrl='http://enter.wiads.vn/ap/?recall=true&called=' . $called . '&ip='.$ip . '&mac=' . $mac
                 . '&md=F7BA0A6206F6C499AE0877D697CBF208&nasid=wiads_nasid&res=success&sessionid=' . $sessionid . '&timeleft=' . $timeleft
-                . '&uamip=' . $uamip . '&uamport=' . $uamport . '&uid=wiads_free_unlimited&userurl=';
+                . '&uamip=' . $uamip . '&uamport=' . $uamport . '&uid=wiads_free_unlimited&userurl=' . htmlspecialchars($params['userurl']);
             $linkTo = "/ap/go.html?id=-2" . "&link=" . trim(urlencode(trim($tempUrl))) . "&called=" . $params['called'] . "&mac=" . $params['mac'] . "&ip=" . $params['ip'] . "&userurl=" . htmlspecialchars($params['[user_url]']);
             return $this->redirect($linkTo,301);
         }

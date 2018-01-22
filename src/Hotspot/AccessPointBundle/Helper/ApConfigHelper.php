@@ -637,6 +637,21 @@ class ApConfigHelper{
 		else
 			return "";
 	}
+	static public function getAPSlideImgs($mac){
+        $apConfig=AccesspointQuery::create()
+            ->joinWithI18n('vi',Criteria::INNER_JOIN)
+            ->filterByApMacaddr(trim($mac))
+            ->findOne();
+        if($apConfig) {
+            $arrApSlideImgs = [];
+            if (!empty($apConfig->getImgs())) {
+                $arrApSlideImgs = explode(',', $apConfig->getImgs());
+            }
+            return $arrApSlideImgs;
+        }
+        else
+            return "";
+    }
 	static public function getAPUrl($mac,$params = array()){
 		$apConfig=AccesspointQuery::create()
 		                          ->joinWithI18n('vi',Criteria::INNER_JOIN)

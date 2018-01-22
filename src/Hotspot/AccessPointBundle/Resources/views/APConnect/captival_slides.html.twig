@@ -15,6 +15,7 @@
             $( "#login_frm" ).submit();
         }
     </script>
+
 </head>
 
 <body>
@@ -22,13 +23,19 @@
     <main class="wrapper">
         <div class="content">
             <div class="content-top">
+                <p>  </p>
                 <div class="owl-carousel owl-theme owl-login-n1">
                     {% if params['apImage'] is not empty %}
                         <div class="item">
                             <a href="javascript:Login('-2');">
-                                <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg'}}" alt="">
+                                <img src="{{ params['apImage'] }}" alt="">
                             </a>
                         </div>
+                        {% for imgSlide in params['apSlides'] %}
+                            <a href="javascript:Login('-2');">
+                                <img src="{{ imgSlide }}" alt="">
+                            </a>
+                        {% endfor %}
                         {% if ads['QAF_v4'] is not empty %}
                         <div class="item">
                             <a href="javascript:Login('{{ ads['QAF_v4'].id }}');">
@@ -36,6 +43,11 @@
                             </a>
                         </div>
                         {% endif %}
+                        <div class="item">
+                            <a href="javascript:Login('-1');">
+                                <img src="{{ '/bundles/hotspotaccesspoint/v6/images/login_slide_img_final.png'}}" alt="">
+                            </a>
+                        </div>
                     {% else %}
                         {% if ads['QAF_v4'] is not empty %}
                             <div class="item">
@@ -45,8 +57,8 @@
                             </div>
                         {% endif %}
                         <div class="item">
-                            <a href="javascript:Login('-2');">
-                                <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg'}}" alt="">
+                            <a href="javascript:Login('-1');">
+                                <img src="{{ '/bundles/hotspotaccesspoint/v6/images/login_slide_img_final.png'}}" alt="">
                             </a>
                         </div>
                     {% endif %}
@@ -54,12 +66,7 @@
             </div>
             <div class="content-bottom">
                 <h4 class="status" style="color:#4c4c4c;font-family: Open Sans, Helvetica,Arial,sans-serif;">SỬ DỤNG WIFI : {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h4>
-                <a href="javascript:Login('-3');" class="btn-connect-fb">Đăng nhập & Share Facebook</a>
-                {% if ads['QAF_v4'] is not empty %}
-                    <a href="javascript:Login('{{ ads['QAF_v4'].id }}');" class="btn-connect-normal">Đăng nhập nhanh</a>
-                {% else %}
-                    <a href="javascript:Login('-1');" class="btn-connect-normal">Đăng nhập nhanh)</a>
-                {% endif %}
+                <p class="status" style="color:#ACACAC;font-family: Open Sans, Helvetica,Arial,sans-serif;font-size: 18px">Vuốt slide ảnh để truy cập Wifi</p>
                 <p class="text-copyright">Powered by Wiads.vn, Liên hệ QC : wiadsjsc@gmail.com</p>
                 {#<a class="btn-login" href="javascript:sub_face('-1');" title="login-with-facebook"><img src="/bundles/hotspotaccesspoint/v6/images/login-facebook-button.svg" alt=""></a>#}
             </div>
@@ -75,7 +82,6 @@
             <input type='hidden' name='uamport' value='{{params['uamport']}}'>
             <input type='hidden' name='userurl' value='{{params['userurl']|url_encode}}'>
             <input type='hidden' id='advertId' name='advertId' value='-1'>
-            <input type='hidden' id='fb-status' name='fb-status' value='0'>
             <input type='hidden' name='button' value='Free Internet'>
         </form>
         <li><img src="/ap/track_login.html?called={{ params['called'] }}&mac={{ params['mac'] }}&challenge={{ params['challenge'] }}&ip={{ params['ip'] }}&userurl={{params['userurl']|url_encode}}"/></li>
@@ -91,7 +97,7 @@
         FB.init({
             appId      : '1170851923040308',
             xfbml      : true,
-            cookie     : true,
+            cookie     : false,
             version    : 'v2.8'
         });
         /*FB.getLoginStatus(function(response) {
@@ -109,29 +115,14 @@
 </script>
 <script>
     function sub_face(value){
-        if ($('#fb-status').val() == '0') {
-            FB.login(function (response) {
-                if (response.authResponse) {
-                    //loginSuccess(value);
-                    share_face();
-                    $('#btn-facebook').html('Share & Access Internet');
-                } else {
-                    console.log('User cancelled login or did not fully authorize.');
-                }
-            }, {
-                scope: 'email'
-            });
-        } else {
-            share_face();
-        }
-    }
-    function share_face() {
-        FB.ui({
-            method: 'share',
-//            mobile_iframe: true,
-//            href: 'https://www.facebook.com/pipochaosknight/',
-        }, function(response){
-            $('#btn-facebook').html('Ready Access Internet');
+        FB.login(function(response) {
+            if (response.authResponse) {
+                loginSuccess(value);
+            } else {
+                //console.log('User cancelled login or did not fully authorize.');
+            }
+        }, {
+            scope: 'email'
         });
     }
     function loginSuccess(value) {
