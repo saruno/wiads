@@ -569,7 +569,7 @@ class APConnectController extends Controller
 		$sessionid	=	$request->get("sessionid","");
 		$email	    =	$request->get("email","");
 		$advertId	=	$request->get("advertId",'-1');
-		$recall     =   $request->get("recall", 'false'); //Duoc truyen vao khi advertId = 3
+		$recall     =   $request->get("recall", 'false'); //Duoc truyen vao khi advertId = -3
 
 		$userurldecode = $userurl;
 		$redirurldecode = $redirurl;
@@ -615,7 +615,7 @@ class APConnectController extends Controller
 			"called" => $called,
 			"mac"	=>$mac,
 			"sessionid" =>$sessionid,
-			"advertId"=>$advertId,
+//			"advertId"=>$advertId,
 			"userurldecode"=>$userurldecode,
 			"redirurldecode"=>$redirurldecode,
 			"email"=>$email
@@ -644,6 +644,7 @@ class APConnectController extends Controller
 		$params = array_merge($params,array(
 			'phase'=>'login',
 			'position'=>"QAF_v4",
+
 			'limit'=>'1'
 		));
 
@@ -1944,7 +1945,8 @@ class APConnectController extends Controller
         $provinces= LocationQuery::create()->orderById()->find();
 
         $templates = array('captival_full_screen_v4.html.twig'=>'Quảng cáo chung - 640x710',
-                           'captival_fblogin_v3.html.twig'=>'Login bằng Facebook',
+                           'captival_fblogin_v3.html.twig'=>'Share Facebook để dùng Internet',
+                            'captival_slides.html.twig'=>'Xem hết Slide ảnh để dùng Internet',
                            /*'captival_fb_share_login.html.twig'=>'Share Facebook để dùng Internet',
                            'captival_vlp.html.twig'=>'Value point Ads',
                            */
@@ -1977,10 +1979,16 @@ class APConnectController extends Controller
 	    if ($this->get('security.authorization_checker')->isGranted('ROLE_OPERATOR_LEVEl_02')){
 		    $username=$this->getUser()->getUsername();
 	    }
+	    echo "username : ".$this->getUser()->getUsername();
 	    $owners=ApConfigHelper::getOwnerList($username);
 	    $firmwares=ApConfigHelper::getUpdatFirmwareList();
 	    $bwProfiles=ApConfigHelper::getBwProfileList();
-
+        $customer = CustomerQuery::create()->filterByUsername($this->getUser()->getUsername())->findOne();
+        $recordUserAccesspoint = ApConfigHelper::getUserAccesspoint($this->getUser()->getUsername());
+        $arrUserAccesspoint = [];
+        foreach ($recordUserAccesspoint as $oneRecord) {
+            $arrUserAccesspoint[$oneRecord['ap_macaddr']] = ApConfigHelper::getAPName($oneRecord['ap_macaddr']);
+        }
 
 	    $params=array(
 		    'user'=>$this->get('security.token_storage')->getToken()->getUser(),
@@ -1992,7 +2000,9 @@ class APConnectController extends Controller
 		    'province' => $province,
 		    'company'=>trim($company),
 		    'user_company'=> '-1',
-		    'post_by' => '-1'
+		    'post_by' => '-1',
+            'customer_type' => $customer->getType(),
+            'user_accesspoint' => $arrUserAccesspoint
 	    );
 	    //////////////////////////
         /// Quyền cao nhất, làm mọi thứ liên quan đến user,qc
@@ -2061,24 +2071,27 @@ class APConnectController extends Controller
                 $file_slide_1=$form['image_slide_1']->getData();
                 if(!empty($file_slide_1)) {
                     $fileNameSlide1=trim($macaddr) . '_slide1.' . $file_slide_1->guessExtension();
+                    $fileNameSlide1=$baseDirImage.$fileNameSlide1;
                 }
                 $file_slide_2=$form['image_slide_2']->getData();
                 if(!empty($file_slide_2)) {
                     $fileNameSlide2=trim($macaddr) . '_slide2.' . $file_slide_2->guessExtension();
+                    $fileNameSlide2=$baseDirImage.$fileNameSlide2;
                 }
                 $file_slide_3=$form['image_slide_3']->getData();
                 if(!empty($file_slide_3)) {
                     $fileNameSlide3=trim($macaddr) . '_slide3.' . $file_slide_3->guessExtension();
+                    $fileNameSlide3=$baseDirImage.$fileNameSlide3;
                 }
                 $arrApFinalImg = [];
                 if (isset($fileNameSlide1) && !empty($fileNameSlide1)) {
-                    array_push($arrApFinalImg, $baseDirImage.$fileNameSlide1);
+                    array_push($arrApFinalImg, $fileNameSlide1);
                 }
                 if (isset($fileNameSlide2) && !empty($fileNameSlide2)) {
-                    array_push($arrApFinalImg, $baseDirImage.$fileNameSlide2);
+                    array_push($arrApFinalImg, $fileNameSlide2);
                 }
                 if (isset($fileNameSlide3) && !empty($fileNameSlide3)) {
-                    array_push($arrApFinalImg, $baseDirImage.$fileNameSlide3);
+                    array_push($arrApFinalImg, $fileNameSlide3);
                 }
                 $apImgs = implode(",", $arrApFinalImg);
                 $params= $params = array_merge($params,array(

@@ -22,10 +22,19 @@
                             <div class="control-group">
                                 <label class="control-label">Mac:</label>
                                 <div class="controls" style="overflow: hidden;">
-                                    <div class="input-append span12">
-                                        <input type="text" class="span6" id="macaddr" name="macaddr" value="" />
+                                    {% if params['customer_type'] == 'cafeshop' and (params['user_accesspoint'] is not empty) %}
+                                        <select id="macaddr" name="macaddr" class="span6">
+                                            {% for key,value in params['user_accesspoint'] %}
+                                                <option value="{{ key }}">{{ value ~'-' ~ key }}</option>
+                                            {% endfor %}
+                                        </select>
                                         <input type="button" value="Liên lạc nhanh" name="refreshConfig" id="refreshConfig" class="btn btn-primary span3">
-                                    </div>
+                                    {% else %}
+                                        <div class="input-append span12">
+                                            <input type="text" class="span6" id="macaddr" name="macaddr" value="" />
+                                            <input type="button" value="Liên lạc nhanh" name="refreshConfig" id="refreshConfig" class="btn btn-primary span3">
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="control-group">

@@ -24,3 +24,8 @@ Cũ là bấm "Kết nối" chuyển thành Login(-1). Phải sửa lại thành
 - Update redirectAdvert.html.twig -> Sửa các link thành {{url | raw}}
 - Update 18-A6-F7-53-E9-1A.html.twig -> Login va share facebook
 - Update APConnectController.php (WifiLoginSuccess) co advertId = 3 -> Login va share facebook
+
+---25/01/2018---
+- Update fix bug upload image slides
+- Update /AdvertiserBundle/Controller/UserController.php và /AdvertiserBundle/edit.html.twig việc thêm user_accesspoint vào tài khoản
+- Update APConnectController và report.html.twig cho phép chủ nhà hàng chọn lựa các accesspoint mà chủ nhà hàng có

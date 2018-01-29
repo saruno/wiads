@@ -4,6 +4,7 @@ namespace AdvertiserBundle\Controller;
 
 use Common\DbBundle\Model\Base\RoleAssignQuery;
 use Common\DbBundle\Model\CustomerQuery;
+use Hotspot\AccessPointBundle\Helper\ApConfigHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Common\DbBundle\Model\Base\UserQuery;
@@ -153,7 +154,6 @@ class UserController extends BaseController
         /** @var User $usr */
         $usr = $this->get('security.context')->getToken()->getUser();
 
-
         $record = UserQuery::create()->filterById($id)->findOne();
         if($record) {
             
@@ -162,7 +162,6 @@ class UserController extends BaseController
             }else{
                 $customer = CustomerQuery::create()->filterByUsername($record->getUsername())->filterByOwner($usr->getUsername())->findOne();
             }
-            
             $role_assign = RoleAssignQuery::create()->findOneByUserId($record->getId());
             $role_group = RoleGroupQuery::create()->find();
             if($role_assign){
@@ -180,7 +179,15 @@ class UserController extends BaseController
                 $company = $request->get('company', $record->getCompany());
                 $role_group_id = $request->get('role_group_id', $role_group_id);
                 $type = $request->get('type', '');
-
+                $strUserAccesspoint = $request->get('user_accesspoint', 'miss_request');
+                if ($strUserAccesspoint == 'miss_request') {
+                    $strUserAccesspoint = '';
+                    $recordUserAccesspoint = ApConfigHelper::getUserAccesspoint($record->getUsername());
+                    foreach ($recordUserAccesspoint as $oneRecord) {
+                        $strUserAccesspoint .= $oneRecord['ap_macaddr'] . ',';
+                    }
+                    $strUserAccesspoint = substr($strUserAccesspoint, 0, -1);
+                }
                 $params = array(
                     'id' => $record->getId(),
                     'username' => $record->getUsername(),
@@ -188,7 +195,9 @@ class UserController extends BaseController
                     'email' => $email,
                     'name' => $name,
                     'phone' => $phone,
-                    'company' => $company
+                    'company' => $company,
+                    'user_accesspoint' => $strUserAccesspoint,
+                    'customer_type' => $customer->getType()
                 );
 
                 if ($submit == 1) {
@@ -206,6 +215,14 @@ class UserController extends BaseController
                     $role_group_id = $role_group_id == 0 ? '' : $role_group_id;
                     $role_assign->setRoleGroupId($role_group_id);
                     $role_assign->save();
+
+                    ApConfigHelper::deleteUserAccesspoint($record->getUsername());
+                    $arrUserAccessPoint = explode(",", $strUserAccesspoint);
+                    foreach ($arrUserAccessPoint as $oneAccessP) {
+                        if (!empty(trim($oneAccessP))) {
+                            ApConfigHelper::insertUserAccesspoint($record->getUsername(), trim($oneAccessP));
+                        }
+                    }
 
                     $request->getSession()->getFlashBag()->add('success', 'Hiệu chỉnh tài khoản thành công!');
                 }

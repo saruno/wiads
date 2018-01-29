@@ -817,4 +817,26 @@ class ApConfigHelper{
 		}
 		return null;
 	}
+
+	static public function getUserAccesspoint($username) {
+	    $query = "SELECT * FROM user_accesspoint WHERE username = '".$username. "'";
+        $connection = Propel::getConnection();
+        $stmt = $connection->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    static public function insertUserAccesspoint($username, $macaddr) {
+        $connection = Propel::getConnection();
+        $query = "INSERT INTO user_accesspoint(username, ap_macaddr) VALUES ('".$username."', '".$macaddr."')";
+        $stmt = $connection->prepare($query);
+        $stmt->execute();
+    }
+
+    static public function deleteUserAccesspoint($username) {
+        $query = "DELETE FROM user_accesspoint WHERE username = '".$username."'";
+        $connection = Propel::getConnection();
+        $stmt = $connection->prepare($query);
+        $stmt->execute();
+    }
 }

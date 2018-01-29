@@ -72,7 +72,14 @@
                                 <input type="text" class="form-control" name="company" value="{{ params['company'] }}" />
                             </div>
                         </div>
-                       
+                        {% if params['customer_type'] == 'cafeshop' %}
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Các Accesspoint:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control" name="user_accesspoint" value="{{ params['user_accesspoint'] }}" />
+                            </div>
+                        </div>
+                        {% endif %}
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
