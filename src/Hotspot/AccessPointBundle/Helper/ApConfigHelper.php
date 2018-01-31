@@ -342,6 +342,16 @@ class ApConfigHelper{
 					}
 				}
 			}
+			if ($api_service != null) {
+                if(!empty($params['detail_url']) && strpos($params['detail_url'], 'facebook') !== false){
+                    $json=$api_service->getFbId($params['detail_url']);
+                    $json_decode=json_decode($json,true);
+                    if (isset($json_decode['id'])) {
+                        $fbId = $json_decode['id'].'';
+                        $apInfo->setDetailUrlId($fbId);
+                    }
+                }
+            }
 			if($params['activated']==1){
 				$ap=ApConfigQuery::create()->filterByApMacaddr($apInfo->getApMacaddr())->findOne();
 				if($ap) $ap->setActivated(1);
@@ -659,6 +669,14 @@ class ApConfigHelper{
 		                          ->findOne();
 
 		$url=$apConfig->getDetailUrl();
+		$detailUrlId = $apConfig->getDetailUrlId();
+        if (strpos($url, 'facebook') !== false && $detailUrlId != null && !empty($detailUrlId)) {
+            if ($params['os'] == 'Android') {
+                $url = 'fb://page/'.$detailUrlId;
+            } else if ($params['os'] == 'iPhone' || $params['os'] == 'iPad' || $params['os'] == 'iPod') {
+                $url = 'fb://profile/'.$detailUrlId;
+            }
+        }
 		if(!empty($url)) {
 				return "/ap/go.html?id=-2" . "&link=" . trim(urlencode(trim($url))) . "&called=" . $params['called'] . "&mac=" . $params['mac'] . "&ip=" . $params['ip'] . "&userurl=" . htmlspecialchars($params['[user_url]']);
 		}

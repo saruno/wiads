@@ -57,8 +57,10 @@
                 <a href="javascript:Login('-3');" class="btn-connect-fb">Đăng nhập bằng Facebook</a>
                 {% if ads['QAF_v4'] is not empty %}
                     <a href="javascript:Login('{{ ads['QAF_v4'].id }}');" class="btn-connect-normal">Đăng nhập nhanh</a>
+                {% elseif params['apImage'] is not empty %}
+                    <a href="javascript:Login('-2');" class="btn-connect-normal">Kết nối Wifi</a>
                 {% else %}
-                    <a href="javascript:Login('-1');" class="btn-connect-normal">Đăng nhập nhanh</a>
+                    <a href="javascript:Login('-1');" class="btn-connect-normal">Kết nối Wifi</a>
                 {% endif %}
                 <p class="text-copyright">Powered by Wiads.vn, Liên hệ QC : wiadsjsc@gmail.com</p>
                 {#<a class="btn-login" href="javascript:sub_face('-1');" title="login-with-facebook"><img src="/bundles/hotspotaccesspoint/v6/images/login-facebook-button.svg" alt=""></a>#}

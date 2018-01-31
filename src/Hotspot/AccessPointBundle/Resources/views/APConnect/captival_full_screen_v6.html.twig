@@ -59,6 +59,8 @@
                 {% if ads['QAF_v4'] is not empty %}
                     <p class="status" style="color:#ACACAC;font-family: Open Sans, Helvetica,Arial,sans-serif;font-size: 18px">Wifi được tài trợ</p>
                     <a href="javascript:Login('{{ ads['QAF_v4'].id }}');" class="btn-connect-normal">Khám phá và kết nối Wifi</a>
+                {% elseif params['apImage'] is not empty %}
+                    <a href="javascript:Login('-2');" class="btn-connect-normal">Kết nối Wifi</a>
                 {% else %}
                     <a href="javascript:Login('-1');" class="btn-connect-normal">Kết nối Wifi</a>
                 {% endif %}

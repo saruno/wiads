@@ -117,6 +117,29 @@ class APSystemService{
 		//var_dump($result);
 		return $result;
 	}
+
+	public function getFbId($profile_url) {
+        $ch = curl_init();
+        $restUrl="http://ex-api.bai69.com:8070/fb/findid?profile_url=".$profile_url;
+
+        $method="GET";
+
+        curl_setopt($ch, CURLOPT_URL, $restUrl);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_COOKIESESSION, false);
+        curl_setopt($ch, CURLOPT_POST, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        //$result= file_get_contents($restUrl);
+//        var_dump($result);
+        return $result;
+    }
+
     public function getAdsmeeLinkPortal($accesspoint_id, $ssid, $fullname,$ip, $address,$geo,$status = 'ON')
     {
         $url = 'http://api.wbonus.net/pub/UpdateSub';
