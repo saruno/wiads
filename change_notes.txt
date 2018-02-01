@@ -29,3 +29,12 @@ Cũ là bấm "Kết nối" chuyển thành Login(-1). Phải sửa lại thành
 - Update fix bug upload image slides
 - Update /AdvertiserBundle/Controller/UserController.php và /AdvertiserBundle/edit.html.twig việc thêm user_accesspoint vào tài khoản
 - Update APConnectController và report.html.twig cho phép chủ nhà hàng chọn lựa các accesspoint mà chủ nhà hàng có
+
+---31/01-2018---
+- Update mở link bằng ứng dụng Facebook với các accesspoint có link url là facebook (Update trong APConfigHelper với hàm getApUrl)
+- Update đoạn update fb_id của accesspoint khi lưu thông tin dữ liệu (Trong APConfigHelper->updateApInfo) với api được sửa trong APSystemService
+
+---01/02/3018---
+- Update AdvertiserBundle->DashboardController lấy dữ liệu ra dùng hàm getChartLineAds chứ không dùng hàm getChartLineAds2
+- Update layout_matrix.html.twig thêm CanvasJS
+- Update index.html.twig dùng file index ở trên server thật về

@@ -89,8 +89,8 @@ class DashboardController extends Controller
 
     	$data = $dashboard->getDataIndex($province_choice, $time_); 
 
-        //$chart = $dashboard->getChartLineAds($province_choice, $time_);
-        $chart = $dashboard->getChartLineAds2($province_choice, $time_);
+        $chart = $dashboard->getChartLineAds($province_choice, $time_);
+//        $chart = $dashboard->getChartLineAds2($province_choice, $time_);
         $total_advert = $dashboard->getTotalAdvertiser($province_choice, $time_); 
 
         $this->view_data['province'] = $province;

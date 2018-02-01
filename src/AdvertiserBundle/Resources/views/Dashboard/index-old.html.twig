@@ -1,0 +1,295 @@
+{% extends 'AdvertiserBundle::layout.html.twig' %}
+{% block content %}
+    <div class="row top_tiles">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-sitemap"></i>
+                </div>
+                <div class="count">{{ data['ap_total'] }} : {{ data['ap_total_online'] }} : {{ data['ap_total'] - data['ap_total_online'] }}</div>
+
+                <h3>Accesspoint</h3>
+                <p>SUM : ON : OFF</p>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-institution"></i>
+                </div>
+                <div class="count">{{ data['province'] }}</div>
+
+                <h3>Tỉnh/TP</h3>
+                <p>.</p>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-user"></i>
+                </div>
+                <div class="count">{{ data['user_total'] }}</div>
+
+                <h3>Users</h3>
+                <p>.</p>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-exchange"></i>
+                </div>
+                <div class="count">{{ data['conn_total']|number_format(0, '.', '.') }}</div>
+
+                <h3>Kết nối</h3>
+                <p>.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Chiến dịch quảng cáo <small></small></h2>
+                    <div class="col-md-2">
+                        <select name="province" id="province" class="select2_single form-control">
+                            {% if is_granted('ROLE_OPERATOR_LEVEl_01') %}
+                                <option value="all" {{ province_choice is null ? 'selected' : '' }} selected>Tất cả</option>
+                            {% endif %}
+                            {% for key,value in province %}
+                                <option value="{{ key }}" {{ province_choice == key ? 'selected' : '' }} >{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <button type="submit" class="btn btn-primary" style="padding:5px 12px;margin:0;" id="sub">Áp dụng</button>
+                    </div>
+                    <div class="filter">
+                        <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                            <span></span> <b class="caret"></b>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="demo-container" style="height:280px">
+                            <div id="placeholder33x" class="demo-placeholder"></div>
+                        </div>
+                        <div class="tiles">
+                            <div class="col-md-3 tile">
+                                <span>Total Campaign</span>
+                                <h2>{{ total_advert }}</h2>
+                            </div>
+                            <div class="col-md-3 tile">
+                                <span>Impression</span>
+                                <h2>{{ chart['impression'] }}</h2>
+                            </div>
+                            <div class="col-md-3 tile">
+                                <span>Click</span>
+                                <h2>{{ chart['click'] }}</h2>
+                            </div>
+                            <div class="col-md-3 tile">
+                                <span>CTR</span>
+                                <h2>{{ chart['impression'] > 0 ? (chart['click']*100/chart['impression']) |round(1, 'floor') : 0 }}%</h2>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ asset('/bundles/advertiser/gentelella/js/flot/jquery.flot.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/advertiser/gentelella/js/flot/jquery.flot.pie.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/advertiser/gentelella/js/flot/jquery.flot.orderBars.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/advertiser/gentelella/js/flot/jquery.flot.time.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/advertiser/gentelella/js/flot/date.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/advertiser/gentelella/js/flot/jquery.flot.spline.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/advertiser/gentelella/js/flot/jquery.flot.stack.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/advertiser/gentelella/js/flot/curvedLines.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/advertiser/gentelella/js/flot/jquery.flot.resize.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var start = moment("{{time['start']}}", "YYYY-MM-DD");
+            var end = moment("{{time['end']}}", "YYYY-MM-DD");
+
+            var sub_start, sub_end;
+           
+            sub_start = start.format('YYYY-MM-DD');
+            sub_end = end.format('YYYY-MM-DD');
+
+            console.log('1', sub_end);
+
+            var cb = function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
+                sub_start = start.format('YYYY-MM-DD');
+                sub_end = end.format('YYYY-MM-DD');
+                console.log("show event fired"+sub_start);
+            }
+
+            var optionSet1 = {
+                startDate: start,
+                endDate: end,
+                minDate: '01/01/2012',
+                maxDate: '12/31/2019',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Hôm nay': [moment(), moment()],
+                    'Hôm qua': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '7 ngày trước': [moment().subtract(6, 'days'), moment()],
+                    '30 ngày trước': [moment().subtract(29, 'days'), moment()],
+                    'Tháng này': [moment().startOf('month'), moment().endOf('month')],
+                    'Tháng trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'left',
+                buttonClasses: ['btn btn-default'],
+                applyClass: 'btn-small btn-primary',
+                cancelClass: 'btn-small',
+                format: 'MM/DD/YYYY',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Áp dụng',
+                    cancelLabel: 'Xóa',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Tùy chọn',
+                    daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+                    monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                    firstDay: 1
+                }
+            };
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+            $('#reportrange').daterangepicker(optionSet1, cb);
+            $('#reportrange').on('show.daterangepicker', function () {
+                console.log("show event fired");
+            });
+            $('#reportrange').on('hide.daterangepicker', function () {
+                console.log("hide event fired");
+            });
+            $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+                console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+            });
+            $('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
+                console.log("cancel event fired");
+            });
+            $('#options1').click(function () {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+            });
+            $('#options2').click(function () {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+            });
+            $('#destroy').click(function () {
+                $('#reportrange').data('daterangepicker').remove();
+            });
+
+
+            //define chart clolors ( you maybe add more colors if you want or flot will add it automatic )
+            var chartColours = ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'];
+
+            var d1 = [];
+            var d2 = [];
+
+            {% for key,value in chart['result'] %}
+                d1.push([{{ key }}, {{ chart['result'][key]['impression'] }} ]);
+                d2.push([{{ key }}, {{ chart['result'][key]['click'] }} ]);
+            {% endfor %}
+
+            //graph options
+            var options = {
+                grid: {
+                    show: true,
+                    aboveData: true,
+                    color: "#3f3f3f",
+                    labelMargin: 10,
+                    axisMargin: 0,
+                    borderWidth: 0,
+                    borderColor: null,
+                    minBorderMargin: 5,
+                    clickable: true,
+                    hoverable: true,
+                    autoHighlight: true,
+                    mouseActiveRadius: 100,
+                },
+                series: {
+                    lines: {
+                        show: true,
+                        fill: true,
+                        lineWidth: 2,
+                        steps: false
+                    },
+                    points: {
+                        show: true,
+                        radius: 4.5,
+                        symbol: "circle",
+                        lineWidth: 3.0
+                    }
+                },
+                legend: {
+                    position: "ne",
+                    margin: [0, -25],
+                    noColumns: 0,
+                    labelBoxBorderColor: null,
+                    labelFormatter: function (label, series) {
+                        // just add some space to labes
+                        return label + '&nbsp;&nbsp;';
+                    },
+                    width: 40,
+                    height: 1,
+
+                },
+                colors: chartColours,
+                shadowSize: 0,
+                tooltip: true, //activate tooltip
+                yaxis: {
+                    min: 0
+                },
+                xaxis: {
+                    tickFormatter: function (val, axis) {
+                        console.log(axis);
+                       
+                        return val
+                    }
+                }
+            };
+            var plot = $.plot($("#placeholder33x"), [{
+                label: "Impression",
+                data: d1,
+                lines: {
+                    fillColor: "rgba(150, 202, 89, 0.12)"
+                }, //#96CA59 rgba(150, 202, 89, 0.42)
+                points: {
+                    fillColor: "#fff"
+                }
+            },
+            {
+                label: "Click",
+                data: d2,
+                lines: {
+                    fillColor: "rgba(150, 202, 89, 0.12)"
+                }, //#96CA59 rgba(150, 202, 89, 0.42)
+                points: {
+                    fillColor: "#fff"
+                }
+            }
+            ], options);
+
+            $('#sub').click(function(event) {
+                
+                console.log('START: ', sub_start);
+                console.log('END: ', sub_end);
+                var province = $('#province').val();
+                window.location.href = "{{ path('advertiser_dashboard') }}"+'?province='+province+'&start='+sub_start+'&end='+sub_end;
+
+            });
+        });
+       
+    </script>
+{% endblock %}
