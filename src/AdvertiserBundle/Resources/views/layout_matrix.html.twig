@@ -4,6 +4,7 @@
     <title>WiAds Admin</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/bundles/advertiser/assets/css/bootstrap.css" />
     <link rel="stylesheet" href="/bundles/advertiser/matrix/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/bundles/advertiser/matrix/css/bootstrap-responsive.min.css" />
     <link rel="stylesheet" href="/bundles/advertiser/matrix/css/uniform.css" />
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="/bundles/advertiser/matrix/css/datepicker.css" />
     <link rel="stylesheet" href="/bundles/advertiser/matrix/css/matrix-style.css" />
     <link rel="stylesheet" href="/bundles/advertiser/matrix/css/matrix-media.css" />
+    <link rel="stylesheet" href="/bundles/advertiser/assets/js/daterangepicker/daterangepicker-bs3.css"/>
     <link href="/bundles/advertiser/matrix/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/bundles/advertiser/matrix/lib/fancybox/jquery.fancybox.css" />
@@ -126,7 +128,11 @@
         {% if is_granted('ROLE_ADS_REPORT') %}
             <li class="submenu {{ ''|active_menu(['advertiser_customer_report_ads', 'advertiser_promotion_manager'], 'open') }}"> <a href="#"><i class="icon  icon-briefcase"></i> <span>Khách hàng</span></a>
                 <ul>
-                    <li><a href="{{ path('advertiser_customer_report_ads') }}" class="{{ ''|active_menu(['advertiser_customer_report_ads'], 'active') }}">Báo cáo quảng cáo</a></li>
+                    {% if is_granted('ROLE_OPERATOR_LEVEl_01') %}
+                        <li><a href="{{ path('advertiser_report_ads') }}" class="{{ ''|active_menu(['advertiser_report_ads'], 'active') }}">Báo cáo quảng cáo</a></li>
+                    {% else %}
+                        <li><a href="{{ path('advertiser_customer_report_ads') }}" class="{{ ''|active_menu(['advertiser_customer_report_ads'], 'active') }}">Báo cáo quảng cáo</a></li>
+                    {% endif %}
                     <li><a href="{{ path('advertiser_promotion_manager') }}" class="{{ ''|active_menu(['advertiser_promotion_manager'], 'active') }}"><span>Mã khuyến mãi</span></a> </li>
                 </ul>
             </li>
