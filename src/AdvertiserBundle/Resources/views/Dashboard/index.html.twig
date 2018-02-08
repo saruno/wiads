@@ -50,10 +50,11 @@
 
             <div class="quick-actions_homepage" style="margin-top:0">
                 <ul class="quick-actions">
-                    <li class="bg_lb"> <a title="Tổng số điểm wifi"> <i class="icon-sitemap"></i>Tổng AP: {{ data['ap_total'] }} (Online:{{ data['ap_total_online'] }}/Offline:{{ data['ap_total'] - data['ap_total_online'] }})</a> </li>
-                    <li class="bg_lg" style="display: none"> <a> <i class="icon-home"></i>Tỉnh/TP: {{ data['province'] }}</a> </li>
+                    <li class="bg_lb" style="{% if show_total_data == false %} display: none {% endif %}"> <a title="Tổng số điểm wifi"> <i class="icon-sitemap"></i>Thiết bị: {{ data['ap_total'] }} (Online:{{ data['ap_total_online'] }}/Off:{{ data['ap_total'] - data['ap_total_online'] }})</a> </li>
+                    <li class="bg_lg" style="{% if show_total_data == false %} display: none {% endif %}"> <a title="Tổng số tỉnh và TP đang lắp đặt" href="/advertiser/location/list"> <i class="icon-home"></i>Tỉnh/TP: {{ data['province'] }}</a> </li>
+                    <li class="bg_lg" style="{% if show_total_data == false %} display: none {% endif %}"> <a title="Tổng số quảng cáo đang chạy" href="/advertiser/ads/list"> <i class="icon-home"></i>QC Đang chạy: {{ total_running_ads }}</a> </li>
                     <li class="bg_ly" style="display: none"> <a> <i class="icon-user"></i>Tổng user: {{ data['user_total'] }}</a> </li>
-                    <li class="bg_lo" style="display: none"> <a> <i class="icon-link"></i>Tổng kết nối: {{ data['conn_total']|number_format(0, '.', '.') }}</a> </li>
+                    <li class="bg_lo" style="{% if show_total_data == false %} display: none {% endif %}"> <a> <i class="icon-link"></i>Tổng kết nối: {{ data['conn_total']|number_format(0, ',', ',') }}</a> </li>
                     <li class="bg_ls" style="display: none"> <a> <i class="icon-th"></i>Tổng kết nối mobile: {{ data['conn_total_mobile']|number_format(0, '.', '.') }}</a> </li>
                     <li class="bg_lo" style="display: none"> <a> <i class="icon-th"></i>Tổng kết nối pc: {{ data['conn_total_pc']|number_format(0, '.', '.') }}</a> </li>
                     <!-- <li class="bg_ls"> <a href="buttons.html"> <i class="icon-tint"></i> Buttons</a> </li>
@@ -62,7 +63,7 @@
                     <li class="bg_lr"> <a href="error404.html"> <i class="icon-info-sign"></i> Error</a> </li> -->
                 </ul>
             </div>
-            <div class="row-fluid" style="display: none">
+            <div class="row-fluid" style="{% if show_total_data == false %} display: none {% endif %}">
                 <div class="span6">
                     <div class="widget-box">
                         <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
@@ -71,19 +72,19 @@
                         <div class="widget-content">
                             <ul class="unstyled">
                                 <li> 
-                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Android: <b>{{ data['android'] }} (%)</b>
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Android: <b>{{ data['android'] }} (%) - {{ data['conn_android']|number_format(0, ',', ',') }}</b>
                                 </li>
                                 <li> 
-                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> iPhone: <b>{{ data['iphone'] }} (%)</b>
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> iPhone: <b>{{ data['iphone'] }} (%) - {{ data['conn_iphone']|number_format(0, ',', ',') }}</b>
                                 </li>
                                 <li> 
-                                    <span class="icon-info-sign icomoon-icon-arrow-down-2"></span> Windows: <b>{{ data['windows'] }} (%)</b>
+                                    <span class="icon-info-sign icomoon-icon-arrow-down-2"></span> Windows: <b>{{ data['windows'] }} (%) - {{ data['conn_windows']|number_format(0, ',', ',') }}</b>
                                 </li>
                                 <li> 
-                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Windows Phone: <b>{{ data['windows_phone'] }} (%)</b>
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Windows Phone: <b>{{ data['windows_phone'] }} (%) - {{ data['conn_windows_phone']|number_format(0, ',', ',') }}</b>
                                 </li>
                                 <li> 
-                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> BlackBerry: <b>{{ data['blackBerry'] }} (%)</b>
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> BlackBerry: <b>{{ data['blackBerry'] }} (%) - {{ data['conn_blackBerry']|number_format(0, ',', ',') }}</b>
                                 </li>
                                 <li> 
                                     <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Khác: <b>{{ data['other_platform'] }} (%)</b>
@@ -100,19 +101,19 @@
                         <div class="widget-content">
                             <ul class="unstyled">
                                 <li> 
-                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Chrome: <b>{{ data['chrome'] }} (%)</b>
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Chrome: <b>{{ data['chrome'] }} (%) - {{ data['conn_browser_chrome']|number_format(0, ',', ',') }}</b>
                                 </li>
                                 <li> 
-                                    <span class="icon-info-sign icomoon-icon-arrow-down-2"></span> AppleWebKit: <b>{{ data['appleWebKit'] }} (%)</b>
+                                    <span class="icon-info-sign icomoon-icon-arrow-down-2"></span> AppleWebKit: <b>{{ data['appleWebKit'] }} (%) - {{ data['conn_browser_appleWebKit']|number_format(0, ',', ',') }}</b>
                                 </li>
                                 <li> 
-                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Safari: <b>{{ data['safari'] }} (%)</b>
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Safari: <b>{{ data['safari'] }} (%) - {{ data['conn_browser_safari']|number_format(0, ',', ',') }}</b>
                                 </li>
                                 <li> 
-                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Firefox: <b>{{ data['firefox'] }} (%)</b>
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Firefox: <b>{{ data['firefox'] }} (%) - {{ data['conn_browser_firefox']|number_format(0, ',', ',') }}</b>
                                 </li>
                                 <li> 
-                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Opera: <b>{{ data['opera'] }} (%)</b>
+                                    <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Opera: <b>{{ data['opera'] }} (%) - {{ data['conn_browser_opera']|number_format(0, ',', ',') }}</b>
                                 </li>
                                 <li> 
                                     <span class="icon-info-sign icomoon-icon-arrow-up-2"></span> Khác: <b>{{ data['other_browser'] }} (%)</b>
@@ -122,7 +123,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row-fluid" style="display: none">
+            <div class="row-fluid" style="{% if show_total_data == false %} display: none {% endif %}">
                 <div class="span6">
                     <div class="widget-box">
                         <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>

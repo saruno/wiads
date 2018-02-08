@@ -3,6 +3,7 @@
 namespace AdvertiserBundle\Controller;
 
 use AdvertiserBundle\AdvertiserBundle;
+use AdvertiserBundle\Helper\AdvertiserHelper;
 use Common\DbBundle\Model\Advert;
 use AdvertiserBundle\Form\Type\AdvertiserType;
 use Common\DbBundle\Model\User;
@@ -21,6 +22,7 @@ class DashboardController extends Controller
         /** @var User $usr */
         $usr = $this->get('security.context')->getToken()->getUser();
         $username = $usr->getUsername();
+        $showTotalData = true;
 
         $owner = '';
         $customer_id = '';
@@ -38,6 +40,7 @@ class DashboardController extends Controller
             $owner = $username;
         }else{
             $customer_id = $customer->getId();
+            $showTotalData = false;
             //$request->getSession()->getFlashBag()->add('error', 'Không có quyền truy cập!');
             //return $this->redirectToRoute('advertiser_notification_session');
         }
@@ -65,7 +68,8 @@ class DashboardController extends Controller
 
         }
 
-    	$time_ = array('start'=>$start, 'end'=>$end);
+    	$time_ = array('start'=>$start.' 00:00:01', 'end'=>$end.' 23:59:59');
+        $time_onlydate = array('start'=>$start, 'end'=>$end);
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_OPERATOR_LEVEl_01')){
             $province = \AdvertiserBundle\Helper\ProvinceHelper::getProvince();
@@ -75,6 +79,15 @@ class DashboardController extends Controller
                 || $this->get('security.authorization_checker')->isGranted('ROLE_OPERATOR_LEVEl_05')
         ){
             $province = \AdvertiserBundle\Helper\ProvinceHelper::getProvinceOwner($username);
+        }else{
+            $allProvince = \AdvertiserBundle\Helper\ProvinceHelper::getProvince();
+            $province = array();
+            foreach ($allProvince as $key => $value) {
+                $countAdv = AdvertiserHelper::getAdvertByCustomerAndLocation($customer_id, $key);
+                if ($countAdv > 0) {
+                    $province[$key] = $value;
+                }
+            }
         }
 	    if(empty($province)){
 		    $request->getSession()->getFlashBag()->add('error', 'Không có quyền truy cập!');
@@ -89,9 +102,11 @@ class DashboardController extends Controller
 
     	$data = $dashboard->getDataIndex($province_choice, $time_); 
 
-        $chart = $dashboard->getChartLineAds($province_choice, $time_);
+        $chart = $dashboard->getChartLineAds($province_choice, $time_onlydate);
 //        $chart = $dashboard->getChartLineAds2($province_choice, $time_);
-        $total_advert = $dashboard->getTotalAdvertiser($province_choice, $time_); 
+//        $total_advert = $dashboard->getTotalAdvertiser($province_choice, $time_);
+        $total_advert = $dashboard->getAdvRunInTime($province_choice, $time_);
+        $total_running_ads = $dashboard->getTotalRunningAds($province_choice, $time_);
 
         $this->view_data['province'] = $province;
         $this->view_data['data'] = $data;
@@ -99,6 +114,8 @@ class DashboardController extends Controller
         $this->view_data['total_advert'] = $total_advert['total'];
         $this->view_data['province_choice'] = $province_choice;
         $this->view_data['time'] = $time_; //print_r($time_);
+        $this->view_data['total_running_ads'] = $total_running_ads['total'];
+        $this->view_data['show_total_data'] = $showTotalData;
 
         return $this->render('AdvertiserBundle:Dashboard:index.html.twig', $this->view_data);
     }

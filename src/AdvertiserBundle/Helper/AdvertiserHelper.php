@@ -127,4 +127,11 @@ class AdvertiserHelper
         $stmt = $connection->prepare($query);
         $stmt->execute();
     }
+    static function getAdvertByCustomerAndLocation($customer_id, $province) {
+	    $query = "SELECT * FROM advert WHERE customer_id = ".$customer_id." AND location LIKE '%".$province."%'";
+        $connection = Propel::getConnection();
+        $stmt = $connection->prepare($query);
+        $stmt->execute();
+        return count($stmt->fetchAll(2));
+    }
 }

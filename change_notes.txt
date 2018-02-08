@@ -38,3 +38,13 @@ Cũ là bấm "Kết nối" chuyển thành Login(-1). Phải sửa lại thành
 - Update AdvertiserBundle->DashboardController lấy dữ liệu ra dùng hàm getChartLineAds chứ không dùng hàm getChartLineAds2
 - Update layout_matrix.html.twig thêm CanvasJS
 - Update index.html.twig dùng file index ở trên server thật về
+- Update layout_matrix thêm css của daterangepicker để đỡ bị lỗi css
+
+---05/02/2018---
+- Update total_advert của Dashboard là số advert được count trong ads_daiyly_counting
+
+---07/02/2018---
+- Update them bang report_browser, report_platform -> Thong ke so luot ket noi tu ads_log de lam bieu do luong ket noi cua browser va OS
+- Update DashboardHelper va DashboardController ve truy van de hien thi them thong tin bieu do truy cap cua browser va OS
+- Update lay province cua khach hang quang cao (De cho phep ho co the truy cap vao Dashboard)
+- Update khach hang quang cao thi ko xem duoc bieu do full
