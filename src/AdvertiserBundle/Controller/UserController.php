@@ -351,7 +351,11 @@ class UserController extends BaseController
         			if($user->save()){
         				$role_assign = new RoleAssign();
                         $role_assign->setUserId($user->getId());
-                        $role_assign->setRoleId($role);
+                        if ($type == 'cafeshop') {
+                            $role_assign->setRoleId($role . ";" . "6");
+                        } else {
+                            $role_assign->setRoleId($role);
+                        }
                         $role_group_id = $role_group_id == 0 ? '' : $role_group_id;
                         $role_assign->setRoleGroupId($role_group_id);
                         $role_assign->save();

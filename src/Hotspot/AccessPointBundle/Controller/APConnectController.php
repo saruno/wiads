@@ -1947,6 +1947,7 @@ class APConnectController extends Controller
         $templates = array('captival_full_screen_v4.html.twig'=>'Quảng cáo chung - 640x710',
                            'captival_fblogin_v3.html.twig'=>'Share Facebook để dùng Internet',
                             'captival_slides.html.twig'=>'Xem hết Slide ảnh để dùng Internet',
+                            'captival_fblogin_v2.html.twig'=>'Thu thập thông tin Khách Hàng',
                            /*'captival_fb_share_login.html.twig'=>'Share Facebook để dùng Internet',
                            'captival_vlp.html.twig'=>'Value point Ads',
                            */

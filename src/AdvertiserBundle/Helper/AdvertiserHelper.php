@@ -134,4 +134,20 @@ class AdvertiserHelper
         $stmt->execute();
         return count($stmt->fetchAll(2));
     }
+
+    static public function getUserLoginReport($isAdmin,$params,$strListAccessPoint){
+        $from_0	= $params["from_0"];
+        $to = $params["to"];
+
+        $query="SELECT * FROM user_login WHERE DATE(created_at) >= '" . $from_0 . "' AND DATE(created_at) <= '" . $to . "' ";
+        if (!$isAdmin && $strListAccessPoint != '') {
+            $query .= "AND ap_macaddr IN (" . $strListAccessPoint . ")";
+        }
+
+        $query .= isset($params['offset']) && isset($params['limit']) ? " LIMIT {$params['offset']} {$params['limit']}" : "";
+        $connection = Propel::getConnection();
+        $stmt = $connection->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(2);
+    }
 }

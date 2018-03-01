@@ -192,8 +192,6 @@ class DashboardHelper
     	$conn_macintosh 			= $this->getTotalConnectOS($_province, $time_, 'Macintosh');//"n/a";//$this->getTotalConnect($time_, array('os' => 'Macintosh'));
     	$conn_blackBerry 			= $this->getTotalConnectOS($_province, $time_, 'BlackBerry');//"n/a";//$this->getTotalConnect($time_, array('os' => 'BlackBerry'));
 
-        var_dump($conn_android);
-
     	$data['conn_android'] 		= /*"n/a";*/$conn_android['total'];
     	$data['conn_iphone'] 		= /*"n/a";*/$conn_iphone['total'];
     	$data['conn_windows'] 		= /*"n/a";*/$conn_windows['total'];

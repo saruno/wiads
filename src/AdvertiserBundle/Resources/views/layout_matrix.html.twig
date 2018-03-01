@@ -78,7 +78,7 @@
 
 <div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-th"></i>Tables</a>
     <ul>
-        {% if is_granted('ROLE_OPERATOR_LEVEl_01') or is_granted('ROLE_OPERATOR_LEVEl_02') or is_granted('ROLE_OPERATOR_LEVEl_03') %}
+        {% if is_granted('ROLE_OPERATOR_LEVEl_01') or is_granted('ROLE_OPERATOR_LEVEl_02') or is_granted('ROLE_OPERATOR_LEVEl_03') or is_granted('ROLE_ADS_REPORT')%}
             <li><a href="{{ path('advertiser_dashboard') }}"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
         {% endif %}
         {% if is_granted('ROLE_OPERATOR_LEVEl_01')  %}
@@ -133,6 +133,7 @@
                     {% else %}
                         <li><a href="{{ path('advertiser_customer_report_ads') }}" class="{{ ''|active_menu(['advertiser_customer_report_ads'], 'active') }}">Báo cáo quảng cáo</a></li>
                     {% endif %}
+                    <li><a href="{{ path('advertiser_customer_report_user_login') }}" class="{{ ''|active_menu(['advertiser_customer_report_user_login'], 'active') }}">Báo cáo thu thập User</a></li>
                     <li><a href="{{ path('advertiser_promotion_manager') }}" class="{{ ''|active_menu(['advertiser_promotion_manager'], 'active') }}"><span>Mã khuyến mãi</span></a> </li>
                 </ul>
             </li>

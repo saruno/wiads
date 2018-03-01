@@ -2,7 +2,6 @@
 
 namespace AdvertiserBundle\Controller;
 
-use AdvertiserBundle\AdvertiserBundle;
 use AppBundle\Helper\Utils;
 use Common\DbBundle\Model\User;
 use Common\DbBundle\Model\UserQuery;

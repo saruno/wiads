@@ -85,6 +85,9 @@ advertiser_permision_role_add:
 advertiser_customer_report_ads:
   path: /customer/report-ads
   defaults: { _controller: 'AdvertiserBundle:Customer:report_ads' }
+advertiser_customer_report_user_login:
+  path: /customer/report-user-login
+  defaults: { _controller: 'AdvertiserBundle:Customer:report_user_login' }
 advertiser_cafeshop_report_ads:
   path: /cafeshop/report-ads
   defaults: { _controller: 'AdvertiserBundle:Cafeshop:report_ads' }
