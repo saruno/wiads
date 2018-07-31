@@ -39,19 +39,20 @@
                                 <div class="control-group">
                                     <label class="control-label">Từ ngày</label>
                                     <div class="controls">
-                                        <input type="text" name="date_from" value="{{ date_from }}"  class="span4 datepicker" data-date="" data-date-format="dd-mm-yyyy" />
+                                        <input type="text" id="date_from" name="date_from" value="{{ date_from }}"  class="span4 datepicker" data-date="" data-date-format="dd-mm-yyyy" />
                                     </div>
                                 </div>
 
                                 <div class="control-group">
                                     <label class="control-label">Đến ngày</label>
                                     <div class="controls">
-                                        <input type="text" name="date_to" value="{{ date_to }}" class="span4 datepicker" data-date="" data-date-format="dd-mm-yyyy" />
+                                        <input type="text" id="date_to" name="date_to" value="{{ date_to }}" class="span4 datepicker" data-date="" data-date-format="dd-mm-yyyy" />
                                     </div>
                                 </div>
 
                                 <div class="form-actions">
-                                    <button type="submit" class="btn btn-success">Xem</button>
+                                    <button type="submit" name="submit" class="btn btn-success" value='1'>Xem</button>
+                                    {#<button type="submit"  name="export-excel" id="export-excel" class="btn btn-success" value='1'>Export CSV</button>#}
                                 </div>
 
                             </form>
@@ -109,5 +110,5 @@
                 </div>
             {% endif %}
         </div>
-    </div> 
+    </div>
 {% endblock %}

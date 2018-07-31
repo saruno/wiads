@@ -1872,7 +1872,7 @@ class APConnectController extends Controller
             if ($login_template==$ap->getApMacaddr().'.html.twig')
                 $login_template='mac.html.twig';
 
-	        $firmware=FirmwareQuery::create()->filterByPlatform(trim($apConfig->getPlatform()))->findOne();
+	        $firmware=FirmwareQuery::create()->filterByPlatform(trim($apConfig->getPlatform()))->orderByFwVersion("desc")->findOne();
 	        $hasNewFirmware=false;
 	        if(!empty($firmware) &&  $firmware->getFwVersion()>$apConfig->getFwVersion())
 	        	$hasNewFirmware=true;
