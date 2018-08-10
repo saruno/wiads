@@ -1407,6 +1407,8 @@ class APConnectController extends Controller
         $challenge=$request->get("challenge",'');
         $hash=trim($request->get("hash",''));
         $secretkey=$this->getParameter('secret_hash_key');
+        $network_lan=$this->getParameter('network_lan', '172.17.17.1');
+
         //$secretkey='((_(@&(*#%(&KJBC(&OP{SC:FVGP)(!{HCJLHCF!)(:KGP(!GF`9`70198212y-192ye12hjvcshvdc$#@';
         $hash_compare=md5(trim($challenge).trim($secretkey));
         //var_dump($secretkey);
@@ -1455,7 +1457,8 @@ class APConnectController extends Controller
             "key"=>$key,
             "wifi_status"=>$wifi_status,
             "iwinfo"=>$iwinfo,
-	        "detects" =>$detects
+	        "detects" =>$detects,
+            "network_lan"=>$network_lan
         );
 	    //if($params['ap_mac']=='D4-6E-0E-F3-C0-F0'){
 		//    return new Response("Hello World!",404);
@@ -1901,7 +1904,8 @@ class APConnectController extends Controller
                 'ap_image' => $ap->getImage(),
                 'image_slide_1' => $image_slide_1,
                 'image_slide_2' => $image_slide_2,
-                'image_slide_3' => $image_slide_3
+                'image_slide_3' => $image_slide_3,
+                'network_lan' => $ap->getPreStatus()
                 //'bwProfiles' => $bwProfiles
             )));
         }
@@ -1938,6 +1942,7 @@ class APConnectController extends Controller
         $login_template=$request->get('login_template','');
         $uamdomains=$request->get('uamdomains', 'HS_UAMDOMAINS=\'.wiads.vn,.hotspotwifisystem.com,meganet.com.vn,.meganet.com.vn,.valuepotion.com,valuepotion.com,daumcdn.net,.daumcdn.net,bs.serving-sys.com,junoteam.com,.junoteam.com,.facebook.com,.facebook.net,.akamaitechnologies.com,.akamaihd.net,.akamaiedge.net,.akamaitechnologies.com,.fbcdn.net,.gstatic.com,.android.com\'');
         $ap_mode=$request->get('ap_mode','option normal_mode 0');
+        $network_lan=$request->get('network_lan', 'option network_lan \'172.16.16.1\'');
         if($ap_mode!="option normal_mode 0" && $ap_mode!="option normal_mode 1")
             $ap_mode="option normal_mode 0";
         $disable_img=$request->get('disable_img','0');
@@ -2116,6 +2121,7 @@ class APConnectController extends Controller
                     'file_name'=>$baseDirImage.$fileName,
                     'detail_url' => $detail_url,
                     'uamdomains' => $uamdomains,
+                    'network_lan' => $network_lan,
                     'apImgs' => $apImgs
                     //'post_by'=>$this->get('security.token_storage')->getToken()->getUser()->getUsername(),
                     //'user'=>$this->get('security.token_storage')->getToken()->getUser()

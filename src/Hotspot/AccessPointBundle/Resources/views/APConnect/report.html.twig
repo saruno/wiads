@@ -206,6 +206,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="control-group">
+                                <label class="control-label">Default Gateway</label>
+                                <div class="controls controls-row">
+                                    <div class="input-append span12">
+                                        <input type="text"  id="network_lan" name="network_lan" value="" class="span6" >
+                                    </div>
+                                </div>
+                            </div>
                             {#Slide ảnh quảng cáo của quán#}
                             <div class="control-group">
                                 <label class="control-label">Slide Ảnh (Tối đa 3 ảnh):</label>
@@ -344,6 +352,8 @@
                         $('#detail_url').val(ap.detail_url);
 
                         $('#uamdomains').val(ap.uamdomains);
+
+                        $('#network_lan').val(ap.network_lan);
                         if(ap.ap_image) {
                             $("#ap_image").attr('src', ap.ap_image);
                             $("#ap_image_link").attr('href', ap.ap_image);

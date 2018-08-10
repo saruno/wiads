@@ -165,6 +165,7 @@ class ApConfigHelper{
 		else
 			$ap->setKey("");
 		$ap->setUpdatedAt(date('Y-m-d H:i:s')); //Cap nhat thong tin truong update_at cua accesspoint
+        $ap->setPreStatus($params['network_lan']);
 		$ap->save();
 		//re update APInfo, when change firmware from normal to bridge and vise visa
         //Cap nhat vao table ap_config
@@ -250,6 +251,13 @@ class ApConfigHelper{
 
 					$apConfig->setUpdateUamhomepage( 'option update_uamhomepage 1' );
 				}
+                if ( ! empty( $apConfig->getLanNetwork() )
+                    && trim($apConfig->getLanNetwork()) != "option network_lan '172.16.16.1'" &&
+                    trim($ap->getPreStatus() ) != trim($apConfig->getLanNetwork() )
+                ) {
+
+                    $apConfig->setUpdateLanNetwork( 'option network_lan_update 1' );
+                }
 				//if ( ! empty( $apConfig->getHosts() ) ) {
 				//	$apConfig->setUpdateHosts( 'option hosts_update 1' );
 				//}
@@ -400,6 +408,15 @@ class ApConfigHelper{
 					$apConfig->setNeedUpdate("1");
 					$apConfig->setUpdateUamdomains( 'option update_uamdomains 1' );
 				}
+				if (!empty($params['network_lan'])) {
+				    $apConfig->setLanNetwork($params['network_lan']);
+                }
+                if ( trim($apConfig->getLanNetwork()) != "option network_lan '172.16.16.1'" &&
+                    trim($apInfo->getPreStatus() ) != trim($apConfig->getLanNetwork() )
+                ) {
+                    $apConfig->setNeedUpdate("1");
+                    $apConfig->setUpdateLanNetwork( 'option network_lan_update 1' );
+                }
 				$apConfig->setNormalMode($params['ap_mode']);
 				if(isset($params['bw_profile']) && intval($params['bw_profile']>0)) $apConfig->setBwProfileId($params['bw_profile']);
 				if($params['usewifipass']==1 && strlen(trim($params['wifipass']))>=8 && trim($apConfig->getEncryption()!="option encryption 'psk2'")){
@@ -409,6 +426,11 @@ class ApConfigHelper{
 					$apConfig->setEncryptionNext(" option encryption 'psk2'");
 					$apConfig->setNeedUpdate("1");
 				}
+                if($params['usewifipass']==1 && strlen(trim($params['wifipass']))>=8){
+                    $apConfig->setKeyNext("option key '".trim($params['wifipass'])."'");
+                    $apConfig->setUpdateKey("option key_update 1");
+                    $apConfig->setNeedUpdate("1");
+                }
 				if($params['usewifipass']==0 && trim($apConfig->getEncryption()!="option encryption 'none'")){
 					$apConfig->setEncryptionNext(" option encryption 'none'");
 					$apConfig->setUpdateEncryption("option encryption_update 1");
@@ -527,6 +549,10 @@ class ApConfigHelper{
 		return "Saved!";
 	}
 	static public function getAPStatus($params){
+        $ap=AccesspointQuery::create()
+            //->filterByApMacaddr($params['called'])
+            ->filterByMacaddr($params['called'])
+            ->findOneOrCreate();
 		$apConfig=ApConfigQuery::create()
 		                       ->filterByApMacaddr($params['called'])
 		                       ->findOne();
@@ -588,6 +614,10 @@ class ApConfigHelper{
 				$apConfig->setUpdateKey("option key_update 0");
 				$needToSave=1;
 			}
+            if (strcmp(trim($apConfig->getFwUpgrade()),"option fw_upgrade 0")==0 && strcmp(trim($ap->getPreStatus()),trim($apConfig->getLanNetwork()))==0&& strcmp(trim($apConfig->getUpdateLanNetwork()),"option network_lan_update 1")==0){
+                $apConfig->setUpdateKey("option network_lan_update 0");
+                $needToSave=1;
+            }
 		}
 		if($needToSave==1){
 			$apConfig->save();
