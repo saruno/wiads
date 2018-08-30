@@ -459,11 +459,19 @@ class ApLogHelper{
         else{
             $user_company_subquery=" and c.post_by='".$params['user_company']."'";
         }
+        $ap_name_subquery=' ';
         if($params['ap_name']==-1){
             $ap_name_subquery=' ';
         }
         else{
             $ap_name_subquery=" and c.name like '%".$params['ap_name']."%'";
+        }
+        $fw_version_subquery=' ';
+        if($params['fw_version']=='-1' || empty($params['fw_version'])){
+            $fw_version_subquery=' ';
+        }
+        else{
+            $fw_version_subquery=" and a.fw_version like '%".$params['fw_version']."%'";
         }
 		if(key_exists('level', $params)){
 			if($params['level']==2){
@@ -473,6 +481,7 @@ class ApLogHelper{
 					".$province_subquery."
 					".$company_subquery."
 					".$post_by_subquery."
+					".$fw_version_subquery."
 					".$user_company_subquery."
 									and (c.trash is null or c.trash!=1)
 									and a.`ap_macaddr` not in (select `ap_macaddr` from ap_config where exclude=1 group by `ap_macaddr`)
@@ -485,7 +494,6 @@ class ApLogHelper{
 				return $stmt->fetchAll(2);
 			}
 		}
-		//echo $company_subquery;
 		if($params==null){
 			$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner,'-' as popup,  '-' as `access_num` 
 			from accesspoint a, accesspoint_i18n c
@@ -494,6 +502,7 @@ class ApLogHelper{
 					".$province_subquery."
 					".$company_subquery."
 					".$post_by_subquery."
+					".$fw_version_subquery."
 					".$user_company_subquery."
 					and (c.trash is null or c.trash!=1)
 					and a.`ap_macaddr` not in (select `ap_macaddr` from ap_config where exclude=1 group by `ap_macaddr`)
@@ -522,6 +531,7 @@ class ApLogHelper{
 					".$province_subquery."
 					".$company_subquery."
 					".$post_by_subquery."
+					".$fw_version_subquery."
 					".$user_company_subquery."
 					and (c.trash is null or c.trash!=1)
 					and a.`ap_macaddr` not in (select `ap_macaddr` from ap_config where exclude=1 group by `ap_macaddr`)

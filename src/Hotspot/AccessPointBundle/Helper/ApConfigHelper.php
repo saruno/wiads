@@ -166,6 +166,7 @@ class ApConfigHelper{
 			$ap->setKey("");
 		$ap->setUpdatedAt(date('Y-m-d H:i:s')); //Cap nhat thong tin truong update_at cua accesspoint
         $ap->setPreStatus($params['network_lan']);
+        $ap->setFwVersion(trim($params['v']));
 		$ap->save();
 		//re update APInfo, when change firmware from normal to bridge and vise visa
         //Cap nhat vao table ap_config
@@ -251,13 +252,13 @@ class ApConfigHelper{
 
 					$apConfig->setUpdateUamhomepage( 'option update_uamhomepage 1' );
 				}
-                if ( ! empty( $apConfig->getLanNetwork() )
-                    && trim($apConfig->getLanNetwork()) != "option network_lan '172.16.16.1'" &&
-                    trim($ap->getPreStatus() ) != trim($apConfig->getLanNetwork() )
-                ) {
-
-                    $apConfig->setUpdateLanNetwork( 'option network_lan_update 1' );
-                }
+//                if ( ! empty( $apConfig->getLanNetwork() )
+//                    && trim($apConfig->getLanNetwork()) != "option network_lan '172.16.16.1'" &&
+//                    trim($ap->getPreStatus() ) != trim($apConfig->getLanNetwork() )
+//                ) {
+//
+//                    $apConfig->setUpdateLanNetwork( 'option network_lan_update 1' );
+//                }
 				//if ( ! empty( $apConfig->getHosts() ) ) {
 				//	$apConfig->setUpdateHosts( 'option hosts_update 1' );
 				//}
@@ -391,7 +392,7 @@ class ApConfigHelper{
 
 			if(!empty($apConfig)){
 				$apConfig->keepUpdateDateUnchanged();
-				if(trim($apConfig->getSsid())!=trim("option ssid ' ".$wifiname."'")) {
+				if(strlen($wifiname) > 0 && trim($apConfig->getSsid())!=trim("option ssid ' ".$wifiname."'")) {
 					$apConfig->setNeedUpdate("1");
 					$apConfig->setSsidUpdate( "option ssid_update 1" );
 					$apConfig->setSsidNext("option ssid ' ".$wifiname."'");

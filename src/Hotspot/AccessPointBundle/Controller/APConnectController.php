@@ -1407,7 +1407,7 @@ class APConnectController extends Controller
         $challenge=$request->get("challenge",'');
         $hash=trim($request->get("hash",''));
         $secretkey=$this->getParameter('secret_hash_key');
-        $network_lan=$this->getParameter('network_lan', '172.17.17.1');
+        $network_lan=$request->get('network_lan', '172.17.17.1');
 
         //$secretkey='((_(@&(*#%(&KJBC(&OP{SC:FVGP)(!{HCJLHCF!)(:KGP(!GF`9`70198212y-192ye12hjvcshvdc$#@';
         $hash_compare=md5(trim($challenge).trim($secretkey));
@@ -2202,6 +2202,7 @@ class APConnectController extends Controller
 	        $params['company']=$request->get('company','-1');
 	        $params['user_company']=$request->get('user_company','-1');
 	        $params['ap_name']=$request->get('ap_name', '-1');
+	        $params['fw_version']=$request->get('fw_version', '-1');
             $page = $request->get('page',1);
             $maxPerPage = 50;
             $params = array_merge($params,array(
