@@ -145,6 +145,9 @@ hotspot_access_point_homepage_wifi_login_failed:
 hotspot_access_point_homepage:
     path:     /
     defaults: { _controller: "HotspotAccessPointBundle:APConnect:index" }
+hotspot_access_point_payment:
+    path:     /payment
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:payment"}
 
 ##
 

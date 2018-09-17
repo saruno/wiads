@@ -867,6 +867,13 @@ class ApConfigHelper{
 		return null;
 	}
 
+    static public function getBwProfileById($bw_id){
+        return BwProfileQuery::create()
+                ->filterById($bw_id)
+                ->findOne();
+        return null;
+    }
+
 	static public function getUserAccesspoint($username) {
 	    $query = "SELECT * FROM user_accesspoint WHERE username = '".$username. "'";
         $connection = Propel::getConnection();

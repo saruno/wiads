@@ -48,3 +48,11 @@ Cũ là bấm "Kết nối" chuyển thành Login(-1). Phải sửa lại thành
 - Update DashboardHelper va DashboardController ve truy van de hien thi them thong tin bieu do truy cap cua browser va OS
 - Update lay province cua khach hang quang cao (De cho phep ho co the truy cap vao Dashboard)
 - Update khach hang quang cao thi ko xem duoc bieu do full
+
+---08/09/2018---
+- Install stripe-php : composer require stripe/stripe-php
+- Update /bundles/hotspotaccesspoint/demo-payment
+- Update demo-payment.html.twig, captival_full_screen_demo_payment.html.twig, captival_full_screen_demo_payment.success.html.twig
+- Update routing.yml them : hotspot_access_point_payment
+- Update APConnectController.php ham paymentAction
+- Update ApConfigHelper.php

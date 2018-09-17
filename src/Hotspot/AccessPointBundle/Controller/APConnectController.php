@@ -2366,6 +2366,84 @@ class APConnectController extends Controller
             'saveStatus'=>$saveStatus,'owners'=>$owners,'firmwares'=>$firmwares,) );
 
     }
+
+    public function paymentAction(Request $request) {
+        $uamsecret = "auth_9stub_09123";
+        $userpassword=1;
+        $loginpath = "http://enter.wiads.vn/ap/";//$_SERVER['PHP_SELF']."/ap/";
+
+        $prefix="WiAds.vn";
+        $params = array(
+            "uamsecret"=>$uamsecret,
+            "userpassword"=>$userpassword,
+            "title"=>"$prefix Login",
+            "centerUsername"=>"Username",
+            "centerPassword"=>"Password",
+            "centerLogin"=>"Login",
+            "centerPleasewait"=>"Please wait.......",
+            "centerLogout"=>"Logout",
+            "h1Login"=>"$prefix Login",
+            "h1Failed"=>"$prefix",
+            "h1Loggedin"=>"Logged in to $prefix",
+            "h1Loggingin"=>"Logging in to $prefix",
+            "h1Loggedout"=>"Logged out from $prefix",
+            "centerdaemon"=>"Login must be performed through $prefix connection",
+            "centerencrypted"=>"Login must use encrypted connection",
+            "loginpath"=>$loginpath
+        );
+
+        $challenge	=	$request->get("challenge","");
+        $button		=	$request->get("button","");
+        $uamip		= 	$request->get("uamip","");
+        $uamport	= 	$request->get("uamport","");
+        $userurl	= 	$request->get("userurl","");
+        $ip			= 	$request->get("ip","");
+        $called		= 	trim($request->get("called",""));
+        $mac		= 	$request->get("mac","");
+        $advertId	=	$request->get("advertId",'-1');
+        $bw_id      =   $request->get("bw_id", '9');
+
+        $userurldecode = $userurl;
+
+//        $bw_profile = ApConfigHelper::getBwProfile($called);
+        $bw_profile = ApConfigHelper::getBwProfileById($bw_id);
+        $username="wiads_free";
+        $password="free_wifi_wiads";
+        if(!empty($bw_profile)){
+            $username=$bw_profile->getUsername();
+            $password=$bw_profile->getPassword();
+        }
+        $mobileDetector = $this->get('mobile_detect.mobile_detector');
+        $ua_info = parse_user_agent($mobileDetector->getUserAgent());
+        $os=$ua_info['platform'];
+        $params = array_merge($params,array(
+            'os'=>$os
+        ));
+        //Địa chỉ IP tĩnh (ip của telco) mà client kết nối lên
+        $wan_ip = $request->getClientIp();
+        if(isset($_SERVER["HTTP_CF_CONNECTING_IP"]))
+            $wan_ip = $_SERVER["HTTP_CF_CONNECTING_IP"];
+
+        $params = array_merge($params,array(
+            "uamsecret"=>$uamsecret,
+            "userpassword"=>$userpassword,
+            "username"=>$username,
+            "password"=>$password,
+            "challenge"=>$challenge,
+            "button"=>$button,
+            "uamip"=>$uamip,
+            "uamport"=>$uamport,
+            "ip"	=>$ip,
+            "wan_ip"    => $wan_ip,
+            "called" => $called,
+            "mac"	=>$mac,
+            "advertId"=>$advertId,
+            "userurldecode"=>$userurldecode,
+            "userurl"=>$userurl
+        ));
+        return $this->render('HotspotAccessPointBundle:APConnect:demo-payment.html.twig', array('params' =>$params));
+    }
+
     public function updateReportAction(Request $request){
         $month=$request->get('m','01');
         $year=$request->get('y','2016');

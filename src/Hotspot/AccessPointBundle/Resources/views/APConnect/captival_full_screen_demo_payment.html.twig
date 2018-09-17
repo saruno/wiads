@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <title>LOGIN</title>
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/vendor.css">
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/main_n1_01.css">
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/responsive_n1_01.css">
+    <script>
+        function Login(value)
+        {
+            $('#advertId').val(value);
+            $( "#login_frm" ).submit();
+        }
+    </script>
+
+</head>
+
+<body>
+<div class="container-wrap login-n1">
+    <main class="wrapper">
+        <div class="content">
+            <div class="content-top">
+                <p>  </p>
+                <div class="owl-carousel owl-theme owl-login-n1">
+                    <img src="/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg" alt="">
+                </div>
+            </div>
+            <div class="content-bottom">
+                <h4 class="status" style="color:#4c4c4c;font-family: Open Sans, Helvetica,Arial,sans-serif;">SỬ DỤNG WIFI : {{ params['apName'] | upper | replace ({'WIADS' : '', '-' : ''}) }}</h4>
+                <a href="/ap/payment?bw_id=9&called={{ params['called'] }}&mac={{ params['mac'] }}&challenge={{ params['challenge'] }}&ip={{ params['ip'] }}&uamip={{ params['uamip'] }}&uamport={{ params['uamport'] }}&advertId={{ params['advertId'] }}&button=Free%20Internet&userurl={{params['userurl']|url_encode}}" class="btn-connect-normal">Internet Speed 5MB: $1.99</a>
+                <a href="/ap/payment?bw_id=3&called={{ params['called'] }}&mac={{ params['mac'] }}&challenge={{ params['challenge'] }}&ip={{ params['ip'] }}&uamip={{ params['uamip'] }}&uamport={{ params['uamport'] }}&advertId={{ params['advertId'] }}&button=Free%20Internet&userurl={{params['userurl']|url_encode}}" class="btn-connect-normal">Internet Speed 10MB: $2.99</a>
+                <p class="text-copyright">Powered by Wiads, Liên hệ QC : wiadsjsc@gmail.com</p>
+                {#<a class="btn-login" href="javascript:sub_face('-1');" title="login-with-facebook"><img src="/bundles/hotspotaccesspoint/v6/images/login-facebook-button.svg" alt=""></a>#}
+            </div>
+        </div>
+    </main>
+    <div style="display: none">
+        <form class="login-form" novalidate="novalidate" id='login_frm' name='login_frm' method='post' action='{{params['loginpath']}}'>
+            <input type='hidden' name='called' value='{{params['called']}}'>
+            <input type='hidden' name='mac' value='{{params['mac']}}'>
+            <input type='hidden' name='challenge' value='{{params['challenge']}}'>
+            <input type='hidden' name='uamip' value='{{params['uamip']}}'>
+            <input type='hidden' name='ip' value='{{params['ip']}}'>
+            <input type='hidden' name='uamport' value='{{params['uamport']}}'>
+            <input type='hidden' name='userurl' value='{{params['userurl']|url_encode}}'>
+            <input type='hidden' id='advertId' name='advertId' value='-1'>
+            <input type='hidden' name='button' value='Free Internet'>
+        </form>
+    </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="/bundles/hotspotaccesspoint/v6/scripts/jquery.min.js"></script>
+<script src="/bundles/hotspotaccesspoint/v6/scripts/vendor.js"></script>
+<script src="/bundles/hotspotaccesspoint/v6/scripts/app_n1_01.js"></script>
+<script>
+</script>
+</body>
+</html>

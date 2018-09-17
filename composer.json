@@ -34,7 +34,8 @@
         "mobiledetect/mobiledetectlib": "^2.8",
         "donatj/phpuseragentparser": "*",
         "friendsofsymfony/oauth-server-bundle": "dev-master",
-        "willdurand/propel-typehintable-behavior": "*"
+        "willdurand/propel-typehintable-behavior": "*",
+        "stripe/stripe-php": "^6.17"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

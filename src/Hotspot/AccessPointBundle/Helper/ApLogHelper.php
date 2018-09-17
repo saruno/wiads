@@ -420,18 +420,7 @@ class ApLogHelper{
 		$page = $params['page']-1;
 		$maxPerPage = $params['maxPerPage'];
 		$connection = Propel::getConnection();
-		
-		/*
-			$query="insert into accesspoint (ap_macaddr)
-			select ap_macaddr  from ap_config where ap_config.ap_macaddr not in
-			(select ap_macaddr from accesspoint)";
-			$stmt = $connection->prepare($query);
-			$stmt->execute();
-	
-			$query="update accesspoint set created_at=(select created_at from ap_config where ap_config.ap_macaddr=accesspoint.ap_macaddr),updated_at=(select updated_at from ap_config where ap_config.ap_macaddr=accesspoint.ap_macaddr)";
-			$stmt = $connection->prepare($query);
-			$stmt->execute();
-			*/
+
 		$province_subquery=' ';
 		if($params['province']==-1){
 			$province_subquery=' ';
@@ -495,6 +484,15 @@ class ApLogHelper{
 			}
 		}
 		if($params==null){
+//            union
+//            (
+//                select a.`macaddr`, a.province,'---Chưa có tên---' as name, '' as address, '' as lat,'' as lng,a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner, '-' as `access_num`  from accesspoint a
+//					where a.id not in (select id from accesspoint_i18n)
+//					and a.`ap_macaddr` not in (select `ap_macaddr` from ap_config where exclude=1 group by `ap_macaddr`)
+//					group by a.`macaddr`
+//					order by updated_at, created_at
+//					limit 500
+//					)
 			$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner,'-' as popup,  '-' as `access_num` 
 			from accesspoint a, accesspoint_i18n c
 					where a.id=c.id
@@ -509,22 +507,22 @@ class ApLogHelper{
 					group by a.`macaddr`
 					order by updated_at, created_at
 					limit 500
-					)
-					union
-					(
-					select a.`macaddr`, a.province,'---Chưa có tên---' as name, '' as address, '' as lat,'' as lng,a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner, '-' as `access_num`  from accesspoint a
-					where a.id not in (select id from accesspoint_i18n)
-					and a.`ap_macaddr` not in (select `ap_macaddr` from ap_config where exclude=1 group by `ap_macaddr`)
-					group by a.`macaddr`
-					order by updated_at, created_at
-					limit 500
-					)
+					)					
 					
 					order by province,updated_at, created_at";
 		}
 		else{
 			//$from=$params["from"];
 			//$to=$params["to"];
+//            union
+//            (
+//                select a.`macaddr`, a.province,'---Chưa có tên---' as name, '' as address,'' as lat, '' as lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner, '-' as popup, '-' as `access_num`  from accesspoint a
+//					where a.id not in (select id from accesspoint_i18n)
+//					and a.`ap_macaddr` not in (select `ap_macaddr` from ap_config where exclude=1 group by `ap_macaddr`)
+//					group by a.`macaddr`
+//					order by updated_at, created_at
+//					limit 500
+//					)
 			$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner, '-' as popup, '-' as `access_num`  from accesspoint a, accesspoint_i18n c
 					where a.id=c.id
 					".$ap_name_subquery."
@@ -538,16 +536,7 @@ class ApLogHelper{
 					group by a.`macaddr`
 					order by updated_at, created_at
 					limit 500
-					)
-					union
-					(
-					select a.`macaddr`, a.province,'---Chưa có tên---' as name, '' as address,'' as lat, '' as lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner, '-' as popup, '-' as `access_num`  from accesspoint a
-					where a.id not in (select id from accesspoint_i18n)
-					and a.`ap_macaddr` not in (select `ap_macaddr` from ap_config where exclude=1 group by `ap_macaddr`)
-					group by a.`macaddr`
-					order by updated_at, created_at
-					limit 500
-					)
+					)					
 					
 					order by province,updated_at, created_at";
 		}

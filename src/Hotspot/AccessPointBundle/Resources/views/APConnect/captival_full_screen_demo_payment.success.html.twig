@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <title>SUCCESS</title>
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/vendor.css">
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/main_n2_01.css">
+    <link rel="stylesheet" media="screen" href="/bundles/hotspotaccesspoint/v6/styles/responsive_n2_01.css">
+    {#
+    {% if linkTo is not empty %}
+        <meta http-equiv="refresh" content="0;url={{ linkTo | raw }}">
+        <!--
+        <meta http-equiv="refresh" content="1; URL=javascript:window.open('{{ linkTo | raw }}','_blank');">
+        -->
+    {% endif %}
+    #}
+</head>
+
+
+<body>
+<div class="container-wrap login-n2">
+    <main class="wrapper">
+        <div class="content">
+            <div class="content-top">
+                <h2 class="heading">Kết nối thành công</h2>
+                <div class="owl-carousel owl-theme owl-login-n2">
+                    <img src="{{ params['apImage'] is not empty?params['apImage']:'/bundles/hotspotaccesspoint/v6/images/login_n1_slide_img_1.jpg'}}" alt="">
+
+                </div>
+            </div>
+            <div class="content-bottom">
+                {% if params['apName'] is not empty %}
+                    <h3 class="status">{{ params['apName'] |upper | replace ({'WIADS':'', '-' :''})}}</h3>
+                {% endif %}
+                <p class="text-content">Bắt đầu sử dụng wifi</p>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- SCRIPTS -->
+<script src="/bundles/hotspotaccesspoint/v6/scripts/jquery.min.js"></script>
+<script src="/bundles/hotspotaccesspoint/v6/scripts/vendor.js"></script>
+<script src="/bundles/hotspotaccesspoint/v6/scripts/app_n2_01.js"></script>
+<script>
+    function goLink(link) {
+        setTimeout (function () {
+            if (!link.startsWith('http')) {
+                link = 'http://enter.wiads.vn' + link;
+            }
+            var A = document.createElement ("a")
+            A.setAttribute ("href", link);
+            A.setAttribute ("target", "_blank");
+            var Body = document.getElementsByTagName ("body");
+            if (Body.length > 0) {
+                Body = Body [0];
+            } else {
+                Body = document.createElement ("body");
+                document.getElementsByTagName ("html") [0].appendChild (Body);
+            }
+            Body.appendChild (A);
+            A.click ();
+            window.document.write('Bạn đã có thể dùng Internet');
+        }, 500)
+    }
+</script>
+</body>
+</html>
