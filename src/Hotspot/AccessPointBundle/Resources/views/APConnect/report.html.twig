@@ -574,7 +574,7 @@
                                     <table class="table table-bordered" id="tba" class="font-size:8pt;">
                                         <thead>
                                         <tr>
-                                            <th>STT</th><th>AP</th><th>Tỉnh</th><th>Tên Quán</th><th>Địa chỉ (+GPS (lat,lng))</th><th>SSID</th><th>Pass</th><th>Ngày tạo</th><th>Lần online cuối</th><th>Nhà mạng</th>
+                                            <th>STT</th><th>AP</th><th>Tỉnh</th><th>Tên Quán</th><th>Địa chỉ (+GPS (lat,lng))</th><th>SSID</th><th>Pass</th><th>Firmware</th><th>Ngày tạo</th><th>Lần online cuối</th><th>Nhà mạng</th>
                                         </tr>
                                         </thead>
                                         {% set i=0 %}
@@ -588,6 +588,15 @@
                                                 <td style="border: 1px solid grey;">{{row['address']}} {#-{{row['lat']}}:{{row['lng']}} #}</td>
                                                 <td style="border: 1px solid grey;">{{row['ssid']}}</td>
                                                 <td style="border: 1px solid grey;">{{row['key']}}</td>
+                                                <td style="border: 1px solid grey;
+                                                {% if row['fw_version'] == '20180710.01.bridge' %}
+                                                        background-color:yellow;
+                                                {% elseif row['fw_version'] == '20180817.01.bridge' %}
+                                                        background-color:yellow;
+                                                {% elseif row['fw_version'] == '20180920.01.bridge' %}
+                                                        background-color:orange;
+                                                {% endif %}
+                                                        ">{{row['fw_version']}}</td>
                                                 <td style="border: 1px solid grey;">{{row['created_at']}}</td>
                                                 <td style="border: 1px solid grey;
                                                 {% if date(row['updated_at']) < date('-24hours') %}

@@ -464,7 +464,7 @@ class ApLogHelper{
         }
 		if(key_exists('level', $params)){
 			if($params['level']==2){
-				$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner,'-' as popup,  '-' as `access_num`  from accesspoint a, accesspoint_i18n c
+				$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner,'-' as popup,  '-' as `access_num`, a.fw_version  from accesspoint a, accesspoint_i18n c
 					where a.id=c.id
 					".$ap_name_subquery."
 					".$province_subquery."
@@ -493,7 +493,7 @@ class ApLogHelper{
 //					order by updated_at, created_at
 //					limit 500
 //					)
-			$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner,'-' as popup,  '-' as `access_num` 
+			$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner,'-' as popup,  '-' as `access_num`, a.fw_version 
 			from accesspoint a, accesspoint_i18n c
 					where a.id=c.id
 					".$ap_name_subquery."
@@ -523,7 +523,7 @@ class ApLogHelper{
 //					order by updated_at, created_at
 //					limit 500
 //					)
-			$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner, '-' as popup, '-' as `access_num`  from accesspoint a, accesspoint_i18n c
+			$query="(select a.`macaddr`, a.province,c.name, c.address,a.lat,a.lng, a.ssid,a.key,a.isp,a.created_at, a.updated_at,a.owner, '-' as popup, '-' as `access_num`, a.fw_version  from accesspoint a, accesspoint_i18n c
 					where a.id=c.id
 					".$ap_name_subquery."
 					".$province_subquery."

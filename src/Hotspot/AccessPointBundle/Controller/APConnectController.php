@@ -1540,10 +1540,17 @@ class APConnectController extends Controller
              *	#HS_UAMDOMAINS
              */
             //$apConfig=new ApConfig();
+            $fwUpgrade = trim($apConfig->getFwUpgrade());
+            if($apConfig->getFwVersion()=='20180710.01.bridge' || $apConfig->getFwVersion()=='20180817.01.bridge'
+                || $apConfig->getFwVersion()=='20180920.01.bridge') {
+                if (strcmp($fwUpgrade, "option fw_upgrade 1") == 0) {
+                    $fwUpgrade = 'option fw_upgrade 2';
+                }
+            }
             $option=
                 "challenge:$new_challenge"."\n"
                 ."hash:$new_hash"."\n"
-                .$apConfig->getFwUpgrade()."\n"
+                ./*$apConfig->getFwUpgrade()*/$fwUpgrade."\n"
                 .$apConfig->getSsidUpdate()."\n"
                 .$apConfig->getSsidNext()."\n"
                 .$apConfig->getSafeSleep()."\n"
