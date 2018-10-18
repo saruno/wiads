@@ -1474,7 +1474,8 @@ class APConnectController extends Controller
 	        $option =
 		        "challenge:$new_challenge" . "\n"
 		        . "hash:$new_hash" . "\n"
-		        . $cfg['mode']. "\n";
+		        . $cfg['mode']. "\n"
+                . "option bw_profile ".$cfg['bw_profile_id']. "\n";
 	        return new Response($option);
         }
         /***********************************************************/
@@ -1579,7 +1580,8 @@ class APConnectController extends Controller
                 .$apConfig->getHosts()."\n"
                 .$apConfig->getKeyNext()."\n"
                 .$apConfig->getNeedReboot()."\n"
-                .$apConfig->getNormalMode()."\n";
+                .$apConfig->getNormalMode()."\n"
+                ."option bw_profile ".$apConfig->getBwProfileId()."\n";
             //////////////////////
             if (strcmp(trim($apConfig->getFwUpgrade()),"option fw_upgrade 1")!=0){
                 $apConfig->setWifiEnable("option disabled 0");
@@ -1641,7 +1643,8 @@ class APConnectController extends Controller
         else {
             $option =
                 "challenge:$new_challenge" . "\n"
-                . "hash:$new_hash" . "\n";
+                ."hash:$new_hash" . "\n"
+                ."option bw_profile ".$apConfig->getBwProfileId()."\n";
 	        if (!empty($apConfig))
 	        $option = $option
                 . $apConfig->getNormalMode(). "\n";

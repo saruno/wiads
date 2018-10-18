@@ -265,7 +265,7 @@ class ApConfigHelper{
 			}
 		}
 		$apConfig->save();
-		return array('need_update'=>$apConfig->getNeedUpdate(),'mode'=>$apConfig->getNormalMode());
+		return array('need_update'=>$apConfig->getNeedUpdate(),'mode'=>$apConfig->getNormalMode(),'bw_profile_id'=>$apConfig->getBwProfileId());
 
 	}
 	static public function updateAPInfo($params,$api_service=null){
