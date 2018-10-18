@@ -148,6 +148,8 @@ hotspot_access_point_homepage:
 hotspot_access_point_payment:
     path:     /payment
     defaults: { _controller: "HotspotAccessPointBundle:APConnect:payment"}
-
+hotspot_access_point_new_device_connect_wifi:
+    path:     /new_device_connect_wifi
+    defaults: { _controller: "HotspotAccessPointBundle:APConnect:newDeviceConnectWifi"}
 ##
 

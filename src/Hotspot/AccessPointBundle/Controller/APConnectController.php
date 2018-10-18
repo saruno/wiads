@@ -1802,6 +1802,59 @@ class APConnectController extends Controller
         */
         return new Response();
     }
+    public function newDeviceConnectWifiAction(Request $request) {
+        $mac=$request->get('mac','');
+        $mac=str_replace(":", "-", $mac);
+        $mac=strtoupper($mac);
+        $dhcpmasq_log=$request->get('dhcpmasq_log', '');
+        if(empty($mac)){
+            $response = new Response(json_encode(array(
+                'mac' => $mac,
+                'message' => 'mac address is empty'
+            )));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        } else {
+            if (empty($dhcpmasq_log)) {
+                $response = new Response(json_encode(array(
+                    'mac' => $mac,
+                    'message' => 'dhcpmasq_log is empty'
+                )));
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
+            }
+            $log_lines = explode(' * ', $dhcpmasq_log);
+            foreach ($log_lines as $one_line) {
+                $one_line = trim($one_line);
+                if (isset($one_line) && !empty($one_line)) {
+                    $index_of_device = strpos($one_line,"Device");
+                    $index_of_add = strpos($one_line,"add");
+                    $time_log = substr($one_line, 0, $index_of_device);
+                    $time_log = trim($time_log);
+                    $content_add = substr($one_line, $index_of_add + 3);
+                    $content_add = trim($content_add);
+                    $device_data = explode(' ', $content_add);
+                    $client_mac = isset($device_data[0]) ? $device_data[0] : '';
+                    $client_ip = isset($device_data[1]) ? $device_data[1] : '';
+                    $client_name = isset($device_data[2]) ? $device_data[2] : '';
+                    $params=array(
+                        "ap_macaddr"=>$mac,
+                        "time_log"=>$time_log,
+                        "client_mac"=>$client_mac,
+                        "client_ip"=>$client_ip,
+                        "client_name"=>$client_name
+                    );
+                    ApLogHelper::insertNewDeviceConnect($params);
+                }
+            }
+            $response = new Response(json_encode(array(
+                'mac' => $mac,
+                'message' => 'success'
+            )));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+    }
 	public function refreshConfigAction(Request $request){
 		$mac=$request->get('mac','');
 		if(empty($mac)){

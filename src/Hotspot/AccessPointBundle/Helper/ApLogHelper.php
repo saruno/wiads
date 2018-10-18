@@ -545,6 +545,13 @@ class ApLogHelper{
 		$stmt->execute();
 		return $stmt->fetchAll(2);
 	}
+	static public function insertNewDeviceConnect($params){
+        $connection = Propel::getConnection();
+        $query="INSERT INTO  clientdevice_connect_log(ap_macaddr, client_mac, client_ip, client_name, time_log, time_created) ".
+               "VALUES('".$params['ap_macaddr']."','".$params['client_mac']."','".$params['client_ip']."','".$params['client_name']."','".$params['time_log']."', now()".")";
+        $stmt = $connection->prepare($query);
+        $stmt->execute();
+    }
 	static public function updateApInfoAll(){
 		$connection = Propel::getConnection();
 		
